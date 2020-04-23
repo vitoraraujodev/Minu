@@ -52,6 +52,8 @@ docker start REDIS_IMAGE_NAME
 
 ```
 
+<h4>Lembre-se de alterar os valores no arquivo src/config/database.js</h4>
+
 Clone o repositório:
 
 ```bash
@@ -103,3 +105,5 @@ yarn sequelize db:migrate
 # Rode a API
 yarn dev 
 ```
+
+### Qualquer dúvida pode me perguntar!
