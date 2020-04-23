@@ -3,7 +3,7 @@ import Establishment from '../models/Establishment';
 class EstablishmentController {
   async store(req, res) {
     const establishmentExists = await Establishment.findOne({
-      where: { cnpj: req.body.cnpj },
+      where: { email: req.body.email },
     });
 
     if (establishmentExists) {
