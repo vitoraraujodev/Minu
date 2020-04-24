@@ -27,7 +27,7 @@ class Establishment extends Model {
         sequelize,
       }
     );
-    // Before saving, crypts password and saves as password_hash
+    // Before saving, encrypts password and saves as password_hash
     this.addHook('beforeSave', async (establishment) => {
       if (establishment.password) {
         establishment.password_hash = await bcrypt.hash(
@@ -37,6 +37,10 @@ class Establishment extends Model {
       }
     });
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
   }
 
   checkPassword(password) {

@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import Establishment from '../models/Establishment';
+import File from '../models/File';
 
 class EstablishmentController {
   async store(req, res) {
@@ -103,26 +104,22 @@ class EstablishmentController {
 
     const {
       id,
-      phone_number,
-      establishment_name,
-      manager_name,
-      manager_lastname,
+      phone_number, //eslint-disable-line
+      establishment_name, //eslint-disable-line
+      manager_name, //eslint-disable-line
+      manager_lastname, //eslint-disable-line
       cep,
-      address_number,
+      address_number, //eslint-disable-line
       street,
       complement,
       city,
       state,
       photo,
-    } = await Establishment.findByPk(req.establishmentId);
-
-    /*
-    {
+    } = await Establishment.findByPk(req.establishmentId, {
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
       ],
-    }
-    */
+    });
 
     return res.json({
       id,
