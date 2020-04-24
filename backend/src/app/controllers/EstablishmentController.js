@@ -1,7 +1,32 @@
+import * as Yup from 'yup';
+
 import Establishment from '../models/Establishment';
 
 class EstablishmentController {
   async store(req, res) {
+    const schema = Yup.object().shape({
+      cnpj: Yup.string().required(),
+      email: Yup.string().email().required(),
+      phone_number: Yup.string().required(),
+      establishment_name: Yup.string().required(),
+      manager_name: Yup.string().required(),
+      manager_lastname: Yup.string().required(),
+      cep: Yup.string().required(),
+      address_number: Yup.number().required(),
+      street: Yup.string().required(),
+      complement: Yup.string().required(),
+      city: Yup.string().required(),
+      state: Yup.string().required(),
+      password: Yup.string().min(6),
+      confirm_password: Yup.string().when('password', (password, field) =>
+        field.required().oneOf([Yup.ref('password')])
+      ),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation failed.' });
+    }
+
     const establishmentExists = await Establishment.findOne({
       where: { email: req.body.email },
     });
@@ -18,6 +43,34 @@ class EstablishmentController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      cnpj: Yup.string(),
+      email: Yup.string().email(),
+      phone_number: Yup.string(),
+      establishment_name: Yup.string(),
+      manager_name: Yup.string(),
+      manager_lastname: Yup.string(),
+      cep: Yup.string(),
+      address_number: Yup.number(),
+      street: Yup.string(),
+      complement: Yup.string(),
+      city: Yup.string(),
+      state: Yup.string(),
+      old_password: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirm_password: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation failed' });
+    }
+
     const { email, cnpj, oldPassword } = req.body;
 
     const establishment = await Establishment.findByPk(req.establishmentId);
