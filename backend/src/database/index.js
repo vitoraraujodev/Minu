@@ -2,10 +2,11 @@ import Sequelize from 'sequelize';
 
 import Establishment from '../app/models/Establishment';
 import File from '../app/models/File';
+import Menu from '../app/models/Menu';
 
 import databaseConfig from '../config/database';
 
-const models = [Establishment, File]; // Todos os models a serem carregados
+const models = [Establishment, File, Menu]; // Todos os models a serem carregados
 
 class Database {
   constructor() {

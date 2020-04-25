@@ -41,6 +41,7 @@ class Establishment extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
+    this.hasMany(models.Menu, { foreignKey: 'establishment_id', as: 'menus' });
   }
 
   checkPassword(password) {

@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 
 import Establishment from '../models/Establishment';
 import File from '../models/File';
+import Menu from '../models/Menu';
 
 import authConfig from '../../config/auth';
 
@@ -23,6 +24,18 @@ class SessionController {
       where: { email },
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+        {
+          model: Menu,
+          as: 'menus',
+          attributes: [
+            'id',
+            'title',
+            'description',
+            'availability',
+            'start_at',
+            'end_at',
+          ],
+        },
       ],
     });
 
@@ -48,6 +61,7 @@ class SessionController {
       city,
       state,
       photo,
+      menus,
     } = establishment;
 
     return res.json({
@@ -66,6 +80,7 @@ class SessionController {
         city,
         state,
         photo,
+        menus,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
