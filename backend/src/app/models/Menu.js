@@ -22,6 +22,13 @@ class Menu extends Model {
       foreignKey: 'establishment_id',
       as: 'establishment',
     });
+
+    this.belongsToMany(models.Item, {
+      through: 'MenuItem',
+      as: 'items',
+      foreignKey: 'menu_id',
+      otherKey: 'item_id',
+    });
   }
 }
 

@@ -3,10 +3,12 @@ import Sequelize from 'sequelize';
 import Establishment from '../app/models/Establishment';
 import File from '../app/models/File';
 import Menu from '../app/models/Menu';
+import Item from '../app/models/Item';
+import MenuItem from '../app/models/MenuItem';
 
 import databaseConfig from '../config/database';
 
-const models = [Establishment, File, Menu]; // Todos os models a serem carregados
+const models = [Establishment, File, Menu, Item, MenuItem]; // Todos os models a serem carregados
 
 class Database {
   constructor() {

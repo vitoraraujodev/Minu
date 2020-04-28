@@ -20,8 +20,9 @@ class EstablishmentController {
       city: Yup.string().required(),
       state: Yup.string().required(),
       password: Yup.string().min(6),
-      confirm_password: Yup.string().when('password', (password, field) =>
-        field.required().oneOf([Yup.ref('password')])
+      confirm_password: Yup.string().oneOf(
+        [Yup.ref('password'), null],
+        'Passwords must match.'
       ),
     });
 
@@ -149,7 +150,6 @@ class EstablishmentController {
       city,
       state,
       photo,
-      menus,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
@@ -183,7 +183,6 @@ class EstablishmentController {
       city,
       state,
       photo,
-      menus,
     });
   }
 }

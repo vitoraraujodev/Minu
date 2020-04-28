@@ -1,12 +1,34 @@
 import * as Yup from 'yup';
 
 import Menu from '../models/Menu';
+import MenuItem from '../models/MenuItem';
+import File from '../models/File';
+import Item from '../models/Item';
 
 class MenuController {
   async index(req, res) {
     const menu = await Menu.findAll({
       where: { establishment_id: req.establishmentId },
+      include: [
+        {
+          model: Item,
+          as: 'items',
+          attributes: ['id', 'title', 'code'],
+          include: [
+            {
+              model: File,
+              as: 'photo',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+          through: {
+            model: MenuItem,
+            as: 'menu-items',
+          },
+        },
+      ],
     });
+
     return res.json(menu);
   }
 
@@ -35,11 +57,7 @@ class MenuController {
     }
 
     const menu = await Menu.create({
-      title,
-      description,
-      availability,
-      start_at,
-      end_at,
+      ...req.body,
       establishment_id,
     });
 
@@ -101,7 +119,7 @@ class MenuController {
     }
 
     if (!menu.establishment_id === req.establishmentId) {
-      return res.status(401).json('You can only delete your own menus.');
+      return res.status(401).json('You can only delete your own menu.');
     }
 
     await menu.destroy();
