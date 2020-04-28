@@ -34,13 +34,46 @@ class EstablishmentController {
     });
 
     if (establishmentExists) {
-      return res.status(400).json({ error: 'Establishment already exists.' });
+      return res.status(400).json({ error: 'Email already in use.' });
     }
 
-    await Establishment.create(req.body);
+    const {
+      id,
+      cnpj,
+      email,
+      phone_number, //eslint-disable-line
+      establishment_name, //eslint-disable-line
+      manager_name, //eslint-disable-line
+      manager_lastname, //eslint-disable-line
+      cep,
+      address_number, //eslint-disable-line
+      street,
+      complement,
+      city,
+      state,
+      photo_id, //eslint-disable-line
+    } = await Establishment.create(req.body);
+
+    let photo = null;
+    if (photo_id) { //eslint-disable-line
+      photo = await File.findByPk(photo_id);
+    }
 
     return res.json({
-      okay: true,
+      id,
+      cnpj,
+      email,
+      phone_number,
+      establishment_name,
+      manager_name,
+      manager_lastname,
+      cep,
+      address_number,
+      street,
+      complement,
+      city,
+      state,
+      photo,
     });
   }
 

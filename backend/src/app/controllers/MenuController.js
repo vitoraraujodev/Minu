@@ -3,6 +3,13 @@ import * as Yup from 'yup';
 import Menu from '../models/Menu';
 
 class MenuController {
+  async index(req, res) {
+    const menu = await Menu.findAll({
+      where: { establishment_id: req.establishmentId },
+    });
+    return res.json(menu);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -27,7 +34,7 @@ class MenuController {
       return res.status(400).json({ error: 'Menu title already in use.' });
     }
 
-    await Menu.create({
+    const menu = await Menu.create({
       title,
       description,
       availability,
@@ -36,9 +43,7 @@ class MenuController {
       establishment_id,
     });
 
-    return res.json({
-      okay: true,
-    });
+    return res.json(menu);
   }
 
   async update(req, res) {
@@ -84,6 +89,24 @@ class MenuController {
       start_at,
       end_at,
     });
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const menu = await Menu.findByPk(id);
+
+    if (!menu) {
+      return res.status(400).json('Menu does not exist.');
+    }
+
+    if (!menu.establishment_id === req.establishmentId) {
+      return res.status(401).json('You can only delete your own menus.');
+    }
+
+    await menu.destroy();
+
+    return res.json({ okay: true });
   }
 }
 

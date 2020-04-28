@@ -17,8 +17,10 @@ routes.post('/sessions', SessionController.store);
 routes.post('/establishments', EstablishmentsController.store);
 routes.put('/establishments', authMiddleware, EstablishmentsController.update);
 
+routes.get('/menus', authMiddleware, MenuController.index);
 routes.post('/menus', authMiddleware, MenuController.store);
 routes.put('/menus/:id', authMiddleware, MenuController.update);
+routes.delete('/menus/:id', authMiddleware, MenuController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
