@@ -76,7 +76,7 @@ class ItemController {
 
     let item = await Item.findByPk(req.params.id);
 
-    if (item.title !== req.body.title) {
+    if (req.body.title && item.title !== req.body.title) {
       const itemExists = await Item.findOne({
         where: { title: req.body.title, establishment_id },
       });

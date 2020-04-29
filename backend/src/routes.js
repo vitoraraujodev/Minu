@@ -10,6 +10,7 @@ import FileController from './app/controllers/FileController';
 import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
 import MenuItemController from './app/controllers/MenuItemController';
+import AdditionalController from './app/controllers/AdditionalController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -31,6 +32,11 @@ routes.delete('/items/:id', authMiddleware, ItemController.delete);
 
 routes.post('/menuitems', authMiddleware, MenuItemController.store);
 routes.delete('/menuitems/:id', authMiddleware, MenuItemController.delete);
+
+routes.get('/additionals', authMiddleware, AdditionalController.index);
+routes.post('/additionals', authMiddleware, AdditionalController.store);
+routes.put('/additionals/:id', authMiddleware, AdditionalController.update);
+routes.delete('/additionals/:id', authMiddleware, AdditionalController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

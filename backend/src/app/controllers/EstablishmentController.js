@@ -111,7 +111,7 @@ class EstablishmentController {
 
     const establishment = await Establishment.findByPk(req.establishmentId);
 
-    if (email !== establishment.email) {
+    if (email && email !== establishment.email) {
       const establishmentExists = await Establishment.findOne({
         where: { email },
       });
@@ -121,7 +121,7 @@ class EstablishmentController {
       }
     }
 
-    if (cnpj !== establishment.cnpj) {
+    if (cnpj && cnpj !== establishment.cnpj) {
       const establishmentExists = await Establishment.findOne({
         where: { cnpj },
       });

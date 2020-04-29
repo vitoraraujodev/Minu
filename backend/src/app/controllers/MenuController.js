@@ -46,7 +46,6 @@ class MenuController {
     }
 
     const establishment_id = req.establishmentId; // eslint-disable-line
-    const { title, description, availability, start_at, end_at } = req.body; // eslint-disable-line
 
     const menuExists = await Menu.findOne({
       where: { title: req.body.title, establishment_id },
@@ -78,9 +77,13 @@ class MenuController {
     }
     const establishment_id = req.establishmentId; // eslint-disable-line
 
-    const menu = await Menu.findByPk(req.params.id);
+    let menu = await Menu.findByPk(req.params.id);
 
-    if (req.body.title !== menu.title) {
+    if (!menu) {
+      return res.status(400).json({ error: 'Menu does not exist.' });
+    }
+
+    if (req.body.title && req.body.title !== menu.title) {
       const menuExists = await Menu.findOne({
         where: { title: req.body.title, establishment_id },
       });
@@ -92,21 +95,28 @@ class MenuController {
 
     await menu.update(req.body);
 
-    const {
-      title,
-      description,
-      availability,
-      start_at, //eslint-disable-line
-      end_at, //eslint-disable-line
-    } = await Menu.findByPk(req.params.id);
-
-    return res.json({
-      title,
-      description,
-      availability,
-      start_at,
-      end_at,
+    menu = await Menu.findByPk(req.params.id, {
+      include: [
+        {
+          model: Item,
+          as: 'items',
+          attributes: ['id', 'title', 'code'],
+          include: [
+            {
+              model: File,
+              as: 'photo',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+          through: {
+            model: MenuItem,
+            as: 'menu-items',
+          },
+        },
+      ],
     });
+
+    return res.json(menu);
   }
 
   async delete(req, res) {
