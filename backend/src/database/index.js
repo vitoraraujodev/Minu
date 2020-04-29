@@ -6,10 +6,19 @@ import Menu from '../app/models/Menu';
 import Item from '../app/models/Item';
 import MenuItem from '../app/models/MenuItem';
 import Additional from '../app/models/Additional';
+import ItemAdditional from '../app/models/ItemAdditional';
 
 import databaseConfig from '../config/database';
 
-const models = [Establishment, File, Menu, Item, MenuItem, Additional]; // Todos os models a serem carregados
+const models = [
+  Establishment,
+  File,
+  Menu,
+  Item,
+  MenuItem,
+  Additional,
+  ItemAdditional,
+]; // Todos os models a serem carregados
 
 class Database {
   constructor() {

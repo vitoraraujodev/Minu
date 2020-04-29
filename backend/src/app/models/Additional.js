@@ -20,6 +20,13 @@ class Additional extends Model {
       foreignKey: 'establishment_id',
       as: 'establishment',
     });
+
+    this.belongsToMany(models.Item, {
+      through: 'ItemAdditional',
+      as: 'items',
+      foreignKey: 'additional_id',
+      otherKey: 'item_id',
+    });
   }
 }
 

@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 
 import Item from '../models/Item';
+import Additional from '../models/Additional';
+import ItemAdditional from '../models/ItemAdditional';
 import File from '../models/File';
 
 class ItemController {
@@ -20,6 +22,15 @@ class ItemController {
       ],
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+        {
+          model: Additional,
+          as: 'additionals',
+          attributes: ['id', 'title', 'price', 'available'],
+          through: {
+            model: ItemAdditional,
+            as: 'item-additionals',
+          },
+        },
       ],
     });
 

@@ -21,8 +21,18 @@ class MenuItemController {
     const menu = await Menu.findByPk(menu_id);
     const item = await Item.findByPk(item_id);
 
+    const menuItemExists = await MenuItem.findOne({
+      where: { menu_id, item_id },
+    });
+
+    if (menuItemExists) {
+      return res
+        .status(400)
+        .json({ error: 'Menu-Item relation already exists.' });
+    }
+
     if (
-      menu.establishment_id !== establishment_id && // eslint-disable-line
+      menu.establishment_id !== establishment_id || // eslint-disable-line
       item.establishment_id !== establishment_id    // eslint-disable-line
     ) {
       res.status(401).json({ error: 'You can only register your owns.' });
