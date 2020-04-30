@@ -12,6 +12,7 @@ import ItemController from './app/controllers/ItemController';
 import MenuItemController from './app/controllers/MenuItemController';
 import AdditionalController from './app/controllers/AdditionalController';
 import ItemAdditionalController from './app/controllers/ItemAdditionalController';
+import OrderController from './app/controllers/OrderController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -49,6 +50,10 @@ routes.delete(
   authMiddleware,
   ItemAdditionalController.delete
 );
+
+routes.get('/orders', authMiddleware, OrderController.index);
+routes.post('/orders', authMiddleware, OrderController.store);
+routes.delete('/orders/:id', OrderController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

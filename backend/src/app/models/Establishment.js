@@ -43,6 +43,10 @@ class Establishment extends Model {
     this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
     this.hasMany(models.Menu, { foreignKey: 'establishment_id', as: 'menus' });
     this.hasMany(models.Item, { foreignKey: 'establishment_id', as: 'items' });
+    this.hasMany(models.Order, {
+      foreignKey: 'establishment_id',
+      as: 'orders',
+    });
     this.hasMany(models.Additional, {
       foreignKey: 'establishment_id',
       as: 'additionals',

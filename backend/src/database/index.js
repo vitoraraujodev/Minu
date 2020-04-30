@@ -7,6 +7,7 @@ import Item from '../app/models/Item';
 import MenuItem from '../app/models/MenuItem';
 import Additional from '../app/models/Additional';
 import ItemAdditional from '../app/models/ItemAdditional';
+import Order from '../app/models/Order';
 
 import databaseConfig from '../config/database';
 
@@ -18,6 +19,7 @@ const models = [
   MenuItem,
   Additional,
   ItemAdditional,
+  Order,
 ]; // Todos os models a serem carregados
 
 class Database {

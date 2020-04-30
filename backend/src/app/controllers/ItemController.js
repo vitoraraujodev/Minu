@@ -17,6 +17,7 @@ class ItemController {
         'price',
         'available',
         'preparetion_time',
+        'establishment_id',
         'rating',
         'raters',
       ],
