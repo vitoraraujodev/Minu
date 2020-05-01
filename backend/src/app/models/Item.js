@@ -22,10 +22,13 @@ class Item extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
-
     this.belongsTo(models.Establishment, {
       foreignKey: 'establishment_id',
       as: 'establishment',
+    });
+    this.hasMany(models.ItemRating, {
+      foreignKey: 'item_id',
+      as: 'ratings',
     });
 
     this.belongsToMany(models.Menu, {

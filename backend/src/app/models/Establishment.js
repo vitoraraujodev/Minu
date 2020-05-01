@@ -51,6 +51,10 @@ class Establishment extends Model {
       foreignKey: 'establishment_id',
       as: 'additionals',
     });
+    this.hasMany(models.EstablishmentRating, {
+      foreignKey: 'establishment_id',
+      as: 'ratings',
+    });
   }
 
   checkPassword(password) {

@@ -13,6 +13,8 @@ import MenuItemController from './app/controllers/MenuItemController';
 import AdditionalController from './app/controllers/AdditionalController';
 import ItemAdditionalController from './app/controllers/ItemAdditionalController';
 import OrderController from './app/controllers/OrderController';
+import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
+import ItemRatingController from './app/controllers/ItemRatingController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -54,6 +56,12 @@ routes.delete(
 routes.get('/orders', authMiddleware, OrderController.index);
 routes.post('/orders', OrderController.store);
 routes.delete('/orders/:id', OrderController.delete);
+
+routes.get('/establishments/:id/ratings', EstablishmentRatingController.index);
+routes.post('/establishments/:id/ratings', EstablishmentRatingController.store);
+
+routes.get('/items/:id/ratings', ItemRatingController.index);
+routes.post('/items/:id/ratings', ItemRatingController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
