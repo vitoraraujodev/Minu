@@ -27,6 +27,13 @@ class Additional extends Model {
       foreignKey: 'additional_id',
       otherKey: 'item_id',
     });
+
+    this.belongsToMany(models.Order, {
+      through: 'OrderAdditional',
+      as: 'orders',
+      foreignKey: 'additional_id',
+      otherKey: 'order_id',
+    });
   }
 }
 

@@ -8,6 +8,7 @@ import MenuItem from '../app/models/MenuItem';
 import Additional from '../app/models/Additional';
 import ItemAdditional from '../app/models/ItemAdditional';
 import Order from '../app/models/Order';
+import OrderAdditional from '../app/models/OrderAdditional';
 
 import databaseConfig from '../config/database';
 
@@ -20,6 +21,7 @@ const models = [
   Additional,
   ItemAdditional,
   Order,
+  OrderAdditional,
 ]; // Todos os models a serem carregados
 
 class Database {

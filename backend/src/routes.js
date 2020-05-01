@@ -52,7 +52,7 @@ routes.delete(
 );
 
 routes.get('/orders', authMiddleware, OrderController.index);
-routes.post('/orders', authMiddleware, OrderController.store);
+routes.post('/orders', OrderController.store);
 routes.delete('/orders/:id', OrderController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);

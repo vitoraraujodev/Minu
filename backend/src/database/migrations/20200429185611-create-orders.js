@@ -24,6 +24,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      price: {
+        allowNull: false,
+        type: Sequelize.FLOAT,
+      },
+      amount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       item_id: {
         type: Sequelize.INTEGER,
         references: { model: 'items', key: 'id' },

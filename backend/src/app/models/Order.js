@@ -8,6 +8,8 @@ class Order extends Model {
         table_number: Sequelize.INTEGER,
         status: Sequelize.INTEGER,
         specification: Sequelize.STRING,
+        price: Sequelize.FLOAT,
+        amount: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -22,6 +24,13 @@ class Order extends Model {
     this.belongsTo(models.Establishment, {
       foreignKey: 'establishment_id',
       as: 'establishment',
+    });
+
+    this.belongsToMany(models.Additional, {
+      through: 'OrderAdditional',
+      as: 'additionals',
+      foreignKey: 'order_id',
+      otherKey: 'additional_id',
     });
   }
 }
