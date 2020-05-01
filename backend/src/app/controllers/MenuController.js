@@ -9,10 +9,12 @@ class MenuController {
   async index(req, res) {
     const menu = await Menu.findAll({
       where: { establishment_id: req.establishmentId },
+      order: [['title', 'ASC']],
       include: [
         {
           model: Item,
           as: 'items',
+          order: [['title', 'ASC']],
           attributes: ['id', 'title', 'code'],
           include: [
             {

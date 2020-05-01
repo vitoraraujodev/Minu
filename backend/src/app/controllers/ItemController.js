@@ -21,11 +21,13 @@ class ItemController {
         'rating',
         'raters',
       ],
+      order: [['title', 'ASC']],
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
         {
           model: Additional,
           as: 'additionals',
+          order: [['title', 'ASC']],
           attributes: ['id', 'title', 'price', 'available'],
           through: {
             model: ItemAdditional,

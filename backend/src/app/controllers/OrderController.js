@@ -11,6 +11,7 @@ class OrderController {
   async index(req, res) {
     const orders = await Order.findAll({
       where: { establishment_id: req.establishmentId },
+      order: [['title', 'ASC']],
       attributes: [
         'id',
         'client_name',
@@ -26,6 +27,7 @@ class OrderController {
         {
           model: Additional,
           as: 'additionals',
+          order: [['title', 'ASC']],
           attributes: ['id', 'title', 'price'],
           through: {
             model: OrderAdditional,
@@ -57,6 +59,7 @@ class OrderController {
       include: {
         model: Additional,
         as: 'additionals',
+        order: [['title', 'ASC']],
         attributes: ['id', 'title', 'price'],
         through: {
           model: ItemAdditional,

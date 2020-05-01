@@ -6,6 +6,7 @@ class AdditionalController {
   async index(req, res) {
     const additionals = await Additional.findAll({
       where: { establishment_id: req.establishmentId },
+      order: [['title', 'ASC']],
       attributes: ['id', 'title', 'price', 'available'],
     });
 
