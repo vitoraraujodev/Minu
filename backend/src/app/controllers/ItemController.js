@@ -90,6 +90,10 @@ class ItemController {
 
     let item = await Item.findByPk(req.params.id);
 
+    if (!item) {
+      return res.status(400).json({ error: 'Item does not exist.' });
+    }
+
     if (req.body.title && item.title !== req.body.title) {
       const itemExists = await Item.findOne({
         where: { title: req.body.title, establishment_id },
@@ -98,6 +102,13 @@ class ItemController {
       if (itemExists) {
         return res.status(400).json({ error: 'Item title already in use.' });
       }
+    }
+
+    const { photo_id } = req.body; // eslint-disable-line
+
+    if (photo_id && item.photo_id && photo_id !== item.photo_id) { // eslint-disable-line
+      const file = await File.findByPk(item.photo_id);
+      await file.destroy();
     }
 
     item = await item.update({
@@ -120,6 +131,11 @@ class ItemController {
       return res.status(401).json('You can only delete your own items.');
     }
 
+    const file = await File.findByPk(item.photo_id);
+
+    if (file) {
+      await file.destroy();
+    }
     await item.destroy();
 
     return res.json({ okay: true });

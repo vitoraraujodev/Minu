@@ -107,7 +107,7 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
-    const { email, cnpj, oldPassword } = req.body;
+    const { email, cnpj, oldPassword, photo_id } = req.body; // eslint-disable-line
 
     const establishment = await Establishment.findByPk(req.establishmentId);
 
@@ -133,6 +133,11 @@ class EstablishmentController {
 
     if (oldPassword && !(await establishment.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Old Password does not match.' });
+    }
+
+    if (photo_id && establishment.photo_id && photo_id !== establishment.photo_id) { // eslint-disable-line
+      const file = await File.findByPk(establishment.photo_id);
+      await file.destroy();
     }
 
     await establishment.update(req.body);
