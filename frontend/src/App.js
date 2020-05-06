@@ -2,12 +2,13 @@ import React from 'react';
 
 import './config/ReactotronConfig';
 
-function App() {
+import Routes from './routes';
+import './styles/global.css';
+
+export default function App() {
   return (
-    <div>
-      <h1>Minu</h1>
-    </div>
+    <>
+      <Routes />
+    </>
   );
 }
-
-export default App;

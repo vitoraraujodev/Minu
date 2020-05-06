@@ -1,0 +1,52 @@
+.background {
+  background: #535bfe;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.container {
+  position: relative;
+  max-height: 800px;
+  min-height: 540px;
+  max-width: 800px;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  align-self: center;
+}
+
+.formContainer {
+  padding: 32px 24px;
+}
+
+.form {
+  margin-top: 45px;
+
+}
+
+.buttonArea {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.buttonContainer {
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button .button-text {
+  font-weight: 600;
+  color: #535bfe;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    max-height: none;
+  }
+}
