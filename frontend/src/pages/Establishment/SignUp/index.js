@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 import './styles.css';
 
-import ProgressionBar from '~/components/ProgressionBar';
+import ProgressionBar from '~/components/Forms/ProgressionBar';
 import NameForm from '~/components/Forms/Name';
 import InformationForm from '~/components/Forms/Information';
 import AddressForm from '~/components/Forms/Address';
+import EndForm from '~/components/Forms/End';
+
+import history from '~/services/history';
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
@@ -29,44 +32,72 @@ export default function SignUp() {
   function handleBack() {
     if (step > 1) {
       setStep(step - 1);
+    } else {
+      history.push('/');
     }
   }
 
   function handleNext() {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1);
     }
   }
 
   return (
-    <div className="background">
-      <div className="container">
-        <div className="formContainer">
-          <ProgressionBar step={step} />
-          <div className="form">
-            {step === 1 ? (
-              <NameForm
-                onChangeEstablishmentName={(name) => setEstablishmentName(name)}
-                onChangeCnpj={(c) => setCnpj(c)}
-                onChangeMangerName={(name) => setManagerName(name)}
-                onChangeManagerLastName={(name) => setManagerLastName(name)}
-              />
-            ) : null}
-            {step === 2 ? <AddressForm /> : null}
-            {step === 3 ? <InformationForm /> : null}
-          </div>
-        </div>
+    <div className="container">
+      <div style={step === 4 ? { margin: 0 } : null} className="form">
+        {step < 4 ? <ProgressionBar step={step} /> : null}
 
-        <div className="buttonArea">
-          <div className="buttonContainer">
-            <button type="button" onClick={handleBack}>
-              <p className="button-text">Voltar</p>
+        {step === 1 ? (
+          <InformationForm
+            onChangeEmail={(info) => setEmail(info)}
+            onChangePassword={(info) => setPassword(info)}
+            onChangeConfirmPassword={(info) => setConfirmPassword(info)}
+          />
+        ) : null}
+
+        {step === 2 ? (
+          <NameForm
+            onChangeEstablishmentName={(name) => setEstablishmentName(name)}
+            onChangeCnpj={(c) => setCnpj(c)}
+            onChangeMangerName={(name) => setManagerName(name)}
+            onChangeManagerLastName={(name) => setManagerLastName(name)}
+          />
+        ) : null}
+
+        {step === 3 ? (
+          <AddressForm
+            onChangeCep={(address) => setCep(address)}
+            onChangeAddressNumber={(address) => setAddressNumber(address)}
+            onChangeComplement={(address) => setComplement(address)}
+            onChangeStreet={(address) => setStreet(address)}
+            onChangeState={(address) => setState(address)}
+            onChangeCity={(address) => setCity(address)}
+          />
+        ) : null}
+
+        {step === 4 ? <EndForm /> : null}
+
+        {step < 4 ? (
+          <div className="buttons-container">
+            <button
+              style={{ color: '#9C9C9C' }}
+              className="page-button"
+              type="button"
+              onClick={handleBack}
+            >
+              Voltar
             </button>
-            <button type="button" onClick={handleNext}>
-              <p className="button-text">Avançar</p>
+            <button
+              style={{ color: '#535BFE' }}
+              className="page-button"
+              type="button"
+              onClick={handleNext}
+            >
+              Avançar
             </button>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );

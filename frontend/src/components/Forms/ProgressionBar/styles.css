@@ -1,0 +1,29 @@
+.progression-bar-container {
+  width: 100%;
+  border: 2px solid #535bfe;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 32px;
+  margin-bottom: 45px;
+}
+
+.firstStep {
+  background: #535bfe;
+  height: 6px;
+  width: 8%;
+  border-radius: 2px;
+}
+
+.secondStep {
+  background: #535bfe;
+  height: 6px;
+  width: 35%;
+  border-radius: 2px;
+}
+
+.thirdStep{
+  background: #535bfe;
+  height: 6px;
+  width: 66%;
+  border-radius: 2px;
+}

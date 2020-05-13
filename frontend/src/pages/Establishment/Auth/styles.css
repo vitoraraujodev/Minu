@@ -1,0 +1,121 @@
+.auth-container {
+  max-width: 920px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width:100%;
+  padding: 0 24px;
+  min-width: 245px;
+}
+
+.waitress-img-container {
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 380px;
+  order: 2;
+}
+
+.account-container{
+  order: 1;
+  max-width: 360px;
+  margin-right: 32px;
+  width:100%;
+}
+
+.welcome {
+  margin-top: 12px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.login-button {
+  color: #535bfe;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  width: 100%;
+  height: 48px;
+  border: 1px solid #535bfe;
+  margin-top: 48px;
+  box-shadow: 0px 0px 5px #00000029;
+  transition: transform .2s;
+}
+
+.login-button:hover {
+  transform: scale(1.03);
+}
+
+.login-button:active {
+  color: #fff;
+  background: #535bfe;
+}
+
+.register-container {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.register-or {
+  font-size: 18px;
+  font-weight: 400;
+  color: #9C9C9C;
+  margin-right: 4px;
+}
+
+.register-button {
+  font-size: 18px;
+  font-weight: 400;
+  color: #535BFE;
+  border: 0;
+  background: none;
+}
+
+@media screen and (max-width: 767px) {
+  .auth-container {
+    display: block;
+    max-width: 590px;
+    margin: 0 auto;
+  }
+
+  .welcome {
+    margin-top: 12px;
+    font-size: 20px;
+  }
+
+  .waitress-img-container {
+    max-width: 590px;
+  }
+
+  .account-container{
+    order: 2;
+    margin-top: 12px;
+    margin: 0;
+    max-width: none;
+  }
+
+  .login-button {
+    font-size: 15px;
+    height: 40px;
+    margin-top: 21px;
+  }
+
+  .login-button:hover {
+    transform: none;
+  }
+
+  .register-container {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .register-or {
+    font-size: 15px;
+  }
+
+  .register-button {
+    font-size: 15px;
+  }
+}
