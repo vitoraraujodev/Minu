@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-import waitress from '~/assets/images/waitress.png';
+import waitress from '~/assets/images/waitress.jpg';
 
 export default function Intro() {
   const [height, setHeight] = useState(window.innerHeight);

@@ -4,6 +4,7 @@ import Route from './Route';
 
 import Auth from '~/pages/Establishment/Auth';
 import SignUp from '~/pages/Establishment/SignUp';
+import SignIn from '~/pages/Establishment/SignIn';
 
 import history from '~/services/history';
 
@@ -13,6 +14,7 @@ export default function Routes() {
       <Switch>
         <Route path="/" exact component={Auth} notPrivate />
         <Route path="/establishment/new" component={SignUp} notPrivate />
+        <Route path="/establishment/login" component={SignIn} notPrivate />
       </Switch>
     </Router>
   );
