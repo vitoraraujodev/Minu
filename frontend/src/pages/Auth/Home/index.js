@@ -16,7 +16,7 @@ export default function Intro() {
 
   return (
     <div className="container">
-      <div className="auth-container">
+      <div className="home-container">
         <div className="waitress-img-container">
           <img
             height={height * 0.7 > 660 ? 660 : height * 0.7}
@@ -27,7 +27,7 @@ export default function Intro() {
 
         <div className="account-container">
           <p className="welcome">Seja bem-vindo!</p>
-          <Link to="/establishment/login">
+          <Link to="/login">
             <button className="login-button" type="button">
               Acesse sua conta
             </button>
@@ -35,7 +35,7 @@ export default function Intro() {
           <div className="register-container">
             <span className="register-or">ou</span>
 
-            <Link to="/establishment/new">
+            <Link to="/signup">
               <button type="button" className="register-button">
                 Cadastre seu restaurante
               </button>

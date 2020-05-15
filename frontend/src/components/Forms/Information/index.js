@@ -3,8 +3,11 @@ import React from 'react';
 import '../styles.css';
 
 export default function Information({
+  email,
   onChangeEmail,
+  password,
   onChangePassword,
+  confirmPassword,
   onChangeConfirmPassword,
 }) {
   return (
@@ -14,6 +17,7 @@ export default function Information({
         name="email"
         type="email"
         className="form-input"
+        value={email}
         autoFocus //eslint-disable-line
         onChange={(e) => onChangeEmail(e.target.value)}
         placeholder="E-mail"
@@ -23,6 +27,7 @@ export default function Information({
         name="password"
         type="password"
         className="form-input"
+        value={password}
         onChange={(e) => onChangePassword(e.target.value)}
         placeholder="********"
       />
@@ -30,6 +35,7 @@ export default function Information({
       <input
         name="confirmPassword"
         type="password"
+        value={confirmPassword}
         className="form-input"
         onChange={(e) => onChangeConfirmPassword(e.target.value)}
         placeholder="********"

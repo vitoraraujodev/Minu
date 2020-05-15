@@ -29,6 +29,7 @@ export default function SignUp() {
           <p className="input-label">Senha</p>
           <input
             name="password"
+            type="password"
             className="form-input"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="********"

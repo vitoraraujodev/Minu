@@ -1,4 +1,4 @@
-.auth-container {
+.home-container {
   max-width: 920px;
   display: flex;
   justify-content: space-between;
@@ -74,7 +74,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .auth-container {
+  .home-container {
     display: block;
     max-width: 590px;
     margin: 0 auto;

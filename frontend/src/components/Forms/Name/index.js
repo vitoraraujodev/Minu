@@ -3,9 +3,13 @@ import React from 'react';
 import '../styles.css';
 
 export default function Name({
+  establishmentName,
   onChangeEstablishmentName,
+  cnpj,
   onChangeCnpj,
+  managerName,
   onChangeManagerName,
+  managerLastName,
   onChangeManagerLastName,
 }) {
   return (
@@ -14,6 +18,7 @@ export default function Name({
       <input
         name="establishmentName"
         className="form-input"
+        value={establishmentName}
         autoFocus //eslint-disable-line
         onChange={(e) => onChangeEstablishmentName(e.target.value)}
         placeholder="Restaurante X"
@@ -22,6 +27,7 @@ export default function Name({
       <input
         name="cnpj"
         className="form-input"
+        value={cnpj}
         onChange={(e) => onChangeCnpj(e.target.value)}
         placeholder="00.000.000/000-00"
       />
@@ -29,12 +35,14 @@ export default function Name({
       <input
         name="managerName"
         className="form-input"
+        value={managerName}
         onChange={(e) => onChangeManagerName(e.target.value)}
         placeholder="Nome"
       />
       <input
         name="managerLastName"
         className="form-input"
+        value={managerLastName}
         style={{ marginBottom: 0 }}
         onChange={(e) => onChangeManagerLastName(e.target.value)}
         placeholder="Sobrenome"

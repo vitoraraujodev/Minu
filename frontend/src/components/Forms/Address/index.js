@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import cepPromise from 'cep-promise';
 import Select from 'react-select';
 
 import '../styles.css';
@@ -7,15 +8,20 @@ import { estados } from '~/json/states-cities.json';
 
 export default function Address({
   onChangeCep,
+  cep,
   onChangeAddressNumber,
+  addressNumber,
   onChangeStreet,
+  street,
   onChangeComplement,
+  complement,
   onChangeCity,
+  city,
   onChangeState,
+  state,
 }) {
-  const ref = useRef();
-
   const [width, setWidth] = useState();
+
   const citiesArray = [];
   const statesArray = [];
 
@@ -25,10 +31,8 @@ export default function Address({
 
   const [states] = useState(statesArray);
   const [cities, setCities] = useState([]);
-  const [selectedState, setSelectedState] = useState('');
 
   function handleSelect(data) {
-    setSelectedState(data.value);
     onChangeState(data.value);
   }
 
@@ -43,14 +47,55 @@ export default function Address({
 
   useEffect(() => {
     estados.forEach((estado) => {
-      if (estado.sigla === selectedState) {
+      if (estado.sigla === state) {
         estado.cidades.forEach((cidade) => {
           citiesArray.push({ value: cidade, label: cidade });
         });
       }
       setCities(citiesArray);
     });
-  }, [selectedState]); //eslint-disable-line
+  }, [state]); //eslint-disable-line
+
+  function setAddress(addressCep) {
+    cepPromise(addressCep).then((address) => {
+      onChangeStreet(address.street);
+      onChangeCity(address.city);
+      onChangeState(address.state);
+    });
+  }
+
+  function handleCepValidation(string) {
+    const char = string.substr(string.length - 1);
+
+    if (string.length === 5 && cep.length === 6) {
+      onChangeCep(string.substring(0, string.length - 1));
+      return;
+    }
+    if (string.length === 6 && cep.length === 7) {
+      onChangeCep(string);
+      return;
+    }
+
+    if (char >= '0' && char <= '9') {
+      if (string.length === 5 && !string.includes('-')) {
+        onChangeCep(`${string}-`);
+      } else {
+        onChangeCep(string);
+      }
+    } else {
+      onChangeCep(string.substring(0, string.length - 1));
+    }
+
+    if (string.length === 8 && !string.includes('-')) {
+      onChangeCep(`${string.substr(0, 5)}-${string.substr(5)}`);
+    }
+
+    if (string.length === 9) {
+      onChangeCep(string);
+
+      setAddress(string.replace('-', ''));
+    }
+  }
 
   const selectStyles = {
     container: (styles, isFocused) => ({
@@ -107,16 +152,18 @@ export default function Address({
   };
 
   return (
-    <form id="address-form" ref={ref}>
+    <form id="address-form">
       <p className="label">Onde fica seu restaurante?</p>
       <div className="input-group">
         <div style={{ marginRight: 8 }} className="group-input">
           <p className="input-label">CEP</p>
           <input
             name="cep"
-            type="number"
+            value={cep}
+            autoFocus //eslint-disable-line
             className="form-input"
-            onChange={(e) => onChangeCep(e.target.value)}
+            maxLength={9}
+            onChange={(e) => handleCepValidation(e.target.value)}
             placeholder="77777-777"
           />
         </div>
@@ -126,6 +173,7 @@ export default function Address({
           <input
             name="addressNumber"
             type="number"
+            value={addressNumber}
             className="form-input"
             onChange={(e) => onChangeAddressNumber(e.target.value)}
             placeholder="22"
@@ -136,6 +184,7 @@ export default function Address({
       <p className="input-label">Rua</p>
       <input
         name="street"
+        value={street}
         className="form-input"
         onChange={(e) => onChangeStreet(e.target.value)}
         placeholder="Rua Oswaldo Cruz"
@@ -144,6 +193,7 @@ export default function Address({
       <p className="input-label">Complemento</p>
       <input
         name="complement"
+        value={complement}
         className="form-input"
         onChange={(e) => onChangeComplement(e.target.value)}
         placeholder="Apartamento, bloco, lote..."
@@ -154,8 +204,9 @@ export default function Address({
           <p className="input-label">Estado</p>
           <Select
             name="state"
-            options={states}
             styles={selectStyles}
+            options={states}
+            value={states.filter((estado) => estado.value === state)}
             noOptionsMessage={() => 'Não encontrado...'}
             placeholder="Selecione..."
             onChange={handleSelect}
@@ -166,12 +217,16 @@ export default function Address({
           <p className="input-label">Cidade</p>
           <Select
             name="cities"
-            options={cities}
             styles={selectStyles}
+            options={cities}
+            value={cities.filter((cidade) => cidade.value === city)}
             placeholder="Selecione..."
             noOptionsMessage={() => 'Não encontrado...'}
-            isDisabled={!selectedState}
-            onChange={(e) => onChangeCity(e.value)}
+            isDisabled={!state}
+            onChange={(e) => {
+              onChangeCity(e.value);
+              onChangeCity(e.value);
+            }}
           />
         </div>
       </div>

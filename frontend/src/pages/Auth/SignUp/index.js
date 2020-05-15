@@ -19,7 +19,7 @@ export default function SignUp() {
   const [managerLastName, setManagerLastName] = useState('');
 
   const [cep, setCep] = useState('');
-  const [addressNumber, setAddressNumber] = useState(0);
+  const [addressNumber, setAddressNumber] = useState('');
   const [complement, setComplement] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -50,28 +50,41 @@ export default function SignUp() {
 
         {step === 1 ? (
           <InformationForm
+            email={email}
             onChangeEmail={(info) => setEmail(info)}
+            password={password}
             onChangePassword={(info) => setPassword(info)}
+            confirmPassword={confirmPassword}
             onChangeConfirmPassword={(info) => setConfirmPassword(info)}
           />
         ) : null}
 
         {step === 2 ? (
           <NameForm
+            establishmentName={establishmentName}
             onChangeEstablishmentName={(name) => setEstablishmentName(name)}
+            cnpj={cnpj}
             onChangeCnpj={(c) => setCnpj(c)}
-            onChangeMangerName={(name) => setManagerName(name)}
+            managerName={managerName}
+            onChangeManagerName={(name) => setManagerName(name)}
+            managerLastName={managerLastName}
             onChangeManagerLastName={(name) => setManagerLastName(name)}
           />
         ) : null}
 
         {step === 3 ? (
           <AddressForm
+            cep={cep}
             onChangeCep={(address) => setCep(address)}
+            addressNumber={addressNumber}
             onChangeAddressNumber={(address) => setAddressNumber(address)}
+            complement={complement}
             onChangeComplement={(address) => setComplement(address)}
+            street={street}
             onChangeStreet={(address) => setStreet(address)}
+            state={state}
             onChangeState={(address) => setState(address)}
+            city={city}
             onChangeCity={(address) => setCity(address)}
           />
         ) : null}
