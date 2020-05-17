@@ -10,20 +10,27 @@
 .firstStep {
   background: #535bfe;
   height: 6px;
-  width: 8%;
+  width: 6%;
   border-radius: 2px;
 }
 
 .secondStep {
   background: #535bfe;
   height: 6px;
-  width: 35%;
+  width: 25%;
   border-radius: 2px;
 }
 
 .thirdStep{
   background: #535bfe;
   height: 6px;
-  width: 66%;
+  width: 50%;
+  border-radius: 2px;
+}
+
+.forthStep {
+  background: #535bfe;
+  height: 6px;
+  width: 75%;
   border-radius: 2px;
 }

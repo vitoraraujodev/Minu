@@ -7,7 +7,7 @@
 
 .label {
   font-weight: 600;
-  font-size: 21px;
+  font-size: 22px;
   color: #252525;
   margin-bottom: 12px;
 }
@@ -15,7 +15,13 @@
 .input-label {
   font-size: 16px;
   color: #252525;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.sub-label {
+  font-size: 16px;
+  color: #9C9C9C;
+  margin-bottom: 14px;
 }
 
 .input-group {
@@ -51,7 +57,13 @@ form input::placeholder {
   }
 
   .input-label {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  .sub-label {
+    font-size: 14px;
+    color: #9C9C9C;
+    margin-bottom: 16px;
   }
 
   .form-input {
@@ -59,6 +71,8 @@ form input::placeholder {
     height: 40px;
     padding: 0 24px;
   }
+
+
 
   form input::placeholder {
     font-size: 14px;

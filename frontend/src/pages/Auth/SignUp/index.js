@@ -6,6 +6,7 @@ import ProgressionBar from '~/components/Forms/ProgressionBar';
 import NameForm from '~/components/Forms/Name';
 import InformationForm from '~/components/Forms/Information';
 import AddressForm from '~/components/Forms/Address';
+import AdmPassForm from '~/components/Forms/AdmPass';
 import EndForm from '~/components/Forms/End';
 
 import history from '~/services/history';
@@ -29,6 +30,8 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [adminPassword, setAdminPassword] = useState('');
+
   function handleBack() {
     if (step > 1) {
       setStep(step - 1);
@@ -38,15 +41,15 @@ export default function SignUp() {
   }
 
   function handleNext() {
-    if (step < 4) {
+    if (step < 5) {
       setStep(step + 1);
     }
   }
 
   return (
     <div className="container">
-      <div style={step === 4 ? { margin: 0 } : null} className="form">
-        {step < 4 ? <ProgressionBar step={step} /> : null}
+      <div style={step === 5 ? { margin: 0 } : null} className="form">
+        {step < 5 ? <ProgressionBar step={step} /> : null}
 
         {step === 1 ? (
           <InformationForm
@@ -89,9 +92,16 @@ export default function SignUp() {
           />
         ) : null}
 
-        {step === 4 ? <EndForm /> : null}
+        {step === 4 ? (
+          <AdmPassForm
+            adminPassword={adminPassword}
+            onChangeAdminPassword={(pass) => setAdminPassword(pass)}
+          />
+        ) : null}
 
-        {step < 4 ? (
+        {step === 5 ? <EndForm /> : null}
+
+        {step < 5 ? (
           <div className="buttons-container">
             <button
               style={{ color: '#9C9C9C' }}
