@@ -24,6 +24,11 @@ class EstablishmentController {
         [Yup.ref('password'), null],
         'Passwords must match.'
       ),
+      admin_password: Yup.string().min(6),
+      confirm_admin_password: Yup.string().oneOf(
+        [Yup.ref('admin_password'), null],
+        'Administrator passwords must match.'
+      ),
     });
 
     if (!(await schema.isValid(req.body))) {

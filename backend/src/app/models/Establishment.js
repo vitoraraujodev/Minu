@@ -20,6 +20,8 @@ class Establishment extends Model {
         state: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
+        admin_password: Sequelize.VIRTUAL,
+        admin_password_hash: Sequelize.STRING,
         rating: Sequelize.FLOAT,
         raters: Sequelize.INTEGER,
       },
@@ -29,13 +31,18 @@ class Establishment extends Model {
     );
     // Before saving, encrypts password and saves as password_hash
     this.addHook('beforeSave', async (establishment) => {
-      if (establishment.password) {
+      if (establishment.password && establishment.admin_password) {
         establishment.password_hash = await bcrypt.hash(
           establishment.password,
           8
         );
+        establishment.admin_password_hash = await bcrypt.hash(
+          establishment.admin_password,
+          8
+        );
       }
     });
+
     return this;
   }
 
