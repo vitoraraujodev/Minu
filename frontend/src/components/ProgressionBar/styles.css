@@ -1,4 +1,4 @@
-.progression-bar-container {
+#progression-bar {
   width: 100%;
   border: 2px solid #535bfe;
   height: 10px;
@@ -7,28 +7,28 @@
   margin-bottom: 45px;
 }
 
-.firstStep {
+#progression-bar .firstStep {
   background: #535bfe;
   height: 6px;
   width: 6%;
   border-radius: 2px;
 }
 
-.secondStep {
+#progression-bar .secondStep {
   background: #535bfe;
   height: 6px;
   width: 25%;
   border-radius: 2px;
 }
 
-.thirdStep{
+#progression-bar .thirdStep{
   background: #535bfe;
   height: 6px;
   width: 50%;
   border-radius: 2px;
 }
 
-.forthStep {
+#progression-bar .fourthStep {
   background: #535bfe;
   height: 6px;
   width: 75%;

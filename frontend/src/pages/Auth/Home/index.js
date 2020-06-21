@@ -15,9 +15,9 @@ export default function Intro() {
   window.addEventListener('resize', handleResize);
 
   return (
-    <div className="container">
-      <div className="home-container">
-        <div className="waitress-img-container">
+    <div id="home">
+      <div className="container">
+        <div className="image-container">
           <img
             height={height * 0.7 > 660 ? 660 : height * 0.7}
             src={waitress}

@@ -1,59 +1,67 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input } from '@rocketseat/unform';
 
-import ProgressionBar from '~/components/Forms/ProgressionBar';
+import ProgressionBar from '~/components/ProgressionBar';
 
 import history from '~/services/history';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin(e) {}
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
 
   return (
-    <div className="container">
+    <div id="sign-in">
       <div className="form">
         <ProgressionBar step={1} />
-        <form>
+        <Form onSubmit={handleSubmit}>
           <p className="label">Insira seu E-mail</p>
-          <input
+          <Input
             name="email"
             type="email"
             className="form-input"
-        autoFocus //eslint-disable-line
+            autoFocus //eslint-disable-line
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
           />
           <p className="input-label">Senha</p>
-          <input
+          <Input
             name="password"
             type="password"
             className="form-input"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="********"
           />
-        </form>
 
-        <div className="buttons-container">
-          <button
-            style={{ color: '#9C9C9C' }}
-            className="page-button"
-            type="button"
-            onClick={() => history.goBack()}
-          >
-            Voltar
-          </button>
-          <button
-            style={{ color: '#535BFE' }}
-            className="page-button"
-            type="button"
-            onClick={handleLogin}
-          >
-            Logar
-          </button>
-        </div>
+          <div className="buttons-container">
+            <button
+              style={{ color: '#9C9C9C' }}
+              className="button"
+              type="button"
+              onClick={() => history.goBack()}
+            >
+              Voltar
+            </button>
+            <button
+              style={{ color: '#535BFE' }}
+              className="button"
+              type="submit"
+            >
+              {loading ? 'Carregando...' : 'Logar'}
+            </button>
+          </div>
+        </Form>
       </div>
     </div>
   );

@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 
 import './styles.css';
 
-import ProgressionBar from '~/components/Forms/ProgressionBar';
-import NameForm from '~/components/Forms/Name';
-import InformationForm from '~/components/Forms/Information';
-import AddressForm from '~/components/Forms/Address';
-import AdmPassForm from '~/components/Forms/AdmPass';
-import EndForm from '~/components/Forms/End';
+import ProgressionBar from '~/components/ProgressionBar';
+import NameForm from './Forms/Name';
+import InformationForm from './Forms/Information';
+import AddressForm from './Forms/Address';
+import AdmPinForm from './Forms/AdmPin';
+import EndForm from './Forms/End';
 
 import history from '~/services/history';
+import api from '~/services/api';
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
 
   const [establishmentName, setEstablishmentName] = useState('');
-  const [cnpj, setCnpj] = useState('');
   const [managerName, setManagerName] = useState('');
   const [managerLastName, setManagerLastName] = useState('');
 
@@ -30,7 +30,45 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [adminPassword, setAdminPassword] = useState('');
+  const [adminPin, setAdminPin] = useState('');
+
+  async function handleSubmit() {
+    const data = {
+      establishment_name: establishmentName,
+      manager_name: managerName,
+      manager_lastname: managerLastName,
+      cep,
+      address_number: addressNumber,
+      complement,
+      street,
+      city,
+      state,
+      email,
+      password,
+      confirm_password: confirmPassword,
+      admin_pin: adminPin,
+    };
+
+    console.tron.log(data);
+
+    try {
+      await api.post('establishments', data);
+      setStep(step + 1);
+    } catch (err) {
+      console.tron.log(err);
+      alert('Erro ao criar estabelecimento, confira seus dados');
+    }
+  }
+
+  function handleNext() {
+    if (step < 5) {
+      if (step === 4) {
+        handleSubmit();
+      } else {
+        setStep(step + 1);
+      }
+    }
+  }
 
   function handleBack() {
     if (step > 1) {
@@ -40,14 +78,8 @@ export default function SignUp() {
     }
   }
 
-  function handleNext() {
-    if (step < 5) {
-      setStep(step + 1);
-    }
-  }
-
   return (
-    <div className="container">
+    <div id="sign-up">
       <div style={step === 5 ? { margin: 0 } : null} className="form">
         {step < 5 ? <ProgressionBar step={step} /> : null}
 
@@ -59,6 +91,8 @@ export default function SignUp() {
             onChangePassword={(info) => setPassword(info)}
             confirmPassword={confirmPassword}
             onChangeConfirmPassword={(info) => setConfirmPassword(info)}
+            onNextPage={() => handleNext()}
+            onBackPage={() => handleBack()}
           />
         ) : null}
 
@@ -66,12 +100,12 @@ export default function SignUp() {
           <NameForm
             establishmentName={establishmentName}
             onChangeEstablishmentName={(name) => setEstablishmentName(name)}
-            cnpj={cnpj}
-            onChangeCnpj={(c) => setCnpj(c)}
             managerName={managerName}
             onChangeManagerName={(name) => setManagerName(name)}
             managerLastName={managerLastName}
             onChangeManagerLastName={(name) => setManagerLastName(name)}
+            onNextPage={() => handleNext()}
+            onBackPage={() => handleBack()}
           />
         ) : null}
 
@@ -89,38 +123,21 @@ export default function SignUp() {
             onChangeState={(address) => setState(address)}
             city={city}
             onChangeCity={(address) => setCity(address)}
+            onNextPage={() => handleNext()}
+            onBackPage={() => handleBack()}
           />
         ) : null}
 
         {step === 4 ? (
-          <AdmPassForm
-            adminPassword={adminPassword}
-            onChangeAdminPassword={(pass) => setAdminPassword(pass)}
+          <AdmPinForm
+            adminPin={adminPin}
+            onChangeAdminPin={(pass) => setAdminPin(pass)}
+            onNextPage={() => handleNext()}
+            onBackPage={() => handleBack()}
           />
         ) : null}
 
-        {step === 5 ? <EndForm /> : null}
-
-        {step < 5 ? (
-          <div className="buttons-container">
-            <button
-              style={{ color: '#9C9C9C' }}
-              className="page-button"
-              type="button"
-              onClick={handleBack}
-            >
-              Voltar
-            </button>
-            <button
-              style={{ color: '#535BFE' }}
-              className="page-button"
-              type="button"
-              onClick={handleNext}
-            >
-              Avançar
-            </button>
-          </div>
-        ) : null}
+        {step === 5 ? <EndForm email={email} password={password} /> : null}
       </div>
     </div>
   );

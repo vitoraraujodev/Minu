@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
-export default function End() {
+export default function End({ email, password }) {
+  const dispatch = useDispatch();
+
+  function handleLogin() {
+    dispatch(signInRequest(email, password));
+  }
+
   return (
     <>
       <div className="circle-container">
@@ -20,11 +29,9 @@ export default function End() {
             Faça seu cardápio!
           </button>
         </Link>
-        <Link to="/establishment">
-          <button className="later-button" type="button">
-            Deixar para depois
-          </button>
-        </Link>
+        <button className="later-button" onClick={handleLogin} type="button">
+          Deixar para depois
+        </button>
       </div>
     </>
   );
