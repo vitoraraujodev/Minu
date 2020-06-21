@@ -37,7 +37,6 @@ class SessionController {
     const {
       id,
       cnpj,
-      phone_number, //eslint-disable-line
       establishment_name, //eslint-disable-line
       manager_name, //eslint-disable-line
       manager_lastname, //eslint-disable-line
@@ -55,7 +54,6 @@ class SessionController {
         id,
         cnpj,
         email,
-        phone_number,
         establishment_name,
         manager_name,
         manager_lastname,

@@ -7,9 +7,8 @@ import Menu from '../models/Menu';
 class EstablishmentController {
   async store(req, res) {
     const schema = Yup.object().shape({
-      cnpj: Yup.string().required(),
+      cnpj: Yup.string(),
       email: Yup.string().email().required(),
-      phone_number: Yup.string().required(),
       establishment_name: Yup.string().required(),
       manager_name: Yup.string().required(),
       manager_lastname: Yup.string().required(),
@@ -19,15 +18,11 @@ class EstablishmentController {
       complement: Yup.string().required(),
       city: Yup.string().required(),
       state: Yup.string().required(),
-      password: Yup.string().min(6),
+      admin_pin: Yup.string().length(4).required(),
+      password: Yup.string().min(6).required(),
       confirm_password: Yup.string().oneOf(
         [Yup.ref('password'), null],
         'Passwords must match.'
-      ),
-      admin_password: Yup.string().min(6),
-      confirm_admin_password: Yup.string().oneOf(
-        [Yup.ref('admin_password'), null],
-        'Administrator passwords must match.'
       ),
     });
 
@@ -43,51 +38,15 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Email already in use.' });
     }
 
-    const {
-      id,
-      cnpj,
-      email,
-      phone_number, //eslint-disable-line
-      establishment_name, //eslint-disable-line
-      manager_name, //eslint-disable-line
-      manager_lastname, //eslint-disable-line
-      cep,
-      address_number, //eslint-disable-line
-      street,
-      complement,
-      city,
-      state,
-      photo_id, //eslint-disable-line
-    } = await Establishment.create(req.body);
+    await Establishment.create(req.body);
 
-    let photo = null;
-    if (photo_id) { //eslint-disable-line
-      photo = await File.findByPk(photo_id);
-    }
-
-    return res.json({
-      id,
-      cnpj,
-      email,
-      phone_number,
-      establishment_name,
-      manager_name,
-      manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
-      photo,
-    });
+    return res.json({ okay: true });
   }
 
   async update(req, res) {
     const schema = Yup.object().shape({
       cnpj: Yup.string(),
       email: Yup.string().email(),
-      phone_number: Yup.string(),
       establishment_name: Yup.string(),
       manager_name: Yup.string(),
       manager_lastname: Yup.string(),
@@ -149,7 +108,6 @@ class EstablishmentController {
 
     const {
       id,
-      phone_number, //eslint-disable-line
       establishment_name, //eslint-disable-line
       manager_name, //eslint-disable-line
       manager_lastname, //eslint-disable-line
@@ -182,7 +140,6 @@ class EstablishmentController {
       id,
       cnpj,
       email,
-      phone_number,
       establishment_name,
       manager_name,
       manager_lastname,

@@ -17,10 +17,6 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      phone_number: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
       establishment_name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -57,7 +53,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      admin_password_hash: {
+      admin_pin_hash: {
         type: Sequelize.STRING,
         allowNull: false,
       },

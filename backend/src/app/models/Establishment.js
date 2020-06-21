@@ -8,7 +8,6 @@ class Establishment extends Model {
       {
         cnpj: Sequelize.STRING,
         email: Sequelize.STRING,
-        phone_number: Sequelize.STRING,
         establishment_name: Sequelize.STRING,
         manager_name: Sequelize.STRING,
         manager_lastname: Sequelize.STRING,
@@ -20,8 +19,8 @@ class Establishment extends Model {
         state: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
-        admin_password: Sequelize.VIRTUAL,
-        admin_password_hash: Sequelize.STRING,
+        admin_pin: Sequelize.VIRTUAL,
+        admin_pin_hash: Sequelize.STRING,
         rating: Sequelize.FLOAT,
         raters: Sequelize.INTEGER,
       },
@@ -31,13 +30,13 @@ class Establishment extends Model {
     );
     // Before saving, encrypts password and saves as password_hash
     this.addHook('beforeSave', async (establishment) => {
-      if (establishment.password && establishment.admin_password) {
+      if (establishment.password && establishment.admin_pin) {
         establishment.password_hash = await bcrypt.hash(
           establishment.password,
           8
         );
-        establishment.admin_password_hash = await bcrypt.hash(
-          establishment.admin_password,
+        establishment.admin_pin_hash = await bcrypt.hash(
+          establishment.admin_pin,
           8
         );
       }
