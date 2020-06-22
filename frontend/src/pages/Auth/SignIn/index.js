@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Input } from '@rocketseat/unform';
 
 import ProgressionBar from '~/components/ProgressionBar';
 
@@ -25,9 +24,9 @@ export default function SignUp() {
     <div id="sign-in">
       <div className="form">
         <ProgressionBar step={1} />
-        <Form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <p className="label">Insira seu E-mail</p>
-          <Input
+          <input
             name="email"
             type="email"
             className="form-input"
@@ -36,7 +35,7 @@ export default function SignUp() {
             placeholder="E-mail"
           />
           <p className="input-label">Senha</p>
-          <Input
+          <input
             name="password"
             type="password"
             className="form-input"
@@ -61,7 +60,7 @@ export default function SignUp() {
               {loading ? 'Carregando...' : 'Logar'}
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
