@@ -49,14 +49,11 @@ export default function SignUp() {
       admin_pin: adminPin,
     };
 
-    console.tron.log(data);
-
     try {
       await api.post('establishments', data);
       setStep(step + 1);
     } catch (err) {
-      console.tron.log(err);
-      alert('Erro ao criar estabelecimento, confira seus dados');
+      alert(err.response.data.error);
     }
   }
 

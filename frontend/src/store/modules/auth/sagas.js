@@ -8,16 +8,14 @@ import { signInSuccess, signFailure } from './actions';
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
-    const response = yield call(api.post, 'sessions', { email, password });
 
+    const response = yield call(api.post, 'sessions', { email, password });
     const { token, establishment } = response.data;
 
     yield put(signInSuccess(token, establishment));
-
-    history.push('/establishment');
   } catch (err) {
-    alert('Falha na autenticação, verifique seus dados');
-    console.tron.log(err);
+    alert(err.response.data.error);
+
     yield put(signFailure());
   }
 }

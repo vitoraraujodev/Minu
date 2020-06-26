@@ -10,6 +10,7 @@ export default function End({ email, password }) {
   const dispatch = useDispatch();
 
   function handleLogin() {
+    console.tron.log(email, password);
     dispatch(signInRequest(email, password));
   }
 

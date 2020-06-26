@@ -17,6 +17,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
 
   function handleSubmit() {
+    console.tron.log(email, password);
     dispatch(signInRequest(email, password));
   }
 
@@ -24,7 +25,7 @@ export default function SignUp() {
     <div id="sign-in">
       <div className="form">
         <ProgressionBar step={1} />
-        <form onSubmit={handleSubmit}>
+        <form>
           <p className="label">Insira seu E-mail</p>
           <input
             name="email"
@@ -39,6 +40,11 @@ export default function SignUp() {
             name="password"
             type="password"
             className="form-input"
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) {
+                handleSubmit();
+              }
+            }}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="********"
           />
@@ -55,7 +61,8 @@ export default function SignUp() {
             <button
               style={{ color: '#535BFE' }}
               className="button"
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
             >
               {loading ? 'Carregando...' : 'Logar'}
             </button>

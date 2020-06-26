@@ -1,19 +1,7 @@
-export function createEstablishmentRequest(data) {
-  return {
-    type: '@user/CREATE_ESTABLISHMENT_REQUEST',
-    payload: { data },
-  };
-}
-export function createEstablishmentFailure() {
-  return {
-    type: '@user/CREATE_ESTABLISHMENT_FAILURE',
-  };
-}
-
-export function updateEstablishmentRequest(data) {
+export function updateEstablishmentRequest(establishment) {
   return {
     type: '@user/UPDATE_ESTABLISHMENT_REQUEST',
-    payload: { data },
+    payload: { establishment },
   };
 }
 export function updateEstablishmentSuccess(establishment) {

@@ -48,6 +48,11 @@ export default function Name({
           className="form-input"
           value={managerLastName}
           style={{ marginBottom: 0 }}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13 && filled) {
+              onNextPage();
+            }
+          }}
           onChange={(e) => onChangeManagerLastName(e.target.value)}
           placeholder="Sobrenome"
         />

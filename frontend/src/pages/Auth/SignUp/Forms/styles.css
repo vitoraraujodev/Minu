@@ -46,21 +46,12 @@
   z-index: 1;
 }
 
+
+
 form input::placeholder {
   color: #9C9C9C;
   font-size: 16px;
 }
-
-#pin-input {
-  display: flex;
-}
-
-#pin-input .form-input {
-  margin-right: 16px;
-  padding: 0 24px;
-
-}
-
 
 @media screen and (max-width: 767px) {
   .label {

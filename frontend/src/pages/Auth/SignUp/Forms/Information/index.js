@@ -34,7 +34,7 @@ export default function Information({
           value={email}
         autoFocus //eslint-disable-line
           onChange={(e) => onChangeEmail(e.target.value)}
-          placeholder="E-mail"
+          placeholder="exemplo@email.com"
         />
         <p className="input-label">Senha</p>
         <input
@@ -56,6 +56,11 @@ export default function Information({
           }
           value={confirmPassword}
           className="form-input"
+          onKeyDown={(e) => {
+            if (e.keyCode === 13 && filled) {
+              onNextPage();
+            }
+          }}
           onChange={(e) => onChangeConfirmPassword(e.target.value)}
           placeholder="********"
         />
