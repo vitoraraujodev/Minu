@@ -15,7 +15,7 @@ export default function Information({
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
-    if (email && password && confirmPassword) {
+    if (email && password && password === confirmPassword) {
       setFilled(true);
     } else {
       setFilled(false);

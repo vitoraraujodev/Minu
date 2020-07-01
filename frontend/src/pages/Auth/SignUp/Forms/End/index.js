@@ -25,14 +25,16 @@ export default function End({ email, password }) {
           <br />
           Concluído!
         </h1>
-        <Link to="/menu/new">
+        <Link to="/establishment/menu">
           <button className="menu-button" type="button">
             Faça seu cardápio!
           </button>
         </Link>
-        <button className="later-button" onClick={handleLogin} type="button">
-          Deixar para depois
-        </button>
+        <Link to="/establishment">
+          <button className="later-button" onClick={handleLogin} type="button">
+            Deixar para depois
+          </button>
+        </Link>
       </div>
     </>
   );

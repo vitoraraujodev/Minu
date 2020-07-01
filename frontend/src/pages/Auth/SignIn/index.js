@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProgressionBar from '~/components/ProgressionBar';
@@ -15,9 +15,17 @@ export default function SignUp() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    if (email && password.length >= 6) {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
+  }, [email, password]);
 
   function handleSubmit() {
-    console.tron.log(email, password);
     dispatch(signInRequest(email, password));
   }
 
@@ -59,7 +67,7 @@ export default function SignUp() {
               Voltar
             </button>
             <button
-              style={{ color: '#535BFE' }}
+              style={filled ? { color: '#535BFE' } : { color: '#9C9C9C' }}
               className="button"
               type="button"
               onClick={handleSubmit}

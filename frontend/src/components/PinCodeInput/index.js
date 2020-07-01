@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react';
 
 import './styles.css';
 
-export default function PinCodeInput({ onChangeAdminPin }) {
-  const [firstInput, setFirstInput] = useState('');
-  const [secondInput, setSecondInput] = useState('');
-  const [thirdInput, setThirdInput] = useState('');
-  const [fourthInput, setFourthInput] = useState('');
+export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
+  const [firstInput, setFirstInput] = useState(adminPin[0]);
+  const [secondInput, setSecondInput] = useState(adminPin[1]);
+  const [thirdInput, setThirdInput] = useState(adminPin[2]);
+  const [fourthInput, setFourthInput] = useState(adminPin[3]);
 
   const firstInputRef = useRef(null);
   const secondInputRef = useRef(null);
@@ -46,7 +46,7 @@ export default function PinCodeInput({ onChangeAdminPin }) {
         maxLength="1"
         value={firstInput}
         ref={firstInputRef}
-    autoFocus //eslint-disable-line
+        autoFocus //eslint-disable-line
         onChange={(e) => {
           handleInput(e.target.value, 0);
           if (e.target.value) {

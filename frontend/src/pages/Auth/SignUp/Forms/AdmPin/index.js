@@ -31,7 +31,7 @@ export default function AdmPin({
           Será necessária para fazer alterações em configurações e cardápios
         </p>
 
-        <PinCodeInput onChangeAdminPin={onChangeAdminPin} />
+        <PinCodeInput adminPin={adminPin} onChangeAdminPin={onChangeAdminPin} />
       </form>
 
       <div className="buttons-container">

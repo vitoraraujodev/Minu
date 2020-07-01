@@ -105,6 +105,8 @@ export default function Address({
       onChangeCep(string);
 
       setAddress(string.replace('-', ''));
+    } else {
+      setValidCep(true);
     }
   }
 
@@ -184,6 +186,16 @@ export default function Address({
               className="form-input"
               maxLength={9}
               style={validCep ? null : { border: '2px solid #FF3636' }}
+              onFocus={() => {
+                if (cep.length !== 9) {
+                  setValidCep(true);
+                }
+              }}
+              onBlur={() => {
+                if (cep.length < 9) {
+                  setValidCep(false);
+                }
+              }}
               onChange={(e) => handleCepValidation(e.target.value)}
               placeholder="77777-777"
             />
@@ -216,6 +228,11 @@ export default function Address({
           name="complement"
           value={complement}
           className="form-input"
+          onKeyDown={(e) => {
+            if (e.keyCode === 13 && filled) {
+              onNextPage();
+            }
+          }}
           onChange={(e) => onChangeComplement(e.target.value)}
           placeholder="Apartamento, bloco, lote..."
         />

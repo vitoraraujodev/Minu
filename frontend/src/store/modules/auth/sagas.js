@@ -13,10 +13,10 @@ export function* signIn({ payload }) {
     const { token, establishment } = response.data;
 
     yield put(signInSuccess(token, establishment));
+    history.push('/establishment');
   } catch (err) {
-    alert(err.response.data.error);
-
     yield put(signFailure());
+    alert(err.response.data.error);
   }
 }
 
