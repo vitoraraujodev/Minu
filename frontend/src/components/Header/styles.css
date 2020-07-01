@@ -3,9 +3,9 @@
   background: #535BFE;
 }
 
-#tabnavigator .content {
+#tabnavigator .header-content {
   display: flex;
-  margin: auto;
+  margin: 0 auto;
   justify-content: space-between;
   align-items: center;
   max-width: 920px;
@@ -28,7 +28,6 @@
 
 #tabnavigator .logo {
   width: 64px;
-  height: 16px;
   margin: 0 24px;
 }
 
@@ -36,20 +35,28 @@
   #tabnavigator {
     width: 100%;
     background: #fff;
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    min-width: 360px;
+    min-width: 320px;
   }
 
-  #tabnavigator .content {
-    margin: 0 32px;
+  #tabnavigator .header-content {
     border-top: 1px solid #535BFE;
+    padding: 0 32px;
+    margin: 0 32px;
   }
 
   #tabnavigator .navlink {
-    font-size: 16px;
-    color: #CFCFCF;
     height: 32px;
+    width: 32px;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #tabnavigator .tab-icon {
+    width: 24px;
+    height: 24px;
   }
 }
