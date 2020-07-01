@@ -1,0 +1,55 @@
+#tabnavigator {
+  width: 100%;
+  background: #535BFE;
+}
+
+#tabnavigator .content {
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 920px;
+  height: 60px;
+  padding: 0 24px;
+}
+
+#tabnavigator .navlink-container {
+  display: flex;
+  width: 215px;
+  justify-content: flex-end;
+}
+
+#tabnavigator .navlink {
+  font-size: 16px;
+  color: #fff;
+  height: 24px;
+  margin: 0 20px;
+}
+
+#tabnavigator .logo {
+  width: 64px;
+  height: 16px;
+  margin: 0 24px;
+}
+
+@media screen and (max-width: 767px) {
+  #tabnavigator {
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    min-width: 360px;
+  }
+
+  #tabnavigator .content {
+    margin: 0 32px;
+    border-top: 1px solid #535BFE;
+  }
+
+  #tabnavigator .navlink {
+    font-size: 16px;
+    color: #CFCFCF;
+    height: 32px;
+    margin: 0;
+  }
+}

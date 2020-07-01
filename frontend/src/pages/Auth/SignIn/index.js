@@ -70,9 +70,9 @@ export default function SignUp() {
               style={filled ? { color: '#535BFE' } : { color: '#9C9C9C' }}
               className="button"
               type="button"
-              onClick={handleSubmit}
+              onClick={filled ? handleSubmit : null}
             >
-              {loading ? 'Carregando...' : 'Logar'}
+              {loading ? 'Carregando...' : 'Acessar'}
             </button>
           </div>
         </form>
