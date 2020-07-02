@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import PinCodeInput from '~/components/PinCodeInput';
 
+import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Foward } from '~/assets/images/foward-icon.svg';
+
 import '../styles.css';
 
 export default function AdmPin({
@@ -41,6 +44,7 @@ export default function AdmPin({
           type="button"
           onClick={onBackPage}
         >
+          <Backward style={{ height: 16, marginRight: 4 }} fill="#9c9c9c" />
           Voltar
         </button>
         <button
@@ -51,6 +55,10 @@ export default function AdmPin({
           onClick={onNextPage}
         >
           Avançar
+          <Foward
+            style={{ height: 16, marginLeft: 4 }}
+            fill={filled ? '#535BFE' : '#9C9C9C'}
+          />
         </button>
       </div>
     </>

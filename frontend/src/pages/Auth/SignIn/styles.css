@@ -7,14 +7,20 @@
   justify-content: center;
 }
 
-#sign-in .form {
+#sign-in .form-area {
   width: 100%;
   max-height: 812px;
   height: 100%;
   max-width: 400px;
   padding: 0 24px;
-  margin: auto 0;
+  margin: auto;
+  display: block;
 }
+
+#sign-in .form {
+  margin-top: 120px;
+}
+
 
 #sign-in .buttons-container {
   margin-top: 60px;
@@ -23,6 +29,8 @@
 }
 
 #sign-in .button {
+  display:flex;
+  align-items: center;
   border: 0;
   background: none;
   font-weight: 600;
@@ -47,7 +55,7 @@ form input::placeholder {
 }
 
 @media screen and (max-width: 767px) {
-  #sign-in .form {
+  #sign-in .form-area {
     max-height: none;
   }
 

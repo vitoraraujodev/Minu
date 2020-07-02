@@ -17,12 +17,14 @@
 }
 
 #sign-up .buttons-container {
-  margin-top: 60px;
+  margin: 48px 0;
   display: flex;
   justify-content: space-between;
 }
 
 #sign-up .page-button {
+  display: flex;
+  align-items: center;
   border: 0;
   background: none;
   font-weight: 600;

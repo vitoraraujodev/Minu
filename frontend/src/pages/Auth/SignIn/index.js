@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProgressionBar from '~/components/ProgressionBar';
+import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Foward } from '~/assets/images/foward-icon.svg';
 
 import history from '~/services/history';
 
@@ -31,9 +33,9 @@ export default function SignUp() {
 
   return (
     <div id="sign-in">
-      <div className="form">
+      <div className="form-area">
         <ProgressionBar step={1} />
-        <form>
+        <div className="form">
           <p className="label">Insira seu E-mail</p>
           <input
             name="email"
@@ -64,6 +66,7 @@ export default function SignUp() {
               type="button"
               onClick={() => history.goBack()}
             >
+              <Backward style={{ height: 16, marginRight: 4 }} fill="#9c9c9c" />
               Voltar
             </button>
             <button
@@ -73,9 +76,13 @@ export default function SignUp() {
               onClick={filled ? handleSubmit : null}
             >
               {loading ? 'Carregando...' : 'Acessar'}
+              <Foward
+                style={{ height: 16, marginLeft: 4 }}
+                fill={filled ? '#535BFE' : '#9C9C9C'}
+              />
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import cepPromise from 'cep-promise';
 import Select from 'react-select';
 
+import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Foward } from '~/assets/images/foward-icon.svg';
+
 import '../styles.css';
 
 import { estados } from '~/json/states-cities.json';
@@ -277,6 +280,7 @@ export default function Address({
           type="button"
           onClick={onBackPage}
         >
+          <Backward style={{ height: 16, marginRight: 4 }} fill="#9c9c9c" />
           Voltar
         </button>
         <button
@@ -287,6 +291,10 @@ export default function Address({
           onClick={onNextPage}
         >
           Avançar
+          <Foward
+            style={{ height: 16, marginLeft: 4 }}
+            fill={filled ? '#535BFE' : '#9C9C9C'}
+          />
         </button>
       </div>
     </>
