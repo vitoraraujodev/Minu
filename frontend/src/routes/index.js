@@ -7,6 +7,7 @@ import SignUp from '~/pages/Auth/SignUp';
 import SignIn from '~/pages/Auth/SignIn';
 
 import Profile from '~/pages/Establishment/Profile';
+import Picture from '~/pages/Establishment/Picture';
 
 import history from '~/services/history';
 
@@ -17,7 +18,8 @@ export default function Routes() {
         <Route path="/" exact component={Home} notPrivate />
         <Route path="/signup" component={SignUp} notPrivate />
         <Route path="/login" component={SignIn} notPrivate />
-        <Route path="/establishment" component={Profile} private />
+        <Route path="/establishment" exact component={Profile} private />
+        <Route path="/establishment/picture" component={Picture} private />
       </Switch>
     </Router>
   );

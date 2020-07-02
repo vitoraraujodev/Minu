@@ -64,7 +64,6 @@ export default function Header() {
         <div style={{ margin: 'auto', maxWidth: 560 }}>
           <div className="header-content">
             <NavLink
-              activeStyle={{ color: '#535BFE' }}
               className="navlink"
               to="/orders"
               isActive={() => {
@@ -77,7 +76,6 @@ export default function Header() {
               />
             </NavLink>
             <NavLink
-              activeStyle={{ color: '#535BFE' }}
               className="navlink"
               to="/menu"
               isActive={() => {
@@ -90,7 +88,6 @@ export default function Header() {
               />
             </NavLink>
             <NavLink
-              activeStyle={{ color: '#535BFE' }}
               className="navlink"
               to="/establishment"
               isActive={() => {
@@ -99,6 +96,7 @@ export default function Header() {
             >
               <Profile
                 fill={active === 'profile' ? '#535BFE' : '#cfcfcf'}
+                stroke={active === 'profile' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
               />
             </NavLink>

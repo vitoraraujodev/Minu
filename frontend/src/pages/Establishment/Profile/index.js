@@ -20,7 +20,7 @@ export default function Profile() {
             alt="establishment"
           />
           <div className="info">
-            <Link to="/establishment">
+            <Link to="/establishment/picture">
               <button className="img-button" type="button">
                 Adicionar foto
               </button>

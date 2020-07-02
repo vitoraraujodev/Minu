@@ -1,0 +1,140 @@
+#picture-page {
+  width: 100%;
+  height: 100%;
+}
+
+#picture-page .container {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  max-width: 560px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 24px;
+  height: 100%;
+  overflow-x: scroll;
+
+}
+
+#picture-page .back-button-container {
+  border-bottom: 1px solid #CFCFCF;
+  padding: 16px 0;
+}
+
+#picture-page .back-button {
+  display:flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  font-size: 21px;
+}
+
+#picture-page .content {
+  margin: 32px 0;
+}
+
+#picture-page .label {
+  font-size: 19px;
+  color: #252525;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+#picture-page .image {
+  width: 100%;
+  border: 2px solid #535BFE;
+  border-radius: 6px;
+}
+
+#picture-page .img-button {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 0;
+  border-radius: 5px;
+  background: #535bfe;
+  color: #fff;
+  margin-top: 24px;
+  box-shadow: 0px 0px 6px #00000029;
+  transition: transform .2s;
+}
+
+#picture-page .img-button:hover {
+  transform: scale(1.03);
+}
+
+#picture-page .img-button:active {
+  transform: none;
+}
+
+#picture-page .submit-button-enabled {
+  width: 100%;
+  height: 56px;
+  margin: 0 32px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #535bfe;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#picture-page .submit-button-disabled {
+  width: 100%;
+  height: 56px;
+  margin: 0 32px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #9C9C9C;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#picture-page .submit-button-enabled:hover {
+  transform: scale(1.03);
+}
+
+#picture-page .submit-button-enabled:active {
+  transform: none;
+}
+
+@media screen and (max-width: 767px) {
+  #picture-page {
+    overflow: hidden;
+  }
+
+  #picture-page .container {
+    padding-bottom: 104px;
+  }
+
+  #picture-page .content {
+    position: relative;
+    margin-top: 0;
+    top: 10%;
+  }
+
+  #picture-page .back-button {
+    font-size: 17px;
+  }
+
+  #picture-page .submit-button-enabled {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
+  #picture-page .submit-button-disabled {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+}
