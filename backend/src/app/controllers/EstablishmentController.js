@@ -35,7 +35,7 @@ class EstablishmentController {
     });
 
     if (establishmentExists) {
-      return res.status(400).json({ error: 'Email already in use.' });
+      return res.status(400).json({ error: 'E-mail already in use.' });
     }
 
     await Establishment.create(req.body);
