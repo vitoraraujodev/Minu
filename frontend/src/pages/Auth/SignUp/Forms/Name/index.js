@@ -33,7 +33,7 @@ export default function Name({
           name="establishmentName"
           className="form-input"
           value={establishmentName}
-        autoFocus //eslint-disable-line
+          autoFocus //eslint-disable-line
           onChange={(e) => onChangeEstablishmentName(e.target.value)}
           placeholder="Restaurante X"
         />

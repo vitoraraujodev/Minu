@@ -35,7 +35,7 @@ export default function Information({
           type="email"
           className="form-input"
           value={email}
-        autoFocus //eslint-disable-line
+          autoFocus //eslint-disable-line
           onChange={(e) => onChangeEmail(e.target.value)}
           placeholder="exemplo@email.com"
         />

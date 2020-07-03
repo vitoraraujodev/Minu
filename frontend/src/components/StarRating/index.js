@@ -7,7 +7,7 @@ import './styles.css';
 
 export default function StarRating() {
   return (
-    <div>
+    <div className="star-rating-container">
       <div id="star-rating">
         <div className="star-rating-top">
           <img src={filledStar} style={{ marginRight: 4 }} alt="" />
@@ -24,6 +24,7 @@ export default function StarRating() {
           <img src={emptyStar} className="star" alt="" />
         </div>
       </div>
+      <span className="raters-text">(32)</span>
     </div>
   );
 }

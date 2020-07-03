@@ -1,0 +1,154 @@
+#account-page {
+  width: 100%;
+  height: 100%;
+}
+
+#account-page .container {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  max-width: 432px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 24px;
+  height: 100%;
+}
+
+#account-page .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding: 16px 0;
+  border-bottom: 1px solid #CFCFCF;
+}
+
+#account-page .button {
+  display:flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  font-size: 21px;
+}
+
+#account-page .content {
+  margin: 32px 0;
+}
+
+#account-page .form {
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e6e6e6;
+}
+
+.input-label {
+  font-size: 18px;
+  color: #252525;
+  margin-bottom: 8px;
+}
+
+#account-page .input {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  font-size: 18px;
+  color: #252525;
+  border-radius: 5px;
+  padding: 0 32px;
+  box-shadow: 0px 0px 6px #00000029;
+  margin-bottom: 16px;
+}
+#account-page .input::placeholder {
+  color: #9C9C9C;
+  font-size: 16px;
+}
+
+#account-page .input-label-disabled {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #9C9C9C
+}
+
+#account-page .submit-button-enabled {
+  width: 100%;
+  height: 56px;
+  margin: 0 32px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #535bfe;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#account-page .submit-button-disabled {
+  width: 100%;
+  height: 56px;
+  margin: 0 32px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #9C9C9C;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#account-page .submit-button-enabled:hover {
+  transform: scale(1.03);
+}
+
+#account-page .submit-button-enabled:active {
+  transform: none;
+}
+
+@media screen and (max-width: 767px) {
+  #account-page {
+    overflow: scroll;
+  }
+  #account-page .content {
+    padding-bottom: 48px;
+  }
+  #account-page .button-container {
+    margin-top: 0;
+  }
+
+  #account-page .button {
+    font-size: 17px;
+  }
+
+  #account-page .input-label {
+    font-size: 15px;
+  }
+
+  #account-page .input-label-disabled {
+    font-size: 15px;
+  }
+
+  #account-page .input {
+    font-size: 15px;
+    height: 40px;
+    padding: 0 24px;
+  }
+  #account-page .input::placeholder {
+    font-size: 14px;
+  }
+
+
+  #account-page .submit-button-enabled {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
+  #account-page .submit-button-disabled {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+}

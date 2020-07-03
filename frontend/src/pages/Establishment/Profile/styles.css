@@ -66,8 +66,6 @@
   font-weight: 600;
 }
 
-#profile .options {
-}
 #profile .option-area:hover {
   background: #f1f1f1;
 }
@@ -90,7 +88,7 @@
   }
   #profile .info {
     bottom: -40px;
-    padding: 16px 32px;
+    padding: 12px 32px;
     width: 100%;
   }
 

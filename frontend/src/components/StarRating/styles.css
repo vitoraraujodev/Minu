@@ -22,3 +22,20 @@
 #star-rating .star {
   margin-right: 4px;
 }
+
+.star-rating-container {
+  display: flex;
+  align-items: center;
+}
+
+.raters-text {
+  margin-left: 4px;
+  font-size: 15px;
+  color: #9c9c9c
+}
+
+@media screen and (max-width: 767px) {
+  .raters-text {
+    font-size: 14px;
+  }
+}

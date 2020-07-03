@@ -185,6 +185,7 @@ export default function Address({
             <input
               name="cep"
               value={cep}
+              inputMode="numeric"
               autoFocus //eslint-disable-line
               className="form-input"
               maxLength={9}

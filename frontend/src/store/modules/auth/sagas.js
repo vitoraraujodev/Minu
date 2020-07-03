@@ -16,7 +16,9 @@ export function* signIn({ payload }) {
     history.push('/establishment');
   } catch (err) {
     yield put(signFailure());
-    alert(err.response.data.error);
+    if (err.response.data) {
+      alert(err.response.data.error);
+    }
   }
 }
 
