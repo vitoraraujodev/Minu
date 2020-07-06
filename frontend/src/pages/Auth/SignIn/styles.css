@@ -51,7 +51,8 @@
   margin-bottom: 8px;
 }
 
-form input::placeholder {
+#sign-in .form-input::placeholder {
+  color: #9c9c9c;
   font-size: 16px;
 }
 
@@ -78,7 +79,7 @@ form input::placeholder {
     padding: 0 24px;
   }
 
-  form input::placeholder {
+  #sign-in .form-input::placeholder {
     font-size: 14px;
   }
 }

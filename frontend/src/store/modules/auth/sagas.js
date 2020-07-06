@@ -3,7 +3,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signOutSuccess } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -22,8 +22,9 @@ export function* signIn({ payload }) {
   }
 }
 
-export function signOut() {
+export function* signOut() {
   if (window.confirm('Tem certeza que deseja sair?')) {
+    yield put(signOutSuccess());
     history.push('/');
   }
 }
@@ -41,5 +42,5 @@ export function setToken({ payload }) {
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
-  takeLatest('@auth/SIGN_OUT', signOut),
+  takeLatest('@auth/SIGN_OUT_REQUEST', signOut),
 ]);

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Header from '~/components/Header';
 import StarRating from '~/components/StarRating';
 
-import { signOut } from '~/store/modules/auth/actions';
+import { signOutRequest } from '~/store/modules/auth/actions';
 
 import defaultEstablishement from '~/assets/images/default-establishment.png';
 
@@ -13,28 +13,39 @@ import './styles.css';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const establishment = useSelector(
+    (state) => state.establishment.establishment
+  );
 
   function handleSignOut() {
-    dispatch(signOut());
+    dispatch(signOutRequest());
   }
+
   return (
     <div id="profile">
       <Header />
       <div className="container">
         <div className="info-container">
           <img
-            src={defaultEstablishement}
+            src={
+              establishment.photo
+                ? establishment.photo.url
+                : defaultEstablishement
+            }
             className="establishment-img"
             alt="establishment"
           />
           <div className="info">
             <Link to="/establishment/picture">
               <button className="img-button" type="button">
-                Adicionar foto
+                Alterar foto
               </button>
             </Link>
-            <span className="title">Restaurante X</span>
-            <StarRating />
+            <span className="title">{establishment.establishment_name}</span>
+            <StarRating
+              rating={establishment.rating}
+              raters={establishment.raters}
+            />
           </div>
         </div>
 

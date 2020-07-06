@@ -5,11 +5,13 @@ import filledStar from '~/assets/images/filled-star.svg';
 
 import './styles.css';
 
-export default function StarRating() {
+export default function StarRating({ rating, raters }) {
+  const width = (87 * rating) / 10;
+
   return (
     <div className="star-rating-container">
       <div id="star-rating">
-        <div className="star-rating-top">
+        <div className="star-rating-top" style={{ width }}>
           <img src={filledStar} style={{ marginRight: 4 }} alt="" />
           <img src={filledStar} style={{ marginRight: 4 }} alt="" />
           <img src={filledStar} style={{ marginRight: 4 }} alt="" />
@@ -24,7 +26,7 @@ export default function StarRating() {
           <img src={emptyStar} className="star" alt="" />
         </div>
       </div>
-      <span className="raters-text">(32)</span>
+      <span className="raters-text">({raters})</span>
     </div>
   );
 }

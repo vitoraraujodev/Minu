@@ -30,6 +30,7 @@
 }
 
 #picture-page .content {
+  margin: 32px 0;
 }
 
 #picture-page .label {
@@ -119,7 +120,8 @@
 
   #picture-page .content {
     position: relative;
-    top: 10%;
+    margin-top: 0;
+    top: 15%;
   }
 
   #picture-page .button {
