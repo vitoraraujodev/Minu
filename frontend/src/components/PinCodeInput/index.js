@@ -2,7 +2,11 @@ import React, { useState, useRef } from 'react';
 
 import './styles.css';
 
-export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
+export default function PinCodeInput({
+  adminPin,
+  onChangeAdminPin,
+  disabled = false,
+}) {
   const [firstInput, setFirstInput] = useState(adminPin[0]);
   const [secondInput, setSecondInput] = useState(adminPin[1]);
   const [thirdInput, setThirdInput] = useState(adminPin[2]);
@@ -41,12 +45,13 @@ export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
   return (
     <div id="pin-input">
       <input
-        className="form-input"
+        className="pin-input"
         type="number"
         maxLength="1"
         value={firstInput}
         ref={firstInputRef}
         autoFocus //eslint-disable-line
+        disabled={disabled}
         onChange={(e) => {
           handleInput(e.target.value, 0);
           if (e.target.value) {
@@ -56,11 +61,12 @@ export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
         placeholder="0"
       />
       <input
-        className="form-input"
+        className="pin-input"
         type="number"
         maxLength="1"
         value={secondInput}
         ref={secondInputRef}
+        disabled={disabled}
         onKeyDown={(e) => {
           if (e.keyCode === 8) {
             if (!secondInput) {
@@ -78,11 +84,12 @@ export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
         placeholder="0"
       />
       <input
-        className="form-input"
+        className="pin-input"
         type="number"
         maxLength="1"
         value={thirdInput}
         ref={thirdInputRef}
+        disabled={disabled}
         onKeyDown={(e) => {
           if (e.keyCode === 8) {
             if (!thirdInput) {
@@ -100,12 +107,13 @@ export default function PinCodeInput({ adminPin, onChangeAdminPin }) {
         placeholder="0"
       />
       <input
-        className="form-input"
+        className="pin-input"
         type="number"
         style={{ marginRight: 0 }}
         maxLength="1"
         value={fourthInput}
         ref={fourthInputRef}
+        disabled={disabled}
         onKeyDown={(e) => {
           if (e.keyCode === 8) {
             if (!fourthInput) {

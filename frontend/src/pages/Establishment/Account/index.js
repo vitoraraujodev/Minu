@@ -9,7 +9,7 @@ import history from '~/services/history';
 import './styles.css';
 
 export default function Account() {
-  const [windowWidth, setWindowWidth] = useState();
+  const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
 
   const [establishmentName, setEstablishmentName] = useState('');

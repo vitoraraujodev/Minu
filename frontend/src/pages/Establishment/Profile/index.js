@@ -45,7 +45,7 @@ export default function Profile() {
             </div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/establishment/pin">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Redefinir PIN</span>

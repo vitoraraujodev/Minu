@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from '~/components/Header';
+import PinCodeInput from '~/components/PinCodeInput';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
-import defaultEstablishement from '~/assets/images/default-establishment.png';
 
 import history from '~/services/history';
 
 import './styles.css';
 
-export default function Picture() {
+export default function Pin() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
 
+  const [pin, setPin] = useState('');
+
   function handleResize() {
-    const picturePage = document.getElementById('picture-page');
-    if (picturePage) {
-      setWindowWidth(picturePage.offsetWidth);
+    const pinPage = document.getElementById('pin-page');
+    if (pinPage) {
+      setWindowWidth(pinPage.offsetWidth);
     }
   }
 
@@ -27,7 +29,7 @@ export default function Picture() {
   window.addEventListener('resize', handleResize);
 
   return (
-    <div id="picture-page">
+    <div id="pin-page">
       {windowWidth >= 768 ? <Header /> : null}
       <div className="container">
         <div className="button-container">
@@ -55,28 +57,18 @@ export default function Picture() {
         </div>
 
         <div className="content">
-          <p
-            className="label"
-            style={disabled ? { color: '#9c9c9c' } : { color: '#252525' }}
-          >
-            Adicione uma foto!
+          <p className={disabled ? 'label-disabled' : 'label'}>
+            Novo PIN dos administradores
+          </p>
+          <p className="sub-label">
+            Será necessário para fazer alterações em configurações e cardápios
           </p>
 
-          <img
-            src={defaultEstablishement}
-            style={
-              disabled
-                ? { border: '2px solid #9c9c9c' }
-                : { border: '2px solid #535BFE' }
-            }
-            className="image"
-            alt=""
+          <PinCodeInput
+            adminPin={pin}
+            disabled={disabled}
+            onChangeAdminPin={setPin}
           />
-          {!disabled && (
-            <button className="img-button" type="button">
-              Carregar foto
-            </button>
-          )}
 
           {windowWidth >= 768 && !disabled ? (
             <button className="submit-button-disabled" type="button">
