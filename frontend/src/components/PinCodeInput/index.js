@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import './styles.css';
 
 export default function PinCodeInput({
-  adminPin,
+  adminPin = '    ',
   onChangeAdminPin,
   disabled = false,
 }) {
@@ -50,8 +50,12 @@ export default function PinCodeInput({
         maxLength="1"
         value={firstInput}
         ref={firstInputRef}
-        autoFocus //eslint-disable-line
         disabled={disabled}
+        onKeyDown={(e) => {
+          if (e.keyCode === 39) {
+            secondInputRef.current.focus();
+          }
+        }}
         onChange={(e) => {
           handleInput(e.target.value, 0);
           if (e.target.value) {
@@ -68,11 +72,13 @@ export default function PinCodeInput({
         ref={secondInputRef}
         disabled={disabled}
         onKeyDown={(e) => {
-          if (e.keyCode === 8) {
-            if (!secondInput) {
-              handleInput('', 0);
-              firstInputRef.current.focus();
-            }
+          if (e.keyCode === 8 && !secondInput) {
+            handleInput('', 0);
+            firstInputRef.current.focus();
+          } else if (e.keyCode === 37) {
+            firstInputRef.current.focus();
+          } else if (e.keyCode === 39) {
+            thirdInputRef.current.focus();
           }
         }}
         onChange={(e) => {
@@ -91,11 +97,13 @@ export default function PinCodeInput({
         ref={thirdInputRef}
         disabled={disabled}
         onKeyDown={(e) => {
-          if (e.keyCode === 8) {
-            if (!thirdInput) {
-              handleInput('', 1);
-              secondInputRef.current.focus();
-            }
+          if (e.keyCode === 8 && !thirdInput) {
+            handleInput('', 1);
+            secondInputRef.current.focus();
+          } else if (e.keyCode === 37) {
+            secondInputRef.current.focus();
+          } else if (e.keyCode === 39) {
+            fourthInputRef.current.focus();
           }
         }}
         onChange={(e) => {
@@ -115,11 +123,11 @@ export default function PinCodeInput({
         ref={fourthInputRef}
         disabled={disabled}
         onKeyDown={(e) => {
-          if (e.keyCode === 8) {
-            if (!fourthInput) {
-              handleInput('', 2);
-              thirdInputRef.current.focus();
-            }
+          if (e.keyCode === 8 && !fourthInput) {
+            handleInput('', 2);
+            thirdInputRef.current.focus();
+          } else if (e.keyCode === 37) {
+            thirdInputRef.current.focus();
           }
         }}
         onChange={(e) => {

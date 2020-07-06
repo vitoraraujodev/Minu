@@ -23,7 +23,9 @@ export function* signIn({ payload }) {
 }
 
 export function signOut() {
-  history.push('/');
+  if (window.confirm('Tem certeza que deseja sair?')) {
+    history.push('/');
+  }
 }
 
 export function setToken({ payload }) {

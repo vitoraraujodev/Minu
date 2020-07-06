@@ -52,7 +52,7 @@ export default function Profile() {
             </div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/establishment/address">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Editar endereço</span>

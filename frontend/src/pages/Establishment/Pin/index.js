@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '~/components/Header';
 import PinCodeInput from '~/components/PinCodeInput';
+import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
 
@@ -12,6 +13,7 @@ import './styles.css';
 export default function Pin() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
+  const [pinModalVisible, setPinModalVisible] = useState(false);
 
   const [pin, setPin] = useState('');
 
@@ -31,6 +33,14 @@ export default function Pin() {
   return (
     <div id="pin-page">
       {windowWidth >= 768 ? <Header /> : null}
+
+      {pinModalVisible && (
+        <PinModal
+          onClose={() => setPinModalVisible(false)}
+          onAccess={() => setDisabled(false)}
+        />
+      )}
+
       <div className="container">
         <div className="button-container">
           <button
@@ -48,7 +58,7 @@ export default function Pin() {
               style={{ color: '#FF3636' }}
               className="button"
               type="button"
-              onClick={() => setDisabled(false)}
+              onClick={() => setPinModalVisible(true)}
             >
               Habilitar edição
               <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />

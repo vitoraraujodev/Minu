@@ -9,11 +9,7 @@
   align-items: center;
   max-width: 560px;
   margin: 0 auto;
-  height: 100%;
   padding: 0 24px;
-  height: 100%;
-  overflow-x: scroll;
-
 }
 
 #picture-page .button-container {
@@ -34,7 +30,6 @@
 }
 
 #picture-page .content {
-  margin: 32px 0;
 }
 
 #picture-page .label {
@@ -45,6 +40,7 @@
 }
 
 #picture-page .image {
+  min-width: 250px;
   width: 100%;
   border-radius: 6px;
 }
@@ -113,12 +109,16 @@
   }
 
   #picture-page .container {
+    height: 100%;
     padding-bottom: 104px;
+  }
+
+  #picture-page .button-container {
+    margin-top: 0;
   }
 
   #picture-page .content {
     position: relative;
-    margin-top: 0;
     top: 10%;
   }
 

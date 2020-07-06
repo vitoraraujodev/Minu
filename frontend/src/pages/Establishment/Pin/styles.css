@@ -9,11 +9,7 @@
   align-items: center;
   max-width: 432px;
   margin: 0 auto;
-  height: 100%;
   padding: 0 24px;
-  height: 100%;
-  overflow-x: scroll;
-
 }
 
 #pin-page .button-container {
@@ -34,10 +30,9 @@
 }
 
 #pin-page .content {
-  margin-bottom: 32px;
-  position: relative;
-  margin-top: 0;
   top: 8%;
+  margin-bottom: 32px;
+  margin-top: 56px;
 }
 
 #pin-page .label {
@@ -103,6 +98,11 @@
 
   #pin-page .container {
     padding-bottom: 104px;
+    height: 100%;
+  }
+
+  #pin-page .button-container {
+    margin-top: 0;
   }
 
   #pin-page .content {

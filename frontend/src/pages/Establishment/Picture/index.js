@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Header from '~/components/Header';
+import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
 import defaultEstablishement from '~/assets/images/default-establishment.png';
@@ -12,6 +13,7 @@ import './styles.css';
 export default function Picture() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
+  const [pinModalVisible, setPinModalVisible] = useState(false);
 
   function handleResize() {
     const picturePage = document.getElementById('picture-page');
@@ -29,6 +31,14 @@ export default function Picture() {
   return (
     <div id="picture-page">
       {windowWidth >= 768 ? <Header /> : null}
+
+      {pinModalVisible && (
+        <PinModal
+          onClose={() => setPinModalVisible(false)}
+          onAccess={() => setDisabled(false)}
+        />
+      )}
+
       <div className="container">
         <div className="button-container">
           <button
@@ -46,7 +56,7 @@ export default function Picture() {
               style={{ color: '#FF3636' }}
               className="button"
               type="button"
-              onClick={() => setDisabled(false)}
+              onClick={() => setPinModalVisible(true)}
             >
               Habilitar edição
               <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />

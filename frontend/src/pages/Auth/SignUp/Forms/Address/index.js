@@ -267,7 +267,6 @@ export default function Address({
               isDisabled={!state}
               onChange={(e) => {
                 onChangeCity(e.value);
-                onChangeCity(e.value);
               }}
             />
           </div>
