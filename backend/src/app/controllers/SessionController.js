@@ -47,6 +47,8 @@ class SessionController {
       city,
       state,
       photo,
+      rating,
+      raters,
     } = establishment;
 
     return res.json({
@@ -64,6 +66,8 @@ class SessionController {
         city,
         state,
         photo,
+        rating,
+        raters,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
