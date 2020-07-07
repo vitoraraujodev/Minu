@@ -118,6 +118,8 @@ class EstablishmentController {
       city,
       state,
       photo,
+      rating,
+      raters,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
@@ -150,6 +152,8 @@ class EstablishmentController {
       city,
       state,
       photo,
+      rating,
+      raters,
     });
   }
 }

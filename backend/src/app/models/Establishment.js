@@ -66,6 +66,10 @@ class Establishment extends Model {
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }
+
+  checkPin(admin_pin) { // eslint-disable-line
+    return bcrypt.compare(admin_pin, this.admin_pin_hash);
+  }
 }
 
 export default Establishment;

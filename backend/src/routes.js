@@ -5,6 +5,7 @@ import multerConfig from './config/multer';
 import authMiddleware from './app/middlewares/auth';
 
 import SessionController from './app/controllers/SessionController';
+import PinController from './app/controllers/PinController';
 import EstablishmentsController from './app/controllers/EstablishmentController';
 import FileController from './app/controllers/FileController';
 import MenuController from './app/controllers/MenuController';
@@ -20,6 +21,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionController.store);
+routes.post('/pin/:id', PinController.store);
 
 routes.post('/establishments', EstablishmentsController.store);
 routes.put('/establishments', authMiddleware, EstablishmentsController.update);
