@@ -6,7 +6,7 @@ import filledStar from '~/assets/images/filled-star.svg';
 import './styles.css';
 
 export default function StarRating({ rating, raters }) {
-  const width = (87 * rating) / 10;
+  const width = (87.11 * rating) / 10;
 
   return (
     <div className="star-rating-container">

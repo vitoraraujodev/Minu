@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import PinCodeInput from '~/components/PinCodeInput';
 
+import api from '~/services/api';
+
 import './styles.css';
 
-export default function PinModal({ onClose, onAccess }) {
+export default function PinModal({ establishment_id, onClose, onAccess }) {
   const [pin, setPin] = useState('');
   const [filled, setFilled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
 
   useEffect(() => {
+    setInvalid(false);
+
     if (pin.length === 4) {
       setFilled(true);
     } else {
@@ -17,13 +22,23 @@ export default function PinModal({ onClose, onAccess }) {
     }
   }, [pin]);
 
-  function handleConfirm() {
-    if (pin === '1234') {
-      onAccess();
-      onClose();
-    } else {
+  async function handleConfirm() {
+    setLoading(true);
+
+    try {
+      const response = await api.post(`pin/${establishment_id}`, {
+        admin_pin: pin,
+      });
+
+      if (response.data.okay) {
+        onAccess();
+        onClose();
+      }
+    } catch (err) {
       setInvalid(true);
     }
+
+    setLoading(false);
   }
 
   return (
@@ -50,7 +65,7 @@ export default function PinModal({ onClose, onAccess }) {
             }
             onClick={filled ? handleConfirm : null}
           >
-            Confirmar
+            {loading ? 'Carregando' : 'Confirmar'}
           </button>
         </div>
       </div>

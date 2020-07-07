@@ -51,6 +51,7 @@ export default function PinCodeInput({
         value={firstInput}
         ref={firstInputRef}
         disabled={disabled}
+        autoFocus // eslint-disable-line
         onKeyDown={(e) => {
           if (e.keyCode === 39) {
             secondInputRef.current.focus();

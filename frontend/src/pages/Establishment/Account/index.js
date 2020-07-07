@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
 
+import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
+
 import history from '~/services/history';
 
 import './styles.css';
 
 export default function Account() {
+  const establishment = useSelector(
+    (state) => state.establishment.establishment
+  );
+  const dispatch = useDispatch();
+
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
+  const [filled, setFilled] = useState(true);
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
-  const [establishmentName, setEstablishmentName] = useState('');
-  const [managerName, setManagerName] = useState('');
-  const [managerLastName, setManagerLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [establishmentName, setEstablishmentName] = useState(
+    establishment.establishment_name
+  );
+  const [managerName, setManagerName] = useState(establishment.manager_name);
+  const [managerLastName, setManagerLastName] = useState(
+    establishment.manager_lastname
+  );
+  const [email, setEmail] = useState(establishment.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -32,7 +45,37 @@ export default function Account() {
     setWindowWidth(window.innerWidth);
   }, []);
 
+  useEffect(() => {
+    if (establishmentName && managerName && managerLastName && email) {
+      if (password !== confirmPassword) {
+        setFilled(false);
+      } else {
+        setFilled(true);
+      }
+    } else {
+      setFilled(false);
+    }
+  }, [
+    establishmentName,
+    managerName,
+    managerLastName,
+    email,
+    password,
+    confirmPassword,
+  ]);
+
   window.addEventListener('resize', handleResize);
+
+  function handleSubmit() {
+    const data = {
+      establishment_name: establishmentName,
+      manager_name: managerName,
+      manager_lastname: managerLastName,
+      email,
+    };
+
+    dispatch(updateEstablishmentRequest(data));
+  }
 
   return (
     <div id="account-page">
@@ -40,6 +83,7 @@ export default function Account() {
 
       {pinModalVisible && (
         <PinModal
+          establishment_id={establishment.id}
           onClose={() => setPinModalVisible(false)}
           onAccess={() => setDisabled(false)}
         />
@@ -76,7 +120,7 @@ export default function Account() {
             </p>
             <input
               value={establishmentName}
-              className="input"
+              className={disabled ? 'input-disabled' : 'input'}
               disabled={disabled}
               placeholder="Restaurante X"
               onChange={(e) => setEstablishmentName(e.target.value)}
@@ -91,14 +135,14 @@ export default function Account() {
               onChange={(e) => setManagerName(e.target.value)}
               disabled={disabled}
               placeholder="Nome"
-              className="input"
+              className={disabled ? 'input-disabled' : 'input'}
             />
             <p className={disabled ? 'input-label-disabled' : 'input-label'}>
               Sobrenome
             </p>
             <input
               value={managerLastName}
-              className="input"
+              className={disabled ? 'input-disabled' : 'input'}
               disabled={disabled}
               placeholder="Sobrenome"
               onChange={(e) => setManagerLastName(e.target.value)}
@@ -112,7 +156,7 @@ export default function Account() {
               type="email"
               value={email}
               disabled={disabled}
-              className="input"
+              className={disabled ? 'input-disabled' : 'input'}
               placeholder="exemplo@email.com"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -126,7 +170,8 @@ export default function Account() {
             </p>
             <input
               value={password}
-              className="input"
+              type="password"
+              className={disabled ? 'input-disabled' : 'input'}
               disabled={disabled}
               placeholder="********"
               onChange={(e) => setPassword(e.target.value)}
@@ -136,21 +181,38 @@ export default function Account() {
             </p>
             <input
               value={confirmPassword}
-              className="input"
+              type="password"
+              className={disabled ? 'input-disabled' : 'input'}
+              style={
+                confirmPassword && password !== confirmPassword
+                  ? { border: '2px solid #FF3636' }
+                  : null
+              }
               disabled={disabled}
               placeholder="********"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
           {windowWidth >= 768 && !disabled ? (
-            <button className="submit-button-enabled" type="button">
+            <button
+              className={
+                filled ? 'submit-button-enabled' : 'submit-button-disabled'
+              }
+              type="button"
+              onClick={filled ? handleSubmit : null}
+            >
               Concluir
             </button>
           ) : null}
         </div>
       </div>
       {windowWidth < 768 && !disabled ? (
-        <button className="submit-button-enabled" type="button">
+        <button
+          className={
+            filled ? 'submit-button-enabled' : 'submit-button-disabled'
+          }
+          type="button"
+        >
           Concluir
         </button>
       ) : null}
