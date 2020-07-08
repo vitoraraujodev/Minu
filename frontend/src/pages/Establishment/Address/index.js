@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import cepPromise from 'cep-promise';
 import Select from 'react-select';
 
@@ -7,6 +8,8 @@ import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
 
+import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
+
 import history from '~/services/history';
 
 import { estados } from '~/json/states-cities.json';
@@ -14,19 +17,27 @@ import { estados } from '~/json/states-cities.json';
 import './styles.css';
 
 export default function Address() {
+  const establishment = useSelector(
+    (state) => state.establishment.establishment
+  );
+  const dispatch = useDispatch();
+
   const [windowWidth, setWindowWidth] = useState(768);
   const [formWidth, setFormWidth] = useState();
   const [pinModalVisible, setPinModalVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   const [validCep, setValidCep] = useState(true);
+  const [filled, setFilled] = useState(true);
 
-  const [cep, setCep] = useState('');
-  const [addressNumber, setAddressNumber] = useState();
-  const [street, setStreet] = useState('');
-  const [complement, setComplement] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
+  const [cep, setCep] = useState(establishment.cep);
+  const [addressNumber, setAddressNumber] = useState(
+    establishment.address_number
+  );
+  const [street, setStreet] = useState(establishment.street);
+  const [complement, setComplement] = useState(establishment.complement);
+  const [state, setState] = useState(establishment.state);
+  const [city, setCity] = useState(establishment.city);
 
   const citiesArray = [];
   const statesArray = [];
@@ -174,6 +185,27 @@ export default function Address() {
     }),
   };
 
+  useEffect(() => {
+    if (cep && addressNumber && street && complement && city && state) {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
+  }, [cep, addressNumber, street, complement, city, state]);
+
+  function handleSubmit() {
+    const data = {
+      cep,
+      address_number: addressNumber,
+      street,
+      complement,
+      state,
+      city,
+    };
+
+    dispatch(updateEstablishmentRequest(data));
+  }
+
   return (
     <div id="address-page">
       {windowWidth >= 768 ? <Header /> : null}
@@ -316,14 +348,26 @@ export default function Address() {
           </div>
 
           {windowWidth >= 768 && !disabled ? (
-            <button className="submit-button-enabled" type="button">
+            <button
+              className={
+                filled ? 'submit-button-enabled' : 'submit-button-disabled'
+              }
+              onClick={filled ? handleSubmit : null}
+              type="button"
+            >
               Concluir
             </button>
           ) : null}
         </div>
       </div>
       {windowWidth < 768 && !disabled ? (
-        <button className="submit-button-enabled" type="button">
+        <button
+          className={
+            filled ? 'submit-button-enabled' : 'submit-button-disabled'
+          }
+          onClick={filled ? handleSubmit : null}
+          type="button"
+        >
           Concluir
         </button>
       ) : null}

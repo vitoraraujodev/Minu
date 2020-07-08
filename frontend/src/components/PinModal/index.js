@@ -6,7 +6,7 @@ import api from '~/services/api';
 
 import './styles.css';
 
-export default function PinModal({ establishment_id, onClose, onAccess }) {
+export default function PinModal({ onClose, onAccess }) {
   const [pin, setPin] = useState('');
   const [filled, setFilled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,9 +24,8 @@ export default function PinModal({ establishment_id, onClose, onAccess }) {
 
   async function handleConfirm() {
     setLoading(true);
-
     try {
-      const response = await api.post(`pin/${establishment_id}`, {
+      const response = await api.post('pin', {
         admin_pin: pin,
       });
 

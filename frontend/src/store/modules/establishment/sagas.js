@@ -20,8 +20,9 @@ export function* updateEstablishment({ payload }) {
 
     history.push('/');
   } catch (err) {
-    alert('Erro ao atualizar estabelecimento, confira seus dados');
-
+    if (err.response.data) {
+      alert(err.response.data.error);
+    }
     yield put(updateEstablishmentFailure());
   }
 }

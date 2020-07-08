@@ -83,7 +83,6 @@ export default function Account() {
 
       {pinModalVisible && (
         <PinModal
-          establishment_id={establishment.id}
           onClose={() => setPinModalVisible(false)}
           onAccess={() => setDisabled(false)}
         />
@@ -166,7 +165,7 @@ export default function Account() {
             style={{ border: 0, marginBottom: 0, paddingBottom: 0 }}
           >
             <p className={disabled ? 'input-label-disabled' : 'input-label'}>
-              Senha
+              Nova senha
             </p>
             <input
               value={password}
@@ -177,7 +176,7 @@ export default function Account() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <p className={disabled ? 'input-label-disabled' : 'input-label'}>
-              Confirme sua senha
+              Confirme sua nova senha
             </p>
             <input
               value={confirmPassword}
@@ -195,10 +194,10 @@ export default function Account() {
           </div>
           {windowWidth >= 768 && !disabled ? (
             <button
+              type="button"
               className={
                 filled ? 'submit-button-enabled' : 'submit-button-disabled'
               }
-              type="button"
               onClick={filled ? handleSubmit : null}
             >
               Concluir
@@ -208,10 +207,11 @@ export default function Account() {
       </div>
       {windowWidth < 768 && !disabled ? (
         <button
+          type="button"
           className={
             filled ? 'submit-button-enabled' : 'submit-button-disabled'
           }
-          type="button"
+          onClick={filled ? handleSubmit : null}
         >
           Concluir
         </button>

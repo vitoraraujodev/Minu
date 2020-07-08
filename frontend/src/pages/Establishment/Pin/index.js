@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Header from '~/components/Header';
 import PinCodeInput from '~/components/PinCodeInput';
@@ -6,12 +7,17 @@ import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
 
+import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
+
 import history from '~/services/history';
 
 import './styles.css';
 
 export default function Pin() {
+  const dispatch = useDispatch();
+
   const [windowWidth, setWindowWidth] = useState(768);
+  const [filled, setFilled] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
@@ -29,6 +35,22 @@ export default function Pin() {
   }, []);
 
   window.addEventListener('resize', handleResize);
+
+  useEffect(() => {
+    if (pin.length === 4) {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
+  }, [pin]);
+
+  function handleSubmit() {
+    const data = {
+      admin_pin: pin,
+    };
+
+    dispatch(updateEstablishmentRequest(data));
+  }
 
   return (
     <div id="pin-page">
@@ -81,14 +103,26 @@ export default function Pin() {
           />
 
           {windowWidth >= 768 && !disabled ? (
-            <button className="submit-button-disabled" type="button">
+            <button
+              className={
+                filled ? 'submit-button-enabled' : 'submit-button-disabled'
+              }
+              type="button"
+              onClick={filled ? handleSubmit : null}
+            >
               Concluir
             </button>
           ) : null}
         </div>
       </div>
       {windowWidth < 768 && !disabled ? (
-        <button className="submit-button-enabled" type="button">
+        <button
+          className={
+            filled ? 'submit-button-enabled' : 'submit-button-disabled'
+          }
+          type="button"
+          onClick={filled ? handleSubmit : null}
+        >
           Concluir
         </button>
       ) : null}
