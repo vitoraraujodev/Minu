@@ -21,7 +21,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionController.store);
-routes.post('/pin/:id', PinController.store);
+routes.post('/pin', authMiddleware, PinController.store);
 
 routes.post('/establishments', EstablishmentsController.store);
 routes.put('/establishments', authMiddleware, EstablishmentsController.update);
@@ -65,6 +65,12 @@ routes.post('/establishments/:id/ratings', EstablishmentRatingController.store);
 routes.get('/items/:id/ratings', ItemRatingController.index);
 routes.post('/items/:id/ratings', ItemRatingController.store);
 
-routes.post('/files', upload.single('file'), FileController.store);
+routes.post(
+  '/files',
+  authMiddleware,
+  upload.single('file'),
+  FileController.store
+);
+routes.delete('/files/:id', authMiddleware, FileController.delete);
 
 export default routes;

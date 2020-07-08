@@ -14,7 +14,7 @@ class PinController {
 
     const { admin_pin } = req.body; // eslint-disable-line
 
-    const establishment = await Establishment.findByPk(req.params.id);
+    const establishment = await Establishment.findByPk(req.establishmentId);
 
     if (!establishment) {
       return res.status(400).json({ error: "Establishment doesn't exist." });

@@ -56,6 +56,7 @@ class EstablishmentController {
       complement: Yup.string(),
       city: Yup.string(),
       state: Yup.string(),
+      admin_pin: Yup.string().length(4),
       old_password: Yup.string().min(6),
       password: Yup.string()
         .min(6)
@@ -81,7 +82,7 @@ class EstablishmentController {
       });
 
       if (establishmentExists) {
-        return res.status(400).json({ errer: 'E-mail already in use.' });
+        return res.status(400).json({ error: 'E-mail already in use.' });
       }
     }
 
@@ -91,7 +92,7 @@ class EstablishmentController {
       });
 
       if (establishmentExists) {
-        return res.status(400).json({ errer: 'Establishment already exists.' });
+        return res.status(400).json({ error: 'Establishment already exists.' });
       }
     }
 

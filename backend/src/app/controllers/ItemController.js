@@ -16,7 +16,7 @@ class ItemController {
         'description',
         'price',
         'available',
-        'preparetion_time',
+        'preparation_time',
         'establishment_id',
         'rating',
         'raters',
@@ -47,7 +47,7 @@ class ItemController {
       description: Yup.string(),
       available: Yup.string(),
       price: Yup.number().required(),
-      preparetion_time: Yup.number().required(),
+      preparation_time: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -79,7 +79,7 @@ class ItemController {
       description: Yup.string(),
       available: Yup.string(),
       price: Yup.number(),
-      preparetion_time: Yup.number(),
+      preparation_time: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {

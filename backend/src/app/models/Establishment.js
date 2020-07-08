@@ -30,11 +30,13 @@ class Establishment extends Model {
     );
     // Before saving, encrypts password and saves as password_hash
     this.addHook('beforeSave', async (establishment) => {
-      if (establishment.password && establishment.admin_pin) {
+      if (establishment.password) {
         establishment.password_hash = await bcrypt.hash(
           establishment.password,
           8
         );
+      }
+      if (establishment.admin_pin) {
         establishment.admin_pin_hash = await bcrypt.hash(
           establishment.admin_pin,
           8

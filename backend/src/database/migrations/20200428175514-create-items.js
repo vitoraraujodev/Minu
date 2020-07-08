@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
-      preparetion_time: {
+      preparation_time: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
