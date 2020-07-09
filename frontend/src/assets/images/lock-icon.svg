@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 19 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #ff3636;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #ff3636;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1449" data-name="Grupo 1449" transform="translate(-1079.078 -862.186)">
+    <g id="Retângulo_564" data-name="Retângulo 564" class="cls-1" transform="translate(1083.078 862.186)">
+      <rect class="cls-3" width="11" height="19" rx="5.5"/>
+      <rect class="cls-4" x="1" y="1" width="9" height="17" rx="4.5"/>
+    </g>
+    <g id="Retângulo_563" data-name="Retângulo 563" class="cls-1" transform="translate(1079.078 869.186)">
+      <rect class="cls-3" width="19" height="17" rx="5"/>
+      <rect class="cls-4" x="1" y="1" width="17" height="15" rx="4"/>
+    </g>
+    <rect id="Retângulo_565" data-name="Retângulo 565" class="cls-2" width="3" height="6" transform="translate(1087.078 875.186)"/>
+    <circle id="Elipse_54" data-name="Elipse 54" class="cls-2" cx="2.5" cy="2.5" r="2.5" transform="translate(1086.078 874.186)"/>
+  </g>
+</svg>

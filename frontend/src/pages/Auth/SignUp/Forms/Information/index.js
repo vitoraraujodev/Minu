@@ -71,16 +71,16 @@ export default function Information({
 
       <div className="buttons-container">
         <button
-          style={{ color: '#9C9C9C' }}
+          style={{ color: '#606060' }}
           className="page-button"
           type="button"
           onClick={onBackPage}
         >
-          <Backward style={{ height: 16, marginRight: 4 }} fill="#9c9c9c" />
+          <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
           Voltar
         </button>
         <button
-          style={filled ? { color: '#535BFE' } : { color: '#9C9C9C' }}
+          style={filled ? { color: '#535BFE' } : { color: '#acacac' }}
           className="page-button"
           type="button"
           disabled={!filled}
@@ -89,7 +89,7 @@ export default function Information({
           Avançar
           <Foward
             style={{ height: 16, marginLeft: 4 }}
-            fill={filled ? '#535BFE' : '#9C9C9C'}
+            fill={filled ? '#535BFE' : '#acacac'}
           />
         </button>
       </div>

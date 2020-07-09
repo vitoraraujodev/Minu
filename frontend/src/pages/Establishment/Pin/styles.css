@@ -44,7 +44,7 @@
 
 #pin-page .label-disabled {
   font-size: 19px;
-  color: #9C9C9C;
+  color: #acacac;
   font-weight: 600;
   margin-bottom: 16px;
 }
@@ -70,7 +70,7 @@
 }
 
 #pin-page .submit-button-disabled {
-  background: #9C9C9C;
+  background: #acacac;
   cursor: default;
 }
 
@@ -99,7 +99,7 @@
   #pin-page .content {
     position: relative;
     margin-top: 0;
-    top: 15%;
+    top: 8%;
   }
 
   #pin-page .button {

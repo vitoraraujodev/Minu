@@ -7,6 +7,7 @@ import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Lock } from '~/assets/images/lock-icon.svg';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
 
@@ -141,7 +142,7 @@ export default function Address() {
     control: (styles, { isDisabled, isFocused }) => ({
       ...styles,
       backgroundColor: isDisabled ? '#f0f0f0' : 'white',
-      fontSize: 14,
+      fontSize: 15,
       height: 40,
       border: isDisabled ? 0 : 0,
       boxShadow: isFocused ? 0 : 0,
@@ -154,7 +155,7 @@ export default function Address() {
     singleValue: (styles) => ({
       ...styles,
       padding: 12,
-      color: '#252525',
+      color: disabled ? '#acacac' : '#252525',
     }),
     option: (styles) => ({
       ...styles,
@@ -174,7 +175,7 @@ export default function Address() {
     }),
     placeholder: (styles) => ({
       ...styles,
-      fontSize: 14,
+      fontSize: 15,
       padding: 12,
       color: '#9C9C9C',
       height: 40,
@@ -220,12 +221,12 @@ export default function Address() {
       <div className="container">
         <div className="button-container">
           <button
-            style={{ color: '#6E6E6E' }}
+            style={{ color: '#606060' }}
             className="button"
             type="button"
             onClick={() => history.goBack()}
           >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#6E6E6E" />
+            <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
             Voltar
           </button>
           {disabled && (
@@ -235,8 +236,8 @@ export default function Address() {
               type="button"
               onClick={() => setPinModalVisible(true)}
             >
-              Habilitar edição
-              <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />
+              Editar
+              <Lock style={{ height: 20, marginLeft: 8 }} fill="#FF3636" />
             </button>
           )}
         </div>
@@ -252,7 +253,7 @@ export default function Address() {
                 value={cep}
                 inputMode="numeric"
                   autoFocus //eslint-disable-line
-                className="input"
+                className={disabled ? 'input-disabled' : 'input'}
                 maxLength={9}
                 disabled={disabled}
                 style={validCep ? null : { border: '2px solid #FF3636' }}
@@ -280,7 +281,7 @@ export default function Address() {
                 type="number"
                 value={addressNumber}
                 disabled={disabled}
-                className="input"
+                className={disabled ? 'input-disabled' : 'input'}
                 onChange={(e) => setAddressNumber(e.target.value)}
                 placeholder="22"
               />
@@ -293,7 +294,7 @@ export default function Address() {
           <input
             name="street"
             value={street}
-            className="input"
+            className={disabled ? 'input-disabled' : 'input'}
             disabled={disabled}
             onChange={(e) => setStreet(e.target.value)}
             placeholder="Rua Oswaldo Cruz"
@@ -305,7 +306,7 @@ export default function Address() {
           <input
             name="complement"
             value={complement}
-            className="input"
+            className={disabled ? 'input-disabled' : 'input'}
             disabled={disabled}
             onChange={(e) => setComplement(e.target.value)}
             placeholder="Apartamento, bloco, lote..."

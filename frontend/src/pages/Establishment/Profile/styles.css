@@ -34,7 +34,7 @@
   color: #fff;
   border: 0;
   box-shadow: 0px 0px 5px #00000029;
-  transition: transform .2s;
+  transition: transform 0.2s;
 }
 
 #profile .img-button:hover {
@@ -55,19 +55,19 @@
   position: absolute;
   display: block;
   width: 100%;
-  padding: 16px 64px;
+  padding: 16px 40px;
   bottom: -40px;
   background: #fff;
   box-shadow: 0px 0px 6px #00000029;
 }
 
 #profile .title {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 600;
 }
 
 #profile .option-area:hover {
-  background: #f1f1f1;
+  background: #f6f6f6;
 }
 
 #profile .option {
@@ -78,7 +78,7 @@
 
 #profile .option-text {
   color: #252525;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 18px;
 }
 
@@ -86,9 +86,10 @@
   #profile {
     overflow-y: scroll;
   }
+
   #profile .info {
     bottom: -40px;
-    padding: 12px 32px;
+    padding: 12px 24px;
     width: 100%;
   }
 

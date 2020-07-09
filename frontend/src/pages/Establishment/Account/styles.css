@@ -58,7 +58,7 @@
 }
 
 #account-page .input-disabled {
-  color: #9c9c9c;
+  color: #acacac;
 }
 
 #account-page .input::placeholder {
@@ -69,7 +69,7 @@
 #account-page .input-label-disabled {
   font-size: 18px;
   margin-bottom: 8px;
-  color: #9C9C9C
+  color: #acacac;
 }
 
 #account-page .submit-button-enabled, .submit-button-disabled {
@@ -87,7 +87,7 @@
 }
 
 #account-page .submit-button-disabled {
-  background: #9C9C9C;
+  background: #acacac;
   cursor: default;
 }
 

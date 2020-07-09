@@ -55,6 +55,11 @@
   box-shadow: 0px 0px 6px #00000029;
   margin-bottom: 16px;
 }
+
+#address-page .input-disabled {
+  color: #acacac;
+}
+
 #address-page .input::placeholder {
   color: #9C9C9C;
   font-size: 16px;
@@ -63,7 +68,7 @@
 #address-page .input-label-disabled {
   font-size: 18px;
   margin-bottom: 8px;
-  color: #9C9C9C
+  color: #acacac;
 }
 
 #address-page .submit-button-enabled, .submit-button-disabled {
@@ -81,7 +86,7 @@
 }
 
 #address-page .submit-button-disabled {
-  background: #9C9C9C;
+  background: #acacac;
   cursor: default;
 }
 

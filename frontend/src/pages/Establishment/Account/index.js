@@ -5,6 +5,7 @@ import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Lock } from '~/assets/images/lock-icon.svg';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
 
@@ -31,6 +32,7 @@ export default function Account() {
     establishment.manager_lastname
   );
   const [email, setEmail] = useState(establishment.email);
+  const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -47,7 +49,10 @@ export default function Account() {
 
   useEffect(() => {
     if (establishmentName && managerName && managerLastName && email) {
-      if (password !== confirmPassword) {
+      if (
+        !(oldPassword && password && confirmPassword) ||
+        (password && password !== confirmPassword)
+      ) {
         setFilled(false);
       } else {
         setFilled(true);
@@ -60,6 +65,7 @@ export default function Account() {
     managerName,
     managerLastName,
     email,
+    oldPassword,
     password,
     confirmPassword,
   ]);
@@ -73,6 +79,14 @@ export default function Account() {
       manager_lastname: managerLastName,
       email,
     };
+
+    if (oldPassword && password && confirmPassword) {
+      data.old_password = oldPassword;
+      data.password = password;
+      data.confirm_password = confirmPassword;
+    }
+
+    console.tron.log(data);
 
     dispatch(updateEstablishmentRequest(data));
   }
@@ -91,12 +105,12 @@ export default function Account() {
       <div className="container">
         <div className="button-container">
           <button
-            style={{ color: '#6E6E6E' }}
+            style={{ color: '#606060' }}
             className="button"
             type="button"
             onClick={() => history.goBack()}
           >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#6E6E6E" />
+            <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
             Voltar
           </button>
           {disabled && (
@@ -106,8 +120,8 @@ export default function Account() {
               type="button"
               onClick={() => setPinModalVisible(true)}
             >
-              Habilitar edição
-              <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />
+              Editar
+              <Lock style={{ height: 20, marginLeft: 8 }} fill="#FF3636" />
             </button>
           )}
         </div>
@@ -164,6 +178,17 @@ export default function Account() {
             className="form"
             style={{ border: 0, marginBottom: 0, paddingBottom: 0 }}
           >
+            <p className={disabled ? 'input-label-disabled' : 'input-label'}>
+              Senha atual
+            </p>
+            <input
+              value={oldPassword}
+              type="password"
+              className={disabled ? 'input-disabled' : 'input'}
+              disabled={disabled}
+              placeholder="********"
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
             <p className={disabled ? 'input-label-disabled' : 'input-label'}>
               Nova senha
             </p>

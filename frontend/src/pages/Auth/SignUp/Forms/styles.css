@@ -1,7 +1,7 @@
 .auth-title {
   font-weight: 600;
   color: #252525;
-  font-size: 30px;
+  font-size: 28px;
   margin-bottom: 40px;;
 }
 
@@ -52,7 +52,11 @@ form input::placeholder {
 }
 
 @media screen and (max-width: 767px) {
-  .label {
+  .auth-title {
+    font-size: 25px;
+  }
+
+ .label {
     font-size: 18px;
   }
 

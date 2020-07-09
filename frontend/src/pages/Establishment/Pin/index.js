@@ -6,6 +6,7 @@ import PinCodeInput from '~/components/PinCodeInput';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Lock } from '~/assets/images/lock-icon.svg';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
 
@@ -66,12 +67,12 @@ export default function Pin() {
       <div className="container">
         <div className="button-container">
           <button
-            style={{ color: '#6E6E6E' }}
+            style={{ color: '#606060' }}
             className="button"
             type="button"
             onClick={() => history.goBack()}
           >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#6E6E6E" />
+            <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
             Voltar
           </button>
 
@@ -82,8 +83,8 @@ export default function Pin() {
               type="button"
               onClick={() => setPinModalVisible(true)}
             >
-              Habilitar edição
-              <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />
+              Editar
+              <Lock style={{ height: 20, marginLeft: 8 }} fill="#FF3636" />
             </button>
           )}
         </div>

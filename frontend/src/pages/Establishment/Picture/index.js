@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Prompt } from 'react-router';
+import { Prompt } from 'react-router-dom';
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
+import { ReactComponent as Lock } from '~/assets/images/lock-icon.svg';
 import defaultEstablishement from '~/assets/images/default-establishment.png';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
@@ -83,16 +84,18 @@ export default function Picture() {
           onAccess={() => setDisabled(false)}
         />
       )}
+
       <Prompt when={file} message={handleDelete} />
+
       <div className="container">
         <div className="button-container">
           <button
-            style={{ color: '#6E6E6E' }}
+            style={{ color: '#606060' }}
             className="button"
             type="button"
             onClick={() => history.goBack()}
           >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#6E6E6E" />
+            <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
             Voltar
           </button>
 
@@ -103,8 +106,8 @@ export default function Picture() {
               type="button"
               onClick={() => setPinModalVisible(true)}
             >
-              Habilitar edição
-              <Backward style={{ height: 16, marginLeft: 4 }} fill="#FF3636" />
+              Editar
+              <Lock style={{ height: 20, marginLeft: 8 }} fill="#FF3636" />
             </button>
           )}
         </div>
@@ -112,7 +115,7 @@ export default function Picture() {
         <div className="content">
           <p
             className="label"
-            style={disabled ? { color: '#9c9c9c' } : { color: '#252525' }}
+            style={disabled ? { color: '#acacac' } : { color: '#252525' }}
           >
             Adicione uma foto!
           </p>
