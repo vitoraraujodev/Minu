@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { ReactComponent as Profile } from '~/assets/images/profile-icon.svg';
+import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
+import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
+import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
-import { ReactComponent as Menu } from '~/assets/images/menu-icon.svg';
-import { ReactComponent as Orders } from '~/assets/images/orders-icon.svg';
-
-import logo from '~/assets/images/simple-logo.svg';
+import logo from '~/assets/icons/simple-logo.svg';
 
 import './styles.css';
 

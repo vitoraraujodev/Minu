@@ -17,6 +17,10 @@
   right: calc(50% - 1160px);
 }
 
+.circle-container .wave {
+  position: absolute;
+}
+
 .done-text {
   position: relative;
   font-size: 64px;

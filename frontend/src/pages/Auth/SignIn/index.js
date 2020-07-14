@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProgressionBar from '~/components/ProgressionBar';
-import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
-import { ReactComponent as Foward } from '~/assets/images/foward-icon.svg';
+
+import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
 import history from '~/services/history';
 

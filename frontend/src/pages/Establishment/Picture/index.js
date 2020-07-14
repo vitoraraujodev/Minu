@@ -5,8 +5,8 @@ import { Prompt } from 'react-router-dom';
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
-import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
-import { ReactComponent as Lock } from '~/assets/images/lock-icon.svg';
+import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+import { ReactComponent as Lock } from '~/assets/icons/lock-icon.svg';
 import defaultEstablishement from '~/assets/images/default-establishment.png';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { ReactComponent as Backward } from '~/assets/images/backward-icon.svg';
-import { ReactComponent as Foward } from '~/assets/images/foward-icon.svg';
+import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
 import '../styles.css';
 

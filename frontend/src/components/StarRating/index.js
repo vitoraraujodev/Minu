@@ -1,7 +1,7 @@
 import React from 'react';
 
-import emptyStar from '~/assets/images/empty-star.svg';
-import filledStar from '~/assets/images/filled-star.svg';
+import emptyStar from '~/assets/icons/empty-star.svg';
+import filledStar from '~/assets/icons/filled-star.svg';
 
 import './styles.css';
 

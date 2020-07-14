@@ -13,7 +13,8 @@
   margin: 40px auto;
   box-shadow: 0px 0px 6px #00000029;
   border-radius: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -51,6 +52,21 @@
   margin: 24px 0;
 }
 
+#inventory .add-item {
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #535BFE;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#inventory .add-item:hover {
+  background-color: #f6f6f6;
+}
+
 #inventory .lock-container {
   position: absolute;
   right: 16px;
@@ -77,5 +93,9 @@
   #inventory .header {
     border-radius: 0;
     padding: 0 24px;
+  }
+
+  #inventory .add-item {
+    font-size: 16px;
   }
 }

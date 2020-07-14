@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .add-icon1 {
+        fill: #535bfe;
+      }
+
+      .add-icon2 {
+        fill: none;
+        stroke: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_104" data-name="Grupo 104" transform="translate(-176 -240)">
+    <circle id="Elipse_3" data-name="Elipse 3" class="add-icon1" cx="8" cy="8" r="8" transform="translate(176 240)"/>
+    <line id="Linha_4" data-name="Linha 4" class="add-icon2" y2="8" transform="translate(184 244)"/>
+    <line id="Linha_5" data-name="Linha 5" class="add-icon2" x1="8" transform="translate(180 248)"/>
+  </g>
+</svg>

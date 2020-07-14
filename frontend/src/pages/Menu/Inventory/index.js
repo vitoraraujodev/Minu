@@ -4,13 +4,14 @@ import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 import Accordion from '~/components/Accordion';
 
-import { ReactComponent as Wave } from '~/assets/images/wave.svg';
-import { ReactComponent as Lock } from '~/assets/images/edit-lock.svg';
+import { ReactComponent as Wave } from '~/assets/icons/wave.svg';
+import { ReactComponent as Lock } from '~/assets/icons/edit-lock.svg';
+import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 
 import './styles.css';
 
 export default function Inventory() {
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
   return (
@@ -34,18 +35,27 @@ export default function Inventory() {
 
         <div className="content">
           <Accordion title="Cardápios" disabled={disabled}>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
+            <div className="add-item">
+              <AddIcon style={{ height: 16, marginRight: 8 }} />
+              <p>Novo cardápio</p>
+            </div>
           </Accordion>
 
           <Accordion title="Produtos" disabled={disabled}>
+            <div className="add-item">
+              <AddIcon style={{ height: 16, marginRight: 8 }} />
+              <p>Novo produto</p>
+            </div>
             <p className="accordion-text">Falae</p>
             <p className="accordion-text">Falae</p>
             <p className="accordion-text">Falae</p>
           </Accordion>
 
           <Accordion title="Adicionais" disabled={disabled}>
+            <div className="add-item">
+              <AddIcon style={{ height: 16, marginRight: 8 }} />
+              <p>Novo adicional</p>
+            </div>
             <p className="accordion-text">Falae</p>
             <p className="accordion-text">Falae</p>
             <p className="accordion-text">Falae</p>

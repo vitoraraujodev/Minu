@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import { ReactComponent as ExpandArrow } from '~/assets/images/expand-arrow.svg';
+import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 
 import './styles.css';
 
