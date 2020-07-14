@@ -4,6 +4,7 @@
 }
 
 #inventory .container {
+  position: relative;
   display: block;
   justify-content: center;
   align-items: center;
@@ -50,6 +51,12 @@
   margin: 24px 0;
 }
 
+#inventory .lock-container {
+  position: absolute;
+  right: 16px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 767px) {
   #inventory {
     overflow-y: scroll;
@@ -60,7 +67,7 @@
     justify-content: center;
     align-items: center;
     max-width: 560px;
-    height: none;
+    height: auto;
     margin: 0 auto;
     box-shadow: none;
     border-radius: 0;

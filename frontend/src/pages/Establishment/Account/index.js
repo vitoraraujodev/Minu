@@ -50,8 +50,9 @@ export default function Account() {
   useEffect(() => {
     if (establishmentName && managerName && managerLastName && email) {
       if (
-        !(oldPassword && password && confirmPassword) ||
-        (password && password !== confirmPassword)
+        ((oldPassword || password || confirmPassword) &&
+          !(oldPassword && password && confirmPassword)) ||
+        password !== confirmPassword
       ) {
         setFilled(false);
       } else {

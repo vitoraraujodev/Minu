@@ -4,7 +4,7 @@
   margin-bottom: 16px;
 }
 
-#accordion .accordion-tab {
+#accordion .accordion-tab, .accordion-tab-disabled {
   margin: 0 24px;
   background-color: #fff;
   color: #535BFE;
@@ -17,16 +17,18 @@
   box-shadow: 0px 0px 6px #00000029;
   padding: 12px 24px;
   z-index: 2;
+  font-size: 19px;
+  font-weight: 600;
+  color: #535BFE;
+}
+
+#accordion .accordion-tab-disabled {
+  color: #acacac;
+  cursor: default;
 }
 
 #accordion .accordion-tab:hover {
   background-color: #f6f6f6;
-}
-
-#accordion .accordion-title {
-  font-size: 19px;
-  font-weight: 600;
-  color: #535BFE;
 }
 
 #accordion .accordion-icon {
