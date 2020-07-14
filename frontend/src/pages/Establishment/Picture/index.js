@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Prompt } from 'react-router-dom';
+
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 
@@ -27,9 +28,7 @@ export default function Picture() {
   const [submit, setSubmit] = useState(false);
 
   const [file, setFile] = useState();
-  const [photo, setPhoto] = useState(
-    establishment.photo ? establishment.photo.url : ''
-  );
+  const [photo, setPhoto] = useState('');
 
   function handleResize() {
     const picturePage = document.getElementById('picture-page');
@@ -121,7 +120,10 @@ export default function Picture() {
           </p>
 
           <img
-            src={photo || defaultEstablishement}
+            src={photo || establishment.photo.url}
+            onError={(e) => {
+              e.target.src = defaultEstablishement;
+            }}
             className={disabled ? 'image-disabled' : 'image'}
             alt=""
           />

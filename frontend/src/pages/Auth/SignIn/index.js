@@ -41,7 +41,6 @@ export default function SignUp() {
             name="email"
             type="email"
             className="form-input"
-            autoFocus //eslint-disable-line
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
           />

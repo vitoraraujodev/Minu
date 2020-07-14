@@ -27,11 +27,10 @@ export default function Profile() {
       <div className="container">
         <div className="info-container">
           <img
-            src={
-              establishment.photo
-                ? establishment.photo.url
-                : defaultEstablishement
-            }
+            src={establishment.photo.url}
+            onError={(e) => {
+              e.target.src = defaultEstablishement;
+            }}
             className="establishment-img"
             alt="establishment"
           />

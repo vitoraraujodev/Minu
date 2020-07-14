@@ -37,7 +37,7 @@ export default function Intro() {
 
             <Link to="/signup">
               <button type="button" className="register-button">
-                Cadastre seu restaurante
+                Cadastre o seu restaurante
               </button>
             </Link>
           </div>

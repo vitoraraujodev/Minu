@@ -1,6 +1,7 @@
 #tabnavigator {
   width: 100%;
   background: #535BFE;
+  z-index: 5;
 }
 
 #tabnavigator .header-content {

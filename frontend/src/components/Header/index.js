@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { ReactComponent as Profile } from '~/assets/images/profile-icon.svg';
 
@@ -11,8 +11,10 @@ import logo from '~/assets/images/simple-logo.svg';
 import './styles.css';
 
 export default function Header() {
-  const [windowWidth, setWindowWidth] = useState();
-  const [active, setActive] = useState('');
+  const location = useLocation();
+
+  const [windowWidth, setWindowWidth] = useState(768);
+  const [active, setActive] = useState();
 
   function handleResize() {
     const tabnavigator = document.getElementById('tabnavigator');
@@ -20,6 +22,12 @@ export default function Header() {
       setWindowWidth(tabnavigator.offsetWidth);
     }
   }
+
+  useEffect(() => {
+    if (location.pathname === '/orders') setActive('orders');
+    if (location.pathname === '/menus') setActive('menu');
+    if (location.pathname === '/establishment') setActive('establishment');
+  }, [location.pathname]);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -42,7 +50,7 @@ export default function Header() {
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
-              to="/menu"
+              to="/menus"
             >
               Cardápios
             </NavLink>
@@ -63,40 +71,24 @@ export default function Header() {
       ) : (
         <div style={{ margin: 'auto', maxWidth: 560 }}>
           <div className="header-content">
-            <NavLink
-              className="navlink"
-              to="/orders"
-              isActive={() => {
-                setActive('orders');
-              }}
-            >
+            <NavLink className="navlink" to="/orders">
               <Orders
                 fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
               />
             </NavLink>
-            <NavLink
-              className="navlink"
-              to="/menu"
-              isActive={() => {
-                setActive('menu');
-              }}
-            >
+
+            <NavLink className="navlink" to="/menus">
               <Menu
                 fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
               />
             </NavLink>
-            <NavLink
-              className="navlink"
-              to="/establishment"
-              isActive={() => {
-                setActive('profile');
-              }}
-            >
+
+            <NavLink className="navlink" to="/establishment">
               <Profile
-                fill={active === 'profile' ? '#535BFE' : '#cfcfcf'}
-                stroke={active === 'profile' ? '#535BFE' : '#cfcfcf'}
+                fill={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
+                stroke={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
               />
             </NavLink>

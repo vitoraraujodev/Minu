@@ -12,6 +12,8 @@ import Account from '~/pages/Establishment/Account';
 import Pin from '~/pages/Establishment/Pin';
 import Address from '~/pages/Establishment/Address';
 
+import Inventory from '~/pages/Menu/Inventory';
+
 import history from '~/services/history';
 
 export default function Routes() {
@@ -21,11 +23,14 @@ export default function Routes() {
         <Route path="/" exact component={Home} notPrivate />
         <Route path="/signup" component={SignUp} notPrivate />
         <Route path="/login" component={SignIn} notPrivate />
+
         <Route path="/establishment" exact component={Profile} private />
         <Route path="/establishment/picture" component={Picture} private />
         <Route path="/establishment/account" component={Account} private />
         <Route path="/establishment/pin" component={Pin} private />
         <Route path="/establishment/address" component={Address} private />
+
+        <Route path="/menus" component={Inventory} private />
       </Switch>
     </Router>
   );

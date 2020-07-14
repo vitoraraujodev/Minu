@@ -25,7 +25,7 @@ export default function End({ email, password }) {
           <br />
           Concluído!
         </h1>
-        <Link to="/establishment/menu">
+        <Link to="/menus">
           <button className="menu-button" onClick={handleLogin} type="button">
             Faça seu cardápio!
           </button>
