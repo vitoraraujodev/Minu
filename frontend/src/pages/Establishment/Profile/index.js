@@ -7,7 +7,7 @@ import StarRating from '~/components/StarRating';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 
-import defaultEstablishement from '~/assets/images/default-establishment.png';
+import defaultPicture from '~/assets/images/default-picture.png';
 
 import './styles.css';
 
@@ -27,13 +27,9 @@ export default function Profile() {
       <div className="container">
         <div className="info-container">
           <img
-            src={
-              establishment.photo
-                ? establishment.photo.url
-                : defaultEstablishement
-            }
+            src={establishment.photo ? establishment.photo.url : defaultPicture}
             onError={(e) => {
-              e.target.src = defaultEstablishement;
+              e.target.src = defaultPicture;
             }}
             className="establishment-img"
             alt="establishment"

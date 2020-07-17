@@ -7,7 +7,7 @@ import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Lock } from '~/assets/icons/lock-icon.svg';
-import defaultEstablishement from '~/assets/images/default-establishment.png';
+import defaultPicture from '~/assets/images/default-picture.png';
 
 import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
 
@@ -63,7 +63,6 @@ export default function Picture() {
 
   async function handleDelete() {
     if (file && !submit) {
-      console.tron.log('ow');
       await api.delete(`files/${file}`);
     }
   }
@@ -122,7 +121,7 @@ export default function Picture() {
           <img
             src={photo || establishment.photo.url}
             onError={(e) => {
-              e.target.src = defaultEstablishement;
+              e.target.src = defaultPicture;
             }}
             className={disabled ? 'image-disabled' : 'image'}
             alt=""

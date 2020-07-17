@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
@@ -42,13 +43,12 @@ export default function Inventory() {
           </Accordion>
 
           <Accordion title="Produtos" disabled={disabled}>
-            <div className="add-item">
-              <AddIcon style={{ height: 16, marginRight: 8 }} />
-              <p>Novo produto</p>
-            </div>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
+            <Link to="product">
+              <div className="add-item">
+                <AddIcon style={{ height: 16, marginRight: 8 }} />
+                <p>Novo produto</p>
+              </div>
+            </Link>
           </Accordion>
 
           <Accordion title="Adicionais" disabled={disabled}>
@@ -56,9 +56,6 @@ export default function Inventory() {
               <AddIcon style={{ height: 16, marginRight: 8 }} />
               <p>Novo adicional</p>
             </div>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
-            <p className="accordion-text">Falae</p>
           </Accordion>
         </div>
 

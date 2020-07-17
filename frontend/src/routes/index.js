@@ -13,6 +13,7 @@ import Pin from '~/pages/Establishment/Pin';
 import Address from '~/pages/Establishment/Address';
 
 import Inventory from '~/pages/Menu/Inventory';
+import NewItem from '~/pages/Menu/Item/New';
 
 import history from '~/services/history';
 
@@ -31,6 +32,7 @@ export default function Routes() {
         <Route path="/establishment/address" component={Address} private />
 
         <Route path="/menus" component={Inventory} private />
+        <Route path="/product" component={NewItem} private />
       </Switch>
     </Router>
   );
