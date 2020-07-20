@@ -7,6 +7,7 @@ class Item extends Model {
         code: Sequelize.STRING,
         title: Sequelize.STRING,
         description: Sequelize.STRING,
+        category: Sequelize.STRING,
         preparation_time: Sequelize.STRING,
         price: Sequelize.FLOAT,
         available: Sequelize.BOOLEAN,

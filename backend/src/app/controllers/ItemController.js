@@ -14,6 +14,7 @@ class ItemController {
         'title',
         'code',
         'description',
+        'category',
         'price',
         'available',
         'preparation_time',
@@ -45,6 +46,7 @@ class ItemController {
       title: Yup.string().required(),
       code: Yup.string(),
       description: Yup.string(),
+      category: Yup.string().required(),
       available: Yup.string(),
       price: Yup.number().required(),
       preparation_time: Yup.number().required(),
@@ -76,6 +78,7 @@ class ItemController {
     const schema = Yup.object().shape({
       title: Yup.string(),
       code: Yup.string(),
+      category: Yup.string(),
       description: Yup.string(),
       available: Yup.string(),
       price: Yup.number(),
