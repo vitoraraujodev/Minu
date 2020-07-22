@@ -31,8 +31,8 @@ export default function Routes() {
         <Route path="/establishment/pin" component={Pin} private />
         <Route path="/establishment/address" component={Address} private />
 
-        <Route path="/menus" component={Inventory} private />
-        <Route path="/product" component={NewItem} private />
+        <Route path="/menus" exact component={Inventory} private />
+        <Route path="/menus/product" component={NewItem} private />
       </Switch>
     </Router>
   );

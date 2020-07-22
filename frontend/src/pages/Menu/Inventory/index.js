@@ -43,7 +43,7 @@ export default function Inventory() {
           </Accordion>
 
           <Accordion title="Produtos" disabled={disabled}>
-            <Link to="product">
+            <Link to="/menus/product">
               <div className="add-item">
                 <AddIcon style={{ height: 16, marginRight: 8 }} />
                 <p>Novo produto</p>

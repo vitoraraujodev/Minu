@@ -28,7 +28,9 @@ export default function Picture() {
   const [submit, setSubmit] = useState(false);
 
   const [file, setFile] = useState();
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState(
+    establishment.photo ? establishment.photo.url : defaultPicture
+  );
 
   function handleResize() {
     const picturePage = document.getElementById('picture-page');
@@ -119,7 +121,7 @@ export default function Picture() {
           </p>
 
           <img
-            src={photo || establishment.photo.url}
+            src={photo}
             onError={(e) => {
               e.target.src = defaultPicture;
             }}
