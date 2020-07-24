@@ -252,7 +252,7 @@ export default function Address() {
                 name="cep"
                 value={cep}
                 inputMode="numeric"
-                  autoFocus //eslint-disable-line
+                autoFocus //eslint-disable-line
                 className={disabled ? 'input-disabled' : 'input'}
                 maxLength={9}
                 disabled={disabled}

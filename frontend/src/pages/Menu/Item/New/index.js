@@ -17,7 +17,6 @@ import './styles.css';
 
 function NewItem() {
   const [windowWidth, setWindowWidth] = useState(768);
-  const [windowHeight, setWindowHeight] = useState(768);
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
@@ -35,13 +34,11 @@ function NewItem() {
     const newItemPage = document.getElementById('item-page');
     if (newItemPage) {
       setWindowWidth(newItemPage.offsetWidth);
-      setWindowHeight(newItemPage.offsetHeight);
     }
   }
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
   }, []);
 
   window.addEventListener('resize', handleResize);
@@ -92,10 +89,19 @@ function NewItem() {
       title,
       description,
       price,
-      preparationTime,
+      preparation_time: preparationTime,
       category,
       photo_id: file,
     };
+    console.tron.log(data);
+
+    try {
+      await api.post('items', data);
+      setSubmit(true);
+      history.push('/menus');
+    } catch (err) {
+      alert(err.response.data.error);
+    }
   }
 
   return (
@@ -116,7 +122,7 @@ function NewItem() {
           <CategorySelector
             onClose={() => setSelectorVisible(false)}
             windowWidth={windowWidth}
-            windowHeight={windowHeight}
+            onChangeCategory={setCategory}
           />
         </div>
 
@@ -140,6 +146,9 @@ function NewItem() {
             </button>
 
             <p className="product-label">Produto 01</p>
+            <div onClick={handleSubmit}>
+              <p>Salvar</p>
+            </div>
           </div>
 
           <div className="content">
@@ -169,7 +178,12 @@ function NewItem() {
             </div>
 
             <p className="input-label">Nome do produto</p>
-            <input className="input" placeholder="X-Burger Especial" />
+            <input
+              className="input"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="X-Burger Especial"
+            />
 
             <p className="input-label">
               Descrição{' '}
@@ -177,6 +191,8 @@ function NewItem() {
             </p>
             <input
               className="input"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               placeholder="Hamburguer de carne com queijo..."
             />
 
@@ -184,6 +200,7 @@ function NewItem() {
               <div>
                 <p className="input-label">Preço</p>
                 <CurrencyInput
+                  inputMode="numeric"
                   value={maskedPrice}
                   style={{ color: '#6E6E6E' }}
                   decimalSeparator=","
@@ -242,7 +259,7 @@ function NewItem() {
               onClick={() => setSelectorVisible(true)}
             >
               <p style={category ? { color: '#444' } : { color: '#9c9c9c' }}>
-                Selecionar categoria
+                {category || 'Selecionar categoria'}
               </p>
               <div className="category-arrow">
                 <ExpandArrow style={{ height: 8 }} fill="#444" />
