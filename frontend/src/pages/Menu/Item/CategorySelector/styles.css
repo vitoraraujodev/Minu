@@ -2,4 +2,26 @@
   height: 720px;
   max-width: 432px;
   width: 432px;
+  background: #fff;
+}
+
+#category-selector .category-area{
+  padding: 0 32px;
+  cursor: pointer;
+}
+
+#category-selector .category-area:hover {
+  background: #f6f6f6;
+}
+
+#category-selector .category{
+  font-size: 18px;
+  color: #252525;
+  padding: 16px 0;
+  border-bottom: 1px solid #e6e6e6;
+
+}
+
+@media screen and (max-width: 767px) {
+
 }
