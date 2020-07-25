@@ -27,7 +27,6 @@ function NewItem() {
   const [price, setPrice] = useState('');
   const [preparationTime, setPreparationTime] = useState(1);
   const [category, setCategory] = useState('');
-  const [additionals, setAdditionals] = useState([]);
   const [maskedPrice, setMaskedPrice] = useState('');
 
   function handleResize() {
@@ -279,7 +278,3 @@ function NewItem() {
 }
 
 export default NewItem;
-
-/*
-
-      */

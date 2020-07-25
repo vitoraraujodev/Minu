@@ -28,17 +28,33 @@ export default function CategorySelector({
         <p className="product-label">Categorias</p>
       </div>
 
-      <div className="category-area" onClick={() => handleCategory('Comidas')}>
-        <div className="category">Comidas</div>
+      <div className="category-area" onClick={() => handleCategory('Entradas')}>
+        <div className="category">Entradas</div>
       </div>
-      <div className="category-area" onClick={() => handleCategory('Bebidas')}>
-        <div className="category">Bebidas</div>
+
+      <div
+        className="category-area"
+        onClick={() => handleCategory('Pratos principais')}
+      >
+        <div className="category">Pratos principais</div>
       </div>
+
       <div
         className="category-area"
         onClick={() => handleCategory('Sobremesas')}
       >
         <div className="category">Sobremesas</div>
+      </div>
+
+      <div className="category-area" onClick={() => handleCategory('Bebidas')}>
+        <div className="category">Bebidas</div>
+      </div>
+
+      <div
+        className="category-area"
+        onClick={() => handleCategory('Bebidas alcoólicas')}
+      >
+        <div className="category">Bebidas alcoólicas</div>
       </div>
     </div>
   );

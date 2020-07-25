@@ -52,9 +52,8 @@
   margin: 24px 0;
 }
 
-#inventory .add-item {
-  height: 56px;
-  padding: 0 16px;
+#inventory .item-container {
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -63,8 +62,39 @@
   cursor: pointer;
 }
 
-#inventory .add-item:hover {
-  background-color: #f6f6f6;
+#inventory .item-container:hover {
+  background: #f6f6f6;
+}
+
+#inventory .img-container {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  border-radius: 5px;
+}
+
+#inventory .item-img {
+  height: 100%;
+}
+
+#inventory .item-info {
+  display: row;
+  align-items: flex-start;
+}
+
+#inventory .item-title {
+  font-size: 16px;
+  color: #252525;
+  font-weight: 600;
+}
+
+#inventory .item-code {
+  font-size: 11px;
+  color:#9C9C9C;
 }
 
 #inventory .lock-container {
