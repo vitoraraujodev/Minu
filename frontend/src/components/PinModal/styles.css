@@ -38,7 +38,7 @@
   margin-top: 32px;
 }
 
-#pin-modal .modal-back-button, .modal-confirm-button, .modal-confirm-button-enabled {
+#pin-modal .modal-back-button, #pin-modal .modal-confirm-button, #pin-modal .modal-confirm-button-enabled {
   height: 40px;
   width: 96px;
   font-size: 14px;
@@ -94,7 +94,7 @@
     font-size: 17px;
   }
 
-  #pin-modal .modal-back-button, .modal-confirm-button, .modal-confirm-button-enabled {
+  #pin-modal .modal-back-button, #pin-modal .modal-confirm-button, #pin-modal .modal-confirm-button-enabled {
     height: 32px;
     width: 80px;
     font-size: 12px;

@@ -22,24 +22,25 @@ export default function NewItem({ location }) {
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
+  const [filled, setFilled] = useState(false);
 
   const [file, setFile] = useState();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0.0);
   const [preparationTime, setPreparationTime] = useState(1);
   const [category, setCategory] = useState('');
-  const [maskedPrice, setMaskedPrice] = useState('');
+  const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
 
   function handleResize() {
-    const newItemPage = document.getElementById('item-page');
-    if (newItemPage) {
-      setWindowWidth(newItemPage.offsetWidth);
+    const itemPage = document.getElementById('item-page');
+    if (itemPage) {
+      setWindowWidth(itemPage.offsetWidth);
     }
   }
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
+    handleResize();
   }, []);
 
   window.addEventListener('resize', handleResize);
@@ -58,6 +59,10 @@ export default function NewItem({ location }) {
     if (preparationTime + value !== 0)
       setPreparationTime(preparationTime + value);
   }
+
+  useEffect(() => {
+    if ((title, price, preparationTime, category)) setFilled(true);
+  }, [title, price, preparationTime, category]);
 
   async function handleDelete() {
     if (file && !submit) {
@@ -149,9 +154,6 @@ export default function NewItem({ location }) {
             <p className="product-label">
               {length ? `Produto ${length <= 9 ? `0${length}` : length}` : ''}
             </p>
-            <div onClick={handleSubmit}>
-              <p>Salvar</p>
-            </div>
           </div>
 
           <div className="content">
@@ -179,7 +181,6 @@ export default function NewItem({ location }) {
                 </label>
               </button>
             </div>
-
             <p className="input-label">Nome do produto</p>
             <input
               className="input"
@@ -198,7 +199,6 @@ export default function NewItem({ location }) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Hamburguer de carne com queijo..."
             />
-
             <div className="input-group">
               <div>
                 <p className="input-label">Preço</p>
@@ -255,7 +255,6 @@ export default function NewItem({ location }) {
                 </div>
               </div>
             </div>
-
             <p className="input-label">Categoria</p>
             <div
               className="category-input"
@@ -268,13 +267,21 @@ export default function NewItem({ location }) {
                 <ExpandArrow style={{ height: 8 }} fill="#444" />
               </div>
             </div>
-
             <p className="input-label">Adicionais</p>
             <div className="additional-container">
               <AddIcon style={{ height: 15, marginRight: 8 }} />
               <p className="additional-text">Novo adicional</p>
             </div>
           </div>
+          <button
+            className={
+              filled ? 'submit-button-enabled' : 'submit-button-disabled'
+            }
+            onClick={filled ? handleSubmit : null}
+            type="button"
+          >
+            Concluir
+          </button>
         </div>
       </div>
     </div>

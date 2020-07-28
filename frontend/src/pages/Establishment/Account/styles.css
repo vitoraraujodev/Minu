@@ -45,7 +45,7 @@
   margin-bottom: 8px;
 }
 
-#account-page .input, .input-disabled {
+#account-page .input, #account-page .input-disabled {
   width: 100%;
   height: 48px;
   border: 0;
@@ -72,7 +72,7 @@
   color: #acacac;
 }
 
-#account-page .submit-button-enabled, .submit-button-disabled {
+#account-page .submit-button-enabled, #account-page .submit-button-disabled {
   width: 100%;
   height: 56px;
   margin: 0 32px;
@@ -131,14 +131,7 @@
     font-size: 14px;
   }
 
-  #account-page .submit-button-enabled {
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 0;
-    border-radius: 0;
-  }
-
-  #account-page .submit-button-disabled {
+  #account-page .submit-button-enabled, #account-page .submit-button-disabled {
     position: fixed;
     bottom: 0;
     margin-bottom: 0;

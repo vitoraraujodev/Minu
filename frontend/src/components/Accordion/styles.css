@@ -4,7 +4,7 @@
   margin-bottom: 16px;
 }
 
-#accordion .accordion-tab, .accordion-tab-disabled {
+#accordion .accordion-tab, #accordion .accordion-tab-disabled {
   margin: 0 24px;
   background-color: #fff;
   color: #535BFE;

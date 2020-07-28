@@ -40,7 +40,7 @@
   margin-bottom: 16px;
 }
 
-#picture-page .image, .image-disabled {
+#picture-page .image, #picture-page .image-disabled {
   min-width: 250px;
   width: 100%;
   border: 2px solid #535BFE;
@@ -80,7 +80,7 @@
   color: #fff;
 }
 
-#picture-page .submit-button-enabled, .submit-button-disabled {
+#picture-page .submit-button-enabled, #picture-page .submit-button-disabled {
   width: 100%;
   height: 56px;
   margin: 0 32px;
@@ -131,7 +131,7 @@
     font-size: 17px;
   }
 
-  #picture-page .submit-button-enabled, .submit-button-disabled {
+  #picture-page .submit-button-enabled, #picture-page .submit-button-disabled {
     position: fixed;
     bottom: 0;
     margin-bottom: 0;
