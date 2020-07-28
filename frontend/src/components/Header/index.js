@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
@@ -7,9 +8,12 @@ import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import logo from '~/assets/icons/simple-logo.svg';
 
+import { inventoryDisable } from '~/store/modules/auth/actions';
+
 import './styles.css';
 
 export default function Header() {
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const [windowWidth, setWindowWidth] = useState(768);
@@ -23,10 +27,12 @@ export default function Header() {
   }
 
   useEffect(() => {
-    if (location.pathname === '/orders') setActive('orders');
+    if (location.pathname === '/pedidos') setActive('orders');
     if (location.pathname === '/menus') setActive('menu');
-    if (location.pathname === '/establishment') setActive('establishment');
-  }, [location.pathname]);
+    if (location.pathname === '/estabelecimento') setActive('establishment');
+    if (location.pathname.substr(0, 6) !== '/menus')
+      dispatch(inventoryDisable(true));
+  }, [location.pathname, dispatch]);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
@@ -42,7 +48,7 @@ export default function Header() {
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
-              to="/orders"
+              to="/pedidos"
             >
               Pedidos
             </NavLink>
@@ -61,7 +67,7 @@ export default function Header() {
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
-              to="/establishment"
+              to="/estabelecimento"
             >
               Conta
             </NavLink>
@@ -70,7 +76,7 @@ export default function Header() {
       ) : (
         <div style={{ margin: 'auto', maxWidth: 560 }}>
           <div className="header-content">
-            <NavLink className="navlink" to="/orders">
+            <NavLink className="navlink" to="/pedidos">
               <Orders
                 fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
@@ -84,7 +90,7 @@ export default function Header() {
               />
             </NavLink>
 
-            <NavLink className="navlink" to="/establishment">
+            <NavLink className="navlink" to="/estabelecimento">
               <Profile
                 fill={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
                 stroke={active === 'establishment' ? '#535BFE' : '#cfcfcf'}

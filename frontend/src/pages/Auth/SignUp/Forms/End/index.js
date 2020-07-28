@@ -30,7 +30,7 @@ export default function End({ email, password }) {
             Faça seu cardápio!
           </button>
         </Link>
-        <Link to="/establishment">
+        <Link to="/estabelecimento">
           <button className="later-button" onClick={handleLogin} type="button">
             Deixar para depois
           </button>

@@ -35,7 +35,7 @@ export default function Intro() {
           <div className="register-container">
             <span className="register-or">ou</span>
 
-            <Link to="/signup">
+            <Link to="/cadastro">
               <button type="button" className="register-button">
                 Cadastre o seu restaurante
               </button>

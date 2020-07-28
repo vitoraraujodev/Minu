@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
@@ -12,10 +13,14 @@ import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 
+import { inventoryDisable } from '~/store/modules/auth/actions';
+
 import './styles.css';
 
 export default function Inventory() {
-  const [disabled, setDisabled] = useState(false);
+  const disabled = useSelector((state) => state.auth.inventoryDisabled);
+  const dispatch = useDispatch();
+
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
   const [items, setItems] = useState([]);
@@ -42,7 +47,7 @@ export default function Inventory() {
       {pinModalVisible && (
         <PinModal
           onClose={() => setPinModalVisible(false)}
-          onAccess={() => setDisabled(false)}
+          onAccess={() => dispatch(inventoryDisable(false))}
         />
       )}
 
@@ -65,7 +70,7 @@ export default function Inventory() {
           <Accordion title="Produtos" disabled={disabled}>
             <Link
               to={{
-                pathname: '/menus/product',
+                pathname: '/menus/produto',
                 state: { length: items.length + 1 },
               }}
             >
@@ -76,7 +81,7 @@ export default function Inventory() {
             </Link>
 
             {items.map((item) => (
-              <div className="item-container">
+              <div key={item.id} className="item-container">
                 <div className="img-container">
                   <img
                     src={item.photo ? item.photo.url : defaultPicture}

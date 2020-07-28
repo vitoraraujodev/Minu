@@ -35,7 +35,7 @@ export default function Profile() {
             alt="establishment"
           />
           <div className="info">
-            <Link to="/establishment/picture">
+            <Link to="/estabelecimento/foto">
               <button className="img-button" type="button">
                 Alterar foto
               </button>
@@ -48,21 +48,21 @@ export default function Profile() {
           </div>
         </div>
 
-        <Link to="/establishment/account">
+        <Link to="/estabelecimento/conta">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Editar conta</span>
             </div>
           </div>
         </Link>
-        <Link to="/establishment/pin">
+        <Link to="/estabelecimento/pin">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Redefinir PIN</span>
             </div>
           </div>
         </Link>
-        <Link to="/establishment/address">
+        <Link to="/estabelecimento/endereco">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Editar endereço</span>

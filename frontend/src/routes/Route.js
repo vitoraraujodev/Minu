@@ -16,7 +16,7 @@ export default function RouteWrapper({
   }
 
   if (signed && notPrivate) {
-    return <Redirect to="/establishment" />;
+    return <Redirect to="/estabelecimento" />;
   }
 
   return <Route {...rest} component={Component} />;

@@ -22,17 +22,17 @@ export default function Routes() {
     <Router history={history}>
       <Switch>
         <Route path="/" exact component={Home} notPrivate />
-        <Route path="/signup" component={SignUp} notPrivate />
+        <Route path="/cadastro" component={SignUp} notPrivate />
         <Route path="/login" component={SignIn} notPrivate />
 
-        <Route path="/establishment" exact component={Profile} private />
-        <Route path="/establishment/picture" component={Picture} private />
-        <Route path="/establishment/account" component={Account} private />
-        <Route path="/establishment/pin" component={Pin} private />
-        <Route path="/establishment/address" component={Address} private />
+        <Route path="/estabelecimento" exact component={Profile} private />
+        <Route path="/estabelecimento/foto" component={Picture} private />
+        <Route path="/estabelecimento/conta" component={Account} private />
+        <Route path="/estabelecimento/pin" component={Pin} private />
+        <Route path="/estabelecimento/endereco" component={Address} private />
 
         <Route path="/menus" exact component={Inventory} private />
-        <Route path="/menus/product" component={NewItem} private />
+        <Route path="/menus/produto" component={NewItem} private />
       </Switch>
     </Router>
   );
