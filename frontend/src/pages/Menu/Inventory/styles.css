@@ -86,6 +86,7 @@
   overflow: hidden;
   display: row;
   align-items: flex-start;
+  width: 100%;
 }
 
 #inventory .item-title {
@@ -100,6 +101,11 @@
 #inventory .item-code {
   font-size: 11px;
   color:#9C9C9C;
+}
+
+#inventory .action-button-area {
+  width: 32px;
+  height: 32px;
 }
 
 #inventory .lock-container {

@@ -1,0 +1,49 @@
+#actions-container {
+  position: relative;
+}
+
+#actions-container .actions-button {
+  background: none;
+  border: 0;
+  position: relative;
+  height: 32px;
+  width: 32px;
+}
+
+#actions-container .actions {
+  position: absolute;
+  width: 184px;
+  left: -184px;
+  bottom: -8px;
+  background: #fff;
+  border-radius: 5px;
+  z-index: 3;
+  border: 0;
+  box-shadow: 0px 0px 5px #00000029;
+}
+
+#actions-container .action-area {
+  display: row;
+  width: 100%;
+  padding: 0 16px;
+}
+
+#actions-container .action-area:hover {
+  background: #f6f6f6;
+}
+
+#actions-container .action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #6E6E6E;
+  padding: 12px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+
+#actions-container .remove-icon {
+  transform: rotate(45deg);
+  display: flex;
+}

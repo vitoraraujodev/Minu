@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Actions from './Actions';
+
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
 import Accordion from '~/components/Accordion';
@@ -62,7 +64,10 @@ export default function Inventory() {
         <div className="content">
           <Accordion title="Cardápios" disabled={disabled}>
             <div className="item-container">
-              <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
+              <AddIcon
+                style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                fill="#535BFE"
+              />
               <p>Novo cardápio</p>
             </div>
           </Accordion>
@@ -75,7 +80,10 @@ export default function Inventory() {
               }}
             >
               <div className="item-container">
-                <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
+                <AddIcon
+                  style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                  fill="#535BFE"
+                />
                 <p>Novo produto</p>
               </div>
             </Link>
@@ -96,13 +104,19 @@ export default function Inventory() {
                   <p className="item-title">{item.title}</p>
                   {item.code && <p className="item-code">{1234123}</p>}
                 </div>
+                <div className="action-button-area">
+                  <Actions />
+                </div>
               </div>
             ))}
           </Accordion>
 
           <Accordion title="Adicionais" disabled={disabled}>
             <div className="item-container">
-              <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
+              <AddIcon
+                style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                fill="#535BFE"
+              />
               <p>Novo adicional</p>
             </div>
           </Accordion>

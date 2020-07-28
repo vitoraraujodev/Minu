@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 16">
+  <defs>
+    <style>
+      .action-icon1 {
+        fill: #535bfe;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1470" data-name="Grupo 1470" transform="translate(-102 -88)">
+    <circle id="Elipse_10" data-name="Elipse 10" class="action-icon1" cx="2" cy="2" r="2" transform="translate(102 100)"/>
+    <circle id="Elipse_11" data-name="Elipse 11" class="action-icon1" cx="2" cy="2" r="2" transform="translate(102 94)"/>
+    <circle id="Elipse_12" data-name="Elipse 12" class="action-icon1" cx="2" cy="2" r="2" transform="translate(102 88)"/>
+  </g>
+</svg>

@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
   <defs>
     <style>
-      .add-icon1 {
-        fill: #535bfe;
-      }
-
       .add-icon2 {
         fill: none;
         stroke: #fff;
@@ -13,8 +9,8 @@
     </style>
   </defs>
   <g id="Grupo_1464" data-name="Grupo 1464" transform="translate(-39 -231)">
-    <circle id="Elipse_3" data-name="Elipse 3" class="add-icon1" cx="9" cy="9" r="9" transform="translate(39 231)"/>
-    <circle id="Elipse_59" data-name="Elipse 59" class="add-icon1" cx="9" cy="9" r="9" transform="translate(39 231)"/>
+    <circle id="Elipse_3" data-name="Elipse 3"  cx="9" cy="9" r="9" transform="translate(39 231)"/>
+    <circle id="Elipse_59" data-name="Elipse 59"  cx="9" cy="9" r="9" transform="translate(39 231)"/>
     <path id="Caminho_362" data-name="Caminho 362" class="add-icon2" d="M0,0V10.143" transform="translate(48 234.928)"/>
     <line id="Linha_5" data-name="Linha 5" class="add-icon2" x1="10" transform="translate(43 240)"/>
   </g>
