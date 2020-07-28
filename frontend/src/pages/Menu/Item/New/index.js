@@ -15,7 +15,9 @@ import history from '~/services/history';
 
 import './styles.css';
 
-function NewItem() {
+export default function NewItem({ location }) {
+  const length = location.state.length || '';
+
   const [windowWidth, setWindowWidth] = useState(768);
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState('');
@@ -144,7 +146,9 @@ function NewItem() {
               Voltar
             </button>
 
-            <p className="product-label">Produto 01</p>
+            <p className="product-label">
+              {length ? `Produto ${length <= 9 ? `0${length}` : length}` : ''}
+            </p>
             <div onClick={handleSubmit}>
               <p>Salvar</p>
             </div>
@@ -276,5 +280,3 @@ function NewItem() {
     </div>
   );
 }
-
-export default NewItem;

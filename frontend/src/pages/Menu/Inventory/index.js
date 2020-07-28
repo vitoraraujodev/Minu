@@ -57,15 +57,20 @@ export default function Inventory() {
         <div className="content">
           <Accordion title="Cardápios" disabled={disabled}>
             <div className="item-container">
-              <AddIcon style={{ height: 16, marginRight: 8 }} />
+              <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
               <p>Novo cardápio</p>
             </div>
           </Accordion>
 
           <Accordion title="Produtos" disabled={disabled}>
-            <Link to="/menus/product">
+            <Link
+              to={{
+                pathname: '/menus/product',
+                state: { length: items.length + 1 },
+              }}
+            >
               <div className="item-container">
-                <AddIcon style={{ height: 16, marginRight: 8 }} />
+                <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
                 <p>Novo produto</p>
               </div>
             </Link>
@@ -92,7 +97,7 @@ export default function Inventory() {
 
           <Accordion title="Adicionais" disabled={disabled}>
             <div className="item-container">
-              <AddIcon style={{ height: 16, marginRight: 8 }} />
+              <AddIcon style={{ height: 16, marginRight: 8, minWidth: 16 }} />
               <p>Novo adicional</p>
             </div>
           </Accordion>

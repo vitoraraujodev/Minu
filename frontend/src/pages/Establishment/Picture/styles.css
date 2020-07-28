@@ -131,14 +131,7 @@
     font-size: 17px;
   }
 
-  #picture-page .submit-button-enabled {
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 0;
-    border-radius: 0;
-  }
-
-  #picture-page .submit-button-disabled {
+  #picture-page .submit-button-enabled, .submit-button-disabled {
     position: fixed;
     bottom: 0;
     margin-bottom: 0;
