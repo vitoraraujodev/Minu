@@ -90,22 +90,36 @@ export default function Inventory() {
 
             {items.map((item) => (
               <div key={item.id} className="item-container">
-                <div className="img-container">
-                  <img
-                    src={item.photo ? item.photo.url : defaultPicture}
-                    onError={(e) => {
-                      e.target.src = defaultPicture;
-                    }}
-                    className="item-img"
-                    alt="item-img"
-                  />
-                </div>
-                <div className="item-info">
-                  <p className="item-title">{item.title}</p>
-                  {item.code && <p className="item-code">{1234123}</p>}
-                </div>
+                <Link
+                  to={{
+                    pathname: `/menus/produto/${item.id}`,
+                    state: { item },
+                  }}
+                >
+                  <div className="img-container">
+                    <img
+                      src={item.photo ? item.photo.url : defaultPicture}
+                      onError={(e) => {
+                        e.target.src = defaultPicture;
+                      }}
+                      className="item-img"
+                      alt="item-img"
+                    />
+                  </div>
+
+                  <div className="item-info">
+                    <p className="item-title">{item.title}</p>
+                    {item.code && <p className="item-code">{1234123}</p>}
+                  </div>
+                </Link>
                 <div className="action-button-area">
-                  <Actions />
+                  <Actions
+                    item={item}
+                    route="items"
+                    onDelete={(id) =>
+                      setItems(items.filter((product) => product.id !== id))
+                    }
+                  />
                 </div>
               </div>
             ))}

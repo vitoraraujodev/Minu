@@ -15,22 +15,24 @@ import history from '~/services/history';
 
 import './styles.css';
 
-export default function NewItem({ location }) {
-  const length = location.state.length || '';
+export default function EditItem({ location }) {
+  const { item } = location.state;
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [submit, setSubmit] = useState(false);
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
 
-  const [file, setFile] = useState();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0.0);
-  const [preparationTime, setPreparationTime] = useState(1);
-  const [category, setCategory] = useState('');
-  const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
+  const [file, setFile] = useState(item.photo ? item.photo.photo_id : '');
+  const [title, setTitle] = useState(item.title || '');
+  const [description, setDescription] = useState(item.description || '');
+  const [price, setPrice] = useState(item.price || 0.0);
+  const [preparationTime, setPreparationTime] = useState(item.preparation_time);
+  const [category, setCategory] = useState(item.category || '');
+  const [maskedPrice, setMaskedPrice] = useState(
+    item.price.toString().replace('.', ',') || 'R$ 0,00'
+  );
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
@@ -102,7 +104,7 @@ export default function NewItem({ location }) {
     console.tron.log(data);
 
     try {
-      await api.post('items', data);
+      await api.put(`items/${item.id}`, data);
       setSubmit(true);
       history.push('/menus');
     } catch (err) {
@@ -151,9 +153,7 @@ export default function NewItem({ location }) {
               Voltar
             </button>
 
-            <p className="product-label">
-              {length ? `Produto ${length <= 9 ? `0${length}` : length}` : ''}
-            </p>
+            <p className="product-label">{item.title || 'Produto'}</p>
           </div>
 
           <div className="content">
