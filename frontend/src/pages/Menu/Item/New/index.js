@@ -99,7 +99,6 @@ export default function NewItem({ location }) {
       category,
       photo_id: file,
     };
-    console.tron.log(data);
 
     try {
       await api.post('items', data);

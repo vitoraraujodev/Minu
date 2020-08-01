@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import CurrencyInput from 'react-currency-input';
 
 import Actions from './Actions';
+import Additional from './Additional';
 
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
@@ -10,7 +12,12 @@ import Accordion from '~/components/Accordion';
 
 import { ReactComponent as Wave } from '~/assets/icons/wave.svg';
 import { ReactComponent as Lock } from '~/assets/icons/edit-lock.svg';
-import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
+import {
+  ReactComponent as AddIcon,
+  ReactComponent as RemoveIcon,
+} from '~/assets/icons/add-icon.svg';
+
+import { ReactComponent as SaveIcon } from '~/assets/icons/save-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
@@ -24,13 +31,22 @@ export default function Inventory() {
   const dispatch = useDispatch();
 
   const [pinModalVisible, setPinModalVisible] = useState(false);
+  const [additionalForm, setAdditionalForm] = useState(false);
+
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState(0.0);
+  const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
 
   const [items, setItems] = useState([]);
+  const [additionals, setAdditionals] = useState([]);
 
   async function loadItems() {
     try {
-      const response = await api.get('items');
+      let response = await api.get('items');
       setItems(response.data);
+
+      response = await api.get('additionals');
+      setAdditionals(response.data);
     } catch (err) {
       alert(
         'Não foi possível carregar suas informações. Por favor, tente mais tarde.'
@@ -41,6 +57,33 @@ export default function Inventory() {
   useEffect(() => {
     loadItems();
   }, []);
+
+  useEffect(() => {
+    let newPrice = maskedPrice;
+    newPrice = newPrice.replace('R', '');
+    newPrice = newPrice.replace('$', '');
+    newPrice = newPrice.replace(' ', '');
+    newPrice = newPrice.replace(',', '.');
+
+    setPrice(newPrice);
+  }, [maskedPrice]);
+
+  async function handleSubmit() {
+    const data = {
+      title,
+      price,
+    };
+
+    try {
+      const response = await api.post('additionals', data);
+      setAdditionals([response.data, ...additionals]);
+      setAdditionalForm(false);
+      setTitle('');
+      setMaskedPrice('R$ 0,00');
+    } catch (err) {
+      if (err.response) alert(err.response.data.error);
+    }
+  }
 
   return (
     <div id="inventory">
@@ -63,7 +106,7 @@ export default function Inventory() {
 
         <div className="content">
           <Accordion title="Cardápios" disabled={disabled}>
-            <div className="item-container">
+            <div className="add-item-container">
               <AddIcon
                 style={{ height: 16, marginRight: 8, minWidth: 16 }}
                 fill="#535BFE"
@@ -79,7 +122,7 @@ export default function Inventory() {
                 state: { length: items.length + 1 },
               }}
             >
-              <div className="item-container">
+              <div className="add-item-container">
                 <AddIcon
                   style={{ height: 16, marginRight: 8, minWidth: 16 }}
                   fill="#535BFE"
@@ -112,7 +155,7 @@ export default function Inventory() {
                     {item.code && <p className="item-code">{1234123}</p>}
                   </div>
                 </Link>
-                <div className="action-button-area">
+                <div className="icon-area">
                   <Actions
                     item={item}
                     route="items"
@@ -125,14 +168,70 @@ export default function Inventory() {
             ))}
           </Accordion>
 
-          <Accordion title="Adicionais" disabled={disabled}>
-            <div className="item-container">
-              <AddIcon
-                style={{ height: 16, marginRight: 8, minWidth: 16 }}
-                fill="#535BFE"
+          <Accordion
+            title="Adicionais"
+            length={additionals.length}
+            disabled={disabled}
+          >
+            {additionalForm ? (
+              <div className="item-container">
+                <div className="additional-form">
+                  <input
+                    className="additional-title-input"
+                    autoFocus // eslint-disable-line
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Queijo, Bacon.."
+                  />
+                  <CurrencyInput
+                    inputMode="numeric"
+                    value={maskedPrice}
+                    decimalSeparator=","
+                    prefix="R$ "
+                    className="additional-price-input"
+                    thousandSeparator="."
+                    onChangeEvent={(e) => {
+                      setMaskedPrice(e.target.value);
+                    }}
+                  />
+                </div>
+                {title ? (
+                  <div className="icon-area" onClick={handleSubmit}>
+                    <SaveIcon style={{ height: 20 }} />
+                  </div>
+                ) : (
+                  <div
+                    className="remove-icon-area"
+                    onClick={() => setAdditionalForm(false)}
+                  >
+                    <RemoveIcon fill="#535BFE" />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div
+                className="add-item-container"
+                onClick={() => setAdditionalForm(true)}
+              >
+                <AddIcon
+                  style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                  fill="#535BFE"
+                />
+                <p>Novo adicional</p>
+              </div>
+            )}
+
+            {additionals.map((additional) => (
+              <Additional
+                key={additional.id}
+                additional={additional}
+                onDelete={(id) =>
+                  setAdditionals(
+                    additionals.filter((product) => product.id !== id)
+                  )
+                }
               />
-              <p>Novo adicional</p>
-            </div>
+            ))}
           </Accordion>
         </div>
 

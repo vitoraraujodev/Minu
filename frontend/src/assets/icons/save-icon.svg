@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .save-icon1 {
+        fill: #535bfe;
+      }
+
+      .save-icon2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="icone_de_salvar" data-name="icone de salvar" transform="translate(-306 -342)">
+    <circle id="Elipse_61" data-name="Elipse 61" class="save-icon1" cx="10" cy="10" r="10" transform="translate(306 342)"/>
+    <path id="Caminho_364" data-name="Caminho 364" class="save-icon2" d="M92.946,267.182a.507.507,0,0,1-.718,0l-3.027-3.5a.761.761,0,0,1,0-1.077l.359-.359a.761.761,0,0,1,1.077,0l1.95,2.419,4.835-4.835a.761.761,0,0,1,1.077,0l.359.359a.761.761,0,0,1,0,1.077Zm0,0" transform="translate(221.861 88.517)"/>
+  </g>
+</svg>

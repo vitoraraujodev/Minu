@@ -4,7 +4,7 @@ import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 
 import './styles.css';
 
-export default function Accordion({ title, children, disabled }) {
+export default function Accordion({ title, children, disabled, length }) {
   const [active, setActive] = useState(false);
   const contentRef = useRef(null);
 
@@ -12,7 +12,7 @@ export default function Accordion({ title, children, disabled }) {
     contentRef.current.style.maxHeight = active
       ? `${contentRef.current.scrollHeight}px`
       : '0px';
-  }, [contentRef, active]);
+  }, [contentRef, active, length]);
 
   function toogleActive() {
     if (!disabled) {
