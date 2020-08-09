@@ -100,6 +100,7 @@ export default function NewItem({ location }) {
   }
 
   async function handleSubmit() {
+    const additionals_id = additionals.map((add) => add.id);
     const data = {
       title,
       description,
@@ -107,6 +108,7 @@ export default function NewItem({ location }) {
       preparation_time: preparationTime,
       category,
       photo_id: file,
+      additionals: additionals_id,
     };
 
     try {

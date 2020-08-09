@@ -29,7 +29,7 @@ export default function EditItem({ location }) {
   const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
   const [filled, setFilled] = useState(false);
 
-  const [file, setFile] = useState(item.photo ? item.photo.photo_id : '');
+  const [file, setFile] = useState(item.photo ? item.photo.photo_id : null);
   const [title, setTitle] = useState(item.title || '');
   const [description, setDescription] = useState(item.description || '');
   const [price, setPrice] = useState(item.price || 0.0);
@@ -99,6 +99,7 @@ export default function EditItem({ location }) {
   }
 
   async function handleSubmit() {
+    const additionals_id = additionals.map((add) => add.id);
     const data = {
       title,
       description,
@@ -106,8 +107,8 @@ export default function EditItem({ location }) {
       preparation_time: preparationTime,
       category,
       photo_id: file,
+      additionals: additionals_id,
     };
-    console.tron.log(data);
 
     try {
       await api.put(`items/${item.id}`, data);
@@ -319,6 +320,7 @@ export default function EditItem({ location }) {
             </div>
             {additionals.map((additional) => (
               <div
+                key={additional.id}
                 className="additional-container"
                 onClick={() => {
                   setSelectorVisible(true);
