@@ -4,6 +4,7 @@ import { Prompt } from 'react-router-dom';
 
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
+import Actions from '~/components/Actions';
 import Header from '~/components/Header';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
@@ -170,6 +171,16 @@ export default function EditItem({ location }) {
             </button>
 
             <p className="product-label">{item.title || 'Produto'}</p>
+
+            <div className="icon-area">
+              <Actions
+                item={item}
+                route="items"
+                onDelete={() => history.push('/menus')}
+                fill="#fff"
+                position="down"
+              />
+            </div>
           </div>
 
           <div className="content">

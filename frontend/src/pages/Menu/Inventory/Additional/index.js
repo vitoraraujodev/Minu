@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input';
 
-import Actions from '../Actions';
+import Actions from '~/components/Actions';
 
 import { ReactComponent as SaveIcon } from '~/assets/icons/save-icon.svg';
 
@@ -72,6 +72,7 @@ export default function Additional({ additional, onDelete }) {
             item={additional}
             route="additionals"
             onDelete={(id) => onDelete(id)}
+            fill="#535BFE"
           />
         )}
       </div>

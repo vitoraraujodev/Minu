@@ -7,7 +7,7 @@ import api from '~/services/api';
 
 import './styles.css';
 
-export default function Actions({ item, route, onDelete }) {
+export default function Actions({ item, route, onDelete, fill, position }) {
   const [visible, setVisible] = useState(false);
   const [available, setAvailable] = useState(item.available);
 
@@ -46,10 +46,10 @@ export default function Actions({ item, route, onDelete }) {
         type="button"
         onClick={handleToggleVisible}
       >
-        <ActionIcon style={{ height: 16 }} />
+        <ActionIcon style={{ height: 16 }} fill={fill} />
       </button>
       {visible && (
-        <div className="actions">
+        <div className={position === 'down' ? 'actions-down' : 'actions'}>
           <div className="action-area" onClick={handleAvailability}>
             <div className="action">
               <p>Em estoque</p>

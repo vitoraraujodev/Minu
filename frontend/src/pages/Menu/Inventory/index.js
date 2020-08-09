@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
-import Actions from './Actions';
 import Additional from './Additional';
+import Actions from '~/components/Actions';
 
 import Header from '~/components/Header';
 import PinModal from '~/components/PinModal';
@@ -162,6 +162,7 @@ export default function Inventory() {
                     onDelete={(id) =>
                       setItems(items.filter((product) => product.id !== id))
                     }
+                    fill="#535BFE"
                   />
                 </div>
               </div>

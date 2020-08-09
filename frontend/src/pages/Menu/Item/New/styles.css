@@ -45,7 +45,6 @@
   height: 64px;
   padding: 0 24px;
   background: #535BFE;
-  overflow: hidden;
 }
 
 #item-page .back-button {
@@ -68,6 +67,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width:100%;
+}
+
+#item-page .icon-area {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#item-page  #actions-container {
+  display: block;
 }
 
 #item-page .content {
