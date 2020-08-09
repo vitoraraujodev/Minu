@@ -55,8 +55,8 @@ export default function Inventory() {
   }
 
   useEffect(() => {
-    loadItems();
-  }, []);
+    if (!disabled) loadItems();
+  }, [disabled]);
 
   useEffect(() => {
     let newPrice = maskedPrice;
@@ -194,19 +194,19 @@ export default function Inventory() {
                       setMaskedPrice(e.target.value);
                     }}
                   />
+                  {title ? (
+                    <div className="icon-area" onClick={handleSubmit}>
+                      <SaveIcon style={{ height: 20 }} />
+                    </div>
+                  ) : (
+                    <div
+                      className="remove-icon-area"
+                      onClick={() => setAdditionalForm(false)}
+                    >
+                      <RemoveIcon fill="#535BFE" />
+                    </div>
+                  )}
                 </div>
-                {title ? (
-                  <div className="icon-area" onClick={handleSubmit}>
-                    <SaveIcon style={{ height: 20 }} />
-                  </div>
-                ) : (
-                  <div
-                    className="remove-icon-area"
-                    onClick={() => setAdditionalForm(false)}
-                  >
-                    <RemoveIcon fill="#535BFE" />
-                  </div>
-                )}
               </div>
             ) : (
               <div

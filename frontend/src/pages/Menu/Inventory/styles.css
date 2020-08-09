@@ -118,7 +118,6 @@
 }
 
 #inventory .icon-area,
-#inventory .save-icon-area,
 #inventory .remove-icon-area {
   width: 32px;
   min-width: 32px;
@@ -137,7 +136,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-right: 16px;
 }
 
 #inventory .additional-title-input, #inventory .additional-price-input {
@@ -158,6 +156,7 @@
 #inventory .additional-price-input {
   width: 35%;
   min-width: 88px;
+  margin-right: 8px;
 }
 
 #inventory .additional-title-input::placeholder, #inventory .additional-price-input::placeholder {

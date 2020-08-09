@@ -3,6 +3,7 @@ import CurrencyInput from 'react-currency-input';
 import { Prompt } from 'react-router-dom';
 
 import CategorySelector from '../CategorySelector';
+import AdditionalSelector from '../AdditionalSelector';
 import Header from '~/components/Header';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
@@ -13,6 +14,8 @@ import defaultPicture from '~/assets/images/default-picture.png';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import { formatPrice } from '~/util/format';
+
 import './styles.css';
 
 export default function NewItem({ location }) {
@@ -22,6 +25,7 @@ export default function NewItem({ location }) {
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
+  const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
   const [filled, setFilled] = useState(false);
 
   const [file, setFile] = useState();
@@ -31,6 +35,7 @@ export default function NewItem({ location }) {
   const [preparationTime, setPreparationTime] = useState(1);
   const [category, setCategory] = useState('');
   const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
+  const [additionals, setAdditionals] = useState([]);
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
@@ -61,7 +66,11 @@ export default function NewItem({ location }) {
   }
 
   useEffect(() => {
-    if ((title, price, preparationTime, category)) setFilled(true);
+    if (title && price && preparationTime && category) {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
   }, [title, price, preparationTime, category]);
 
   async function handleDelete() {
@@ -124,18 +133,29 @@ export default function NewItem({ location }) {
               : { left: windowWidth >= 432 ? 432 : windowWidth }
           }
         >
-          <CategorySelector
-            onClose={() => setSelectorVisible(false)}
-            windowWidth={windowWidth}
-            onChangeCategory={setCategory}
-          />
+          {selectorType === 1 && (
+            <CategorySelector
+              onClose={() => setSelectorVisible(0)}
+              windowWidth={windowWidth}
+              onChangeCategory={setCategory}
+            />
+          )}
+
+          {selectorType === 2 && (
+            <AdditionalSelector
+              onClose={() => setSelectorVisible(0)}
+              windowWidth={windowWidth}
+              selectedAdditionals={additionals}
+              onChangeAdditionals={(adds) => setAdditionals(adds)}
+            />
+          )}
         </div>
 
         <div
           className="form-container"
           style={
             (windowWidth < 768 ? { width: windowWidth } : null,
-            selectorVisible
+            selectorVisible > 0
               ? { left: windowWidth >= 432 ? -432 : -windowWidth }
               : { left: 0 })
           }
@@ -180,6 +200,7 @@ export default function NewItem({ location }) {
                 </label>
               </button>
             </div>
+
             <p className="input-label">Nome do produto</p>
             <input
               className="input"
@@ -198,6 +219,7 @@ export default function NewItem({ location }) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Hamburguer de carne com queijo..."
             />
+
             <div className="input-group">
               <div>
                 <p className="input-label">Preço</p>
@@ -257,7 +279,10 @@ export default function NewItem({ location }) {
             <p className="input-label">Categoria</p>
             <div
               className="category-input"
-              onClick={() => setSelectorVisible(true)}
+              onClick={() => {
+                setSelectorVisible(true);
+                setSelectorType(1);
+              }}
             >
               <p style={category ? { color: '#444' } : { color: '#9c9c9c' }}>
                 {category || 'Selecionar categoria'}
@@ -266,24 +291,49 @@ export default function NewItem({ location }) {
                 <ExpandArrow style={{ height: 8 }} fill="#444" />
               </div>
             </div>
-            <p className="input-label">Adicionais</p>
-            <div className="additional-container">
+
+            <p className="input-label">
+              Adicionais{' '}
+              <span style={{ color: '#9c9c9c', fontSize: 14 }}>
+                (para o cliente escolher)
+              </span>
+            </p>
+
+            <div
+              className="add-additional-container"
+              onClick={() => {
+                setSelectorVisible(true);
+                setSelectorType(2);
+              }}
+            >
               <AddIcon style={{ height: 15, marginRight: 8 }} fill="#535BFE" />
               <p className="additional-text">Novo adicional</p>
             </div>
+            {additionals.map((additional) => (
+              <div
+                className="additional-container"
+                onClick={() => {
+                  setSelectorVisible(true);
+                  setSelectorType(2);
+                }}
+              >
+                <p>{additional.title}</p>
+                <p>{formatPrice(additional.price)}</p>
+              </div>
+            ))}
           </div>
-          {!selectorVisible && (
-            <button
-              className={
-                filled ? 'submit-button-enabled' : 'submit-button-disabled'
-              }
-              onClick={filled ? handleSubmit : null}
-              type="button"
-            >
-              Concluir
-            </button>
-          )}
         </div>
+        {!selectorVisible && (
+          <button
+            className={
+              filled ? 'submit-button-enabled' : 'submit-button-disabled'
+            }
+            onClick={filled ? handleSubmit : null}
+            type="button"
+          >
+            Concluir
+          </button>
+        )}
       </div>
     </div>
   );

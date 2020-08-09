@@ -3,6 +3,7 @@ import CurrencyInput from 'react-currency-input';
 import { Prompt } from 'react-router-dom';
 
 import CategorySelector from '../CategorySelector';
+import AdditionalSelector from '../AdditionalSelector';
 import Header from '~/components/Header';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
@@ -13,7 +14,9 @@ import defaultPicture from '~/assets/images/default-picture.png';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import './styles.css';
+import { formatPrice } from '~/util/format';
+
+import '../New/styles.css';
 
 export default function EditItem({ location }) {
   const { item } = location.state;
@@ -22,6 +25,7 @@ export default function EditItem({ location }) {
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
+  const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
   const [filled, setFilled] = useState(false);
 
   const [file, setFile] = useState(item.photo ? item.photo.photo_id : '');
@@ -33,6 +37,7 @@ export default function EditItem({ location }) {
   const [maskedPrice, setMaskedPrice] = useState(
     item.price.toString().replace('.', ',') || 'R$ 0,00'
   );
+  const [additionals, setAdditionals] = useState(item.additionals);
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
@@ -127,11 +132,22 @@ export default function EditItem({ location }) {
               : { left: windowWidth >= 432 ? 432 : windowWidth }
           }
         >
-          <CategorySelector
-            onClose={() => setSelectorVisible(false)}
-            windowWidth={windowWidth}
-            onChangeCategory={setCategory}
-          />
+          {selectorType === 1 && (
+            <CategorySelector
+              onClose={() => setSelectorVisible(0)}
+              windowWidth={windowWidth}
+              onChangeCategory={setCategory}
+            />
+          )}
+
+          {selectorType === 2 && (
+            <AdditionalSelector
+              onClose={() => setSelectorVisible(0)}
+              windowWidth={windowWidth}
+              selectedAdditionals={additionals}
+              onChangeAdditionals={(adds) => setAdditionals(adds)}
+            />
+          )}
         </div>
 
         <div
@@ -199,6 +215,7 @@ export default function EditItem({ location }) {
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Hamburguer de carne com queijo..."
             />
+
             <div className="input-group">
               <div>
                 <p className="input-label">Preço</p>
@@ -255,10 +272,14 @@ export default function EditItem({ location }) {
                 </div>
               </div>
             </div>
+
             <p className="input-label">Categoria</p>
             <div
               className="category-input"
-              onClick={() => setSelectorVisible(true)}
+              onClick={() => {
+                setSelectorVisible(true);
+                setSelectorType(1);
+              }}
             >
               <p style={category ? { color: '#444' } : { color: '#9c9c9c' }}>
                 {category || 'Selecionar categoria'}
@@ -267,24 +288,49 @@ export default function EditItem({ location }) {
                 <ExpandArrow style={{ height: 8 }} fill="#444" />
               </div>
             </div>
-            <p className="input-label">Adicionais</p>
-            <div className="additional-container">
+
+            <p className="input-label">
+              Adicionais{' '}
+              <span style={{ color: '#9c9c9c', fontSize: 14 }}>
+                (para o cliente escolher)
+              </span>
+            </p>
+
+            <div
+              className="add-additional-container"
+              onClick={() => {
+                setSelectorVisible(true);
+                setSelectorType(2);
+              }}
+            >
               <AddIcon style={{ height: 15, marginRight: 8 }} fill="#535BFE" />
               <p className="additional-text">Novo adicional</p>
             </div>
+            {additionals.map((additional) => (
+              <div
+                className="additional-container"
+                onClick={() => {
+                  setSelectorVisible(true);
+                  setSelectorType(2);
+                }}
+              >
+                <p>{additional.title}</p>
+                <p>{formatPrice(additional.price)}</p>
+              </div>
+            ))}
           </div>
-          {!selectorVisible && (
-            <button
-              className={
-                filled ? 'submit-button-enabled' : 'submit-button-disabled'
-              }
-              onClick={filled ? handleSubmit : null}
-              type="button"
-            >
-              Concluir
-            </button>
-          )}
         </div>
+        {!selectorVisible && (
+          <button
+            className={
+              filled ? 'submit-button-enabled' : 'submit-button-disabled'
+            }
+            onClick={filled ? handleSubmit : null}
+            type="button"
+          >
+            Concluir
+          </button>
+        )}
       </div>
     </div>
   );
