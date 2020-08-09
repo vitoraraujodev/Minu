@@ -71,6 +71,38 @@ class ItemController {
       establishment_id,
     });
 
+    const { additionals } = req.body;
+
+    if (additionals && additionals.length > 0) {
+        additionals.map(async (additional_id) => { // eslint-disable-line
+        const additional = await Additional.findByPk(additional_id);
+
+        const ItemAdditionalExists = await ItemAdditional.findOne({
+          where: { additional_id, item_id: item.id },
+        });
+
+        if (ItemAdditionalExists) {
+          const error = `${additional.title} já é adicional desse produto.`;
+          return error;
+        }
+
+        if (
+          additional.establishment_id !== establishment_id || // eslint-disable-line
+          item.establishment_id !== establishment_id    // eslint-disable-line
+        ) {
+          const error = `${additional.title} não é um adicional do seu estabelecimento.`;
+          return error;
+        }
+
+        const itemAdditional = await ItemAdditional.create({
+          item_id: item.id,
+          additional_id,
+        });
+
+        if (itemAdditional) return `${additional.title} criado com sucesso!`;
+      });
+    }
+
     return res.json(item);
   }
 
@@ -117,6 +149,58 @@ class ItemController {
     item = await item.update({
       ...req.body,
     });
+
+    const { additionals } = req.body;
+
+    if (additionals && additionals.length > 0) {
+      item = await Item.findByPk(req.params.id, {
+        include: [
+          {
+            model: Additional,
+            as: 'additionals',
+            order: ['ASC'],
+            attributes: ['id'],
+            through: {
+              model: ItemAdditional,
+              as: 'item-additionals',
+            },
+          },
+        ],
+      });
+
+      const itemAdditionals = item.additionals.map((add) => add.id);
+
+      additionals.map(async (additional_id) => { // eslint-disable-line
+        const additional = await Additional.findByPk(additional_id);
+
+        if (
+            additional.establishment_id !== establishment_id || // eslint-disable-line
+            item.establishment_id !== establishment_id    // eslint-disable-line
+        ) {
+          const error = `${additional.title} não é um adicional do seu estabelecimento.`;
+          return error;
+        }
+        if (!itemAdditionals.includes(additional_id)) {
+          const itemAdditional = await ItemAdditional.create({
+            item_id: item.id,
+            additional_id,
+          });
+          if (itemAdditional) return `${additional.title} criado com sucesso!`;
+        }
+      });
+
+      itemAdditionals.map(async (additional_id) => { // eslint-disable-line
+        if (!additionals.includes(additional_id)) {
+          const itemAdditional = await ItemAdditional.findOne({
+            where: { additional_id, item_id: item.id },
+          });
+
+          await itemAdditional.destroy();
+        }
+      });
+      item = await Item.findByPk(req.params.id);
+      return res.json(item);
+    }
 
     return res.json(item);
   }

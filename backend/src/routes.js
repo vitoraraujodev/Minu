@@ -12,7 +12,6 @@ import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
 import MenuItemController from './app/controllers/MenuItemController';
 import AdditionalController from './app/controllers/AdditionalController';
-import ItemAdditionalController from './app/controllers/ItemAdditionalController';
 import OrderController from './app/controllers/OrderController';
 import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
 import ItemRatingController from './app/controllers/ItemRatingController';
@@ -43,17 +42,6 @@ routes.get('/additionals', authMiddleware, AdditionalController.index);
 routes.post('/additionals', authMiddleware, AdditionalController.store);
 routes.put('/additionals/:id', authMiddleware, AdditionalController.update);
 routes.delete('/additionals/:id', authMiddleware, AdditionalController.delete);
-
-routes.post(
-  '/item-additionals',
-  authMiddleware,
-  ItemAdditionalController.store
-);
-routes.delete(
-  '/item-additionals/:id',
-  authMiddleware,
-  ItemAdditionalController.delete
-);
 
 routes.get('/orders', authMiddleware, OrderController.index);
 routes.post('/orders', OrderController.store);

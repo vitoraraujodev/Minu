@@ -5,7 +5,6 @@ class Menu extends Model {
     super.init(
       {
         title: Sequelize.STRING,
-        description: Sequelize.STRING,
         availability: Sequelize.STRING,
         start_at: Sequelize.INTEGER,
         end_at: Sequelize.INTEGER,
