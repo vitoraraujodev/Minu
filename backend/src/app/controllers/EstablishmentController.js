@@ -127,14 +127,7 @@ class EstablishmentController {
         {
           model: Menu,
           as: 'menus',
-          attributes: [
-            'id',
-            'title',
-            'description',
-            'availability',
-            'start_at',
-            'end_at',
-          ],
+          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
         },
       ],
     });

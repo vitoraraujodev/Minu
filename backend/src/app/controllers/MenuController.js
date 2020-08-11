@@ -37,7 +37,6 @@ class MenuController {
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
-      description: Yup.string(),
       availability: Yup.string().required(),
       start_at: Yup.number().required(),
       end_at: Yup.number().required(),
@@ -68,7 +67,6 @@ class MenuController {
   async update(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string(),
-      description: Yup.string(),
       availability: Yup.string(),
       start_at: Yup.number(),
       end_at: Yup.number(),
