@@ -165,7 +165,9 @@ export default function AdditionalSelector({
         )}
         {additionals.length === 0 && (
           <h3 className="empty-text">
-            Você ainda não possui adicionais cadastrados...
+            Você ainda não possui
+            <br />
+            adicionais cadastrados
           </h3>
         )}
 
@@ -188,13 +190,15 @@ export default function AdditionalSelector({
           </div>
         ))}
       </div>
-      <button
-        className="submit-additional-container"
-        onClick={onClose}
-        type="button"
-      >
-        <Foward style={{ height: 25 }} fill="#fff" />
-      </button>
+      {additionals.length !== 0 && (
+        <button
+          className="submit-additional-container"
+          onClick={onClose}
+          type="button"
+        >
+          <Foward style={{ height: 25 }} fill="#fff" />
+        </button>
+      )}
     </div>
   );
 }

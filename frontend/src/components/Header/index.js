@@ -21,7 +21,7 @@ export default function Header() {
 
   function handleResize() {
     const tabnavigator = document.getElementById('tabnavigator');
-    if (tabnavigator) {
+    if (tabnavigator.offsetWidth !== windowWidth) {
       setWindowWidth(tabnavigator.offsetWidth);
     }
   }

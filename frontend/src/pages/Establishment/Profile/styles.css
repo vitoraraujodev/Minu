@@ -18,7 +18,7 @@
   position: relative;
   min-width: 320px;
   margin: 0 auto;
-  margin-bottom: 38px;
+  margin-bottom: 48px;
 }
 
 #profile .img-button {
@@ -55,14 +55,19 @@
   position: absolute;
   display: block;
   width: 100%;
-  padding: 16px 40px;
-  bottom: -40px;
+  padding: 24px 40px;
+  bottom: -48px;
   background: #fff;
   box-shadow: 0px 0px 6px #00000029;
 }
 
+#profile .title-area {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
 #profile .title {
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 600;
 }
 
@@ -90,10 +95,13 @@
   #profile {
     overflow-y: scroll;
   }
+  #profile .info-container {
+    margin-bottom: 56px;
+  }
 
   #profile .info {
-    bottom: -40px;
-    padding: 12px 24px;
+    bottom: -56px;
+    padding: 16px 24px;
     width: 100%;
   }
 

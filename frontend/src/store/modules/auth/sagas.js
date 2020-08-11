@@ -1,9 +1,14 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-
+import decode from 'jwt-decode';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSuccess, signFailure, signOutSuccess } from './actions';
+import {
+  signInSuccess,
+  signFailure,
+  signOutSuccess,
+  tokenExpired,
+} from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -29,10 +34,18 @@ export function* signOut() {
   }
 }
 
-export function setToken({ payload }) {
+export function* setToken({ payload }) {
   if (!payload) return;
 
   const { token } = payload.auth;
+
+  if (token) {
+    const decoded = decode(token);
+
+    if (decoded.exp < Date.now() / 1000) {
+      yield put(tokenExpired());
+    }
+  }
 
   if (token) {
     api.defaults.headers.Authorization = `Bearer ${token}`;

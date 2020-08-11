@@ -38,13 +38,17 @@
   display: flex;
 }
 
-#address-page  .input-label {
+#address-page  .input-label, #address-page .input-label-disabled {
   font-size: 18px;
   color: #252525;
   margin-bottom: 8px;
 }
 
-#address-page .input {
+#address-page .input-label-disabled {
+  color: #acacac;
+}
+
+#address-page .input, #address-page .input-disabled {
   width: 100%;
   height: 48px;
   border: 0;
@@ -65,11 +69,6 @@
   font-size: 16px;
 }
 
-#address-page .input-label-disabled {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #acacac;
-}
 
 #address-page .submit-button-enabled, #address-page .submit-button-disabled {
   width: 100%;

@@ -34,3 +34,9 @@ export function inventoryDisable(access) {
     payload: { access },
   };
 }
+
+export function tokenExpired() {
+  return {
+    type: '@auth/TOKEN_EXPIRED',
+  };
+}

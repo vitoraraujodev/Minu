@@ -147,8 +147,8 @@
 }
 
 #additional-selector .empty-text {
-  margin: 32px 24px;
-  font-size: 19px;
+  margin: 32px 0;
+  font-size: 16px;
   font-weight: 600;
   color: #acacac;
   text-align: center;

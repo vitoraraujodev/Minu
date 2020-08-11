@@ -55,6 +55,7 @@
 #pin-modal .modal-back-button {
   color: #606060;
   border: 1px solid #606060;
+  cursor: pointer;
 }
 
 #pin-modal .modal-back-button:hover {

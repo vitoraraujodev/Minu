@@ -40,7 +40,9 @@ export default function Profile() {
                 Alterar foto
               </button>
             </Link>
-            <span className="title">{establishment.establishment_name}</span>
+            <div className="title-area">
+              <span className="title">{establishment.establishment_name}</span>
+            </div>
             <StarRating
               rating={establishment.rating}
               raters={establishment.raters}

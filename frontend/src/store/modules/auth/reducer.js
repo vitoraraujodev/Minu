@@ -33,6 +33,11 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.inventoryDisabled = action.payload.access;
         break;
       }
+      case '@auth/TOKEN_EXPIRED': {
+        draft.token = null;
+        draft.signed = false;
+        break;
+      }
       default:
     }
   });

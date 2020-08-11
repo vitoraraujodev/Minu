@@ -7,10 +7,10 @@ export default function PinCodeInput({
   onChangeAdminPin,
   disabled = false,
 }) {
-  const [firstInput, setFirstInput] = useState(adminPin[0]);
-  const [secondInput, setSecondInput] = useState(adminPin[1]);
-  const [thirdInput, setThirdInput] = useState(adminPin[2]);
-  const [fourthInput, setFourthInput] = useState(adminPin[3]);
+  const [firstInput, setFirstInput] = useState(adminPin[0] || '');
+  const [secondInput, setSecondInput] = useState(adminPin[1] || '');
+  const [thirdInput, setThirdInput] = useState(adminPin[2] || '');
+  const [fourthInput, setFourthInput] = useState(adminPin[3] || '');
 
   const firstInputRef = useRef(null);
   const secondInputRef = useRef(null);

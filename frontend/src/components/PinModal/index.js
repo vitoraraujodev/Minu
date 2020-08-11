@@ -35,9 +35,8 @@ export default function PinModal({ onClose, onAccess }) {
       }
     } catch (err) {
       setInvalid(true);
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
