@@ -72,13 +72,15 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
-    const { email, cnpj, oldPassword, photo_id } = req.body; // eslint-disable-line
+    const { cnpj, oldPassword, photo_id } = req.body; // eslint-disable-line
+
+    const mail = req.body.email;
 
     const establishment = await Establishment.findByPk(req.establishmentId);
 
-    if (email && email !== establishment.email) {
+    if (mail && mail !== establishment.email) {
       const establishmentExists = await Establishment.findOne({
-        where: { email },
+        where: { mail },
       });
 
       if (establishmentExists) {
@@ -110,6 +112,7 @@ class EstablishmentController {
     const {
       id,
       establishment_name, //eslint-disable-line
+      email,
       manager_name, //eslint-disable-line
       manager_lastname, //eslint-disable-line
       cep,

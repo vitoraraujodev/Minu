@@ -22,12 +22,14 @@ import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 
-import { inventoryDisable } from '~/store/modules/auth/actions';
+import { inventoryAccess } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
 export default function Inventory() {
-  const disabled = useSelector((state) => state.auth.inventoryDisabled);
+  const inventoryAccessed = useSelector(
+    (state) => state.auth.inventoryAccessed
+  );
   const dispatch = useDispatch();
 
   const [pinModalVisible, setPinModalVisible] = useState(false);
@@ -55,8 +57,8 @@ export default function Inventory() {
   }
 
   useEffect(() => {
-    if (!disabled) loadItems();
-  }, [disabled]);
+    if (inventoryAccessed) loadItems();
+  }, [inventoryAccessed]);
 
   useEffect(() => {
     let newPrice = maskedPrice;
@@ -67,6 +69,8 @@ export default function Inventory() {
 
     setPrice(newPrice);
   }, [maskedPrice]);
+
+  useEffect(() => {}, []);
 
   async function handleSubmit() {
     const data = {
@@ -92,7 +96,7 @@ export default function Inventory() {
       {pinModalVisible && (
         <PinModal
           onClose={() => setPinModalVisible(false)}
-          onAccess={() => dispatch(inventoryDisable(false))}
+          onAccess={() => dispatch(inventoryAccess(true))}
         />
       )}
 
@@ -105,7 +109,7 @@ export default function Inventory() {
         </div>
 
         <div className="content">
-          <Accordion title="Cardápios" disabled={disabled}>
+          <Accordion title="Cardápios" disabled={!inventoryAccessed}>
             <div className="add-item-container">
               <AddIcon
                 style={{ height: 16, marginRight: 8, minWidth: 16 }}
@@ -115,7 +119,7 @@ export default function Inventory() {
             </div>
           </Accordion>
 
-          <Accordion title="Produtos" disabled={disabled}>
+          <Accordion title="Produtos" disabled={!inventoryAccessed}>
             <Link
               to={{
                 pathname: '/menus/produto',
@@ -172,7 +176,7 @@ export default function Inventory() {
           <Accordion
             title="Adicionais"
             length={additionals.length}
-            disabled={disabled}
+            disabled={!inventoryAccessed}
           >
             {additionalForm ? (
               <div className="item-container">
@@ -236,7 +240,7 @@ export default function Inventory() {
           </Accordion>
         </div>
 
-        {disabled && (
+        {!inventoryAccessed && (
           <div
             className="lock-container"
             onClick={() => {

@@ -28,7 +28,7 @@ export default function Information({
   return (
     <>
       <form id="form">
-        <p className="auth-title">Entre para a Minu</p>
+        <p className="auth-title">Entre para a Minu!</p>
         <p className="input-label">Insira seu e-mail</p>
         <input
           name="email"

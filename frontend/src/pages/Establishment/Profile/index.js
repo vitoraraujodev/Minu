@@ -26,14 +26,18 @@ export default function Profile() {
       <Header />
       <div className="container">
         <div className="info-container">
-          <img
-            src={establishment.photo ? establishment.photo.url : defaultPicture}
-            onError={(e) => {
-              e.target.src = defaultPicture;
-            }}
-            className="establishment-img"
-            alt="establishment"
-          />
+          <div className="img-container">
+            <img
+              src={
+                establishment.photo ? establishment.photo.url : defaultPicture
+              }
+              onError={(e) => {
+                e.target.src = defaultPicture;
+              }}
+              className="establishment-img"
+              alt="establishment"
+            />
+          </div>{' '}
           <div className="info">
             <Link to="/estabelecimento/foto">
               <button className="img-button" type="button">

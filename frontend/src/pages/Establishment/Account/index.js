@@ -25,13 +25,15 @@ export default function Account() {
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
   const [establishmentName, setEstablishmentName] = useState(
-    establishment.establishment_name
+    establishment.establishment_name || ''
   );
-  const [managerName, setManagerName] = useState(establishment.manager_name);
+  const [managerName, setManagerName] = useState(
+    establishment.manager_name || ''
+  );
   const [managerLastName, setManagerLastName] = useState(
-    establishment.manager_lastname
+    establishment.manager_lastname || ''
   );
-  const [email, setEmail] = useState(establishment.email);
+  const [email, setEmail] = useState(establishment.email || '');
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -86,8 +88,6 @@ export default function Account() {
       data.password = password;
       data.confirm_password = confirmPassword;
     }
-
-    console.tron.log(data);
 
     dispatch(updateEstablishmentRequest(data));
   }

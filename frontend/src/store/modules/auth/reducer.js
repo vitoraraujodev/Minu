@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   token: null,
   signed: false,
   loading: false,
-  inventoryDisabled: true,
+  inventoryAccessed: true,
 };
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -30,7 +30,7 @@ export default function auth(state = INITIAL_STATE, action) {
         break;
       }
       case '@auth/INVENTORY_ACCESS': {
-        draft.inventoryDisabled = action.payload.access;
+        draft.inventoryAccessed = action.payload.access;
         break;
       }
       case '@auth/TOKEN_EXPIRED': {

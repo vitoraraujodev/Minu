@@ -8,17 +8,23 @@ import {
   signFailure,
   signOutSuccess,
   tokenExpired,
+  inventoryAccess,
 } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { email, password } = payload;
+    const { email, password, route } = payload;
 
     const response = yield call(api.post, 'sessions', { email, password });
     const { token, establishment } = response.data;
 
     yield put(signInSuccess(token, establishment));
-    history.push('/estabelecimento');
+
+    history.go(route || '/estabelecimento');
+
+    if (route === '/menus') {
+      yield put(inventoryAccess());
+    }
   } catch (err) {
     yield put(signFailure());
     if (err.response.data) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
@@ -8,20 +8,21 @@ import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import logo from '~/assets/icons/simple-logo.svg';
 
-import { inventoryDisable } from '~/store/modules/auth/actions';
+import { inventoryAccess } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
 export default function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const accessed = useSelector((state) => state.auth.inventoryAccessed);
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [active, setActive] = useState();
 
   function handleResize() {
     const tabnavigator = document.getElementById('tabnavigator');
-    if (tabnavigator.offsetWidth !== windowWidth) {
+    if (tabnavigator && tabnavigator.offsetWidth !== windowWidth) {
       setWindowWidth(tabnavigator.offsetWidth);
     }
   }
@@ -30,9 +31,9 @@ export default function Header() {
     if (location.pathname === '/pedidos') setActive('orders');
     if (location.pathname === '/menus') setActive('menu');
     if (location.pathname === '/estabelecimento') setActive('establishment');
-    if (location.pathname.substr(0, 6) !== '/menus')
-      dispatch(inventoryDisable(true));
-  }, [location.pathname, dispatch]);
+    if (location.pathname.substr(0, 6) !== '/menus' && accessed)
+      dispatch(inventoryAccess(false));
+  }, [location.pathname, dispatch, accessed]);
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);

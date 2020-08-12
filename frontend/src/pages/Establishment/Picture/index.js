@@ -119,15 +119,19 @@ export default function Picture() {
           >
             Adicione uma foto!
           </p>
+          <div
+            className={disabled ? 'img-container-disabled' : 'img-container'}
+          >
+            <img
+              src={photo}
+              onError={(e) => {
+                e.target.src = defaultPicture;
+              }}
+              className={disabled ? 'image-disabled' : 'image'}
+              alt=""
+            />
+          </div>
 
-          <img
-            src={photo}
-            onError={(e) => {
-              e.target.src = defaultPicture;
-            }}
-            className={disabled ? 'image-disabled' : 'image'}
-            alt=""
-          />
           {!disabled && !file && (
             <button className="img-button" type="button">
               <label className="img-label" htmlFor="photo">
@@ -142,7 +146,6 @@ export default function Picture() {
               </label>
             </button>
           )}
-
           {windowWidth >= 768 && !disabled ? (
             <button
               className={

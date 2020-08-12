@@ -1,7 +1,7 @@
-export function signInRequest(email, password) {
+export function signInRequest(email, password, route) {
   return {
     type: '@auth/SIGN_IN_REQUEST',
-    payload: { email, password },
+    payload: { email, password, route },
   };
 }
 
@@ -28,7 +28,7 @@ export function signOutSuccess() {
   };
 }
 
-export function inventoryDisable(access) {
+export function inventoryAccess(access) {
   return {
     type: '@auth/INVENTORY_ACCESS',
     payload: { access },

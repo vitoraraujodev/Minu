@@ -21,6 +21,31 @@
   margin-bottom: 48px;
 }
 
+#profile .img-container {
+  max-height: 432px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#profile .establishment-img {
+  width: 100%;
+  min-width: 320px;
+  min-height: 240px;
+  background: #ddd;
+}
+
+#profile .info {
+  position: absolute;
+  display: block;
+  width: 100%;
+  padding: 24px 40px;
+  bottom: -48px;
+  background: #fff;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
 #profile .img-button {
   position: absolute;
   right: 48px;
@@ -44,21 +69,6 @@
 #profile .img-button:active {
   color: #fff;
   background: #535bfe;
-}
-
-#profile .establishment-img {
-  width: 100%;
-  min-width: 320px;
-}
-
-#profile .info {
-  position: absolute;
-  display: block;
-  width: 100%;
-  padding: 24px 40px;
-  bottom: -48px;
-  background: #fff;
-  box-shadow: 0px 0px 6px #00000029;
 }
 
 #profile .title-area {
@@ -99,6 +109,10 @@
     margin-bottom: 56px;
   }
 
+  #profile .img-container {
+    max-height: 364px;
+  }
+
   #profile .info {
     bottom: -56px;
     padding: 16px 24px;
@@ -110,6 +124,7 @@
     right: 32px;
   }
 
+
   #profile .option {
     padding: 16px 0;
     margin: 0 24px;
@@ -117,5 +132,11 @@
 
   #profile .option-text {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-height: 567px) {
+  #profile .img-container{
+    max-height: 280px;
   }
 }

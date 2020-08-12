@@ -106,6 +106,8 @@
 
 #item-page .item-img {
   width: 100%;
+  background: #ddd;
+  min-height: 204px;
 }
 
 #item-page .img-button {

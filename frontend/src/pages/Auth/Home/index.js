@@ -9,7 +9,9 @@ export default function Intro() {
   const [height, setHeight] = useState(window.innerHeight);
 
   function handleResize() {
-    setHeight(window.innerHeight);
+    if (window) {
+      setHeight(window.innerHeight);
+    }
   }
 
   window.addEventListener('resize', handleResize);

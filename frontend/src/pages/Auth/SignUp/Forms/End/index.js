@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { signInRequest } from '~/store/modules/auth/actions';
@@ -9,9 +8,8 @@ import './styles.css';
 export default function End({ email, password }) {
   const dispatch = useDispatch();
 
-  function handleLogin() {
-    console.tron.log(email, password);
-    dispatch(signInRequest(email, password));
+  function handleLogin(route) {
+    dispatch(signInRequest(email, password, route));
   }
 
   return (
@@ -25,16 +23,24 @@ export default function End({ email, password }) {
           <br />
           Concluído!
         </h1>
-        <Link to="/menus">
-          <button className="menu-button" onClick={handleLogin} type="button">
-            Faça seu cardápio!
-          </button>
-        </Link>
-        <Link to="/estabelecimento">
-          <button className="later-button" onClick={handleLogin} type="button">
-            Deixar para depois
-          </button>
-        </Link>
+        <button
+          className="menu-button"
+          onClick={() => {
+            handleLogin('/menus');
+          }}
+          type="button"
+        >
+          Faça seu cardápio!
+        </button>
+        <button
+          className="later-button"
+          onClick={() => {
+            handleLogin('/estabelecimento');
+          }}
+          type="button"
+        >
+          Deixar para depois
+        </button>
       </div>
     </>
   );

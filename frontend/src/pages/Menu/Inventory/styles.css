@@ -93,7 +93,7 @@
 }
 
 #inventory .item-img {
-  height: 40px;
+  width:100%;
 }
 
 #inventory .item-info {
