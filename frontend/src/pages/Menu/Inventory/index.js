@@ -70,7 +70,27 @@ export default function Inventory() {
     setPrice(newPrice);
   }, [maskedPrice]);
 
-  useEffect(() => {}, []);
+  function menuColor(index) {
+    let rest = index % 5;
+    while (rest > 5) {
+      rest %= 5;
+    }
+
+    switch (rest) {
+      case 0:
+        return '#24D18A';
+      case 1:
+        return '#FF8736';
+      case 2:
+        return '#FF3636';
+      case 3:
+        return '#535BFE';
+      case 4:
+        return '#252525';
+      default:
+        return '#fff';
+    }
+  }
 
   async function handleSubmit() {
     const data = {
@@ -116,6 +136,54 @@ export default function Inventory() {
                 fill="#535BFE"
               />
               <p>Novo cardápio</p>
+            </div>
+
+            <div className="item-container">
+              <Link
+                to={{
+                  pathname: `/menus/`,
+                  state: {},
+                }}
+              >
+                <div
+                  className="img-container"
+                  style={{ background: menuColor(8) }}
+                >
+                  4
+                </div>
+
+                <div className="item-info">
+                  <p className="item-title">abcdeabcde</p>
+                  <div className="item-date">
+                    <div className="item-week">
+                      <div className="week-line" />
+                      <p className="item-day" style={{}}>
+                        D
+                      </p>
+                      <p className="item-day" style={{}}>
+                        S
+                      </p>
+                      <p className="item-day" style={{}}>
+                        T
+                      </p>
+                      <p className="item-day" style={{}}>
+                        Q
+                      </p>
+                      <p className="item-day" style={{}}>
+                        Q
+                      </p>
+                      <p className="item-day" style={{}}>
+                        S
+                      </p>
+                      <p className="item-day" style={{}}>
+                        S
+                      </p>
+                      <div className="week-line" />
+                    </div>
+                    <p className="item-code">11h-16h</p>
+                  </div>
+                </div>
+              </Link>
             </div>
           </Accordion>
 

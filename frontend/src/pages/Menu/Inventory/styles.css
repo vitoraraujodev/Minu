@@ -90,10 +90,13 @@
   justify-content: center;
   margin-right: 16px;
   border-radius: 5px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 25px;
 }
 
 #inventory .item-img {
-  width:100%;
+  width: 100%;
 }
 
 #inventory .item-info {
@@ -115,6 +118,39 @@
 #inventory .item-code {
   font-size: 11px;
   color:#9C9C9C;
+}
+
+#inventory .item-date {
+  display: flex;
+}
+
+#inventory .item-week {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#inventory .week-line {
+  height: 8px;
+  border: 1px solid #9c9c9c;
+  margin-right: 8px;
+}
+
+#inventory .item-day + .week-line {
+  margin-left: 8px;
+}
+
+#inventory .item-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color:#9C9C9C;
+  font-weight: 900;
+}
+
+#inventory .item-day + .item-day {
+  margin-left: 6px;
 }
 
 #inventory .icon-area,
