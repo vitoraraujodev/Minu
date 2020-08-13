@@ -18,12 +18,14 @@ export function* signIn({ payload }) {
     const response = yield call(api.post, 'sessions', { email, password });
     const { token, establishment } = response.data;
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     yield put(signInSuccess(token, establishment));
 
-    history.go(route || '/estabelecimento');
+    history.push(route);
 
     if (route === '/menus') {
-      yield put(inventoryAccess());
+      yield put(inventoryAccess(true));
     }
   } catch (err) {
     yield put(signFailure());

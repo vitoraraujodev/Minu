@@ -29,7 +29,7 @@ export default function SignUp() {
   }, [email, password]);
 
   function handleSubmit() {
-    dispatch(signInRequest(email, password));
+    dispatch(signInRequest(email, password, '/estabelecimento'));
   }
 
   return (

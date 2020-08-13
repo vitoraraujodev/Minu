@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Router, Switch, Redirect } from 'react-router-dom';
 import Route from './Route';
 
 import Home from '~/pages/Auth/Home';
@@ -35,6 +35,8 @@ export default function Routes() {
         <Route path="/menus" exact component={Inventory} private />
         <Route path="/menus/produto" exact component={NewItem} private />
         <Route path="/menus/produto/:id" component={EditItem} private />
+
+        <Redirect from="*" to="/" exact />
       </Switch>
     </Router>
   );

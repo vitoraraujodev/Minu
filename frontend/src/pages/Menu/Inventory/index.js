@@ -41,6 +41,7 @@ export default function Inventory() {
 
   const [items, setItems] = useState([]);
   const [additionals, setAdditionals] = useState([]);
+  const [menus, setMenus] = useState([]);
 
   async function loadItems() {
     try {
@@ -49,6 +50,9 @@ export default function Inventory() {
 
       response = await api.get('additionals');
       setAdditionals(response.data);
+
+      response = await api.get('menus');
+      setMenus(response.data);
     } catch (err) {
       alert(
         'Não foi possível carregar suas informações. Por favor, tente mais tarde.'
@@ -137,54 +141,54 @@ export default function Inventory() {
               />
               <p>Novo cardápio</p>
             </div>
-
-            <div className="item-container">
-              <Link
-                to={{
-                  pathname: `/menus/`,
-                  state: {},
-                }}
-              >
-                <div
-                  className="img-container"
-                  style={{ background: menuColor(8) }}
+            {menus.map((menu, index) => (
+              <div key={menu.id} className="item-container">
+                <Link
+                  to={{
+                    pathname: `/menus/cardapio/${menu.id}`,
+                    state: { menu },
+                  }}
                 >
-                  4
-                </div>
-
-                <div className="item-info">
-                  <p className="item-title">abcdeabcde</p>
-                  <div className="item-date">
-                    <div className="item-week">
-                      <div className="week-line" />
-                      <p className="item-day" style={{}}>
-                        D
-                      </p>
-                      <p className="item-day" style={{}}>
-                        S
-                      </p>
-                      <p className="item-day" style={{}}>
-                        T
-                      </p>
-                      <p className="item-day" style={{}}>
-                        Q
-                      </p>
-                      <p className="item-day" style={{}}>
-                        Q
-                      </p>
-                      <p className="item-day" style={{}}>
-                        S
-                      </p>
-                      <p className="item-day" style={{}}>
-                        S
-                      </p>
-                      <div className="week-line" />
-                    </div>
-                    <p className="item-code">11h-16h</p>
+                  <div
+                    className="img-container"
+                    style={{ background: menuColor(index) }}
+                  >
+                    {index + 1}
                   </div>
-                </div>
-              </Link>
-            </div>
+                  <div className="item-info">
+                    <p className="item-title">abcdeabcde</p>
+                    <div className="item-date">
+                      <div className="item-week">
+                        <div className="week-line" />
+                        <p className="item-day" style={{}}>
+                          D
+                        </p>
+                        <p className="item-day" style={{}}>
+                          S
+                        </p>
+                        <p className="item-day" style={{}}>
+                          T
+                        </p>
+                        <p className="item-day" style={{}}>
+                          Q
+                        </p>
+                        <p className="item-day" style={{}}>
+                          Q
+                        </p>
+                        <p className="item-day" style={{}}>
+                          S
+                        </p>
+                        <p className="item-day" style={{}}>
+                          S
+                        </p>
+                        <div className="week-line" />
+                      </div>
+                      <p className="item-code">11h-16h</p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
           </Accordion>
 
           <Accordion title="Produtos" disabled={!inventoryAccessed}>
