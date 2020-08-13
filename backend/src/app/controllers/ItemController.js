@@ -9,19 +9,6 @@ class ItemController {
   async index(req, res) {
     const items = await Item.findAll({
       where: { establishment_id: req.establishmentId },
-      attributes: [
-        'id',
-        'title',
-        'code',
-        'description',
-        'category',
-        'price',
-        'available',
-        'preparation_time',
-        'establishment_id',
-        'rating',
-        'raters',
-      ],
       order: [['title', 'ASC']],
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
@@ -47,7 +34,7 @@ class ItemController {
       code: Yup.string(),
       description: Yup.string(),
       category: Yup.string().required(),
-      available: Yup.string(),
+      available: Yup.boolean(),
       price: Yup.number().required(),
       preparation_time: Yup.number().required(),
     });
@@ -112,7 +99,7 @@ class ItemController {
       code: Yup.string(),
       category: Yup.string(),
       description: Yup.string(),
-      available: Yup.string(),
+      available: Yup.boolean(),
       price: Yup.number(),
       preparation_time: Yup.number(),
     });

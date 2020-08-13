@@ -8,6 +8,7 @@ class Menu extends Model {
         availability: Sequelize.STRING,
         start_at: Sequelize.INTEGER,
         end_at: Sequelize.INTEGER,
+        available: Sequelize.BOOLEAN,
       },
       {
         sequelize,

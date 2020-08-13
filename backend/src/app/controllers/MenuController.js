@@ -40,6 +40,7 @@ class MenuController {
       availability: Yup.string().required(),
       start_at: Yup.number().required(),
       end_at: Yup.number().required(),
+      available: Yup.boolean(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -70,6 +71,7 @@ class MenuController {
       availability: Yup.string(),
       start_at: Yup.number(),
       end_at: Yup.number(),
+      available: Yup.boolean(),
     });
 
     if (!(await schema.isValid(req.body))) {

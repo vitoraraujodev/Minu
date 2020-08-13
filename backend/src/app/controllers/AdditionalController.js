@@ -16,7 +16,7 @@ class AdditionalController {
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
-      available: Yup.string(),
+      available: Yup.boolean(),
       price: Yup.number().required(),
     });
 

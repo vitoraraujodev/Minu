@@ -15,6 +15,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      available: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       start_at: {
         allowNull: false,
         type: Sequelize.INTEGER,
