@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
+import Menu from './Menu';
 import Additional from './Additional';
 import Actions from '~/components/Actions';
 
@@ -52,6 +53,7 @@ export default function Inventory() {
       setAdditionals(response.data);
 
       response = await api.get('menus');
+      console.tron.log(response.data);
       setMenus(response.data);
     } catch (err) {
       alert(
@@ -73,28 +75,6 @@ export default function Inventory() {
 
     setPrice(newPrice);
   }, [maskedPrice]);
-
-  function menuColor(index) {
-    let rest = index % 5;
-    while (rest > 5) {
-      rest %= 5;
-    }
-
-    switch (rest) {
-      case 0:
-        return '#24D18A';
-      case 1:
-        return '#FF8736';
-      case 2:
-        return '#FF3636';
-      case 3:
-        return '#535BFE';
-      case 4:
-        return '#252525';
-      default:
-        return '#fff';
-    }
-  }
 
   async function handleSubmit() {
     const data = {
@@ -142,52 +122,7 @@ export default function Inventory() {
               <p>Novo cardápio</p>
             </div>
             {menus.map((menu, index) => (
-              <div key={menu.id} className="item-container">
-                <Link
-                  to={{
-                    pathname: `/menus/cardapio/${menu.id}`,
-                    state: { menu },
-                  }}
-                >
-                  <div
-                    className="img-container"
-                    style={{ background: menuColor(index) }}
-                  >
-                    {index + 1}
-                  </div>
-                  <div className="item-info">
-                    <p className="item-title">abcdeabcde</p>
-                    <div className="item-date">
-                      <div className="item-week">
-                        <div className="week-line" />
-                        <p className="item-day" style={{}}>
-                          D
-                        </p>
-                        <p className="item-day" style={{}}>
-                          S
-                        </p>
-                        <p className="item-day" style={{}}>
-                          T
-                        </p>
-                        <p className="item-day" style={{}}>
-                          Q
-                        </p>
-                        <p className="item-day" style={{}}>
-                          Q
-                        </p>
-                        <p className="item-day" style={{}}>
-                          S
-                        </p>
-                        <p className="item-day" style={{}}>
-                          S
-                        </p>
-                        <div className="week-line" />
-                      </div>
-                      <p className="item-code">11h-16h</p>
-                    </div>
-                  </div>
-                </Link>
-              </div>
+              <Menu key={menu.id} menu={menu} index={index} />
             ))}
           </Accordion>
 

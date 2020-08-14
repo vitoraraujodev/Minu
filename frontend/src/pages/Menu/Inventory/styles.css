@@ -110,47 +110,14 @@
   font-size: 16px;
   color: #252525;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #inventory .item-code {
-  font-size: 11px;
+  font-size: 12px;
   color:#9C9C9C;
-}
-
-#inventory .item-date {
-  display: flex;
-}
-
-#inventory .item-week {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#inventory .week-line {
-  height: 8px;
-  border: 1px solid #9c9c9c;
-  margin-right: 8px;
-}
-
-#inventory .item-day + .week-line {
-  margin-left: 8px;
-}
-
-#inventory .item-day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color:#9C9C9C;
-  font-weight: 900;
-}
-
-#inventory .item-day + .item-day {
-  margin-left: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #inventory .icon-area,
@@ -232,4 +199,3 @@
     font-size: 16px;
   }
 }
-

@@ -31,7 +31,7 @@ export default function AdmPin({
           Crie o PIN dos administradores
         </p>
         <p className="sub-label">
-          Será necessária para fazer alterações em configurações e cardápios
+          Será necessário para fazer alterações em configurações e cardápios
         </p>
 
         <PinCodeInput adminPin={adminPin} onChangeAdminPin={onChangeAdminPin} />
