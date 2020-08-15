@@ -172,7 +172,7 @@ export default function NewItem({ location }) {
               Voltar
             </button>
 
-            <p className="product-label">
+            <p className="header-label">
               {length ? `Produto ${length <= 9 ? `0${length}` : length}` : ''}
             </p>
           </div>

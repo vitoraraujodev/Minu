@@ -105,7 +105,7 @@ export default function AdditionalSelector({
             Voltar
           </button>
 
-          <p className="product-label">Adicionais</p>
+          <p className="header-label">Adicionais</p>
 
           {selectedAdditionals.length > 0 && (
             <div className="amount-container">

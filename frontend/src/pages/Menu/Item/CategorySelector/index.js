@@ -25,7 +25,7 @@ export default function CategorySelector({
           Voltar
         </button>
 
-        <p className="product-label">Categorias</p>
+        <p className="header-label">Categorias</p>
       </div>
 
       <div className="category-area" onClick={() => handleCategory('Entradas')}>

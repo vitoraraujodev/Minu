@@ -32,7 +32,6 @@
   color: #9c9c9c;
 }
 
-
 @media screen and (max-width: 334px) {
   #inventory .item-day {
     font-size: 10px;

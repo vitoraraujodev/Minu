@@ -114,13 +114,21 @@ export default function Inventory() {
 
         <div className="content">
           <Accordion title="Cardápios" disabled={!inventoryAccessed}>
-            <div className="add-item-container">
-              <AddIcon
-                style={{ height: 16, marginRight: 8, minWidth: 16 }}
-                fill="#535BFE"
-              />
-              <p>Novo cardápio</p>
-            </div>
+            <Link
+              to={{
+                pathname: '/menus/cardapio',
+                state: { length: menus.length + 1 },
+              }}
+            >
+              <div className="add-item-container">
+                <AddIcon
+                  style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                  fill="#535BFE"
+                />
+                <p>Novo cardápio</p>
+              </div>
+            </Link>
+
             {menus.map((menu, index) => (
               <Menu key={menu.id} menu={menu} index={index} />
             ))}

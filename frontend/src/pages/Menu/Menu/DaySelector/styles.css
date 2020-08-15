@@ -1,0 +1,33 @@
+#day-selector {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 4px;
+  margin-bottom: 8px;
+}
+
+#day-selector .day, #day-selector .selected-day {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#day-selector .day {
+  color: #9c9c9c;
+}
+
+#day-selector .day:hover, #day-selector .selected-day:hover {
+  background: #f6f6f6
+}
+
+#day-selector .selected-day {
+  color: #535BFE;
+  border: 1px solid #535BFE;
+}

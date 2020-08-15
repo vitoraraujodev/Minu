@@ -171,7 +171,7 @@ export default function EditItem({ location }) {
               Voltar
             </button>
 
-            <p className="product-label">{item.title || 'Produto'}</p>
+            <p className="header-label">{item.title || 'Produto'}</p>
 
             <div className="icon-area">
               <Actions
