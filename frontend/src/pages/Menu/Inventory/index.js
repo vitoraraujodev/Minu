@@ -53,7 +53,6 @@ export default function Inventory() {
       setAdditionals(response.data);
 
       response = await api.get('menus');
-      console.tron.log(response.data);
       setMenus(response.data);
     } catch (err) {
       alert(
@@ -171,7 +170,7 @@ export default function Inventory() {
 
                   <div className="item-info">
                     <p className="item-title">{item.title}</p>
-                    {item.code && <p className="item-code">{1234123}</p>}
+                    {item.code && <p className="item-code">{item.code}</p>}
                   </div>
                 </Link>
                 <div className="icon-area">

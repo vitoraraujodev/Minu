@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import AdditionalSelector from '../../Item/AdditionalSelector';
+import ItemSelector from '../ItemSelector';
 import DaySelector from '../DaySelector';
 import Header from '~/components/Header';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
+import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -22,8 +23,10 @@ export default function NewMenu({ location }) {
   const [filled, setFilled] = useState(false);
 
   const [title, setTitle] = useState('');
+  const [startAt, setStartAt] = useState('');
+  const [endAt, setEndAt] = useState('');
   const [availability, setAvailability] = useState('0000000');
-  const [additionals, setAdditionals] = useState([]);
+  const [items, setItems] = useState([]);
 
   function handleResize() {
     const itemPage = document.getElementById('menu-page');
@@ -47,10 +50,17 @@ export default function NewMenu({ location }) {
   }, [title]);
 
   async function handleSubmit() {
-    const data = {};
+    const items_id = items.map((item) => item.id);
+    const data = {
+      title,
+      availability,
+      startAt,
+      endAt,
+      items: items_id,
+    };
 
     try {
-      await api.post('items', data);
+      await api.post('/menus', data);
       history.push('/menus');
     } catch (err) {
       alert(err.response.data.error);
@@ -70,11 +80,11 @@ export default function NewMenu({ location }) {
               : { left: windowWidth >= 432 ? 432 : windowWidth }
           }
         >
-          <AdditionalSelector
+          <ItemSelector
             onClose={() => setSelectorVisible(0)}
             windowWidth={windowWidth}
-            selectedAdditionals={additionals}
-            onChangeAdditionals={(adds) => setAdditionals(adds)}
+            selectedItems={items}
+            onChangeItems={(item) => setItems(item)}
           />
         </div>
 
@@ -131,15 +141,33 @@ export default function NewMenu({ location }) {
                 <ExpandArrow style={{ height: 8 }} fill="#535BFE" />
               </div>
             </div>
-            {additionals.map((additional) => (
+
+            {items.map((item) => (
               <div
+                key={item.id}
                 className="item-container"
                 onClick={() => {
                   setSelectorVisible(true);
                 }}
               >
-                <p>{additional.title}</p>
-                <p>{formatPrice(additional.price)}</p>
+                <div className="img-container">
+                  <img
+                    src={item.photo ? item.photo.url : defaultPicture}
+                    onError={(e) => {
+                      e.target.src = defaultPicture;
+                    }}
+                    className="item-img"
+                    alt="item-img"
+                  />
+                </div>
+
+                <div className="item-info">
+                  <p className="item-title">{item.title}</p>
+                  <div className="item-sub">
+                    {item.code && <p className="item-code">{item.code}</p>}
+                    <p className="item-code">{formatPrice(item.price)}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
