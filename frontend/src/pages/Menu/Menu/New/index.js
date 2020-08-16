@@ -41,21 +41,42 @@ export default function NewMenu({ location }) {
 
   window.addEventListener('resize', handleResize);
 
+  function handleHour(value, input) {
+    const hour = value.replace('h', '');
+
+    if ((parseInt(hour, 10) >= 0 && parseInt(hour, 10) < 24) || hour === '') {
+      if (input === 1) {
+        if (hour === '') {
+          setStartAt('');
+        } else {
+          setStartAt(`${hour}h`);
+        }
+      }
+      if (input === 2) {
+        if (hour === '') {
+          setEndAt('');
+        } else {
+          setEndAt(`${hour}h`);
+        }
+      }
+    }
+  }
+
   useEffect(() => {
-    if (title) {
+    if (title && startAt && endAt && availability !== '0000000') {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [title]);
+  }, [title, startAt, endAt, availability]);
 
   async function handleSubmit() {
     const items_id = items.map((item) => item.id);
     const data = {
       title,
       availability,
-      startAt,
-      endAt,
+      start_at: startAt.replace('h', ''),
+      end_at: endAt.replace('h', ''),
       items: items_id,
     };
 
@@ -128,6 +149,50 @@ export default function NewMenu({ location }) {
             />
 
             <p className="input-label">Horário</p>
+            <div className="input-group">
+              <input
+                inputMode="numeric"
+                maxLength="3"
+                value={startAt}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 8) {
+                    const index = startAt.indexOf('h');
+                    if (index > 0) {
+                      handleHour(startAt.substr(0, index - 1), 1);
+                    }
+                  }
+                }}
+                onChange={(e) => handleHour(e.target.value, 1)}
+                className="input-hour"
+                placeholder="18h"
+              />
+              <span
+                style={{
+                  color: '#9c9c9c',
+                  margin: '0 8px',
+                  height: 32,
+                  fontSize: 15,
+                }}
+              >
+                Até
+              </span>
+              <input
+                inputMode="numeric"
+                maxLength="3"
+                value={endAt}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 8) {
+                    const index = endAt.indexOf('h');
+                    if (index > 0) {
+                      handleHour(endAt.substr(0, index - 1), 2);
+                    }
+                  }
+                }}
+                onChange={(e) => handleHour(e.target.value, 2)}
+                className="input-hour"
+                placeholder="00h"
+              />
+            </div>
 
             <p className="input-label">Produtos desse cardápio</p>
             <div

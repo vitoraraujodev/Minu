@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import './styles.css';
 
@@ -18,10 +18,6 @@ export default function DaySelector({
       availability.substr(0, index) + value + availability.substr(index + 1)
     );
   }
-
-  useEffect(() => {
-    console.tron.log(availability);
-  }, [availability]);
 
   return (
     <div id="day-selector">

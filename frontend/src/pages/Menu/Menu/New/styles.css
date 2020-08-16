@@ -91,7 +91,7 @@
   margin-bottom: 4px;
 }
 
-#menu-page .input {
+#menu-page .input, #menu-page .input-hour {
   margin-bottom: 16px;
   width: 100%;
   padding: 0 16px;
@@ -102,7 +102,11 @@
   color: #444444;
 }
 
-#menu-page .input::placeholder {
+#menu-page .input-hour {
+  max-width: 72px;
+}
+
+#menu-page .input::placeholder,  #menu-page .input-hour::placeholder {
   color: #9C9C9C;
   font-size: 14px;
 }

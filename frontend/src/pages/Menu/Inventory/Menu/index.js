@@ -84,7 +84,7 @@ export default function Menu({ menu, index }) {
               S
             </p>
             <div className="week-line" />
-            <p className="item-hour">{`${menu.start_at}h-${menu.end_at}`}</p>
+            <p className="item-hour">{`${menu.start_at}h-${menu.end_at}h`}</p>
           </div>
         </div>
       </Link>

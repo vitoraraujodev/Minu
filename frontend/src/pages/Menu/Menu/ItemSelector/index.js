@@ -23,7 +23,6 @@ export default function ItemSelector({
   async function loadItems() {
     try {
       const response = await api.get('items');
-      console.tron.log(response.data);
       setItems(response.data);
     } catch (err) {
       alert(
