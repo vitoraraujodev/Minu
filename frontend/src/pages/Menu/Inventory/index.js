@@ -129,7 +129,15 @@ export default function Inventory() {
             </Link>
 
             {menus.map((menu, index) => (
-              <Menu key={menu.id} menu={menu} index={index} />
+              <Link
+                to={{
+                  pathname: `/menus/cardapio/${menu.id}`,
+                  state: { menu },
+                }}
+                key={menu.id}
+              >
+                <Menu menu={menu} index={index} />
+              </Link>
             ))}
           </Accordion>
 

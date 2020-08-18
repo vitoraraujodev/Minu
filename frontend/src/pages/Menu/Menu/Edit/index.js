@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import ItemSelector from '../ItemSelector';
 import DaySelector from '../DaySelector';
+import Actions from '~/components/Actions';
 import Header from '~/components/Header';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
@@ -13,20 +14,22 @@ import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
 
-import './styles.css';
+import '../New/styles.css';
 
-export default function NewMenu({ location }) {
-  const length = location.state.length || '';
+export default function EditMenu({ location }) {
+  const { menu } = location.state;
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
 
-  const [title, setTitle] = useState('');
-  const [startAt, setStartAt] = useState('');
-  const [endAt, setEndAt] = useState('');
-  const [availability, setAvailability] = useState('0000000');
-  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState(menu.title || '');
+  const [startAt, setStartAt] = useState(`${menu.start_at}h` || '');
+  const [endAt, setEndAt] = useState(`${menu.end_at}h` || '');
+  const [availability, setAvailability] = useState(
+    menu.availability || '0000000'
+  );
+  const [items, setItems] = useState(menu.items || []);
 
   function handleResize() {
     const itemPage = document.getElementById('menu-page');
@@ -87,7 +90,7 @@ export default function NewMenu({ location }) {
     };
 
     try {
-      await api.post('/menus', data);
+      await api.put(`/menus/${menu.id}`, data);
       history.push('/menus');
     } catch (err) {
       alert(err.response.data.error);
@@ -134,9 +137,17 @@ export default function NewMenu({ location }) {
               Voltar
             </button>
 
-            <p className="header-label">
-              {length ? `Cardápio ${length <= 9 ? `0${length}` : length}` : ''}
-            </p>
+            <p className="header-label">{menu.title || 'Cardápio'}</p>
+
+            <div className="action-icon">
+              <Actions
+                item={menu}
+                route="menus"
+                onDelete={() => history.push('/menus')}
+                fill="#fff"
+                position="down"
+              />
+            </div>
           </div>
 
           <div className="content">
@@ -208,7 +219,7 @@ export default function NewMenu({ location }) {
               }}
             >
               <p>Adicionar produtos</p>
-              <div className="icon-area">
+              <div className="arrow-icon">
                 <ExpandArrow style={{ height: 8 }} fill="#535BFE" />
               </div>
             </div>

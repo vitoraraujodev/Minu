@@ -52,7 +52,7 @@ export default function Actions({ item, route, onDelete, fill, position }) {
         <div className={position === 'down' ? 'actions-down' : 'actions'}>
           <div className="action-area" onClick={handleAvailability}>
             <div className="action">
-              <p>Em estoque</p>
+              <p>{route === 'menus' ? 'Disponível' : 'Em estoque'} </p>
 
               <button type="button" className="toggle-button">
                 <div className="toggle-background">

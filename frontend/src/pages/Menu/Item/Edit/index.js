@@ -38,7 +38,7 @@ export default function EditItem({ location }) {
   const [maskedPrice, setMaskedPrice] = useState(
     item.price.toString().replace('.', ',') || 'R$ 0,00'
   );
-  const [additionals, setAdditionals] = useState(item.additionals);
+  const [additionals, setAdditionals] = useState(item.additionals || []);
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
