@@ -15,7 +15,7 @@ class MenuController {
           model: Item,
           as: 'items',
           order: [['title', 'ASC']],
-          attributes: ['id', 'title', 'code'],
+          attributes: ['id', 'title', 'code', 'price'],
           include: [
             {
               model: File,
@@ -62,6 +62,38 @@ class MenuController {
       establishment_id,
     });
 
+    const { items } = req.body;
+
+    if (items && items.length > 0) {
+        items.map(async (item_id) => { // eslint-disable-line
+        const item = await Item.findByPk(item_id);
+
+        const ItemAdditionalExists = await MenuItem.findOne({
+          where: { item_id, menu_id: menu.id },
+        });
+
+        if (ItemAdditionalExists) {
+          const error = `${item.title} já é adicional desse produto.`;
+          return error;
+        }
+
+        if (
+          item.establishment_id !== establishment_id || // eslint-disable-line
+          menu.establishment_id !== establishment_id    // eslint-disable-line
+        ) {
+          const error = `${item.title} não é um adicional do seu estabelecimento.`;
+          return error;
+        }
+
+        const menuItem = await MenuItem.create({
+          menu_id: menu.id,
+          item_id,
+        });
+
+        if (menuItem) return `${item.title} criado com sucesso!`;
+      });
+    }
+
     return res.json(menu);
   }
 
@@ -95,28 +127,59 @@ class MenuController {
       }
     }
 
-    await menu.update(req.body);
+    menu = await menu.update(req.body);
 
-    menu = await Menu.findByPk(req.params.id, {
-      include: [
-        {
-          model: Item,
-          as: 'items',
-          attributes: ['id', 'title', 'code'],
-          include: [
-            {
-              model: File,
-              as: 'photo',
-              attributes: ['id', 'path', 'url'],
+    const { items } = req.body;
+
+    if (items && items.length > 0) {
+      menu = await Menu.findByPk(req.params.id, {
+        include: [
+          {
+            model: Item,
+            as: 'items',
+            order: ['ASC'],
+            attributes: ['id'],
+            through: {
+              model: MenuItem,
+              as: 'menu-items',
             },
-          ],
-          through: {
-            model: MenuItem,
-            as: 'menu-items',
           },
-        },
-      ],
-    });
+        ],
+      });
+
+      const menuItems = menu.items.map((item) => item.id);
+
+      items.map(async (item_id) => { // eslint-disable-line
+        const item = await Item.findByPk(item_id);
+
+        if (
+            item.establishment_id !== establishment_id || // eslint-disable-line
+            menu.establishment_id !== establishment_id    // eslint-disable-line
+        ) {
+          const error = `${item.title} não é um adicional do seu estabelecimento.`;
+          return error;
+        }
+        if (!menuItems.includes(item_id)) {
+          const menuItem = await MenuItem.create({
+            menu_id: menu.id,
+            item_id,
+          });
+          if (menuItem) return `${item.title} criado com sucesso!`;
+        }
+      });
+
+      menuItems.map(async (item_id) => { // eslint-disable-line
+        if (!items.includes(item_id)) {
+          const menuItem = await MenuItem.findOne({
+            where: { item_id, menu_id: menu.id },
+          });
+
+          await menuItem.destroy();
+        }
+      });
+      menu = await Menu.findByPk(req.params.id);
+      return res.json(menu);
+    }
 
     return res.json(menu);
   }
