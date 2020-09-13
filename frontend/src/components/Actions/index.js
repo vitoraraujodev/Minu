@@ -7,7 +7,14 @@ import api from '~/services/api';
 
 import './styles.css';
 
-export default function Actions({ item, route, onDelete, fill, position }) {
+export default function Actions({
+  item,
+  route,
+  onDelete,
+  fill,
+  position,
+  height = 16,
+}) {
   const [visible, setVisible] = useState(false);
   const [available, setAvailable] = useState(item.available);
 
@@ -46,7 +53,7 @@ export default function Actions({ item, route, onDelete, fill, position }) {
         type="button"
         onClick={handleToggleVisible}
       >
-        <ActionIcon style={{ height: 16 }} fill={fill} />
+        <ActionIcon style={{ height }} fill={fill} />
       </button>
       {visible && (
         <div className={position === 'down' ? 'actions-down' : 'actions'}>

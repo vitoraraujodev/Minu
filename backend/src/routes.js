@@ -22,6 +22,7 @@ const upload = multer(multerConfig);
 routes.post('/sessions', SessionController.store);
 routes.post('/pin', authMiddleware, PinController.store);
 
+routes.get('/establishments/:id', EstablishmentsController.index);
 routes.post('/establishments', EstablishmentsController.store);
 routes.put('/establishments', authMiddleware, EstablishmentsController.update);
 

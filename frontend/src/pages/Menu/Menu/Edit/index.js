@@ -146,6 +146,7 @@ export default function EditMenu({ location }) {
                 onDelete={() => history.push('/menus')}
                 fill="#fff"
                 position="down"
+                height="20"
               />
             </div>
           </div>

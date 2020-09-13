@@ -3,8 +3,66 @@ import * as Yup from 'yup';
 import Establishment from '../models/Establishment';
 import File from '../models/File';
 import Menu from '../models/Menu';
+import Item from '../models/Item';
+import Additional from '../models/Additional';
 
 class EstablishmentController {
+  async index(req, res) {
+    const establishment = await Establishment.findByPk(req.params.id, {
+      attributes: [
+        'id',
+        'establishment_name',
+        'cep',
+        'address_number',
+        'street',
+        'complement',
+        'rating',
+        'raters',
+      ],
+      include: [
+        { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+        {
+          model: Menu,
+          as: 'menus',
+          where: { available: true },
+          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
+          include: [
+            {
+              model: Item,
+              where: { available: true },
+              order: [['title', 'ASC']],
+              as: 'items',
+              attributes: [
+                'id',
+                'code',
+                'title',
+                'description',
+                'category',
+                'preparation_time',
+                'price',
+                'available',
+                'rating',
+                'raters',
+              ],
+              include: [
+                { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+                {
+                  model: Additional,
+                  as: 'additionals',
+                  where: { available: true },
+                  order: [['title', 'ASC']],
+                  attributes: ['id', 'title', 'price'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    return res.json(establishment);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       cnpj: Yup.string(),

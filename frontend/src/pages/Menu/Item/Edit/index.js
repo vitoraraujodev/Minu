@@ -180,6 +180,7 @@ export default function EditItem({ location }) {
                 onDelete={() => history.push('/menus')}
                 fill="#fff"
                 position="down"
+                height="20"
               />
             </div>
           </div>
@@ -244,7 +245,7 @@ export default function EditItem({ location }) {
               </div>
 
               <div className="preparation-time-container">
-                <p className="input-label">Tempo de preparo</p>
+                <p className="input-label">Tempo até entrega</p>
                 <div className="preparation-time">
                   <button
                     type="button"

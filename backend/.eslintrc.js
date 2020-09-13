@@ -19,6 +19,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    camelcase: 'off',
     "prettier/prettier":  "error",
     "class-methods-use-this": "off",
     "no-param-reassign": "off",

@@ -9,6 +9,9 @@
   position: relative;
   height: 32px;
   width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #actions-container .actions,
