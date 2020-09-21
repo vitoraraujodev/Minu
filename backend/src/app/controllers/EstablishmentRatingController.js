@@ -46,8 +46,10 @@ class EstablishmentRatingController {
     });
 
     const raters = establishment.raters + 1;
-    const rating =
-      (establishment.raters * establishment.rating + req.body.rating) / raters;
+    const rating = (
+      (establishment.raters * establishment.rating + req.body.rating) /
+      raters
+    ).toFixed(1);
     await establishment.update({ raters, rating });
 
     return res.json(establishmentRating);

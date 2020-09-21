@@ -18,6 +18,8 @@ import EditItem from '~/pages/Menu/Item/Edit';
 import NewMenu from '~/pages/Menu/Menu/New';
 import EditMenu from '~/pages/Menu/Menu/Edit';
 
+import CustomerMenu from '~/pages/Customer/Menu';
+
 import history from '~/services/history';
 
 export default function Routes() {
@@ -39,6 +41,8 @@ export default function Routes() {
         <Route path="/menus/produto/:id" component={EditItem} private />
         <Route path="/menus/cardapio" exact component={NewMenu} private />
         <Route path="/menus/cardapio/:id" component={EditMenu} private />
+
+        <Route path="/cliente/menu" exact component={CustomerMenu} notPrivate />
 
         <Redirect from="*" to="/" exact />
       </Switch>

@@ -8,7 +8,7 @@ import Additional from '../models/Additional';
 
 class EstablishmentController {
   async index(req, res) {
-    const establishment = await Establishment.findByPk(req.params.id, {
+    await Establishment.findByPk(req.params.id, {
       attributes: [
         'id',
         'establishment_name',
@@ -58,9 +58,7 @@ class EstablishmentController {
           ],
         },
       ],
-    });
-
-    return res.json(establishment);
+    }).then((result) => res.json(result));
   }
 
   async store(req, res) {

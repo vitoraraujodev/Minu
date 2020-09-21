@@ -1,0 +1,50 @@
+#menu-footer {
+  position: absolute;
+  bottom: 0;
+  background: #fff;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+#menu-footer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#menu-footer::-webkit-scrollbar {
+  display: none;
+}
+
+#menu-footer .tab-active,
+#menu-footer .tab {
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#menu-footer .tab-active:hover,
+#menu-footer .tab:hover {
+  background: #f6f6f6;
+}
+
+#menu-footer .tab-active {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0D0D0D;
+  border-top: 5px solid #0D0D0D;
+}
+
+#menu-footer .tab {
+  font-size: 18px;
+  color: #606060;
+  font-weight: 400;
+  padding: 0 16px;
+}
+
+@media screen and (max-width: 767px) {
+
+}

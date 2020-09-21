@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Header from '~/components/Header';
-import StarRating from '~/components/StarRating';
+
+import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
+import logo from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 
@@ -26,6 +28,10 @@ export default function Profile() {
       <Header />
       <div className="container">
         <div className="info-container">
+          <div className="logo-container">
+            <img className="logo" src={logo} alt="minu" />
+          </div>
+
           <div className="img-container">
             <img
               src={
@@ -37,7 +43,7 @@ export default function Profile() {
               className="establishment-img"
               alt="establishment"
             />
-          </div>{' '}
+          </div>
           <div className="info">
             <Link to="/estabelecimento/foto">
               <button className="img-button" type="button">
@@ -47,10 +53,13 @@ export default function Profile() {
             <div className="title-area">
               <span className="title">{establishment.establishment_name}</span>
             </div>
-            <StarRating
-              rating={establishment.rating}
-              raters={establishment.raters}
-            />
+            <div className="rating-area">
+              <span className="rating-text">
+                {establishment.rating.toFixed(1)}
+              </span>
+              <RatingStar style={{ height: 15, margin: '0 4px' }} />
+              <span className="rating-text">({establishment.raters})</span>
+            </div>
           </div>
         </div>
 
