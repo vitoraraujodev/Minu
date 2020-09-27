@@ -167,12 +167,12 @@ class EstablishmentController {
 
     const {
       id,
-      establishment_name, //eslint-disable-line
+      establishment_name,
       email,
-      manager_name, //eslint-disable-line
-      manager_lastname, //eslint-disable-line
+      manager_name,
+      manager_lastname,
       cep,
-      address_number, //eslint-disable-line
+      address_number,
       street,
       complement,
       city,

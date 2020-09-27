@@ -24,7 +24,7 @@ class AdditionalController {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const establishment_id = req.establishmentId; // eslint-disable-line
+    const establishment_id = req.establishmentId;
 
     const additionalExists = await Additional.findOne({
       where: { title: req.body.title, establishment_id },

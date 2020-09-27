@@ -11,7 +11,7 @@
   align-items: center;
   padding-bottom: 72px;
   overflow-y: scroll ;
-  max-width: 560px;
+  max-width: 1024px;
   margin: 0 auto;
   height: 100%;
   -ms-overflow-style: none;
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: hidden
 }
 
 #costumer-menu .establishment-img {
@@ -75,7 +75,7 @@
 #costumer-menu .title {
   font-size: 24px;
   color: #505050;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #costumer-menu .rating-area {
@@ -90,24 +90,26 @@
   font-weight: 400;
 }
 
-#costumer-menu .option-area {
-  cursor: pointer;
+
+#costumer-menu .products-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-#costumer-menu .option-area:hover {
-  background: #f6f6f6;
+#costumer-menu .products {
+  width: 100%;
+  margin: 0 16px;
+  max-width: 432px;
 }
 
-#costumer-menu .option {
-  padding: 24px 0;
-  margin: 0 40px;
-  border-bottom: 1px solid #e6e6e6;
-}
-
-#costumer-menu .option-text {
-  color: #252525;
-  font-weight: 400;
-  font-size: 18px;
+#costumer-menu .category-label {
+  padding-top: 24px;
+  font-size: 21px;
+  color: #505050;
+  font-weight: 700;
+  letter-spacing: 0.7px;
 }
 
 @media screen and (max-width: 767px) {
@@ -126,21 +128,6 @@
     bottom: -56px;
     padding: 16px 24px;
     width: 100%;
-  }
-
-  #costumer-menu .img-button {
-    font-size: 12px;
-    right: 32px;
-  }
-
-
-  #costumer-menu .option {
-    padding: 16px 0;
-    margin: 0 24px;
-  }
-
-  #costumer-menu .option-text {
-    font-size: 16px;
   }
 }
 

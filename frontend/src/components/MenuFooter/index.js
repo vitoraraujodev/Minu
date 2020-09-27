@@ -1,39 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './styles.css';
 
-export default function MenuFooter() {
-  const [active, setActive] = useState(1);
-
+export default function MenuFooter({ activeCategory, onActiveCategoryChange }) {
   return (
     <div id="menu-footer">
       <div
-        className={active === 1 ? 'tab-active' : 'tab'}
-        onClick={() => setActive(1)}
+        className={activeCategory === 'starters' ? 'tab-active' : 'tab'}
+        onClick={() => {
+          onActiveCategoryChange('starters');
+        }}
       >
         <p>Entradas</p>
       </div>
       <div
-        className={active === 2 ? 'tab-active' : 'tab'}
-        onClick={() => setActive(2)}
+        className={activeCategory === 'mains' ? 'tab-active' : 'tab'}
+        onClick={() => {
+          onActiveCategoryChange('mains');
+        }}
       >
         <p>Pratos Principais</p>
       </div>
       <div
-        className={active === 3 ? 'tab-active' : 'tab'}
-        onClick={() => setActive(3)}
+        className={activeCategory === 'desserts' ? 'tab-active' : 'tab'}
+        onClick={() => {
+          onActiveCategoryChange('desserts');
+        }}
       >
         <p>Sobremesas</p>
       </div>
       <div
-        className={active === 4 ? 'tab-active' : 'tab'}
-        onClick={() => setActive(4)}
+        className={activeCategory === 'drinks' ? 'tab-active' : 'tab'}
+        onClick={() => {
+          console.tron.log(activeCategory);
+          onActiveCategoryChange('drinks');
+        }}
       >
         <p>Bebidas</p>
       </div>
       <div
-        className={active === 5 ? 'tab-active' : 'tab'}
-        onClick={() => setActive(5)}
+        className={activeCategory === 'alcoholics' ? 'tab-active' : 'tab'}
+        onClick={() => {
+          onActiveCategoryChange('alcoholics');
+        }}
       >
         <p>Bebidas Alcoólicas</p>
       </div>

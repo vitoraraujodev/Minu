@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
+import { ReactComponent as Clock } from '~/assets/icons/clock-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import { formatPrice } from '~/util/format';
@@ -9,33 +10,43 @@ import './styles.css';
 
 export default function Product({ product }) {
   return (
-    <div key={product.id} className="product-container">
-      <>
-        <div className="product-img-container">
-          <img
-            src={product.photo ? product.photo.url : defaultPicture}
-            onError={(e) => {
-              e.target.src = defaultPicture;
-            }}
-            className="product-img"
-            alt="product"
-          />
-        </div>
-        <div className="product-price-tag">
-          <p>{formatPrice(product.price)}</p>
-        </div>
-      </>
+    <div
+      className="product-container"
+      style={product.photo ? { padding: '24px 0px' } : { padding: '48px 0px' }}
+    >
+      {product.photo && (
+        <>
+          <div className="product-img-container">
+            <img
+              src={product.photo ? product.photo.url : defaultPicture}
+              onError={(e) => {
+                e.target.src = defaultPicture;
+              }}
+              className="product-img"
+              alt="product"
+            />
+          </div>
+        </>
+      )}
 
+      <div
+        className="product-price-tag"
+        style={product.photo ? { top: 24 } : { top: 48 }}
+      >
+        <p>{formatPrice(product.price)}</p>
+      </div>
       <div className="product-info">
         <p className="product-title">{product.title}</p>
+
         <div className="product-info-group">
-          <span className="product-time">
+          <p className="product-time">
+            <Clock fill="#707070" style={{ marginRight: 4 }} height="12" />
             {product.preparation_time === 1
               ? '1-5min'
               : `${(product.preparation_time - 1) * 5}-${
                   product.preparation_time * 5
                 }min`}
-          </span>
+          </p>
 
           {product.raters > 0 && (
             <div className="product-rating-area">
