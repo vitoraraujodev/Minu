@@ -1,47 +1,97 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './styles.css';
 
 export default function MenuFooter({ activeCategory, onActiveCategoryChange }) {
+  const startersTab = document.getElementById('starters-tab');
+  const mainsTab = document.getElementById('mains-tab');
+  const dessertsTab = document.getElementById('desserts-tab');
+  const drinksTab = document.getElementById('drinks-tab');
+  const alcoholicsTab = document.getElementById('alcoholics-tab');
+
+  useEffect(() => {
+    switch (activeCategory) {
+      case 'starters':
+        if (startersTab)
+          startersTab.scrollIntoView({
+            inline: 'center',
+          });
+        break;
+      case 'mains':
+        if (mainsTab)
+          mainsTab.scrollIntoView({
+            inline: 'center',
+          });
+        break;
+      case 'desserts':
+        if (dessertsTab)
+          dessertsTab.scrollIntoView({
+            inline: 'center',
+          });
+        break;
+      case 'drinks':
+        if (drinksTab)
+          drinksTab.scrollIntoView({
+            inline: 'center',
+          });
+        break;
+      case 'alcoholics':
+        if (alcoholicsTab)
+          alcoholicsTab.scrollIntoView({
+            inline: 'center',
+          });
+        break;
+      default:
+    }
+  }, [activeCategory]); //eslint-disable-line
+
+  function handleClick(tab) {
+    onActiveCategoryChange(tab);
+  }
+
   return (
     <div id="menu-footer">
       <div
+        id="starters-tab"
         className={activeCategory === 'starters' ? 'tab-active' : 'tab'}
         onClick={() => {
-          onActiveCategoryChange('starters');
+          handleClick('starters');
         }}
       >
         <p>Entradas</p>
       </div>
       <div
+        id="mains-tab"
         className={activeCategory === 'mains' ? 'tab-active' : 'tab'}
         onClick={() => {
-          onActiveCategoryChange('mains');
+          handleClick('mains');
         }}
       >
         <p>Pratos Principais</p>
       </div>
       <div
+        id="desserts-tab"
         className={activeCategory === 'desserts' ? 'tab-active' : 'tab'}
         onClick={() => {
-          onActiveCategoryChange('desserts');
+          handleClick('desserts');
         }}
       >
         <p>Sobremesas</p>
       </div>
       <div
+        id="drinks-tab"
         className={activeCategory === 'drinks' ? 'tab-active' : 'tab'}
         onClick={() => {
-          console.tron.log(activeCategory);
-          onActiveCategoryChange('drinks');
+          handleClick('drinks');
         }}
       >
         <p>Bebidas</p>
       </div>
       <div
+        id="alcoholics-tab"
         className={activeCategory === 'alcoholics' ? 'tab-active' : 'tab'}
         onClick={() => {
-          onActiveCategoryChange('alcoholics');
+          handleClick('alcoholics');
         }}
       >
         <p>Bebidas Alcoólicas</p>

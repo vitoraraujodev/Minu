@@ -15,13 +15,13 @@ export default function CostumerMenu() {
   const [establishment, setEstablishment] = useState({});
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('starters');
-  const [scrolling, setScrolling] = useState(false);
 
   const containerRef = document.getElementById('container');
   const startersRef = document.getElementById('startersRef');
   const mainsRef = document.getElementById('mainsRef');
   const dessertsRef = document.getElementById('dessertsRef');
   const drinksRef = document.getElementById('drinksRef');
+  const alcoholicsRef = document.getElementById('alcoholicsRef');
 
   async function loadEstablishment() {
     try {
@@ -38,35 +38,45 @@ export default function CostumerMenu() {
   }, []);
 
   function handleScroll() {
-    if (containerRef && startersRef && mainsRef && dessertsRef && drinksRef) {
+    if (
+      containerRef &&
+      startersRef &&
+      mainsRef &&
+      dessertsRef &&
+      drinksRef &&
+      alcoholicsRef
+    ) {
       if (
-        containerRef.scrollTop >= drinksRef.offsetTop &&
-        containerRef.scrollTop <=
+        containerRef.scrollTop + 80 >= alcoholicsRef.offsetTop &&
+        containerRef.scrollTop + 80 <=
+          alcoholicsRef.offsetTop + alcoholicsRef.offsetHeight &&
+        activeCategory !== 'alcoholics'
+      )
+        setActiveCategory('alcoholics');
+      else if (
+        containerRef.scrollTop + 80 >= drinksRef.offsetTop &&
+        containerRef.scrollTop + 80 <
           drinksRef.offsetTop + drinksRef.offsetHeight &&
-        !scrolling &&
         activeCategory !== 'drinks'
       )
         setActiveCategory('drinks');
       else if (
-        containerRef.scrollTop >= dessertsRef.offsetTop &&
-        containerRef.scrollTop <=
+        containerRef.scrollTop + 80 >= dessertsRef.offsetTop &&
+        containerRef.scrollTop + 80 <
           dessertsRef.offsetTop + dessertsRef.offsetHeight &&
-        !scrolling &&
         activeCategory !== 'desserts'
       )
         setActiveCategory('desserts');
       else if (
-        containerRef.scrollTop >= mainsRef.offsetTop &&
-        containerRef.scrollTop <= mainsRef.offsetTop + mainsRef.offsetHeight &&
-        !scrolling &&
+        containerRef.scrollTop + 80 >= mainsRef.offsetTop &&
+        containerRef.scrollTop + 80 <
+          mainsRef.offsetTop + mainsRef.offsetHeight &&
         activeCategory !== 'mains'
       )
         setActiveCategory('mains');
       else if (
-        containerRef.scrollTop >= startersRef.offsetTop &&
-        containerRef.scrollTop <=
+        containerRef.scrollTop + 80 <
           startersRef.offsetTop + startersRef.offsetHeight &&
-        !scrolling &&
         activeCategory !== 'starters'
       )
         setActiveCategory('starters');
@@ -74,27 +84,21 @@ export default function CostumerMenu() {
   }
 
   function scrollTo(category) {
-    setScrolling(true);
     switch (category) {
       case 'starters':
-        setActiveCategory('starters');
-        startersRef.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => setScrolling(false), 1000);
+        startersRef.scrollIntoView();
         break;
       case 'mains':
-        setActiveCategory('mains');
-        setTimeout(() => setScrolling(false), 1000);
-        mainsRef.scrollIntoView({ behavior: 'smooth' });
+        mainsRef.scrollIntoView();
         break;
       case 'desserts':
-        setActiveCategory('desserts');
-        setTimeout(() => setScrolling(false), 1000);
-        dessertsRef.scrollIntoView({ behavior: 'smooth' });
+        dessertsRef.scrollIntoView();
         break;
       case 'drinks':
-        setActiveCategory('drinks');
-        setTimeout(() => setScrolling(false), 1000);
-        drinksRef.scrollIntoView({ behavior: 'smooth' });
+        drinksRef.scrollIntoView();
+        break;
+      case 'alcoholics':
+        alcoholicsRef.scrollIntoView();
         break;
       default:
     }
@@ -120,18 +124,22 @@ export default function CostumerMenu() {
               alt="establishment"
             />
           </div>
-          <div className="info">
-            <div className="title-area">
-              <span className="title">{establishment.establishment_name}</span>
-            </div>
-            <div className="rating-area">
-              <span className="rating-text">
-                {establishment.rating % 1 > 0
-                  ? establishment.rating
-                  : `${establishment.rating}.0`}
-              </span>
-              <RatingStar style={{ height: 15, margin: '0 4px' }} />
-              <span className="rating-text">({establishment.raters})</span>
+          <div className="info-area">
+            <div className="info">
+              <div className="title-area">
+                <span className="title">
+                  {establishment.establishment_name}
+                </span>
+              </div>
+              <div className="rating-area">
+                <span className="rating-text">
+                  {establishment.rating % 1 > 0
+                    ? establishment.rating
+                    : `${establishment.rating}.0`}
+                </span>
+                <RatingStar style={{ height: 15, margin: '0 4px' }} />
+                <span className="rating-text">({establishment.raters})</span>
+              </div>
             </div>
           </div>
         </div>
@@ -164,6 +172,14 @@ export default function CostumerMenu() {
 
             <div id="drinksRef">
               <p className="category-label">Bebidas</p>
+              {products &&
+                products.map((product) => (
+                  <Product product={product} key={product.id} />
+                ))}
+            </div>
+
+            <div id="alcoholicsRef">
+              <p className="category-label">Bebidas Alcoólicas</p>
               {products &&
                 products.map((product) => (
                   <Product product={product} key={product.id} />

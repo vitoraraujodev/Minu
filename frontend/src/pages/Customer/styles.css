@@ -57,7 +57,7 @@
   background: #ddd;
 }
 
-#costumer-menu .info {
+#costumer-menu .info-area {
   position: absolute;
   display: block;
   width: 100%;
@@ -65,6 +65,12 @@
   bottom: -48px;
   background: #fff;
   box-shadow: 0px 0px 10px #00000029;
+}
+
+#costumer-menu .info {
+  width: 100%;
+  max-width: 432px;
+  margin: 0 auto;
 }
 
 #costumer-menu .title-area {
@@ -124,7 +130,7 @@
     max-height: 364px;
   }
 
-  #costumer-menu .info {
+  #costumer-menu .info-area {
     bottom: -56px;
     padding: 16px 24px;
     width: 100%;

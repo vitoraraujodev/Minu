@@ -26,16 +26,12 @@
   white-space: nowrap;
 }
 
-#menu-footer .tab-active:hover,
-#menu-footer .tab:hover {
-  background: #f6f6f6;
-}
-
 #menu-footer .tab-active {
   font-size: 18px;
   font-weight: 700;
   color: #212121;
   border-top: 5px solid #212121;
+  background: #f6f6f6;
 }
 
 #menu-footer .tab {
