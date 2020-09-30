@@ -18,8 +18,7 @@ class ItemController {
           order: [['title', 'ASC']],
           attributes: ['id', 'title', 'price', 'available'],
           through: {
-            model: ItemAdditional,
-            as: 'item-additionals',
+            attributes: [],
           },
         },
       ],

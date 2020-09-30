@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
+import { getHours, getDay } from 'date-fns';
 
 import Establishment from '../models/Establishment';
 import File from '../models/File';
@@ -8,6 +10,9 @@ import Additional from '../models/Additional';
 
 class EstablishmentController {
   async index(req, res) {
+    const date = new Date();
+    const weekDay = getDay(date);
+
     await Establishment.findByPk(req.params.id, {
       attributes: [
         'id',
@@ -21,44 +26,151 @@ class EstablishmentController {
       ],
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
-        {
-          model: Menu,
-          as: 'menus',
-          where: { available: true },
-          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
-          include: [
-            {
-              model: Item,
-              where: { available: true },
-              order: [['title', 'ASC']],
-              as: 'items',
-              attributes: [
-                'id',
-                'code',
-                'title',
-                'description',
-                'category',
-                'preparation_time',
-                'price',
-                'available',
-                'rating',
-                'raters',
-              ],
-              include: [
-                { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
-                {
-                  model: Additional,
-                  as: 'additionals',
-                  where: { available: true },
-                  order: [['title', 'ASC']],
-                  attributes: ['id', 'title', 'price'],
-                },
-              ],
-            },
-          ],
-        },
       ],
-    }).then((result) => res.json(result));
+    })
+      .then(async (establishment) => {
+        const menus = await Menu.findAll({
+          where: {
+            establishment_id: establishment.id,
+            available: true,
+            start_at: { [Op.lte]: getHours(date) },
+            end_at: { [Op.gt]: getHours(date) },
+          },
+          order: [['title', 'ASC']],
+          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
+        });
+
+        const {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          rating,
+          raters,
+          photo,
+        } = establishment;
+
+        return {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          rating,
+          raters,
+          photo,
+          menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
+        };
+      })
+      .then(async (establishment) => {
+        if (establishment.menus.length > 0) {
+          const items = await Item.findAll({
+            where: {
+              establishment_id: establishment.id,
+            },
+            order: [['title', 'ASC']],
+            attributes: [
+              'id',
+              'code',
+              'title',
+              'description',
+              'category',
+              'preparation_time',
+              'price',
+              'available',
+              'rating',
+              'raters',
+            ],
+            include: [
+              {
+                model: File,
+                required: false,
+                as: 'photo',
+                attributes: ['id', 'path', 'url'],
+              },
+              {
+                model: Menu,
+                where: {
+                  id: { [Op.in]: establishment.menus.map((menu) => menu.id) },
+                  available: true,
+                },
+                as: 'menus',
+                attributes: [],
+              },
+              {
+                model: Additional,
+                required: false,
+                as: 'additionals',
+                order: [['title', 'ASC']],
+                attributes: ['id', 'title', 'price', 'available'],
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          });
+
+          return { ...establishment, items };
+        }
+        return establishment;
+      })
+      .then((establishment) => {
+        if (establishment.items && establishment.items.length > 0) {
+          const starters = establishment.items.filter(
+            (item) => item.category === 'Entradas'
+          );
+
+          const mains = establishment.items.filter(
+            (item) => item.category === 'Pratos principais'
+          );
+
+          const desserts = establishment.items.filter(
+            (item) => item.category === 'Sobremesas'
+          );
+
+          const drinks = establishment.items.filter(
+            (item) => item.category === 'Bebidas'
+          );
+
+          const alcoholics = establishment.items.filter(
+            (item) => item.category === 'Bebidas alcoólicas'
+          );
+
+          const {
+            id,
+            establishment_name,
+            cep,
+            address_number,
+            street,
+            complement,
+            rating,
+            raters,
+            photo,
+          } = establishment;
+
+          return {
+            id,
+            establishment_name,
+            cep,
+            address_number,
+            street,
+            complement,
+            rating,
+            raters,
+            photo,
+            starters,
+            mains,
+            desserts,
+            drinks,
+            alcoholics,
+          };
+        }
+        return establishment;
+      })
+      .then((result) => res.json(result));
   }
 
   async store(req, res) {
