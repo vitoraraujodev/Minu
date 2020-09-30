@@ -24,6 +24,9 @@
   padding: 10px 16px;
   cursor: pointer;
   white-space: nowrap;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #menu-footer .tab-active {

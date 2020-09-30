@@ -9,7 +9,6 @@
   display: block;
   justify-content: center;
   align-items: center;
-  padding-bottom: 72px;
   overflow-y: scroll ;
   max-width: 1024px;
   margin: 0 auto;
@@ -96,12 +95,12 @@
   font-weight: 400;
 }
 
-
 #costumer-menu .products-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-bottom: 48px;
 }
 
 #costumer-menu .products {
@@ -116,6 +115,14 @@
   color: #505050;
   font-weight: 700;
   letter-spacing: 0.7px;
+}
+
+#costumer-menu .empty-text {
+  padding: 32px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #acacac;
+  text-align: center;
 }
 
 @media screen and (max-width: 767px) {

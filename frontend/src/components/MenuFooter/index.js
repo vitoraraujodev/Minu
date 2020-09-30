@@ -2,7 +2,15 @@ import React, { useEffect } from 'react';
 
 import './styles.css';
 
-export default function MenuFooter({ activeCategory, onActiveCategoryChange }) {
+export default function MenuFooter({
+  activeCategory,
+  onActiveCategoryChange,
+  starters,
+  mains,
+  desserts,
+  drinks,
+  alcoholics,
+}) {
   const startersTab = document.getElementById('starters-tab');
   const mainsTab = document.getElementById('mains-tab');
   const dessertsTab = document.getElementById('desserts-tab');
@@ -51,51 +59,64 @@ export default function MenuFooter({ activeCategory, onActiveCategoryChange }) {
 
   return (
     <div id="menu-footer">
-      <div
-        id="starters-tab"
-        className={activeCategory === 'starters' ? 'tab-active' : 'tab'}
-        onClick={() => {
-          handleClick('starters');
-        }}
-      >
-        <p>Entradas</p>
-      </div>
-      <div
-        id="mains-tab"
-        className={activeCategory === 'mains' ? 'tab-active' : 'tab'}
-        onClick={() => {
-          handleClick('mains');
-        }}
-      >
-        <p>Pratos Principais</p>
-      </div>
-      <div
-        id="desserts-tab"
-        className={activeCategory === 'desserts' ? 'tab-active' : 'tab'}
-        onClick={() => {
-          handleClick('desserts');
-        }}
-      >
-        <p>Sobremesas</p>
-      </div>
-      <div
-        id="drinks-tab"
-        className={activeCategory === 'drinks' ? 'tab-active' : 'tab'}
-        onClick={() => {
-          handleClick('drinks');
-        }}
-      >
-        <p>Bebidas</p>
-      </div>
-      <div
-        id="alcoholics-tab"
-        className={activeCategory === 'alcoholics' ? 'tab-active' : 'tab'}
-        onClick={() => {
-          handleClick('alcoholics');
-        }}
-      >
-        <p>Bebidas Alcoólicas</p>
-      </div>
+      {starters && (
+        <div
+          id="starters-tab"
+          className={activeCategory === 'starters' ? 'tab-active' : 'tab'}
+          onClick={() => {
+            handleClick('starters');
+          }}
+        >
+          <p>Entradas</p>
+        </div>
+      )}
+
+      {mains && (
+        <div
+          id="mains-tab"
+          className={activeCategory === 'mains' ? 'tab-active' : 'tab'}
+          onClick={() => {
+            handleClick('mains');
+          }}
+        >
+          <p>Pratos Principais</p>
+        </div>
+      )}
+      {desserts && (
+        <div
+          id="desserts-tab"
+          className={activeCategory === 'desserts' ? 'tab-active' : 'tab'}
+          onClick={() => {
+            handleClick('desserts');
+          }}
+        >
+          <p>Sobremesas</p>
+        </div>
+      )}
+
+      {drinks && (
+        <div
+          id="drinks-tab"
+          className={activeCategory === 'drinks' ? 'tab-active' : 'tab'}
+          onClick={() => {
+            handleClick('drinks');
+          }}
+        >
+          <p>Bebidas</p>
+        </div>
+      )}
+
+      {alcoholics && (
+        <div
+          id="alcoholics-tab"
+          className={activeCategory === 'alcoholics' ? 'tab-active' : 'tab'}
+          onClick={() => {
+            handleClick('alcoholics');
+          }}
+        >
+          <p>Bebidas Alcoólicas</p>
+        </div>
+      )}
     </div>
   );
 }
