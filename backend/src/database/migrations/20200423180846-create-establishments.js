@@ -61,16 +61,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      rating: {
-        type: Sequelize.FLOAT,
-        allowNull: true,
-        defaultValue: 0,
-      },
-      raters: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: 0,
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

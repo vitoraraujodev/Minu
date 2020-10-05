@@ -7,6 +7,8 @@ import File from '../models/File';
 import Menu from '../models/Menu';
 import Item from '../models/Item';
 import Additional from '../models/Additional';
+import EstablishmentRating from '../models/EstablishmentRating';
+import ItemRating from '../models/ItemRating';
 
 class EstablishmentController {
   async index(req, res) {
@@ -21,11 +23,20 @@ class EstablishmentController {
         'address_number',
         'street',
         'complement',
-        'rating',
-        'raters',
       ],
       include: [
-        { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+        {
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: EstablishmentRating,
+          as: 'ratings',
+          required: false,
+          attributes: ['id', 'description', 'rating', 'client_name'],
+        },
       ],
     })
       .then(async (establishment) => {
@@ -47,10 +58,18 @@ class EstablishmentController {
           address_number,
           street,
           complement,
-          rating,
-          raters,
+          ratings,
           photo,
         } = establishment;
+
+        const raters = ratings.length;
+
+        const rating =
+          raters > 0
+            ? ratings
+                .map((rate) => rate.rating)
+                .reduce((acumulator, rate) => acumulator + rate) / raters
+            : 0;
 
         return {
           id,
@@ -59,15 +78,16 @@ class EstablishmentController {
           address_number,
           street,
           complement,
-          rating,
+          ratings,
           raters,
+          rating,
           photo,
           menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
         };
       })
       .then(async (establishment) => {
         if (establishment.menus.length > 0) {
-          const items = await Item.findAll({
+          const establishmentItems = await Item.findAll({
             where: {
               establishment_id: establishment.id,
             },
@@ -81,8 +101,6 @@ class EstablishmentController {
               'preparation_time',
               'price',
               'available',
-              'rating',
-              'raters',
             ],
             include: [
               {
@@ -90,6 +108,13 @@ class EstablishmentController {
                 required: false,
                 as: 'photo',
                 attributes: ['id', 'path', 'url'],
+              },
+              {
+                model: ItemRating,
+                as: 'ratings',
+                required: false,
+                order: [['created_at', 'DESC']],
+                attributes: ['id', 'description', 'rating', 'client_name'],
               },
               {
                 model: Menu,
@@ -111,6 +136,46 @@ class EstablishmentController {
                 },
               },
             ],
+          });
+
+          const items = establishmentItems.map((item) => {
+            const raters = item.ratings.length;
+            const rating =
+              raters > 0
+                ? item.ratings
+                    .map((rate) => rate.rating)
+                    .reduce((acumulator, rate) => acumulator + rate) / raters
+                : 0;
+
+            const {
+              id,
+              code,
+              title,
+              description,
+              category,
+              preparation_time,
+              price,
+              available,
+              photo,
+              additionals,
+              ratings,
+            } = item;
+
+            return {
+              id,
+              code,
+              title,
+              description,
+              category,
+              preparation_time,
+              price,
+              available,
+              photo,
+              additionals,
+              ratings,
+              raters,
+              rating,
+            };
           });
 
           return { ...establishment, items };

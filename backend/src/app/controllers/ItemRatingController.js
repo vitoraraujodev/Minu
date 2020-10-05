@@ -45,13 +45,6 @@ class ItemRatingController {
       item_id: id,
     });
 
-    const raters = item.raters + 1;
-    const rating = (
-      (item.raters * item.rating + req.body.rating) /
-      raters
-    ).toFixed(1);
-    await item.update({ raters, rating });
-
     return res.json(itemRating);
   }
 }

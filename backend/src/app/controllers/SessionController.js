@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 
 import Establishment from '../models/Establishment';
 import File from '../models/File';
+import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
 
@@ -23,6 +24,12 @@ class SessionController {
       where: { email },
       include: [
         { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
+        {
+          model: EstablishmentRating,
+          as: 'ratings',
+          required: false,
+          attributes: ['id', 'description', 'rating', 'client_name'],
+        },
       ],
     });
 
@@ -34,21 +41,30 @@ class SessionController {
       return res.status(401).json({ error: 'Password does not match.' });
     }
 
+    const { ratings } = establishment;
+
+    const raters = ratings.length;
+
+    const rating =
+      raters > 0
+        ? ratings
+            .map((rate) => rate.rating)
+            .reduce((acumulator, rate) => acumulator + rate) / raters
+        : 0;
+
     const {
       id,
       cnpj,
-      establishment_name, //eslint-disable-line
-      manager_name, //eslint-disable-line
-      manager_lastname, //eslint-disable-line
+      establishment_name,
+      manager_name,
+      manager_lastname,
       cep,
-      address_number, //eslint-disable-line
+      address_number,
       street,
       complement,
       city,
       state,
       photo,
-      rating,
-      raters,
     } = establishment;
 
     return res.json({
@@ -66,6 +82,7 @@ class SessionController {
         city,
         state,
         photo,
+        ratings,
         rating,
         raters,
       },

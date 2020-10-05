@@ -11,8 +11,6 @@ class Item extends Model {
         preparation_time: Sequelize.STRING,
         price: Sequelize.FLOAT,
         available: Sequelize.BOOLEAN,
-        rating: Sequelize.FLOAT,
-        raters: Sequelize.INTEGER,
       },
       {
         sequelize,
