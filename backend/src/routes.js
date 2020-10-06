@@ -10,7 +10,6 @@ import EstablishmentsController from './app/controllers/EstablishmentController'
 import FileController from './app/controllers/FileController';
 import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
-import MenuItemController from './app/controllers/MenuItemController';
 import AdditionalController from './app/controllers/AdditionalController';
 import OrderController from './app/controllers/OrderController';
 import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
@@ -35,9 +34,6 @@ routes.get('/items', authMiddleware, ItemController.index);
 routes.post('/items', authMiddleware, ItemController.store);
 routes.put('/items/:id', authMiddleware, ItemController.update);
 routes.delete('/items/:id', authMiddleware, ItemController.delete);
-
-routes.post('/menu-items', authMiddleware, MenuItemController.store);
-routes.delete('/menu-items/:id', authMiddleware, MenuItemController.delete);
 
 routes.get('/additionals', authMiddleware, AdditionalController.index);
 routes.post('/additionals', authMiddleware, AdditionalController.store);

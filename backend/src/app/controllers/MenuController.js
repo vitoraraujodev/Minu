@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Menu from '../models/Menu';
 import MenuItem from '../models/MenuItem';
@@ -7,31 +8,32 @@ import Item from '../models/Item';
 
 class MenuController {
   async index(req, res) {
-    const menu = await Menu.findAll({
+    const menus = await Menu.findAll({
       where: { establishment_id: req.establishmentId },
       order: [['title', 'ASC']],
       include: [
         {
           model: Item,
           as: 'items',
+          required: false,
           order: [['title', 'ASC']],
           attributes: ['id', 'title', 'code', 'price'],
           include: [
             {
               model: File,
               as: 'photo',
+              required: false,
               attributes: ['id', 'path', 'url'],
             },
           ],
           through: {
-            model: MenuItem,
-            as: 'menu-items',
+            include: [],
           },
         },
       ],
     });
 
-    return res.json(menu);
+    return res.json(menus);
   }
 
   async store(req, res) {
@@ -41,6 +43,7 @@ class MenuController {
       start_at: Yup.number().required(),
       end_at: Yup.number().required(),
       available: Yup.boolean(),
+      items: Yup.array().of(Yup.number()),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -57,44 +60,42 @@ class MenuController {
       return res.status(400).json({ error: 'Menu title already in use.' });
     }
 
-    const menu = await Menu.create({
+    const { items } = req.body || [];
+
+    await Menu.create({
       ...req.body,
-      establishment_id,
-    });
+      establishment_id: req.establishmentId,
+    })
+      .then(async (menu) => {
+        // Creates all Additional relations
+        if (items.length > 0) {
+          const menuItems = items.map((item) => ({
+            menu_id: menu.id,
+            item_id: item,
+          }));
 
-    const { items } = req.body;
-
-    if (items && items.length > 0) {
-        items.map(async (item_id) => { // eslint-disable-line
-        const item = await Item.findByPk(item_id);
-
-        const ItemAdditionalExists = await MenuItem.findOne({
-          where: { item_id, menu_id: menu.id },
-        });
-
-        if (ItemAdditionalExists) {
-          const error = `${item.title} já é adicional desse produto.`;
-          return error;
+          await MenuItem.bulkCreate(menuItems);
         }
-
-        if (
-          item.establishment_id !== establishment_id || // eslint-disable-line
-          menu.establishment_id !== establishment_id    // eslint-disable-line
-        ) {
-          const error = `${item.title} não é um adicional do seu estabelecimento.`;
-          return error;
-        }
-
-        const menuItem = await MenuItem.create({
-          menu_id: menu.id,
-          item_id,
-        });
-
-        if (menuItem) return `${item.title} criado com sucesso!`;
-      });
-    }
-
-    return res.json(menu);
+        return menu;
+      })
+      .then(async (menu) =>
+        Menu.findByPk(menu.id, {
+          order: [['title', 'ASC']],
+          include: [
+            {
+              model: Item,
+              required: false,
+              as: 'items',
+              order: [['title', 'ASC']],
+              attributes: ['id', 'title', 'price', 'available'],
+              through: {
+                attributes: [],
+              },
+            },
+          ],
+        })
+      )
+      .then((menu) => res.json(menu));
   }
 
   async update(req, res) {
@@ -104,6 +105,7 @@ class MenuController {
       start_at: Yup.number(),
       end_at: Yup.number(),
       available: Yup.boolean(),
+      items: Yup.array().of(Yup.number()),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -111,7 +113,16 @@ class MenuController {
     }
     const establishment_id = req.establishmentId; // eslint-disable-line
 
-    let menu = await Menu.findByPk(req.params.id);
+    const menu = await Menu.findByPk(req.params.id, {
+      include: {
+        model: Item,
+        as: 'items',
+        attributes: ['id'],
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
     if (!menu) {
       return res.status(400).json({ error: 'Menu does not exist.' });
@@ -127,61 +138,78 @@ class MenuController {
       }
     }
 
-    menu = await menu.update(req.body);
-
+    const menuItems = menu.items.map((item) => item.id);
     const { items } = req.body;
 
-    if (items && items.length > 0) {
-      menu = await Menu.findByPk(req.params.id, {
-        include: [
-          {
-            model: Item,
-            as: 'items',
-            order: ['ASC'],
-            attributes: ['id'],
-            through: {
-              model: MenuItem,
-              as: 'menu-items',
-            },
-          },
-        ],
-      });
-
-      const menuItems = menu.items.map((item) => item.id);
-
-      items.map(async (item_id) => { // eslint-disable-line
-        const item = await Item.findByPk(item_id);
-
-        if (
-            item.establishment_id !== establishment_id || // eslint-disable-line
-            menu.establishment_id !== establishment_id    // eslint-disable-line
-        ) {
-          const error = `${item.title} não é um adicional do seu estabelecimento.`;
-          return error;
+    try {
+      await Menu.update(
+        { ...req.body },
+        {
+          where: { id: menu.id },
         }
-        if (!menuItems.includes(item_id)) {
-          const menuItem = await MenuItem.create({
-            menu_id: menu.id,
-            item_id,
-          });
-          if (menuItem) return `${item.title} criado com sucesso!`;
-        }
-      });
+      )
+        .then(async (result) => {
+          // Creates all new Items relations
+          if (items.length > 0) {
+            const newItems = items
+              .filter((item) => !menuItems.includes(item))
+              .map((item) => ({
+                menu_id: menu.id,
+                item_id: item,
+              }));
 
-      menuItems.map(async (item_id) => { // eslint-disable-line
-        if (!items.includes(item_id)) {
-          const menuItem = await MenuItem.findOne({
-            where: { item_id, menu_id: menu.id },
-          });
+            if (newItems.length > 0) await MenuItem.bulkCreate(newItems);
+          }
+          return result;
+        })
+        .then(async (result) => {
+          // Delete Menu's Items
+          const deleteItems = menuItems.filter(
+            (menuItem) => !items.includes(menuItem)
+          );
 
-          await menuItem.destroy();
-        }
-      });
-      menu = await Menu.findByPk(req.params.id);
-      return res.json(menu);
+          if (deleteItems.length > 0)
+            await MenuItem.destroy({
+              where: {
+                menu_id: menu.id,
+                item_id: {
+                  [Op.in]: deleteItems,
+                },
+              },
+            });
+          return result;
+        })
+        .then(async () =>
+          Menu.findByPk(menu.id, {
+            order: [['title', 'ASC']],
+            attributes: [
+              'id',
+              'title',
+              'availability',
+              'start_at',
+              'end_at',
+              'available',
+            ],
+            include: [
+              {
+                model: Item,
+                required: false,
+                as: 'items',
+                order: [['title', 'ASC']],
+                attributes: ['id', 'title', 'price', 'available'],
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          })
+        )
+        .then((result) => res.json(result));
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ error: 'Houve um erro na requisão. Verifique os dados' });
     }
-
-    return res.json(menu);
   }
 
   async delete(req, res) {

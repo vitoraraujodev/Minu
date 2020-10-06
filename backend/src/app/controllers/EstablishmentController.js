@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import fs from 'fs';
+import { resolve } from 'path';
 import { Op } from 'sequelize';
 import { getHours, getDay } from 'date-fns';
 
@@ -337,6 +339,12 @@ class EstablishmentController {
 
     if (photo_id && establishment.photo_id && photo_id !== establishment.photo_id) { // eslint-disable-line
       const file = await File.findByPk(establishment.photo_id);
+      fs.unlink(
+        resolve(__dirname, '..', '..', '..', 'tmp', 'uploads', file.path),
+        (err) => {
+          if (err) throw err;
+        }
+      );
       await file.destroy();
     }
 

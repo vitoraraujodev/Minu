@@ -1,4 +1,7 @@
 import * as Yup from 'yup';
+import fs from 'fs';
+import { resolve } from 'path';
+import { Op } from 'sequelize';
 
 import Item from '../models/Item';
 import Additional from '../models/Additional';
@@ -36,60 +39,65 @@ class ItemController {
       available: Yup.boolean(),
       price: Yup.number().required(),
       preparation_time: Yup.number().required(),
+      additionals: Yup.array().of(Yup.number()),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const establishment_id = req.establishmentId; // eslint-disable-line
+    const { additionals } = req.body || [];
 
-    const itemExists = await Item.findOne({
-      where: { title: req.body.title, establishment_id },
-    });
+    try {
+      await Item.create({
+        ...req.body,
+        establishment_id: req.establishmentId,
+      })
+        .then(async (item) => {
+          // Creates all Additional relations
+          if (additionals.length > 0) {
+            const itemAdditionals = additionals.map((add) => ({
+              item_id: item.id,
+              additional_id: add,
+            }));
 
-    if (itemExists) {
-      return res.status(400).json({ error: 'Item title already in use.' });
+            await ItemAdditional.bulkCreate(itemAdditionals);
+          }
+          return item;
+        })
+        .then(async (item) =>
+          Item.findByPk(item.id, {
+            order: [['title', 'ASC']],
+            attributes: [
+              'id',
+              'code',
+              'title',
+              'description',
+              'category',
+              'preparation_time',
+              'price',
+              'available',
+            ],
+            include: [
+              {
+                model: Additional,
+                required: false,
+                as: 'additionals',
+                order: [['title', 'ASC']],
+                attributes: ['id', 'title', 'price', 'available'],
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          })
+        )
+        .then((item) => res.json(item));
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ error: 'Houve um erro na requisão. Verifique os dados' });
     }
-
-    const item = await Item.create({
-      ...req.body,
-      establishment_id,
-    });
-
-    const { additionals } = req.body;
-
-    if (additionals && additionals.length > 0) {
-        additionals.map(async (additional_id) => { // eslint-disable-line
-        const additional = await Additional.findByPk(additional_id);
-
-        const ItemAdditionalExists = await ItemAdditional.findOne({
-          where: { additional_id, item_id: item.id },
-        });
-
-        if (ItemAdditionalExists) {
-          const error = `${additional.title} já é adicional desse produto.`;
-          return error;
-        }
-
-        if (
-          additional.establishment_id !== establishment_id || // eslint-disable-line
-          item.establishment_id !== establishment_id    // eslint-disable-line
-        ) {
-          const error = `${additional.title} não é um adicional do seu estabelecimento.`;
-          return error;
-        }
-
-        const itemAdditional = await ItemAdditional.create({
-          item_id: item.id,
-          additional_id,
-        });
-
-        if (itemAdditional) return `${additional.title} criado com sucesso!`;
-      });
-    }
-
-    return res.json(item);
   }
 
   async update(req, res) {
@@ -101,94 +109,116 @@ class ItemController {
       available: Yup.boolean(),
       price: Yup.number(),
       preparation_time: Yup.number(),
+      additionals: Yup.array().of(Yup.number()),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const establishment_id = req.establishmentId; // eslint-disable-line
-
-    let item = await Item.findByPk(req.params.id);
+    const item = await Item.findByPk(req.params.id, {
+      include: {
+        model: Additional,
+        as: 'additionals',
+        attributes: ['id'],
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
     if (!item) {
       return res.status(400).json({ error: 'Item does not exist.' });
     }
 
-    if (req.body.title && item.title !== req.body.title) {
-      const itemExists = await Item.findOne({
-        where: { title: req.body.title, establishment_id },
-      });
+    const { photo_id } = req.body;
 
-      if (itemExists) {
-        return res.status(400).json({ error: 'Item title already in use.' });
-      }
-    }
-
-    const { photo_id } = req.body; // eslint-disable-line
-
-    if (photo_id && item.photo_id && photo_id !== item.photo_id) { // eslint-disable-line
+    if (photo_id && item.photo_id && photo_id !== item.photo_id) {
       const file = await File.findByPk(item.photo_id);
+      fs.unlink(
+        resolve(__dirname, '..', '..', '..', 'tmp', 'uploads', file.path),
+        (err) => {
+          if (err) throw err;
+        }
+      );
       await file.destroy();
     }
 
-    item = await item.update({
-      ...req.body,
-    });
-
+    const itemAdditionals = item.additionals.map((add) => add.id);
     const { additionals } = req.body;
 
-    if (additionals && additionals.length > 0) {
-      item = await Item.findByPk(req.params.id, {
-        include: [
-          {
-            model: Additional,
-            as: 'additionals',
-            order: ['ASC'],
-            attributes: ['id'],
-            through: {
-              model: ItemAdditional,
-              as: 'item-additionals',
-            },
-          },
-        ],
-      });
+    try {
+      await Item.update(
+        {
+          ...req.body,
+        },
+        { where: { id: item.id } }
+      )
+        .then(async (result) => {
+          // Creates all new Additionals relations
+          if (additionals.length > 0) {
+            const newAdditionals = additionals
+              .filter((additional) => !itemAdditionals.includes(additional))
+              .map((add) => ({
+                item_id: item.id,
+                additional_id: add,
+              }));
 
-      const itemAdditionals = item.additionals.map((add) => add.id);
+            if (newAdditionals.length > 0)
+              await ItemAdditional.bulkCreate(newAdditionals);
+          }
+          return result;
+        })
+        .then(async (result) => {
+          // Delete Item's Additionals
+          const deleteAdditionals = itemAdditionals.filter(
+            (itemAdditional) => !additionals.includes(itemAdditional)
+          );
 
-      additionals.map(async (additional_id) => { // eslint-disable-line
-        const additional = await Additional.findByPk(additional_id);
-
-        if (
-            additional.establishment_id !== establishment_id || // eslint-disable-line
-            item.establishment_id !== establishment_id    // eslint-disable-line
-        ) {
-          const error = `${additional.title} não é um adicional do seu estabelecimento.`;
-          return error;
-        }
-        if (!itemAdditionals.includes(additional_id)) {
-          const itemAdditional = await ItemAdditional.create({
-            item_id: item.id,
-            additional_id,
-          });
-          if (itemAdditional) return `${additional.title} criado com sucesso!`;
-        }
-      });
-
-      itemAdditionals.map(async (additional_id) => { // eslint-disable-line
-        if (!additionals.includes(additional_id)) {
-          const itemAdditional = await ItemAdditional.findOne({
-            where: { additional_id, item_id: item.id },
-          });
-
-          await itemAdditional.destroy();
-        }
-      });
-      item = await Item.findByPk(req.params.id);
-      return res.json(item);
+          if (deleteAdditionals.length > 0)
+            await ItemAdditional.destroy({
+              where: {
+                item_id: item.id,
+                additional_id: {
+                  [Op.in]: deleteAdditionals,
+                },
+              },
+            });
+          return result;
+        })
+        .then(async () =>
+          Item.findByPk(item.id, {
+            order: [['title', 'ASC']],
+            attributes: [
+              'id',
+              'code',
+              'title',
+              'description',
+              'category',
+              'preparation_time',
+              'price',
+              'available',
+            ],
+            include: [
+              {
+                model: Additional,
+                required: false,
+                as: 'additionals',
+                order: [['title', 'ASC']],
+                attributes: ['id', 'title', 'price', 'available'],
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          })
+        )
+        .then((result) => res.json(result));
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ error: 'Houve um erro na requisão. Verifique os dados' });
     }
-
-    return res.json(item);
   }
 
   async delete(req, res) {
