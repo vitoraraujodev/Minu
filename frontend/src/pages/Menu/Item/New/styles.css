@@ -168,6 +168,15 @@
   min-width: 32px;
   border-radius: 16px;
   border: 1px solid #535BFE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#item-page .input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #item-page .circle-button-up {
@@ -185,13 +194,13 @@
 
 #item-page .preparation-time-container {
   padding-left: 16px;
+  margin-bottom: 16px;
 }
 
 #item-page .preparation-time {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
 }
 
 #item-page .preparation-input {

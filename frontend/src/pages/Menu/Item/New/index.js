@@ -212,7 +212,7 @@ export default function NewItem({ location }) {
             />
 
             <p className="input-label">
-              Descrição{' '}
+              Descrição
               <span style={{ color: '#9c9c9c', fontSize: 14 }}>(opcional)</span>
             </p>
             <input
@@ -278,6 +278,7 @@ export default function NewItem({ location }) {
                 </div>
               </div>
             </div>
+
             <p className="input-label">Categoria</p>
             <div
               className="category-input"

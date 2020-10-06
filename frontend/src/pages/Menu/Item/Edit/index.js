@@ -180,7 +180,7 @@ export default function EditItem({ location }) {
                 onDelete={() => history.push('/menus')}
                 fill="#fff"
                 position="down"
-                height="20"
+                size="20"
               />
             </div>
           </div>

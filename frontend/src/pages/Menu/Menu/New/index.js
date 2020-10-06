@@ -63,13 +63,7 @@ export default function NewMenu({ location }) {
   }
 
   useEffect(() => {
-    if (
-      title &&
-      startAt &&
-      endAt &&
-      availability !== '0000000' &&
-      items.length > 0
-    ) {
+    if (title && startAt && endAt && availability !== '0000000') {
       setFilled(true);
     } else {
       setFilled(false);

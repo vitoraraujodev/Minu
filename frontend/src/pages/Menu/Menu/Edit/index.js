@@ -66,13 +66,7 @@ export default function EditMenu({ location }) {
   }
 
   useEffect(() => {
-    if (
-      title &&
-      startAt &&
-      endAt &&
-      availability !== '0000000' &&
-      items.length > 0
-    ) {
+    if (title && startAt && endAt && availability !== '0000000') {
       setFilled(true);
     } else {
       setFilled(false);
@@ -146,7 +140,6 @@ export default function EditMenu({ location }) {
                 onDelete={() => history.push('/menus')}
                 fill="#fff"
                 position="down"
-                size="32"
               />
             </div>
           </div>

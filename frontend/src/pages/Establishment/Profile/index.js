@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -19,18 +19,35 @@ export default function Profile() {
     (state) => state.establishment.establishment
   );
 
+  const [windowWidth, setWindowWidth] = useState(768);
+
+  function handleResize() {
+    const profile = document.getElementById('profile');
+    if (profile && profile.offsetWidth !== windowWidth) {
+      setWindowWidth(profile.offsetWidth);
+    }
+  }
+
+  window.addEventListener('resize', handleResize);
+
   function handleSignOut() {
     dispatch(signOutRequest());
   }
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  }, []);
 
   return (
     <div id="profile">
       <Header />
       <div className="container">
         <div className="info-container">
-          <div className="logo-container">
-            <img className="logo" src={logo} alt="minu" />
-          </div>
+          {windowWidth <= 768 && (
+            <div className="logo-container">
+              <img className="logo" src={logo} alt="minu" />
+            </div>
+          )}
 
           <div className="img-container">
             <img
@@ -55,10 +72,10 @@ export default function Profile() {
             </div>
             <div className="rating-area">
               <span className="rating-text">
-                {establishment.rating.toFixed(1)}
+                {establishment.rating ? establishment.rating.toFixed(1) : '0.0'}
               </span>
               <RatingStar style={{ height: 15, margin: '0 4px' }} />
-              <span className="rating-text">({establishment.raters})</span>
+              <span className="rating-text">({establishment.raters || 0})</span>
             </div>
           </div>
         </div>

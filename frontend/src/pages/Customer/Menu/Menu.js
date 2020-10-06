@@ -18,7 +18,7 @@ export default function CostumerMenu() {
   const [desserts, setDesserts] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [alcoholics, setAlcoholics] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('starters');
+  const [activeCategory, setActiveCategory] = useState('');
 
   const containerRef = document.getElementById('container');
   const startersRef = document.getElementById('startersRef');
@@ -31,11 +31,48 @@ export default function CostumerMenu() {
     try {
       const response = await api.get('establishments/1');
       setEstablishment(response.data);
-      setStarters(response.data.starters || []);
-      setMains(response.data.mains || []);
-      setDesserts(response.data.desserts || []);
-      setDrinks(response.data.drinks || []);
-      setAlcoholics(response.data.alcoholics || []);
+
+      if (response.data.items && response.data.items.length > 0) {
+        const alcoholicItems = response.data.items.filter(
+          (item) => item.category === 'Bebidas alcoólicas'
+        );
+        if (alcoholicItems.length > 0) {
+          setAlcoholics(alcoholicItems);
+          setActiveCategory('alcoholics');
+        }
+
+        const drinkItems = response.data.items.filter(
+          (item) => item.category === 'Bebidas'
+        );
+        if (drinkItems.length > 0) {
+          setDrinks(drinkItems);
+          setActiveCategory('drinks');
+        }
+
+        const dessertItems = response.data.items.filter(
+          (item) => item.category === 'Sobremesas'
+        );
+        if (dessertItems.length > 0) {
+          setDesserts(dessertItems);
+          setActiveCategory('desserts');
+        }
+
+        const mainItems = response.data.items.filter(
+          (item) => item.category === 'Pratos principais'
+        );
+        if (mainItems.length > 0) {
+          setMains(mainItems);
+          setActiveCategory('mains');
+        }
+
+        const starterItems = response.data.items.filter(
+          (item) => item.category === 'Entradas'
+        );
+        if (starterItems.length > 0) {
+          setStarters(starterItems);
+          setActiveCategory('starters');
+        }
+      }
     } catch (err) {
       if (err.response) alert(err.response.data.error);
     }
@@ -127,7 +164,7 @@ export default function CostumerMenu() {
   return (
     <div id="costumer-menu">
       <div onScroll={handleScroll} id="container" className="container">
-        <div className="info-container" id="info-container">
+        <div className="info-container">
           <div className="logo-container">
             <img className="logo" src={logo} alt="minu" />
           </div>
@@ -141,7 +178,7 @@ export default function CostumerMenu() {
                 e.target.src = defaultPicture;
               }}
               className="establishment-img"
-              alt="establishment"
+              alt=""
             />
           </div>
           <div className="info-area">
@@ -224,23 +261,17 @@ export default function CostumerMenu() {
         </div>
       </div>
 
-      {(starters.length > 0 ||
-        mains.length > 0 ||
-        desserts.length > 0 ||
-        drinks.length > 0 ||
-        alcoholics.length > 0) && (
-        <MenuFooter
-          activeCategory={activeCategory}
-          starters={starters.length > 0}
-          mains={mains.length > 0}
-          desserts={desserts.length > 0}
-          drinks={drinks.length > 0}
-          alcoholics={alcoholics.length > 0}
-          onActiveCategoryChange={(category) => {
-            scrollTo(category);
-          }}
-        />
-      )}
+      <MenuFooter
+        activeCategory={activeCategory}
+        starters={starters.length > 0}
+        mains={mains.length > 0}
+        desserts={desserts.length > 0}
+        drinks={drinks.length > 0}
+        alcoholics={alcoholics.length > 0}
+        onActiveCategoryChange={(category) => {
+          scrollTo(category);
+        }}
+      />
     </div>
   );
 }
