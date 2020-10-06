@@ -184,59 +184,6 @@ class EstablishmentController {
         }
         return establishment;
       })
-      .then((establishment) => {
-        if (establishment.items && establishment.items.length > 0) {
-          const starters = establishment.items.filter(
-            (item) => item.category === 'Entradas'
-          );
-
-          const mains = establishment.items.filter(
-            (item) => item.category === 'Pratos principais'
-          );
-
-          const desserts = establishment.items.filter(
-            (item) => item.category === 'Sobremesas'
-          );
-
-          const drinks = establishment.items.filter(
-            (item) => item.category === 'Bebidas'
-          );
-
-          const alcoholics = establishment.items.filter(
-            (item) => item.category === 'Bebidas alcoólicas'
-          );
-
-          const {
-            id,
-            establishment_name,
-            cep,
-            address_number,
-            street,
-            complement,
-            rating,
-            raters,
-            photo,
-          } = establishment;
-
-          return {
-            id,
-            establishment_name,
-            cep,
-            address_number,
-            street,
-            complement,
-            rating,
-            raters,
-            photo,
-            starters,
-            mains,
-            desserts,
-            drinks,
-            alcoholics,
-          };
-        }
-        return establishment;
-      })
       .then((result) => res.json(result));
   }
 
