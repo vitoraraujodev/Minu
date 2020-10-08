@@ -6,8 +6,10 @@ import MenuFooter from '~/components/MenuFooter';
 import logo from '~/assets/icons/simple-logo.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
+import { ReactComponent as OrdersIcon } from '~/assets/icons/orders-icon.svg';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import './styles.css';
 
@@ -259,6 +261,21 @@ export default function CostumerMenu() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className="buttons-container">
+        <button
+          type="button"
+          onClick={() =>
+            history.push({
+              pathname: '/cliente/conta',
+              state: { establishment },
+            })
+          }
+          className="bill-button"
+        >
+          <OrdersIcon size="20" fill="#fff" />
+        </button>
       </div>
 
       <MenuFooter

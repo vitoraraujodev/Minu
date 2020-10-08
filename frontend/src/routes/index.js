@@ -20,6 +20,7 @@ import EditMenu from '~/pages/Menu/Menu/Edit';
 
 import CustomerMenu from '~/pages/Customer/Menu/Menu';
 import ProductOrder from '~/pages/Customer/ProductOrder';
+import CustomerBill from '~/pages/Customer/CostumerBill';
 
 import history from '~/services/history';
 
@@ -48,6 +49,12 @@ export default function Routes() {
           path="/pedido/produto"
           exact
           component={ProductOrder}
+          notPrivate
+        />
+        <Route
+          path="/cliente/conta"
+          exact
+          component={CustomerBill}
           notPrivate
         />
 
