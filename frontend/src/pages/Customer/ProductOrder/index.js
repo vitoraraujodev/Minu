@@ -14,7 +14,20 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function ProductOrder({ location }) {
-  const product = location.state ? location.state.product : history.goBack();
+  const product = location.state
+    ? location.state.product
+    : {
+        id: 0,
+        title: '',
+        description: '',
+        price: '',
+        rating: 0,
+        raters: 0,
+        photo: {},
+        additionals: [],
+      };
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [totalPrice, setTotalPrice] = useState(1);
 
@@ -35,6 +48,10 @@ export default function ProductOrder({ location }) {
   }
 
   useEffect(() => {
+    if (!location.state) history.push('/');
+  }, [location]);
+
+  useEffect(() => {
     const total = product.price * amount;
 
     if (additionals.length > 0) {
@@ -50,6 +67,46 @@ export default function ProductOrder({ location }) {
 
   return (
     <div id="product-order">
+      {modalVisible && (
+        <div className="modal">
+          <div className="modal-container">
+            <div className="group">
+              <p className="modal-text">Pedir agora?</p>
+
+              <button
+                type="button"
+                onClick={() => setModalVisible(false)}
+                className="modal-close-button"
+              >
+                X
+              </button>
+            </div>
+
+            <p className="modal-subtext">
+              Você pode adicioná-lo ao carrinho para realizar um grupo de
+              pedidos de uma só vez
+            </p>
+
+            <div className="button-group">
+              <button
+                type="button"
+                onClick={() => {}}
+                className="modal-cart-button"
+              >
+                Adicionar ao carrinho
+              </button>
+              <button
+                type="button"
+                onClick={() => {}}
+                className="modal-order-button"
+              >
+                Pedir
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="header">
         <button
           style={{ color: '#252525' }}
@@ -182,7 +239,11 @@ export default function ProductOrder({ location }) {
           </button>
         </div>
       </div>
-      <button className="submit-button" onClick={() => {}} type="button">
+      <button
+        className="submit-button"
+        onClick={() => setModalVisible(!modalVisible)}
+        type="button"
+      >
         <p className="order-text">Pedir</p>
         <p className="total-price">{formatPrice(totalPrice)}</p>
       </button>
