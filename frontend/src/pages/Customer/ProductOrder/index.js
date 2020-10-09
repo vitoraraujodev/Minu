@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import OrderModal from './OrderModal';
+
 import defaultPicture from '~/assets/images/default-picture.png';
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
@@ -67,45 +69,7 @@ export default function ProductOrder({ location }) {
 
   return (
     <div id="product-order">
-      {modalVisible && (
-        <div className="modal">
-          <div className="modal-container">
-            <div className="group">
-              <p className="modal-text">Pedir agora?</p>
-
-              <button
-                type="button"
-                onClick={() => setModalVisible(false)}
-                className="modal-close-button"
-              >
-                X
-              </button>
-            </div>
-
-            <p className="modal-subtext">
-              Você pode adicioná-lo ao carrinho para realizar um grupo de
-              pedidos de uma só vez
-            </p>
-
-            <div className="button-group">
-              <button
-                type="button"
-                onClick={() => {}}
-                className="modal-cart-button"
-              >
-                Adicionar ao carrinho
-              </button>
-              <button
-                type="button"
-                onClick={() => {}}
-                className="modal-order-button"
-              >
-                Pedir
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {modalVisible && <OrderModal onClose={() => setModalVisible(false)} />}
 
       <div className="header">
         <button

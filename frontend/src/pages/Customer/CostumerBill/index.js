@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import BillModal from './BillModal';
+
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
 import history from '~/services/history';
@@ -14,6 +16,7 @@ export default function CostumerBill({ location }) {
     : history.goBack();
 
   const [totalPrice, setTotalPrice] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [productOrders, setProductOrders] = useState([
     {
@@ -46,6 +49,8 @@ export default function CostumerBill({ location }) {
 
   return (
     <div id="customer-bill">
+      {modalVisible && <BillModal onClose={() => setModalVisible(false)} />}
+
       <div className="header">
         <button
           style={{ color: '#252525' }}
@@ -117,7 +122,7 @@ export default function CostumerBill({ location }) {
             ? 'submit-button-enabled'
             : 'submit-button-disabled'
         }
-        onClick={() => {}}
+        onClick={() => setModalVisible(!modalVisible)}
         type="button"
       >
         <p className="order-text">Pedir a conta</p>
