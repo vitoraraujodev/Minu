@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
+
 import './styles.css';
 
 export default function OrderModal({ onClose }) {
@@ -14,7 +16,7 @@ export default function OrderModal({ onClose }) {
             onClick={onClose}
             className="modal-close-button"
           >
-            X
+            <Close />
           </button>
         </div>
 

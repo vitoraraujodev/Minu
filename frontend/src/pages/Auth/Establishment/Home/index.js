@@ -17,7 +17,7 @@ export default function Intro() {
   window.addEventListener('resize', handleResize);
 
   return (
-    <div id="home">
+    <div id="establishment-home">
       <div className="container">
         <div className="image-container">
           <img
@@ -29,7 +29,7 @@ export default function Intro() {
 
         <div className="account-container">
           <p className="welcome">Seja bem-vindo!</p>
-          <Link to="/login">
+          <Link to="/estabelecimento/login">
             <button className="login-button" type="button">
               Acesse sua conta
             </button>
@@ -37,7 +37,7 @@ export default function Intro() {
           <div className="register-container">
             <span className="register-or">ou</span>
 
-            <Link to="/cadastro">
+            <Link to="/estabelecimento/cadastro">
               <button type="button" className="register-button">
                 Cadastre o seu restaurante
               </button>

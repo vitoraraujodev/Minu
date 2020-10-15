@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="33.941" height="33.941" viewBox="0 0 33.941 33.941">
+  <defs>
+    <style>
+      .close1, .close3 {
+        fill: none;
+      }
+
+      .close1 {
+        stroke: #fe5f53;
+      }
+
+      .close2 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_210" data-name="Grupo 210" transform="translate(62.225 -294.05) rotate(45)">
+    <g id="Elipse_3" data-name="Elipse 3" class="close1" transform="translate(175.925 239.925)">
+      <circle class="close2" cx="12" cy="12" r="12"/>
+      <circle class="close3" cx="12" cy="12" r="11.5"/>
+    </g>
+    <line id="Linha_4" data-name="Linha 4" class="close1" y2="10" transform="translate(187.925 246.925)"/>
+    <path id="Caminho_30" data-name="Caminho 30" class="close1" d="M9.334,0H-1" transform="translate(183.758 251.925)"/>
+  </g>
+</svg>

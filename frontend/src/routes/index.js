@@ -2,9 +2,13 @@ import React from 'react';
 import { Router, Switch, Redirect } from 'react-router-dom';
 import Route from './Route';
 
-import Home from '~/pages/Auth/Home';
-import SignUp from '~/pages/Auth/SignUp';
-import SignIn from '~/pages/Auth/SignIn';
+import EstablishmentHome from '~/pages/Auth/Establishment/Home';
+import EstablishmentSignUp from '~/pages/Auth/Establishment/SignUp';
+import EstablishmentSignIn from '~/pages/Auth/Establishment/SignIn';
+
+import CustomerHome from '~/pages/Auth/Customer/Home';
+import CustomerSignUp from '~/pages/Auth/Customer/SignUp';
+import CustomerSignIn from '~/pages/Auth/Customer/SignIn';
 
 import Profile from '~/pages/Establishment/Profile';
 import Picture from '~/pages/Establishment/Picture';
@@ -20,7 +24,7 @@ import EditMenu from '~/pages/Menu/Menu/Edit';
 
 import CustomerMenu from '~/pages/Customer/Menu/Menu';
 import ProductOrder from '~/pages/Customer/ProductOrder';
-import CustomerBill from '~/pages/Customer/CostumerBill';
+import CustomerBill from '~/pages/Customer/CustomerBill';
 
 import history from '~/services/history';
 
@@ -28,9 +32,25 @@ export default function Routes() {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={Home} notPrivate />
-        <Route path="/cadastro" component={SignUp} notPrivate />
-        <Route path="/login" component={SignIn} notPrivate />
+        <Route
+          path="/estabelecimento/acesso"
+          component={EstablishmentHome}
+          notPrivate
+        />
+        <Route
+          path="/estabelecimento/cadastro"
+          component={EstablishmentSignUp}
+          notPrivate
+        />
+        <Route
+          path="/estabelecimento/login"
+          component={EstablishmentSignIn}
+          notPrivate
+        />
+
+        <Route path="/cliente/acesso" component={CustomerHome} notPrivate />
+        <Route path="/cliente/cadastro" component={CustomerSignUp} notPrivate />
+        <Route path="/cliente/login" component={CustomerSignIn} notPrivate />
 
         <Route path="/estabelecimento" exact component={Profile} private />
         <Route path="/estabelecimento/foto" component={Picture} private />

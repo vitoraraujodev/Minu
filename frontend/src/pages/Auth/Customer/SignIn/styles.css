@@ -1,4 +1,4 @@
-#sign-in {
+#scustomer-ign-in {
   width: 100%;
   height: 100%;
   background: #fff;
@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-#sign-in .form-area {
+#customer-sign-in .form-area {
   width: 100%;
   max-height: 812px;
   height: 100%;
@@ -17,19 +17,40 @@
   display: block;
 }
 
-#sign-in .form {
+#customer-sign-in .form {
+  width: 100%;
+  max-height: 812px;
+  height: 100%;
+  max-width: 400px;
+  padding: 0 24px;
+  margin: auto 0;
+}
+
+#customer-sign-in .form {
   margin-top: 64px;
   padding-bottom: 40px;
 }
 
+#customer-sign-in .form-input {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  font-size: 18px;
+  color: #252525;
+  border-radius: 5px;
+  padding: 0 32px;
+  box-shadow: 0px 0px 6px #00000029;
+  margin-bottom: 16px;
+  z-index: 1;
+}
 
-#sign-in .buttons-container {
+#customer-sign-in .buttons-container {
   margin-top: 60px;
   display: flex;
   justify-content: space-between;
 }
 
-#sign-in .button {
+#customer-sign-in .button {
   display:flex;
   align-items: center;
   border: 0;
@@ -38,48 +59,52 @@
   font-size: 21px;
 }
 
-#sign-in .label {
+#customer-sign-in .label {
   font-weight: 600;
   font-size: 21px;
   color: #252525;
   margin-bottom: 12px;
 }
 
-#sign-in .input-label {
+#customer-sign-in .input-label {
   font-size: 16px;
   color: #252525;
   margin-bottom: 8px;
 }
 
-#sign-in .form-input::placeholder {
+#customer-sign-in .form-input::placeholder {
   color: #9c9c9c;
   font-size: 16px;
 }
 
 @media screen and (max-width: 767px) {
-  #sign-in .form-area {
+  #customer-sign-in .form-area {
     max-height: none;
   }
 
-  #sign-in .button {
+  #establishment-sign-in .form {
+    max-height: none;
+  }
+
+  #customer-sign-in .button {
     font-size: 18px;
   }
 
-  #sign-in .label {
+  #customer-sign-in .label {
     font-size: 18px;
   }
 
-  #sign-in .input-label {
+  #customer-sign-in .input-label {
     font-size: 15px;
   }
 
-  #sign-in .form-input {
+  #customer-sign-in .form-input {
     font-size: 15px;
     height: 40px;
     padding: 0 24px;
   }
 
-  #sign-in .form-input::placeholder {
+  #customer-sign-in .form-input::placeholder {
     font-size: 14px;
   }
 }

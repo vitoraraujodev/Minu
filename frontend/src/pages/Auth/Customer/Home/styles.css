@@ -1,0 +1,109 @@
+#customer-home {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  min-width: 320px;
+  justify-content: center;
+}
+
+#customer-home .container {
+  max-width: 920px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width:100%;
+  padding: 0 24px;
+  min-width: 245px;
+}
+
+#customer-home .image-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 380px;
+  order: 2;
+}
+
+#customer-home .account-container{
+  order: 1;
+  max-width: 360px;
+  margin-right: 32px;
+  width:100%;
+}
+
+#customer-home .welcome {
+  margin-top: 12px;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+
+#customer-home .register-container {
+  margin-top: 24px;
+  text-align: center;
+}
+
+#customer-home .register-or {
+  font-size: 18px;
+  font-weight: 400;
+  color: #9C9C9C;
+  margin-right: 4px;
+}
+
+#customer-home .register-button {
+  font-size: 18px;
+  font-weight: 400;
+  color: #535BFE;
+  border: 0;
+  background: none;
+}
+
+@media screen and (max-width: 767px) {
+  #customer-home .container {
+    display: block;
+    max-width: 432px;
+    margin: 0 auto;
+  }
+
+  #customer-home .welcome {
+    margin-top: 12px;
+    font-size: 20px;
+  }
+
+  #customer-home .image-container {
+    max-width: 590px;
+  }
+
+  #customer-home .account-container{
+    order: 2;
+    margin-top: 12px;
+    margin: 0;
+    max-width: none;
+  }
+
+  #customer-home .login-button {
+    font-size: 15px;
+    height: 40px;
+    margin-top: 21px;
+  }
+
+  #customer-home .login-button:hover {
+    transform: none;
+  }
+
+  #customer-home .register-container {
+    margin: 32px 0;
+    text-align: center;
+  }
+
+  #customer-home .register-or {
+    font-size: 18px;
+  }
+
+  #customer-home .register-button {
+    font-size: 18px;
+  }
+}

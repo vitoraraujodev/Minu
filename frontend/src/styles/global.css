@@ -41,6 +41,11 @@ input, button, textarea {
   font: 400 18px Muli, sans-serif;
 }
 
+form input::placeholder {
+  color: #9C9C9C;
+  font-size: 16px;
+}
+
 button {
   cursor: pointer;
 }
@@ -67,4 +72,7 @@ input[type="file"] {
 }
 
 @media screen and (max-width: 767px) {
+  form input::placeholder {
+    font-size: 14px;
+  }
 }

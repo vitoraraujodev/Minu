@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
+
 import './styles.css';
 
 export default function BillModal({ onClose }) {
@@ -14,7 +16,7 @@ export default function BillModal({ onClose }) {
             onClick={onClose}
             className="modal-close-button"
           >
-            X
+            <Close size="24" />
           </button>
         </div>
 

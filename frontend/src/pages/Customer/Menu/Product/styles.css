@@ -1,15 +1,15 @@
-#costumer-menu .product-container {
+#customer-menu .product-container {
   position: relative;
   display: block;
   justify-content: center;
   align-items: center;
 }
 
-#costumer-menu .product-container + .product-container{
+#customer-menu .product-container + .product-container{
   border-top: 1px solid #e6e6e6;
 }
 
-#costumer-menu .product-img-container {
+#customer-menu .product-img-container {
   height: 120px;
   width: 100%;
   overflow: hidden;
@@ -21,18 +21,18 @@
   box-shadow: 0px 3px 6px #00000029;
 }
 
-#costumer-menu .product-img {
+#customer-menu .product-img {
   width: 100%;
 }
 
-#costumer-menu .product-info-container {
+#customer-menu .product-info-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
 }
 
-#costumer-menu .product-title {
+#customer-menu .product-title {
   color: #707070;
   font-size: 16px;
   font-weight: 600;
@@ -40,7 +40,7 @@
   margin-right: 8px;
 }
 
-#costumer-menu .product-price-tag {
+#customer-menu .product-price-tag {
   display: inline-block;
   background: #212121;
   padding: 4px 8px;
@@ -51,12 +51,12 @@
   box-shadow: 0px 2px 3px #00000029;
 }
 
-#costumer-menu .product-info-group {
+#customer-menu .product-info-group {
   display: flex;
   align-items: center;
 }
 
-#costumer-menu .product-time {
+#customer-menu .product-time {
   color: #707070;
   font-size: 12px;
   font-weight: 400;
@@ -64,7 +64,7 @@
   align-items: center;
 }
 
-#costumer-menu .product-rating-area {
+#customer-menu .product-rating-area {
   display: flex;
   align-items: center;
   margin-left: 8px;
@@ -72,21 +72,21 @@
   border-left: 1px solid #acacac;
 }
 
-#costumer-menu .product-rating-text {
+#customer-menu .product-rating-text {
   color: #707070;
   font-size: 12px;
 }
 
 @media screen and (max-width: 341px) {
-  #costumer-menu .product-title {
+  #customer-menu .product-title {
     font-size: 16px;
   }
 
-  #costumer-menu .product-rating-text {
+  #customer-menu .product-rating-text {
     font-size: 12px;
   }
 
-  #costumer-menu .product-time {
+  #customer-menu .product-time {
     font-size: 10px;
   }
 }

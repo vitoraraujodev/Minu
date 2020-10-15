@@ -1,4 +1,4 @@
-#home {
+#establishment-home {
   width: 100%;
   height: 100%;
   background: #fff;
@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-#home .container {
+#establishment-home .container {
   max-width: 920px;
   display: flex;
   justify-content: space-between;
@@ -17,7 +17,7 @@
   min-width: 245px;
 }
 
-#home .image-container {
+#establishment-home .image-container {
   overflow: hidden;
   margin: 0;
   display: flex;
@@ -27,20 +27,20 @@
   order: 2;
 }
 
-#home .account-container{
+#establishment-home .account-container{
   order: 1;
   max-width: 360px;
   margin-right: 32px;
   width:100%;
 }
 
-#home .welcome {
+#establishment-home .welcome {
   margin-top: 12px;
   font-size: 30px;
   font-weight: 600;
 }
 
-#home .login-button {
+#establishment-home .login-button {
   color: #535bfe;
   font-size: 18px;
   font-weight: 600;
@@ -53,28 +53,28 @@
   transition: transform .2s;
 }
 
-#home .login-button:hover {
+#establishment-home .login-button:hover {
   transform: scale(1.03);
 }
 
-#home .login-button:active {
+#establishment-home .login-button:active {
   color: #fff;
   background: #535bfe;
 }
 
-#home .register-container {
+#establishment-home .register-container {
   margin-top: 24px;
   text-align: center;
 }
 
-#home .register-or {
+#establishment-home .register-or {
   font-size: 18px;
   font-weight: 400;
   color: #9C9C9C;
   margin-right: 4px;
 }
 
-#home .register-button {
+#establishment-home .register-button {
   font-size: 18px;
   font-weight: 400;
   color: #535BFE;
@@ -83,48 +83,48 @@
 }
 
 @media screen and (max-width: 767px) {
-  #home .container {
+  #establishment-home .container {
     display: block;
     max-width: 590px;
     margin: 0 auto;
   }
 
-  #home .welcome {
+  #establishment-home .welcome {
     margin-top: 12px;
     font-size: 20px;
   }
 
-  #home .image-container {
+  #establishment-home .image-container {
     max-width: 590px;
   }
 
-  #home .account-container{
+  #establishment-home .account-container{
     order: 2;
     margin-top: 12px;
     margin: 0;
     max-width: none;
   }
 
-  #home .login-button {
+  #establishment-home .login-button {
     font-size: 15px;
     height: 40px;
     margin-top: 21px;
   }
 
-  #home .login-button:hover {
+  #establishment-home .login-button:hover {
     transform: none;
   }
 
-  #home .register-container {
+  #establishment-home .register-container {
     margin: 32px 0;
     text-align: center;
   }
 
-  #home .register-or {
+  #establishment-home .register-or {
     font-size: 15px;
   }
 
-  #home .register-button {
+  #establishment-home .register-button {
     font-size: 15px;
   }
 }

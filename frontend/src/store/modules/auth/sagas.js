@@ -15,7 +15,10 @@ export function* signIn({ payload }) {
   try {
     const { email, password, route } = payload;
 
-    const response = yield call(api.post, 'sessions', { email, password });
+    const response = yield call(api.post, 'establishment-sessions', {
+      email,
+      password,
+    });
     const { token, establishment } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;

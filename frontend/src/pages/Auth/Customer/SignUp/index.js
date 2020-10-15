@@ -71,12 +71,12 @@ export default function SignUp() {
     if (step > 1) {
       setStep(step - 1);
     } else {
-      history.push('/');
+      history.goBack();
     }
   }
 
   return (
-    <div id="sign-up">
+    <div id="customer-sign-up">
       <div style={step === 5 ? { margin: 0 } : null} className="form">
         {step < 5 ? <ProgressionBar step={step} /> : null}
 

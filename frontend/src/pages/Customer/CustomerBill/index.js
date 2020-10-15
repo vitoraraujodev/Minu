@@ -10,7 +10,7 @@ import { formatPrice } from '~/util/format';
 
 import './styles.css';
 
-export default function CostumerBill({ location }) {
+export default function CustomerBill({ location }) {
   const establishment = location.state
     ? location.state.establishment
     : history.goBack();

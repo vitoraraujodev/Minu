@@ -33,7 +33,7 @@ export default function SignUp() {
   }
 
   return (
-    <div id="sign-in">
+    <div id="establishment-sign-in">
       <div className="form-area">
         <ProgressionBar step={1} />
         <div className="form">

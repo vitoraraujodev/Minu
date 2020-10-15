@@ -13,7 +13,7 @@ import history from '~/services/history';
 
 import './styles.css';
 
-export default function CostumerMenu() {
+export default function CustomerMenu() {
   const [establishment, setEstablishment] = useState({});
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
@@ -164,7 +164,7 @@ export default function CostumerMenu() {
   }
 
   return (
-    <div id="costumer-menu">
+    <div id="customer-menu">
       <div onScroll={handleScroll} id="container" className="container">
         <div className="info-container">
           <div className="logo-container">
