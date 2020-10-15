@@ -204,12 +204,12 @@ class EstablishmentController {
       password: Yup.string().min(6).required(),
       confirm_password: Yup.string().oneOf(
         [Yup.ref('password'), null],
-        'Passwords must match.'
+        'Confirmação de senha incorreta.'
       ),
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
     const establishmentExists = await Establishment.findOne({
@@ -217,7 +217,7 @@ class EstablishmentController {
     });
 
     if (establishmentExists) {
-      return res.status(400).json({ error: 'E-mail already in use.' });
+      return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
     await Establishment.create(req.body);
@@ -251,14 +251,20 @@ class EstablishmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+      return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
-    const { cnpj, oldPassword, photo_id } = req.body; // eslint-disable-line
+    const { cnpj, oldPassword, photo_id } = req.body;
 
     const mail = req.body.email;
 
     const establishment = await Establishment.findByPk(req.establishmentId);
+
+    if (!establishment) {
+      return res
+        .status(400)
+        .json({ error: 'Estabelecimento não está cadastrado' });
+    }
 
     if (mail && mail !== establishment.email) {
       const establishmentExists = await Establishment.findOne({
@@ -266,7 +272,7 @@ class EstablishmentController {
       });
 
       if (establishmentExists) {
-        return res.status(400).json({ error: 'E-mail already in use.' });
+        return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
       }
     }
 
@@ -276,15 +282,21 @@ class EstablishmentController {
       });
 
       if (establishmentExists) {
-        return res.status(400).json({ error: 'Establishment already exists.' });
+        return res
+          .status(400)
+          .json({ error: 'Estabelecimento já está cadastrado.' });
       }
     }
 
     if (oldPassword && !(await establishment.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Old Password does not match.' });
+      return res.status(401).json({ error: 'Senha antiga incorreta.' });
     }
 
-    if (photo_id && establishment.photo_id && photo_id !== establishment.photo_id) { // eslint-disable-line
+    if (
+      photo_id &&
+      establishment.photo_id &&
+      photo_id !== establishment.photo_id
+    ) {
       const file = await File.findByPk(establishment.photo_id);
       fs.unlink(
         resolve(__dirname, '..', '..', '..', 'tmp', 'uploads', file.path),

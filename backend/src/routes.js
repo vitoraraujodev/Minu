@@ -2,9 +2,10 @@ import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
-import authMiddleware from './app/middlewares/auth';
+import establishmentAuthMiddleware from './app/middlewares/establishmentAuth';
+import customerAuthMiddleware from './app/middlewares/customerAuth';
 
-import SessionController from './app/controllers/SessionController';
+import EstablishmentSessionController from './app/controllers/EstablishmentSessionController';
 import PinController from './app/controllers/PinController';
 import EstablishmentsController from './app/controllers/EstablishmentController';
 import FileController from './app/controllers/FileController';
@@ -15,32 +16,56 @@ import OrderController from './app/controllers/OrderController';
 import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
 import ItemRatingController from './app/controllers/ItemRatingController';
 
+import CustomerController from './app/controllers/CustomerController';
+import CustomerSessionController from './app/controllers/CustomerSessionController';
+
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post('/sessions', SessionController.store);
-routes.post('/pin', authMiddleware, PinController.store);
+routes.post('/establishment-sessions', EstablishmentSessionController.store);
+routes.post('/customer-sessions', CustomerSessionController.store);
+routes.post('/pin', establishmentAuthMiddleware, PinController.store);
 
 routes.get('/establishments/:id', EstablishmentsController.index);
 routes.post('/establishments', EstablishmentsController.store);
-routes.put('/establishments', authMiddleware, EstablishmentsController.update);
+routes.put(
+  '/establishments',
+  establishmentAuthMiddleware,
+  EstablishmentsController.update
+);
 
-routes.get('/menus', authMiddleware, MenuController.index);
-routes.post('/menus', authMiddleware, MenuController.store);
-routes.put('/menus/:id', authMiddleware, MenuController.update);
-routes.delete('/menus/:id', authMiddleware, MenuController.delete);
+routes.get('/menus', establishmentAuthMiddleware, MenuController.index);
+routes.post('/menus', establishmentAuthMiddleware, MenuController.store);
+routes.put('/menus/:id', establishmentAuthMiddleware, MenuController.update);
+routes.delete('/menus/:id', establishmentAuthMiddleware, MenuController.delete);
 
-routes.get('/items', authMiddleware, ItemController.index);
-routes.post('/items', authMiddleware, ItemController.store);
-routes.put('/items/:id', authMiddleware, ItemController.update);
-routes.delete('/items/:id', authMiddleware, ItemController.delete);
+routes.get('/items', establishmentAuthMiddleware, ItemController.index);
+routes.post('/items', establishmentAuthMiddleware, ItemController.store);
+routes.put('/items/:id', establishmentAuthMiddleware, ItemController.update);
+routes.delete('/items/:id', establishmentAuthMiddleware, ItemController.delete);
 
-routes.get('/additionals', authMiddleware, AdditionalController.index);
-routes.post('/additionals', authMiddleware, AdditionalController.store);
-routes.put('/additionals/:id', authMiddleware, AdditionalController.update);
-routes.delete('/additionals/:id', authMiddleware, AdditionalController.delete);
+routes.get(
+  '/additionals',
+  establishmentAuthMiddleware,
+  AdditionalController.index
+);
+routes.post(
+  '/additionals',
+  establishmentAuthMiddleware,
+  AdditionalController.store
+);
+routes.put(
+  '/additionals/:id',
+  establishmentAuthMiddleware,
+  AdditionalController.update
+);
+routes.delete(
+  '/additionals/:id',
+  establishmentAuthMiddleware,
+  AdditionalController.delete
+);
 
-routes.get('/orders', authMiddleware, OrderController.index);
+routes.get('/orders', establishmentAuthMiddleware, OrderController.index);
 routes.post('/orders', OrderController.store);
 routes.delete('/orders/:id', OrderController.delete);
 
@@ -52,10 +77,13 @@ routes.post('/items/:id/ratings', ItemRatingController.store);
 
 routes.post(
   '/files',
-  authMiddleware,
+  establishmentAuthMiddleware,
   upload.single('file'),
   FileController.store
 );
-routes.delete('/files/:id', authMiddleware, FileController.delete);
+routes.delete('/files/:id', establishmentAuthMiddleware, FileController.delete);
+
+routes.post('/customers', CustomerController.store);
+routes.put('/customers', customerAuthMiddleware, CustomerController.update);
 
 export default routes;

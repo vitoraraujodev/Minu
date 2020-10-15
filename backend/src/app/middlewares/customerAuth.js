@@ -6,7 +6,9 @@ export default async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'Token not provided.' });
+    return res
+      .status(401)
+      .json({ error: 'É necessário um Token de autenticação.' });
   }
 
   const [, token] = authHeader.split(' ');
@@ -14,10 +16,16 @@ export default async (req, res, next) => {
   try {
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
-    req.establishmentId = decoded.id;
+    if (decoded.kind !== 'customer') {
+      return res
+        .status(401)
+        .json({ error: 'É necessário autenticação como cliente.' });
+    }
+
+    req.customerId = decoded.id;
 
     return next();
   } catch (err) {
-    return res.status(401).json({ error: 'Token invalid.' });
+    return res.status(401).json({ error: 'Token inválido.' });
   }
 };

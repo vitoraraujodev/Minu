@@ -11,6 +11,7 @@ import Order from '../app/models/Order';
 import OrderAdditional from '../app/models/OrderAdditional';
 import EstablishmentRating from '../app/models/EstablishmentRating';
 import ItemRating from '../app/models/ItemRating';
+import Customer from '../app/models/Customer';
 
 import databaseConfig from '../config/database';
 
@@ -26,6 +27,7 @@ const models = [
   OrderAdditional,
   EstablishmentRating,
   ItemRating,
+  Customer,
 ]; // Todos os models a serem carregados
 
 class Database {

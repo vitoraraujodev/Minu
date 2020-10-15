@@ -7,7 +7,7 @@ import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
 
-class SessionController {
+class EstablishmentSessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
@@ -15,7 +15,7 @@ class SessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
     const { email, password } = req.body;
@@ -34,11 +34,13 @@ class SessionController {
     });
 
     if (!establishment) {
-      return res.status(400).json({ error: "Establishment doesn't exist." });
+      return res.status(400).json({ error: 'Estabelecimento não existe.' });
     }
 
     if (!(await establishment.checkPassword(password))) {
-      return res.status(401).json({ error: 'Password does not match.' });
+      return res.status(401).json({
+        error: 'E-mail ou senha incorretos. Verifique e tente novamente.',
+      });
     }
 
     const { ratings } = establishment;
@@ -86,11 +88,11 @@ class SessionController {
         rating,
         raters,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, kind: 'establishment' }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
   }
 }
 
-export default new SessionController();
+export default new EstablishmentSessionController();
