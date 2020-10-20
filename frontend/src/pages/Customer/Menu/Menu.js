@@ -14,6 +14,7 @@ import history from '~/services/history';
 import './styles.css';
 
 export default function CustomerMenu() {
+  const [loading, setLoading] = useState(false);
   const [establishment, setEstablishment] = useState({});
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
@@ -30,6 +31,7 @@ export default function CustomerMenu() {
   const alcoholicsRef = document.getElementById('alcoholicsRef');
 
   async function loadEstablishment() {
+    setLoading(true);
     try {
       const response = await api.get('establishments/1');
       setEstablishment(response.data);
@@ -78,6 +80,7 @@ export default function CustomerMenu() {
     } catch (err) {
       if (err.response) alert(err.response.data.error);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -187,27 +190,36 @@ export default function CustomerMenu() {
             <div className="info">
               <div className="title-area">
                 <span className="title">
-                  {establishment.establishment_name}
+                  {establishment.establishment_name || 'Carregando...'}
                 </span>
               </div>
-              <div className="rating-area">
-                <span className="rating-text">
-                  {establishment.rating % 1 > 0
-                    ? establishment.rating
-                    : `${establishment.rating}.0`}
-                </span>
-                <RatingStar style={{ height: 15, margin: '0 4px' }} />
-                <span className="rating-text">({establishment.raters})</span>
-              </div>
+              {establishment.rating && (
+                <div className="rating-area">
+                  <span className="rating-text">
+                    {establishment.rating % 1 > 0
+                      ? establishment.rating
+                      : `${establishment.rating}.0`}
+                  </span>
+                  <RatingStar style={{ height: 15, margin: '0 4px' }} />
+                  <span className="rating-text">({establishment.raters})</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
+
+        {loading && (
+          <div className="loader-container">
+            <div className="loader" />
+          </div>
+        )}
 
         {starters.length === 0 &&
           mains.length === 0 &&
           desserts.length === 0 &&
           drinks.length === 0 &&
-          alcoholics.length === 0 && (
+          alcoholics.length === 0 &&
+          !loading && (
             <h3 className="empty-text">
               Nenhum cardápio está diponivel ainda...
             </h3>
