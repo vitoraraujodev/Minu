@@ -1,62 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 
 import ProgressionBar from '~/components/ProgressionBar';
+import PhoneNumberInput from '~/components/PhoneNumberInput';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
 import history from '~/services/history';
 
-import { signInRequest } from '~/store/modules/auth/actions';
-
 import './styles.css';
 
 export default function SignUp() {
-  const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
+  const [step, setStep] = useState(1);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
-    if (email && password.length >= 6) {
+    if (phoneNumber && isValidPhoneNumber(phoneNumber)) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [email, password]);
+  }, [phoneNumber]);
 
-  function handleSubmit() {
-    dispatch(signInRequest(email, password, '/estabelecimento'));
-  }
+  function handleSubmit() {}
 
   return (
     <div id="customer-sign-in">
       <div className="form-area">
-        <ProgressionBar step={1} />
+        <ProgressionBar step={step} maxSteps={3} />
         <div className="form">
-          <p className="label">Insira seu E-mail</p>
-          <input
-            name="email"
-            type="email"
-            className="form-input"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-          />
-          <p className="input-label">Senha</p>
-          <input
-            name="password"
-            type="password"
-            className="form-input"
-            onKeyDown={(e) => {
-              if (e.keyCode === 13) {
-                handleSubmit();
-              }
-            }}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="********"
+          <p className="label">Insira seu número de celular</p>
+          <PhoneNumberInput
+            phoneNumber={phoneNumber}
+            onChangePhoneNumber={setPhoneNumber}
           />
 
           <div className="buttons-container">

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PhoneInput from 'react-phone-number-input';
 
 import './styles.css';
 import 'react-phone-number-input/style.css';
 
-export default function PhoneNumberInput({ focus = true }) {
-  const [phoneNumber, setPhoneNumber] = useState();
-
+export default function PhoneNumberInput({
+  focus = true,
+  phoneNumber,
+  onChangePhoneNumber = () => {},
+}) {
   return (
     <div id="phone-input">
       <PhoneInput
@@ -14,7 +16,7 @@ export default function PhoneNumberInput({ focus = true }) {
         value={phoneNumber}
         defaultCountry="BR"
         autoFocus={focus}
-        onChange={setPhoneNumber}
+        onChange={onChangePhoneNumber}
       />
     </div>
   );

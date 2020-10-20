@@ -38,6 +38,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
     "no-alert": "off",
+    "consistent-return": "off",
   },
   settings: {
     "import/resolver": {

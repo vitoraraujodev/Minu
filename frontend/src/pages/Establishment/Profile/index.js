@@ -28,6 +28,12 @@ export default function Profile() {
     }
   }
 
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
   window.addEventListener('resize', handleResize);
 
   function handleSignOut() {
@@ -58,7 +64,7 @@ export default function Profile() {
                 e.target.src = defaultPicture;
               }}
               className="establishment-img"
-              alt="establishment"
+              alt=""
             />
           </div>
           <div className="info">

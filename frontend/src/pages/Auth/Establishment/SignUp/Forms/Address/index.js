@@ -45,10 +45,17 @@ export default function Address({
 
   function handleResize() {
     const form = document.getElementById('form');
-    if (form) {
+    if (form && (form.offsetWidth - 16) / 2 !== width) {
       setWidth((form.offsetWidth - 16) / 2);
     }
   }
+
+  useEffect(() => {
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   window.addEventListener('resize', handleResize);
 

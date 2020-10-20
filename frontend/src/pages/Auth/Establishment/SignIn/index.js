@@ -35,7 +35,7 @@ export default function SignUp() {
   return (
     <div id="establishment-sign-in">
       <div className="form-area">
-        <ProgressionBar step={1} />
+        <ProgressionBar step={1} maxSteps={3} />
         <div className="form">
           <p className="label">Insira seu E-mail</p>
           <input

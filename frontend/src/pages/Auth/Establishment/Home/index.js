@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
@@ -13,6 +13,12 @@ export default function Intro() {
       setHeight(window.innerHeight);
     }
   }
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   window.addEventListener('resize', handleResize);
 

@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-import './styles.css';
 
 import PhoneNumberInput from '~/components/PhoneNumberInput';
 
 import waitress from '~/assets/images/waitress.jpg';
 
-export default function Intro() {
+import './styles.css';
+
+export default function Home() {
   const [height, setHeight] = useState(window.innerHeight);
 
   function handleResize() {
-    if (window) {
+    if (window && window.innerHeight !== height) {
       setHeight(window.innerHeight);
     }
   }
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   window.addEventListener('resize', handleResize);
 
@@ -32,7 +38,7 @@ export default function Intro() {
         <div className="account-container">
           <p className="welcome">Seja bem-vindo!</p>
           <Link to="/cliente/login">
-            <PhoneNumberInput focus={false} />
+            <PhoneNumberInput onChange={() => {}} focus={false} />
           </Link>
 
           <div className="register-container">

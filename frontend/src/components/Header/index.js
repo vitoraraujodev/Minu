@@ -17,10 +17,10 @@ export default function Header() {
   const location = useLocation();
   const accessed = useSelector((state) => state.auth.inventoryAccessed);
 
-  const [windowWidth, setWindowWidth] = useState(768);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [active, setActive] = useState();
 
-  function handleResize() {
+  async function handleResize() {
     const tabnavigator = document.getElementById('tabnavigator');
     if (tabnavigator && tabnavigator.offsetWidth !== windowWidth) {
       setWindowWidth(tabnavigator.offsetWidth);
@@ -36,8 +36,10 @@ export default function Header() {
   }, [location.pathname, dispatch, accessed]);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-  }, []);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   window.addEventListener('resize', handleResize);
 

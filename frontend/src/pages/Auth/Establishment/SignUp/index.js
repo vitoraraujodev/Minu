@@ -76,9 +76,9 @@ export default function SignUp() {
   }
 
   return (
-    <div id="sign-up">
+    <div id="establishment-sign-up">
       <div style={step === 5 ? { margin: 0 } : null} className="form">
-        {step < 5 ? <ProgressionBar step={step} /> : null}
+        {step < 5 && <ProgressionBar step={step} maxSteps={4} />}
 
         {step === 1 ? (
           <InformationForm

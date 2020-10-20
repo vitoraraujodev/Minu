@@ -118,7 +118,6 @@ export default function PinCodeInput({
       <input
         className="pin-input"
         type="number"
-        style={{ marginRight: 0 }}
         maxLength="1"
         value={fourthInput}
         ref={fourthInputRef}
