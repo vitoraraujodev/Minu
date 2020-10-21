@@ -1,4 +1,5 @@
 #progression-bar {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -10,8 +11,10 @@
 }
 
 #progression-bar .progression {
+  position: absolute;
   background: #535bfe;
   height: 8px;
   width: 6%;
-  border-radius: 2px;
+  left: -2px;
+  border-radius: 5px;
 }

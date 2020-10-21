@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
 import PhoneNumberInput from '~/components/PhoneNumberInput';
@@ -11,10 +10,12 @@ import history from '~/services/history';
 
 import './styles.css';
 
-export default function SignUp() {
-  const loading = useSelector((state) => state.auth.loading);
-
-  const [phoneNumber, setPhoneNumber] = useState('');
+export default function PhoneNumberForm({
+  phoneNumber,
+  onChangePhoneNumber,
+  handleNext,
+  handleSocialMedia,
+}) {
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
@@ -25,40 +26,48 @@ export default function SignUp() {
     }
   }, [phoneNumber]);
 
-  function handleSubmit() {}
-
   return (
-    <div className="form-area">
-      <div className="form">
-        <p className="label">Insira seu número de celular</p>
-        <PhoneNumberInput
-          phoneNumber={phoneNumber}
-          onChangePhoneNumber={setPhoneNumber}
-        />
+    <div className="form-container">
+      <p className="label">Insira seu número de celular</p>
 
-        <div className="buttons-container">
-          <button
-            style={{ color: '#606060' }}
-            className="button"
-            type="button"
-            onClick={() => history.goBack()}
-          >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
-            Voltar
-          </button>
-          <button
-            style={filled ? { color: '#535BFE' } : { color: '#acacac' }}
-            className="button"
-            type="button"
-            onClick={filled ? handleSubmit : null}
-          >
-            {loading ? 'Carregando...' : 'Acessar'}
-            <Foward
-              style={{ height: 16, marginLeft: 4 }}
-              fill={filled ? '#535BFE' : '#acacac'}
-            />
-          </button>
-        </div>
+      <PhoneNumberInput
+        phoneNumber={phoneNumber}
+        focus={false}
+        onChangePhoneNumber={onChangePhoneNumber}
+      />
+      <p className="remember-text">
+        Não se esqueça de conferir se o número está correto
+      </p>
+
+      <div className="social-media" onClick={handleSocialMedia}>
+        <p className="register-link">
+          <span className="register-or">ou</span>
+          Cadastre-se com uma rede social
+        </p>
+      </div>
+
+      <div className="buttons-container">
+        <button
+          style={{ color: '#606060' }}
+          className="button"
+          type="button"
+          onClick={() => history.goBack()}
+        >
+          <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
+          Voltar
+        </button>
+        <button
+          className="button"
+          type="button"
+          disabled={!filled}
+          onClick={filled && handleNext}
+        >
+          Avançar
+          <Foward
+            style={{ height: 16, marginLeft: 4 }}
+            fill={filled ? '#535BFE' : '#acacac'}
+          />
+        </button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
@@ -6,31 +6,11 @@ import './styles.css';
 import waitress from '~/assets/images/waitress.jpg';
 
 export default function Intro() {
-  const [height, setHeight] = useState(window.innerHeight);
-
-  function handleResize() {
-    if (window) {
-      setHeight(window.innerHeight);
-    }
-  }
-
-  useEffect(() => {
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
-  window.addEventListener('resize', handleResize);
-
   return (
     <div id="establishment-home">
       <div className="container">
         <div className="image-container">
-          <img
-            height={height * 0.7 > 660 ? 660 : height * 0.7}
-            src={waitress}
-            alt="waitress"
-          />
+          <img className="image" src={waitress} alt="" />
         </div>
 
         <div className="account-container">
