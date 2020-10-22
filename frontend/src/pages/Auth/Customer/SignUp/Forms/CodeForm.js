@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { isValidPhoneNumber } from 'react-phone-number-input';
-
-import PhoneNumberInput from '~/components/PhoneNumberInput';
+import { formatPhoneNumberIntl } from 'react-phone-number-input';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
-import history from '~/services/history';
-
 import './styles.css';
 
-export default function PhoneNumberForm({
-  phoneNumber,
-  onChangePhoneNumber,
-  handleNext,
-  handleSocialMedia,
-}) {
+export default function CodeForm({ phoneNumber, handleNext, handleBack }) {
   const [filled, setFilled] = useState(false);
+  const [code, setCode] = useState('');
+  const [invalid, setInvalid] = useState(false);
 
   useEffect(() => {
-    if (phoneNumber && isValidPhoneNumber(phoneNumber)) {
+    if (code.length >= 5) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [phoneNumber]);
+  }, [code]);
+
+  function checkCode() {
+    if (code === '12345') {
+      handleNext(4);
+    } else {
+      setInvalid(true);
+    }
+  }
 
   return (
     <div className="form-container">
-      <p className="label">Insira seu número de celular</p>
-
-      <PhoneNumberInput
-        phoneNumber={phoneNumber}
-        focus={false}
-        onChangePhoneNumber={onChangePhoneNumber}
-      />
-
-      <p className="remember-text">
-        Não se esqueça de conferir se o número está correto
-      </p>
-
-      <div className="social-media" onClick={handleSocialMedia}>
-        <p className="register-link">
-          <span className="register-or">ou</span>
-          Cadastre-se com uma rede social
+      <div className="code-form">
+        <p className="label">
+          Insira o código enviado para {formatPhoneNumberIntl(phoneNumber)}
         </p>
+
+        {invalid && <p className="invalid-text">Código inválido</p>}
+        <input
+          className="input"
+          style={invalid ? { border: '1px solid #fe5f53' } : null}
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          placeholder="99999"
+        />
       </div>
 
       <div className="buttons-container">
@@ -52,7 +49,7 @@ export default function PhoneNumberForm({
           style={{ color: '#606060' }}
           className="button"
           type="button"
-          onClick={() => history.goBack()}
+          onClick={handleBack}
         >
           <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
           Voltar
@@ -62,7 +59,7 @@ export default function PhoneNumberForm({
           type="button"
           disabled={!filled}
           onClick={() => {
-            if (filled) handleNext(2);
+            if (filled) checkCode();
           }}
         >
           Avançar

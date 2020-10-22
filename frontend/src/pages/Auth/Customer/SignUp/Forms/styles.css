@@ -8,7 +8,7 @@
   font-weight: 600;
   font-size: 22px;
   color: #252525;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 #customer-sign-up .remember-text {
@@ -42,14 +42,38 @@
   white-space: nowrap;
 }
 
+#customer-sign-up .code-form {
+  width: 85%;
+}
+
+#customer-sign-up .input {
+  width: 80%;
+  height: 40px;
+  border: 0;
+  font-size: 16px;
+  color: #444;
+  border-radius: 5px;
+  padding: 0 24px;
+  box-shadow: 0px 0px 6px #00000029;
+  z-index: 1;
+}
+
+#customer-sign-up .input::placeholder {
+  font-size: 16px;
+  color: #9c9c9c;
+}
+
+#customer-sign-up .invalid-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fe5f53;
+  margin-bottom: 4px;
+}
+
 @media screen and (max-width: 767px) {
   #customer-sign-up .register-or,
   #customer-sign-up .register-link {
     font-size: 16px;
     font-weight: 600;
-  }
-
-  #customer-sign-up .remember-text {
-    font-size: 12px;
   }
 }
