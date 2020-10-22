@@ -6,14 +6,29 @@ import ProgressionBar from '~/components/ProgressionBar';
 
 import PhoneNumberForm from './Forms/PhoneNumberForm';
 import CodeForm from './Forms/CodeForm';
+import AccountForm from './Forms/AccountForm';
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
+
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm_password, setConfirmPassword] = useState('');
+
+  function handleSubmit() {}
 
   function handleNext(page) {
     if (step < 4) {
-      setStep(page && step + 1);
+      if (page) {
+        setStep(page);
+      } else {
+        setStep(step + 1);
+      }
+    } else if (step === 4) {
+      handleSubmit();
     }
   }
 
@@ -41,6 +56,22 @@ export default function SignUp() {
             phoneNumber={phoneNumber}
             handleNext={handleNext}
             handleBack={handleBack}
+          />
+        )}
+
+        {step === 4 && (
+          <AccountForm
+            name={name}
+            onChangeName={setName}
+            lastname={lastname}
+            onChangeLastname={setLastname}
+            email={email}
+            onChangeEmail={setEmail}
+            password={password}
+            onChangePassword={setPassword}
+            confirmPassword={confirm_password}
+            onChangeConfirmPassword={setConfirmPassword}
+            handleNext={handleNext}
           />
         )}
       </div>

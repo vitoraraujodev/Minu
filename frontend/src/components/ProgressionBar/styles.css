@@ -5,6 +5,7 @@
   width: 100%;
   border: 2px solid #535bfe;
   height: 10px;
+  min-height: 10px;
   border-radius: 5px;
   margin-top: 32px;
   margin-bottom: 45px;

@@ -33,9 +33,15 @@ export default function AdmPin({
         <p className="sub-label">
           Será necessário para fazer alterações em configurações e cardápios
         </p>
-
         <PinCodeInput adminPin={adminPin} onChangeAdminPin={onChangeAdminPin} />
       </form>
+
+      <p className="terms-text">
+        Ao clicar em concluir, você aceita nossos{' '}
+        <span style={{ color: '#535BFE', textDecoration: 'underline' }}>
+          termos de serviço
+        </span>
+      </p>
 
       <div className="buttons-container">
         <button
@@ -54,7 +60,7 @@ export default function AdmPin({
           disabled={!filled}
           onClick={onNextPage}
         >
-          Avançar
+          Concluir
           <Foward
             style={{ height: 16, marginLeft: 4 }}
             fill={filled ? '#535BFE' : '#acacac'}

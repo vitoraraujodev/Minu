@@ -47,6 +47,15 @@
   z-index: 1;
 }
 
+#establishment-sign-up .terms-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9c9c9c;
+  padding: 0 24px;
+  margin-top: 24px;
+  text-align: center;
+}
+
 @media screen and (max-width: 767px) {
   #establishment-sign-up .auth-title {
     font-size: 25px;
