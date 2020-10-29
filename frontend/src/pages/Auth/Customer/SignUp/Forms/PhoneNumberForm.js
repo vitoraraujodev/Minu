@@ -19,7 +19,7 @@ export default function PhoneNumberForm({
   const [filled, setFilled] = useState(false);
 
   useEffect(() => {
-    if (phoneNumber && isValidPhoneNumber(phoneNumber)) {
+    if (phoneNumber && isValidPhoneNumber(`+${phoneNumber}`)) {
       setFilled(true);
     } else {
       setFilled(false);
@@ -34,6 +34,9 @@ export default function PhoneNumberForm({
         phoneNumber={phoneNumber}
         focus={false}
         onChangePhoneNumber={onChangePhoneNumber}
+        onSubmit={() => {
+          if (filled) handleNext(2);
+        }}
       />
 
       <p className="remember-text">

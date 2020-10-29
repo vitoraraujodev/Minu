@@ -8,17 +8,33 @@ import PhoneNumberForm from './Forms/PhoneNumberForm';
 import CodeForm from './Forms/CodeForm';
 import AccountForm from './Forms/AccountForm';
 
+import api from '~/services/api';
+
 export default function SignUp() {
   const [step, setStep] = useState(1);
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phone_number, setPhoneNumber] = useState('');
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
 
-  function handleSubmit() {}
+  async function handleSubmit() {
+    try {
+      const data = {
+        phone_number: `+${phone_number}`,
+        name,
+        lastname,
+        email,
+        password,
+        confirm_password,
+      };
+      await api.post('/customers', data);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  }
 
   function handleNext(page) {
     if (step < 4) {
@@ -45,7 +61,7 @@ export default function SignUp() {
 
         {step === 1 && (
           <PhoneNumberForm
-            phoneNumber={phoneNumber}
+            phoneNumber={phone_number}
             onChangePhoneNumber={setPhoneNumber}
             handleNext={handleNext}
           />
@@ -53,7 +69,7 @@ export default function SignUp() {
 
         {step === 2 && (
           <CodeForm
-            phoneNumber={phoneNumber}
+            phoneNumber={phone_number}
             handleNext={handleNext}
             handleBack={handleBack}
           />

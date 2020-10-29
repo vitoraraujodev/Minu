@@ -31,7 +31,8 @@ export default function CodeForm({ phoneNumber, handleNext, handleBack }) {
     <div className="form-container">
       <div className="code-form">
         <p className="label">
-          Insira o código enviado para {formatPhoneNumberIntl(phoneNumber)}
+          Insira o código enviado para{' '}
+          {formatPhoneNumberIntl(`+${phoneNumber}`)}
         </p>
 
         {invalid && <p className="invalid-text">Código inválido</p>}
@@ -39,6 +40,11 @@ export default function CodeForm({ phoneNumber, handleNext, handleBack }) {
           className="input"
           style={invalid ? { border: '1px solid #fe5f53' } : null}
           value={code}
+          autoFocus //eslint-disable-line
+          onKeyDown={(e) => {
+            if (e.key === ' ') e.preventDefault();
+            if (e.keyCode === 13) handleNext(4);
+          }}
           onChange={(e) => setCode(e.target.value)}
           placeholder="99999"
         />

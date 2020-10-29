@@ -9,6 +9,7 @@ class CustomerSessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
       phone_number: Yup.string().required(),
+      password: Yup.string().required().min(6),
     });
 
     if (!(await schema.isValid(req.body))) {

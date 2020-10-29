@@ -42,13 +42,16 @@ class EstablishmentController {
     ) {
       if (customerExists.phone_number === req.body.phone_number) {
         return res.status(400).json({
-          error: 'E-mail e número do celular já estão em uso.',
+          error: 'E-mail e número de celular já estão em uso.',
         });
       }
       return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
-    if (customerExists.phone_number === req.body.phone_number) {
+    if (
+      customerExists &&
+      customerExists.phone_number === req.body.phone_number
+    ) {
       return res
         .status(400)
         .json({ error: 'Esse número de celular já está em uso.' });

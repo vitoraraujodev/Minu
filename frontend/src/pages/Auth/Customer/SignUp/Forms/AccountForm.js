@@ -56,6 +56,9 @@ export default function AccountForm({
       <input
         value={name}
         className="input"
+        onKeyDown={(e) => {
+          if (e.key === ' ') e.preventDefault();
+        }}
         onChange={(e) => onChangeName(e.target.value)}
         placeholder="Nome"
       />
@@ -63,6 +66,9 @@ export default function AccountForm({
       <input
         value={lastname}
         className="input"
+        onKeyDown={(e) => {
+          if (e.key === ' ') e.preventDefault();
+        }}
         onChange={(e) => onChangeLastname(e.target.value)}
         placeholder="Sobrenome"
       />
@@ -72,6 +78,9 @@ export default function AccountForm({
         type="email"
         className="input"
         value={email}
+        onKeyDown={(e) => {
+          if (e.key === ' ') e.preventDefault();
+        }}
         onChange={(e) => onChangeEmail(e.target.value)}
         placeholder="E-mail"
       />
@@ -90,6 +99,9 @@ export default function AccountForm({
         className="input"
         style={invalid ? { border: '1px solid #fe5f53' } : null}
         value={confirmPassword}
+        onKeyDown={(e) => {
+          if (e.keyCode === 13 && filled) handleSubmit();
+        }}
         onChange={(e) => onChangeConfirmPassword(e.target.value)}
         placeholder="********"
       />
