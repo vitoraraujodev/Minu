@@ -27,7 +27,7 @@ class CustomerSessionController {
     }
 
     return res.json({
-      customer,
+      user: customer,
       token: jwt.sign(
         { id: customer.id, kind: 'customer' },
         authConfig.secret,

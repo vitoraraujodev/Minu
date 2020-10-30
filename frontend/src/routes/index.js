@@ -32,6 +32,8 @@ export default function Routes() {
   return (
     <Router history={history}>
       <Switch>
+        <Route path="/" exact notPrivate />
+
         <Route
           path="/estabelecimento/acesso"
           component={EstablishmentHome}
@@ -47,38 +49,62 @@ export default function Routes() {
           component={EstablishmentSignIn}
           notPrivate
         />
-
         <Route path="/cliente/acesso" component={CustomerHome} notPrivate />
         <Route path="/cliente/cadastro" component={CustomerSignUp} notPrivate />
         <Route path="/cliente/login" component={CustomerSignIn} notPrivate />
 
-        <Route path="/estabelecimento" exact component={Profile} private />
-        <Route path="/estabelecimento/foto" component={Picture} private />
-        <Route path="/estabelecimento/conta" component={Account} private />
-        <Route path="/estabelecimento/pin" component={Pin} private />
-        <Route path="/estabelecimento/endereco" component={Address} private />
-
-        <Route path="/menus" exact component={Inventory} private />
-        <Route path="/menus/produto" exact component={NewItem} private />
-        <Route path="/menus/produto/:id" component={EditItem} private />
-        <Route path="/menus/cardapio" exact component={NewMenu} private />
-        <Route path="/menus/cardapio/:id" component={EditMenu} private />
-
-        <Route path="/cliente/menu" exact component={CustomerMenu} notPrivate />
         <Route
-          path="/pedido/produto"
+          path="/estabelecimento"
           exact
-          component={ProductOrder}
-          notPrivate
+          component={Profile}
+          establishments
         />
         <Route
-          path="/cliente/conta"
-          exact
-          component={CustomerBill}
-          notPrivate
+          path="/estabelecimento/foto"
+          component={Picture}
+          establishments
+        />
+        <Route
+          path="/estabelecimento/conta"
+          component={Account}
+          establishments
+        />
+        <Route path="/estabelecimento/pin" component={Pin} establishments />
+        <Route
+          path="/estabelecimento/endereco"
+          component={Address}
+          establishments
         />
 
-        <Redirect from="*" to="/" exact />
+        <Route path="/inventario" component={Inventory} exact establishments />
+        <Route
+          path="/inventario/produto"
+          exact
+          component={NewItem}
+          establishments
+        />
+        <Route
+          path="/inventario/produto/:id"
+          component={EditItem}
+          establishments
+        />
+        <Route
+          path="/inventario/cardapio"
+          exact
+          component={NewMenu}
+          establishments
+        />
+        <Route
+          path="/inventario/cardapio/:id"
+          component={EditMenu}
+          establishments
+        />
+
+        <Route path="/cliente/menu" component={CustomerMenu} customers />
+        <Route path="/cliente/produto" component={ProductOrder} customers />
+        <Route path="/cliente/conta" component={CustomerBill} customers />
+
+        <Redirect from="*" to="/" notPrivate />
       </Switch>
     </Router>
   );

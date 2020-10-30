@@ -7,27 +7,33 @@ import {
   signInSuccess,
   signFailure,
   signOutSuccess,
-  tokenExpired,
   inventoryAccess,
 } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    const { email, password, route } = payload;
+    const { identifier, password, kind, route } = payload;
 
-    const response = yield call(api.post, 'establishment-sessions', {
-      email,
-      password,
-    });
-    const { token, establishment } = response.data;
+    const response =
+      kind === 'establishments'
+        ? yield call(api.post, 'establishment-sessions', {
+            email: identifier,
+            password,
+          })
+        : yield call(api.post, 'customer-sessions', {
+            phone_number: identifier,
+            password,
+          });
+
+    const { token, user } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, establishment));
+    yield put(signInSuccess(token, user, kind));
 
     history.push(route);
 
-    if (route === '/menus') {
+    if (route === '/estabelecimento/inventario') {
       yield put(inventoryAccess(true));
     }
   } catch (err) {
@@ -54,7 +60,8 @@ export function* setToken({ payload }) {
     const decoded = decode(token);
 
     if (decoded.exp < Date.now() / 1000) {
-      yield put(tokenExpired());
+      yield put(signOutSuccess());
+      history.push('/');
     }
   }
 

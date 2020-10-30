@@ -244,7 +244,7 @@ export default function Address() {
 
         <div className="content">
           <div className="input-group">
-            <div style={{ marginRight: 8 }} className="group-input">
+            <div style={{ marginRight: 16 }} className="group-input">
               <p className={disabled ? 'input-label-disabled' : 'input-label'}>
                 CEP
               </p>

@@ -2,9 +2,9 @@ import producer from 'immer';
 
 const INITIAL_STATE = {
   token: null,
-  signed: false,
   loading: false,
   inventoryAccessed: true,
+  kind: null,
 };
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -16,8 +16,8 @@ export default function auth(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_IN_SUCCESS': {
         draft.token = action.payload.token;
-        draft.signed = true;
         draft.loading = false;
+        draft.kind = action.payload.kind;
         break;
       }
       case '@auth/SIGN_FAILURE': {
@@ -26,16 +26,11 @@ export default function auth(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.token = null;
-        draft.signed = false;
+        draft.kind = null;
         break;
       }
       case '@auth/INVENTORY_ACCESS': {
         draft.inventoryAccessed = action.payload.access;
-        break;
-      }
-      case '@auth/TOKEN_EXPIRED': {
-        draft.token = null;
-        draft.signed = false;
         break;
       }
       default:

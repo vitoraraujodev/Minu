@@ -85,7 +85,7 @@ export default function EditMenu({ location }) {
 
     try {
       await api.put(`/menus/${menu.id}`, data);
-      history.push('/menus');
+      history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
     }
@@ -137,7 +137,7 @@ export default function EditMenu({ location }) {
               <Actions
                 item={menu}
                 route="menus"
-                onDelete={() => history.push('/menus')}
+                onDelete={() => history.push('/inventario')}
                 fill="#fff"
                 position="down"
               />

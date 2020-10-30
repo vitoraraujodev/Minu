@@ -115,7 +115,7 @@ export default function Inventory() {
           <Accordion title="Cardápios" disabled={!inventoryAccessed}>
             <Link
               to={{
-                pathname: '/menus/cardapio',
+                pathname: '/inventario/cardapio',
                 state: { length: menus.length + 1 },
               }}
             >
@@ -131,7 +131,7 @@ export default function Inventory() {
             {menus.map((menu, index) => (
               <Link
                 to={{
-                  pathname: `/menus/cardapio/${menu.id}`,
+                  pathname: `/inventario/cardapio/${menu.id}`,
                   state: { menu },
                 }}
                 key={menu.id}
@@ -144,7 +144,7 @@ export default function Inventory() {
           <Accordion title="Produtos" disabled={!inventoryAccessed}>
             <Link
               to={{
-                pathname: '/menus/produto',
+                pathname: '/inventario/produto',
                 state: { length: items.length + 1 },
               }}
             >
@@ -161,7 +161,7 @@ export default function Inventory() {
               <div key={item.id} className="item-container">
                 <Link
                   to={{
-                    pathname: `/menus/produto/${item.id}`,
+                    pathname: `/inventario/produto/${item.id}`,
                     state: { item },
                   }}
                 >

@@ -1,14 +1,14 @@
-export function signInRequest(email, password, route) {
+export function signInRequest(identifier, password, kind, route) {
   return {
     type: '@auth/SIGN_IN_REQUEST',
-    payload: { email, password, route },
+    payload: { identifier, password, kind, route },
   };
 }
 
-export function signInSuccess(token, establishment) {
+export function signInSuccess(token, user, kind) {
   return {
     type: '@auth/SIGN_IN_SUCCESS',
-    payload: { token, establishment },
+    payload: { token, user, kind },
   };
 }
 
@@ -32,11 +32,5 @@ export function inventoryAccess(access) {
   return {
     type: '@auth/INVENTORY_ACCESS',
     payload: { access },
-  };
-}
-
-export function tokenExpired() {
-  return {
-    type: '@auth/TOKEN_EXPIRED',
   };
 }

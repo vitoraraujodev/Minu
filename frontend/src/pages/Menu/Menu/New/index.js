@@ -82,7 +82,7 @@ export default function NewMenu({ location }) {
 
     try {
       await api.post('/menus', data);
-      history.push('/menus');
+      history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
     }

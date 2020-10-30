@@ -9,7 +9,7 @@ export default function End({ email, password }) {
   const dispatch = useDispatch();
 
   function handleLogin(route) {
-    dispatch(signInRequest(email, password, route));
+    dispatch(signInRequest(email, password, 'establishments', route));
   }
 
   return (
@@ -26,7 +26,7 @@ export default function End({ email, password }) {
         <button
           className="menu-button"
           onClick={() => {
-            handleLogin('/menus');
+            handleLogin('/estabelecimento/inventario');
           }}
           type="button"
         >

@@ -114,7 +114,7 @@ export default function NewItem({ location }) {
     try {
       await api.post('items', data);
       setSubmit(true);
-      history.push('/menus');
+      history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
     }

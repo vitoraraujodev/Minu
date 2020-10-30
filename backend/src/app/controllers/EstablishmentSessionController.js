@@ -70,7 +70,7 @@ class EstablishmentSessionController {
     } = establishment;
 
     return res.json({
-      establishment: {
+      user: {
         id,
         cnpj,
         email,

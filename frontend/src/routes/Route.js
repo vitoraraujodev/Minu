@@ -1,33 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 import { store } from '~/store';
 
 export default function RouteWrapper({
   component: Component,
-  notPrivate,
+  notPrivate = false,
+  establishments = false,
+  customers = false,
   ...rest
 }) {
-  const { signed } = store.getState().auth;
+  const { kind } = store.getState().auth;
 
-  if (!signed && !notPrivate) {
-    return <Redirect to="/" />;
+  if (!kind && !notPrivate) {
+    return <Redirect to="/estabelecimento/acesso" />;
   }
 
-  if (signed && notPrivate) {
+  if (kind === 'establishments' && !establishments) {
     return <Redirect to="/estabelecimento" />;
+  }
+
+  if (kind === 'customers' && !customers) {
+    return <Redirect to="/cliente/menu" />;
   }
 
   return <Route {...rest} component={Component} />;
 }
-
-RouteWrapper.propTypes = {
-  notPrivate: PropTypes.bool,
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
-    .isRequired,
-};
-
-RouteWrapper.defaultProps = {
-  notPrivate: false,
-};

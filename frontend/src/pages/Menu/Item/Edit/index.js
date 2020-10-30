@@ -113,7 +113,7 @@ export default function EditItem({ location }) {
     try {
       await api.put(`items/${item.id}`, data);
       setSubmit(true);
-      history.push('/menus');
+      history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
     }
@@ -177,7 +177,7 @@ export default function EditItem({ location }) {
               <Actions
                 item={item}
                 route="items"
-                onDelete={() => history.push('/menus')}
+                onDelete={() => history.push('/inventario')}
                 fill="#fff"
                 position="down"
                 size="20"

@@ -29,7 +29,9 @@ export default function SignUp() {
   }, [email, password]);
 
   function handleSubmit() {
-    dispatch(signInRequest(email, password, '/estabelecimento'));
+    dispatch(
+      signInRequest(email, password, 'establishments', '/estabelecimento')
+    );
   }
 
   return (

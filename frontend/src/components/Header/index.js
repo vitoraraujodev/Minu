@@ -29,9 +29,11 @@ export default function Header() {
 
   useEffect(() => {
     if (location.pathname === '/pedidos') setActive('orders');
-    if (location.pathname === '/menus') setActive('menu');
-    if (location.pathname === '/estabelecimento') setActive('establishment');
-    if (location.pathname.substr(0, 6) !== '/menus' && accessed)
+    else if (location.pathname === '/inventario') setActive('menu');
+    else if (location.pathname === '/estabelecimento')
+      setActive('establishment');
+
+    if (location.pathname.substr(0, 11) !== '/inventario' && accessed)
       dispatch(inventoryAccess(false));
   }, [location.pathname, dispatch, accessed]);
 
@@ -58,7 +60,7 @@ export default function Header() {
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
-              to="/menus"
+              to="/inventario"
             >
               Cardápios
             </NavLink>
@@ -86,7 +88,7 @@ export default function Header() {
               />
             </NavLink>
 
-            <NavLink className="navlink" to="/menus">
+            <NavLink className="navlink" to="/estabelecimento/inventario">
               <Menu
                 fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"
