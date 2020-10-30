@@ -18,7 +18,7 @@ export default function CustomerBill({ location }) {
   const [totalPrice, setTotalPrice] = useState();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [productOrders, setProductOrders] = useState([
+  const productOrders = [
     {
       id: 1,
       amount: 1,
@@ -35,7 +35,7 @@ export default function CustomerBill({ location }) {
       totalPrice: 24,
       status: 1,
     },
-  ]);
+  ];
 
   useEffect(() => {
     if (productOrders.length > 0) {

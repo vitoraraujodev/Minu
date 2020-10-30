@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   token: null,
   loading: false,
   inventoryAccessed: true,
-  kind: null,
 };
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -17,7 +16,6 @@ export default function auth(state = INITIAL_STATE, action) {
       case '@auth/SIGN_IN_SUCCESS': {
         draft.token = action.payload.token;
         draft.loading = false;
-        draft.kind = action.payload.kind;
         break;
       }
       case '@auth/SIGN_FAILURE': {
@@ -26,7 +24,6 @@ export default function auth(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.token = null;
-        draft.kind = null;
         break;
       }
       case '@auth/INVENTORY_ACCESS': {

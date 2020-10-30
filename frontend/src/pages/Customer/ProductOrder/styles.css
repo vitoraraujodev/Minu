@@ -161,6 +161,7 @@
 
 #product-order .input-group {
   margin-top: 24px;
+  display: flex;
 }
 
 #product-order .amount {
@@ -207,12 +208,13 @@
   justify-content: center;
   color: #6E6E6E;
   font-size: 18px;
+  padding: 0 12px;
 }
 
 #product-order .takeaway, #product-order .takeaway-selected {
   border: 1px solid #535BFE;
   border-radius: 5px;
-  padding: 8px 16px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -268,3 +270,19 @@
   font-weight: 400;
 }
 
+@media screen and (max-width: 370px) {
+  #product-order .takeaway, #product-order .takeaway-selected {
+    font-size: 14px;
+    height: 48px;
+  }
+  #product-order .amount-input {
+    padding: 0 8px;
+  }
+
+  #product-order .circle-button, #product-order .circle-button-disabled, #product-order .circle-button-up {
+    height: 32px;
+    width: 32px;
+    min-width: 32px;
+    border-radius: 16px;
+  }
+}

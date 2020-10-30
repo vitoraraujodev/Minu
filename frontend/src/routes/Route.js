@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import decode from 'jwt-decode';
 
 import { store } from '~/store';
 
@@ -10,17 +11,21 @@ export default function RouteWrapper({
   customers = false,
   ...rest
 }) {
-  const { kind } = store.getState().auth;
+  const { token } = store.getState().auth;
+
+  const decoded = token && decode(token);
+
+  const { kind } = decoded || '';
 
   if (!kind && !notPrivate) {
     return <Redirect to="/estabelecimento/acesso" />;
   }
 
-  if (kind === 'establishments' && !establishments) {
+  if (kind === 'establishment' && !establishments) {
     return <Redirect to="/estabelecimento" />;
   }
 
-  if (kind === 'customers' && !customers) {
+  if (kind === 'customer' && !customers) {
     return <Redirect to="/cliente/menu" />;
   }
 

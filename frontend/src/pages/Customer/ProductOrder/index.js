@@ -191,7 +191,7 @@ export default function ProductOrder({ location }) {
             className={takeaway ? 'takeaway-selected' : 'takeaway'}
             onClick={() => setTakeaway(!takeaway)}
           >
-            <span>Para viagem</span>
+            <span style={{ paddingRight: 8 }}>Para viagem</span>
             {takeaway ? (
               <Check height={20} />
             ) : (

@@ -14,7 +14,7 @@ export default function Product({ product }) {
     <div className="product-container">
       <Link
         to={{
-          pathname: '/pedido/produto',
+          pathname: '/cliente/produto',
           state: { product },
         }}
       >

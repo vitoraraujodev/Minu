@@ -1,0 +1,124 @@
+#customer-sign-up .form-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#customer-sign-up .label {
+  font-weight: 600;
+  font-size: 22px;
+  color: #252525;
+  margin-bottom: 24px;
+}
+
+#customer-sign-up .remember-text {
+  font-size: 12px;
+  color: #9c9c9c;
+  margin-top: 8px;
+  text-align: center;
+}
+
+#customer-sign-up .social-media {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+#customer-sign-up .register-or {
+  font-size: 18px;
+  font-weight: 400;
+  color: #9C9C9C;
+  margin-right: 4px;
+}
+
+#customer-sign-up .register-link {
+  font-size: 18px;
+  font-weight: 400;
+  color: #535BFE;
+  border: 0;
+  background: none;
+  white-space: nowrap;
+}
+
+#customer-sign-up .code-form {
+  width: 85%;
+}
+
+#customer-sign-up .input {
+  height: 40px;
+  border: 0;
+  font-size: 16px;
+  color: #444;
+  border-radius: 5px;
+  padding: 0 24px;
+  box-shadow: 0px 0px 6px #00000029;
+  z-index: 1;
+  margin: 8px 0;
+}
+
+#customer-sign-up .input::placeholder {
+  font-size: 16px;
+  color: #9c9c9c;
+}
+
+#customer-sign-up .invalid-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fe5f53;
+  margin-bottom: 4px;
+}
+
+#customer-sign-up .input-label {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #6E6E6E
+}
+
+#customer-sign-up .terms-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9c9c9c;
+  padding: 8px 24px;
+  text-align: center;
+}
+
+#customer-sign-up .submit-button,
+#customer-sign-up .submit-button-disabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: #535BFE;
+  font-weight: 600;
+  font-size: 21px;
+  color: #fff;
+  padding: 0 32px;
+  height: 48px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#customer-sign-up .submit-button:hover {
+  transform: scale(1.03);
+}
+
+#customer-sign-up .submit-button:active {
+  transform: none;
+}
+
+#customer-sign-up .submit-button-disabled {
+  color: #fff;
+  cursor: default;
+  background: #acacac;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 767px) {
+  #customer-sign-up .register-or,
+  #customer-sign-up .register-link {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

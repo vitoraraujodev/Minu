@@ -26,6 +26,8 @@
   border-radius: 5px !important;
   background: #fff !important;
   border: 0 !important;
+  padding: 0 4px;
+  cursor: default;
 }
 
 #phone-input .selected-flag {
@@ -33,7 +35,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 #phone-input .PhoneInput {

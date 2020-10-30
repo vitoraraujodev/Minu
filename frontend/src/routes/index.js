@@ -32,8 +32,6 @@ export default function Routes() {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact notPrivate />
-
         <Route
           path="/estabelecimento/acesso"
           component={EstablishmentHome}
@@ -104,7 +102,7 @@ export default function Routes() {
         <Route path="/cliente/produto" component={ProductOrder} customers />
         <Route path="/cliente/conta" component={CustomerBill} customers />
 
-        <Redirect from="*" to="/" notPrivate />
+        <Redirect from="*" to="/estabelecimento/acesso" notPrivate />
       </Switch>
     </Router>
   );
