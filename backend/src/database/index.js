@@ -13,7 +13,9 @@ import EstablishmentRating from '../app/models/EstablishmentRating';
 import ItemRating from '../app/models/ItemRating';
 import Customer from '../app/models/Customer';
 
-import databaseConfig from '../config/database';
+import prodDatabaseConfig  from '../config/prodDatabase.js' ;
+import databaseConfig from '../config/database.js';
+
 
 const models = [
   Establishment,
@@ -36,7 +38,14 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig);
+    let ENV = process.env.ENVIRONMENT;
+    if (ENV != undefined && ENV == "production") {
+      this.connection = new Sequelize(prodDatabaseConfig);
+    }
+    else {
+      this.connection = new Sequelize(databaseConfig);
+    }
+    
     models
       .map((model) => model.init(this.connection))
       .map(
