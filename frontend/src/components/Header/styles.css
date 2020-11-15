@@ -43,13 +43,13 @@
 
   #tabnavigator .header-content {
     border-top: 1px solid #535BFE;
-    padding: 0 16px;
+    padding: 0 8px;
     margin: 0 32px;
   }
 
   #tabnavigator .navlink {
     height: 32px;
-    width: 32px;
+    width: 48px;
     margin: 0;
     display: flex;
     align-items: center;

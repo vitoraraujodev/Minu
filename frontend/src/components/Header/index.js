@@ -88,7 +88,7 @@ export default function Header() {
               />
             </NavLink>
 
-            <NavLink className="navlink" to="/estabelecimento/inventario">
+            <NavLink className="navlink" to="/inventario">
               <Menu
                 fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
                 className="tab-icon"

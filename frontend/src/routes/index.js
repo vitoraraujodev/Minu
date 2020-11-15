@@ -11,20 +11,20 @@ import CustomerSignUp from '~/pages/Auth/Customer/SignUp';
 import CustomerSignIn from '~/pages/Auth/Customer/SignIn';
 
 import Profile from '~/pages/Establishment/Profile';
-import Picture from '~/pages/Establishment/Picture';
-import Account from '~/pages/Establishment/Account';
-import Pin from '~/pages/Establishment/Pin';
-import Address from '~/pages/Establishment/Address';
+import Picture from '~/pages/Establishment/Profile/Picture';
+import Account from '~/pages/Establishment/Profile/Account';
+import Pin from '~/pages/Establishment/Profile/Pin';
+import Address from '~/pages/Establishment/Profile/Address';
 
-import Inventory from '~/pages/Menu/Inventory';
-import NewItem from '~/pages/Menu/Item/New';
-import EditItem from '~/pages/Menu/Item/Edit';
-import NewMenu from '~/pages/Menu/Menu/New';
-import EditMenu from '~/pages/Menu/Menu/Edit';
+import Inventory from '~/pages/Establishment/Menu/Inventory';
+import NewItem from '~/pages/Establishment/Menu/Item/New';
+import EditItem from '~/pages/Establishment/Menu/Item/Edit';
+import NewMenu from '~/pages/Establishment/Menu/Menu/New';
+import EditMenu from '~/pages/Establishment/Menu/Menu/Edit';
 
 import CustomerMenu from '~/pages/Customer/Menu/Menu';
-import ProductOrder from '~/pages/Customer/ProductOrder';
-import CustomerBill from '~/pages/Customer/CustomerBill';
+import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
+import CustomerBill from '~/pages/Customer/Menu/CustomerBill';
 
 import history from '~/services/history';
 
