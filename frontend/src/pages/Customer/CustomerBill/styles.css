@@ -2,7 +2,7 @@
   max-width: 560px;
   margin: 0 auto;
   position: relative;
-  margin-bottom: 56px;
+  height: 100%;
 }
 
 #customer-bill .header {
@@ -23,6 +23,7 @@
 
 #customer-bill .container {
   padding: 16px;
+  margin-bottom: 56px;
 }
 
 #customer-bill .establishment-info {

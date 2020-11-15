@@ -4,7 +4,11 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import './styles.css';
 
-export default function BillModal({ onClose }) {
+export default function BillModal({ onClose, billRequested }) {
+  function handleBill() {
+    billRequested();
+  }
+
   return (
     <div id="bill-modal">
       <div className="modal-container">
@@ -25,7 +29,7 @@ export default function BillModal({ onClose }) {
         </p>
         <button
           type="button"
-          onClick={() => {}}
+          onClick={handleBill}
           className="modal-confirm-button"
         >
           Confirmar

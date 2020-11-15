@@ -21,7 +21,7 @@ export function* signIn({ payload }) {
             password,
           })
         : yield call(api.post, 'customer-sessions', {
-            phone_number: `+${identifier}`,
+            phone_number: identifier,
             password,
           });
 

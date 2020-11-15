@@ -178,7 +178,6 @@
   border-radius: 5px;
   color: #fff;
   font-weight: 600;
-  bottom: 40px;
   font-size: 18px;
   padding: 8px 32px;
   width: 100%;
@@ -199,6 +198,5 @@
   }
   #customer-sign-up .session-button {
     margin-bottom: 32px;
-
   }
 }

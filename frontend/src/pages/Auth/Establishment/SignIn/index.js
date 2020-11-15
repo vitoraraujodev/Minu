@@ -53,7 +53,7 @@ export default function SignUp() {
             type="password"
             className="form-input"
             onKeyDown={(e) => {
-              if (e.keyCode === 13) {
+              if (e.keyCode === 13 && filled) {
                 handleSubmit();
               }
             }}
