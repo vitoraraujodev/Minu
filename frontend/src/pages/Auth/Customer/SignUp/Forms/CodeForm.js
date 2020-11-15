@@ -40,6 +40,7 @@ export default function CodeForm({ phoneNumber, handleNext, handleBack }) {
           className="input"
           style={invalid ? { border: '1px solid #fe5f53' } : null}
           value={code}
+          inputMode="numeric"
           autoFocus //eslint-disable-line
           onKeyDown={(e) => {
             if (e.key === ' ') e.preventDefault();

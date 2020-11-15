@@ -53,7 +53,7 @@ export default function AccountForm({
       <div className="social-media" onClick={() => {}}>
         <p className="register-link">
           <span className="register-or">ou</span>
-          Cadastre-se com uma rede social
+          Acesse com uma rede social
         </p>
       </div>
 

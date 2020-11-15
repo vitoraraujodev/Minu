@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import BillModal from './BillModal';
 
@@ -8,9 +9,12 @@ import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
 
+import { signOutRequest } from '~/store/modules/auth/actions';
+
 import './styles.css';
 
 export default function CustomerBill({ location }) {
+  const dispatch = useDispatch();
   const establishment = location.state
     ? location.state.establishment
     : history.goBack();
@@ -46,6 +50,10 @@ export default function CustomerBill({ location }) {
       setTotalPrice(total);
     }
   }, [productOrders]);
+
+  function handleSignOut() {
+    dispatch(signOutRequest());
+  }
 
   return (
     <div id="customer-bill">
@@ -103,7 +111,11 @@ export default function CustomerBill({ location }) {
         )}
 
         <div className="group">
-          <button className="waiter-button" onClick={() => {}} type="button">
+          <button
+            className="waiter-button"
+            onClick={handleSignOut}
+            type="button"
+          >
             Chamar garçon
           </button>
 

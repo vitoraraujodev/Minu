@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31.029" height="31.029" viewBox="0 0 31.029 31.029">
+  <defs>
+    <style>
+      .close-icon2-1, .close-icon2-3 {
+        fill: none;
+      }
+
+      .close-icon2-1 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+
+      .close-icon2-2 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1380" data-name="Grupo 1380" transform="translate(-18.249 -17.984)">
+    <g id="Grupo_1378" data-name="Grupo 1378" transform="translate(33.764 17.984) rotate(45)">
+      <g id="Elipse_52" data-name="Elipse 52" class="close-icon2-1" transform="translate(0 0)">
+        <circle class="close-icon2-2" cx="10.971" cy="10.971" r="10.971"/>
+        <circle class="close-icon2-3" cx="10.971" cy="10.971" r="9.971"/>
+      </g>
+    </g>
+    <g id="Grupo_1379" data-name="Grupo 1379" transform="translate(30.286 29.857)">
+      <line id="Linha_115" data-name="Linha 115" class="close-icon2-1" x2="6.977" y2="6.977"/>
+      <line id="Linha_116" data-name="Linha 116" class="close-icon2-1" x1="6.977" y2="6.977"/>
+    </g>
+  </g>
+</svg>

@@ -115,10 +115,90 @@
   box-shadow: none;
 }
 
+#customer-sign-up .finish-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#customer-sign-up .finish-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background: #24D18A;
+  z-index: 0;
+}
+
+#customer-sign-up .close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  border: 0;
+  color: #fff;
+}
+
+#customer-sign-up .finish-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+#customer-sign-up .finish-text {
+  color: #fff;
+  text-align: center;
+}
+
+#customer-sign-up .symbols-container1,
+#customer-sign-up .symbols-container2 {
+  padding: 16px 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer-sign-up .symbols-container1 {
+  margin-right: -120px;
+}
+
+#customer-sign-up .symbols-container2 {
+  margin-left: -120px;
+}
+
+#customer-sign-up .session-button {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  bottom: 40px;
+  font-size: 18px;
+  padding: 8px 32px;
+  width: 100%;
+  margin-bottom: 56px;
+}
+
 @media screen and (max-width: 767px) {
   #customer-sign-up .register-or,
   #customer-sign-up .register-link {
     font-size: 16px;
     font-weight: 600;
+  }
+}
+
+@media screen and (max-height: 519px) {
+  #customer-sign-up .finish-text {
+    font-size: 40px;
+  }
+  #customer-sign-up .session-button {
+    margin-bottom: 32px;
+
   }
 }

@@ -7,6 +7,7 @@ import ProgressionBar from '~/components/ProgressionBar';
 import PhoneNumberForm from './Forms/PhoneNumberForm';
 import CodeForm from './Forms/CodeForm';
 import AccountForm from './Forms/AccountForm';
+import FinishPage from './Forms/FinishPage';
 
 import api from '~/services/api';
 
@@ -31,6 +32,7 @@ export default function SignUp() {
         confirm_password,
       };
       await api.post('/customers', data);
+      setStep(step + 1);
     } catch (err) {
       alert(err.response.data.error);
     }
@@ -57,7 +59,7 @@ export default function SignUp() {
   return (
     <div id="customer-sign-up">
       <div className="container">
-        <ProgressionBar step={step} maxSteps={4} />
+        {step < 5 && <ProgressionBar step={step} maxSteps={4} />}
 
         {step === 1 && (
           <PhoneNumberForm
@@ -89,6 +91,10 @@ export default function SignUp() {
             onChangeConfirmPassword={setConfirmPassword}
             handleNext={handleNext}
           />
+        )}
+
+        {step === 5 && (
+          <FinishPage phone_number={phone_number} password={password} />
         )}
       </div>
     </div>
