@@ -4,7 +4,8 @@ import history from '~/services/history';
 import api from '~/services/api';
 
 import {
-  signInSuccess,
+  establishmentSignInSuccess,
+  customerSignInSuccess,
   signFailure,
   signOutSuccess,
   inventoryAccess,
@@ -29,7 +30,11 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    yield put(signInSuccess(token, user));
+    if (kind === 'establishments') {
+      yield put(establishmentSignInSuccess(token, user));
+    } else if (kind === 'customers') {
+      yield put(customerSignInSuccess(token, user));
+    }
 
     history.push(route);
 

@@ -10,7 +10,7 @@ import CustomerHome from '~/pages/Auth/Customer/Home';
 import CustomerSignUp from '~/pages/Auth/Customer/SignUp';
 import CustomerSignIn from '~/pages/Auth/Customer/SignIn';
 
-import Profile from '~/pages/Establishment/Profile';
+import EstablishmentProfile from '~/pages/Establishment/Profile';
 import Picture from '~/pages/Establishment/Profile/Picture';
 import Account from '~/pages/Establishment/Profile/Account';
 import Pin from '~/pages/Establishment/Profile/Pin';
@@ -22,7 +22,8 @@ import EditItem from '~/pages/Establishment/Menu/Item/Edit';
 import NewMenu from '~/pages/Establishment/Menu/Menu/New';
 import EditMenu from '~/pages/Establishment/Menu/Menu/Edit';
 
-import CustomerMenu from '~/pages/Customer/Menu/Menu';
+import CustomerProfile from '~/pages/Customer/Profile';
+import CustomerMenu from '~/pages/Customer/Menu';
 import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
 import CustomerBill from '~/pages/Customer/Menu/CustomerBill';
 
@@ -54,7 +55,7 @@ export default function Routes() {
         <Route
           path="/estabelecimento"
           exact
-          component={Profile}
+          component={EstablishmentProfile}
           establishments
         />
         <Route
@@ -98,6 +99,7 @@ export default function Routes() {
           establishments
         />
 
+        <Route path="/cliente" exact component={CustomerProfile} customers />
         <Route path="/cliente/menu" component={CustomerMenu} customers />
         <Route path="/cliente/produto" component={ProductOrder} customers />
         <Route path="/cliente/conta" component={CustomerBill} customers />

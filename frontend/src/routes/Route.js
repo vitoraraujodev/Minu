@@ -26,7 +26,7 @@ export default function RouteWrapper({
   }
 
   if (kind === 'customer' && !customers) {
-    return <Redirect to="/cliente/menu" />;
+    return <Redirect to="/cliente" />;
   }
 
   return <Route {...rest} component={Component} />;

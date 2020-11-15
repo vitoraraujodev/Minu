@@ -26,6 +26,7 @@ export function* updateEstablishment({ payload }) {
     yield put(updateEstablishmentFailure());
   }
 }
+
 export default all([
   takeLatest(
     '@establishment/UPDATE_ESTABLISHMENT_REQUEST',

@@ -19,6 +19,7 @@ export function* updateCustomer({ payload }) {
     yield put(updateCustomerFailure());
   }
 }
+
 export default all([
-  takeLatest('@Customer/UPDATE_CUSTOMER_REQUEST', updateCustomer),
+  takeLatest('@customer/UPDATE_CUSTOMER_REQUEST', updateCustomer),
 ]);
