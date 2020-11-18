@@ -7,7 +7,7 @@ import Menu from './Menu';
 import Additional from './Additional';
 import Actions from '~/components/Actions';
 
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 import PinModal from '~/components/PinModal';
 import Accordion from '~/components/Accordion';
 

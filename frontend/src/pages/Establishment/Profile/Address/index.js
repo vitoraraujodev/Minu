@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import cepPromise from 'cep-promise';
 import Select from 'react-select';
 
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';

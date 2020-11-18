@@ -100,6 +100,7 @@ export default function Routes() {
         />
 
         <Route path="/cliente" exact component={CustomerProfile} customers />
+        <Route path="/cliente/perfil" component={CustomerProfile} customers />
         <Route path="/cliente/menu" component={CustomerMenu} customers />
         <Route path="/cliente/produto" component={ProductOrder} customers />
         <Route path="/cliente/conta" component={CustomerBill} customers />

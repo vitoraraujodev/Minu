@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import logo from '~/assets/icons/simple-logo.svg';

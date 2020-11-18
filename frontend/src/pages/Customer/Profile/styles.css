@@ -15,7 +15,6 @@
 
 #customer-profile .info-container {
   position: relative;
-  min-width: 320px;
   margin: 0 auto;
   margin-bottom: 48px;
 }
@@ -27,24 +26,58 @@
   align-items: center;
   justify-content: center;
   top: 16px;
+  z-index: 5;
 }
 
 #customer-profile .logo {
   width: 48px;
 }
 
+#customer-profile .img-background {
+  background: #24D18A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 240px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#customer-profile .symbols-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+#customer-profile .symbol1 {
+  position: absolute;
+}
+
+#customer-profile .symbol2 {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
 #customer-profile .img-container {
-  max-height: 432px;
+  margin-top: 16px;
+  height: 144px;
+  width: 144px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border: 2px solid #bbb;
+  z-index: 5;
 }
 
 #customer-profile .costumer-img {
-  width: 100%;
-  min-width: 320px;
-  min-height: 240px;
+  height: 100%;
   background: #ddd;
 }
 

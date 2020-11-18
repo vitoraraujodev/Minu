@@ -66,7 +66,7 @@ export default function SignUp() {
               style={{ color: '#606060' }}
               className="button"
               type="button"
-              onClick={() => history.goBack()}
+              onClick={() => history.push('estabelecimento/acesso')}
             >
               <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
               Voltar

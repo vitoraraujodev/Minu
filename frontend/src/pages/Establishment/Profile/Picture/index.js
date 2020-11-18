@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Prompt } from 'react-router-dom';
 
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 import PinModal from '~/components/PinModal';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';

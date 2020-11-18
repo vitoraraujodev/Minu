@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ItemSelector from '../ItemSelector';
 import DaySelector from '../DaySelector';
 import Actions from '~/components/Actions';
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';

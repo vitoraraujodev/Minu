@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 import PinCodeInput from '~/components/PinCodeInput';
 import PinModal from '~/components/PinModal';
 

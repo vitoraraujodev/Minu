@@ -1,10 +1,10 @@
-#tabnavigator {
+#establishment-navtab {
   width: 100%;
   background: #535BFE;
   z-index: 5;
 }
 
-#tabnavigator .header-content {
+#establishment-navtab .header-content {
   display: flex;
   margin: 0 auto;
   justify-content: space-between;
@@ -14,26 +14,27 @@
   padding: 0 24px;
 }
 
-#tabnavigator .navlink-container {
+#establishment-navtab .navlink-container {
   display: flex;
   width: 215px;
   justify-content: flex-end;
 }
 
-#tabnavigator .navlink {
+#establishment-navtab .navlink {
   font-size: 16px;
   color: #fff;
   height: 24px;
   margin: 0 20px;
+  font-weight: 600;
 }
 
-#tabnavigator .logo {
+#establishment-navtab .header-logo {
   width: 64px;
   margin: 0 24px;
 }
 
 @media screen and (max-width: 767px) {
-  #tabnavigator {
+  #establishment-navtab {
     width: 100%;
     background: #fff;
     position: fixed;
@@ -41,13 +42,13 @@
     min-width: 320px;
   }
 
-  #tabnavigator .header-content {
+  #establishment-navtab .header-content {
     border-top: 1px solid #535BFE;
     padding: 0 8px;
     margin: 0 32px;
   }
 
-  #tabnavigator .navlink {
+  #establishment-navtab .navlink {
     height: 32px;
     width: 48px;
     margin: 0;
@@ -56,7 +57,7 @@
     justify-content: center;
   }
 
-  #tabnavigator .tab-icon {
+  #establishment-navtab .tab-icon {
     width: 24px;
     height: 24px;
   }

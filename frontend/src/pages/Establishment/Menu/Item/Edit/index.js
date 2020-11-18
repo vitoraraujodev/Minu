@@ -5,7 +5,7 @@ import { Prompt } from 'react-router-dom';
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
 import Actions from '~/components/Actions';
-import Header from '~/components/Header';
+import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';

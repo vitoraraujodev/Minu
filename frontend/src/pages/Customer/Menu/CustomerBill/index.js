@@ -18,7 +18,7 @@ export default function CustomerBill({ location }) {
   const dispatch = useDispatch();
   const establishment = location.state
     ? location.state.establishment
-    : history.goBack();
+    : history.push('cliente/acesso');
 
   const [totalPrice, setTotalPrice] = useState();
   const [modalVisible, setModalVisible] = useState(false);

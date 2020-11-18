@@ -12,7 +12,7 @@ import { inventoryAccess } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
-export default function Header() {
+export default function EstablishmentTab() {
   const dispatch = useDispatch();
   const location = useLocation();
   const accessed = useSelector((state) => state.auth.inventoryAccessed);
@@ -46,7 +46,7 @@ export default function Header() {
   window.addEventListener('resize', handleResize);
 
   return (
-    <div id="tabnavigator">
+    <div id="establishment-navtab">
       {windowWidth >= 768 ? (
         <div className="header-content">
           <div className="navlink-container">
@@ -66,7 +66,7 @@ export default function Header() {
             </NavLink>
           </div>
 
-          <img className="logo" src={logo} alt="minu" />
+          <img className="header-logo" src={logo} alt="minu" />
 
           <div className="navlink-container">
             <NavLink
@@ -79,30 +79,28 @@ export default function Header() {
           </div>
         </div>
       ) : (
-        <div style={{ margin: 'auto', maxWidth: 560 }}>
-          <div className="header-content">
-            <NavLink className="navlink" to="/pedidos">
-              <Orders
-                fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
-                className="tab-icon"
-              />
-            </NavLink>
+        <div className="header-content">
+          <NavLink className="navlink" to="/pedidos">
+            <Orders
+              fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
+              className="tab-icon"
+            />
+          </NavLink>
 
-            <NavLink className="navlink" to="/inventario">
-              <Menu
-                fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
-                className="tab-icon"
-              />
-            </NavLink>
+          <NavLink className="navlink" to="/inventario">
+            <Menu
+              fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
+              className="tab-icon"
+            />
+          </NavLink>
 
-            <NavLink className="navlink" to="/estabelecimento">
-              <Profile
-                fill={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
-                stroke={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
-                className="tab-icon"
-              />
-            </NavLink>
-          </div>
+          <NavLink className="navlink" to="/estabelecimento">
+            <Profile
+              fill={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
+              stroke={active === 'establishment' ? '#535BFE' : '#cfcfcf'}
+              className="tab-icon"
+            />
+          </NavLink>
         </div>
       )}
     </div>

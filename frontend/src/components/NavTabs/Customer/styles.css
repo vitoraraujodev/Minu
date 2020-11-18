@@ -1,0 +1,38 @@
+#customer-navtab {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  min-width: 320px;
+  z-index: 5;
+}
+
+#customer-navtab .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 8px;
+  margin: 0 auto;
+  border-top: 1px solid #535BFE;
+  max-width: 520px;
+}
+
+#customer-navtab .navlink {
+  margin: 0 20px;
+  height: 32px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer-navtab .logo {
+  width: 64px;
+  margin: 0 24px;
+}
+
+#customer-navtab .tab-icon {
+  width: 24px;
+  height: 24px;
+}
