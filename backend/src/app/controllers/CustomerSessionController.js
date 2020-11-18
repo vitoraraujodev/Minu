@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
 import Customer from '../models/Customer';
+import Avatar from '../models/Avatar';
 
 import authConfig from '../../config/auth';
 
@@ -20,6 +21,9 @@ class CustomerSessionController {
 
     const customer = await Customer.findOne({
       where: { phone_number },
+      include: [
+        { model: Avatar, as: 'avatar', attributes: ['id', 'path', 'url'] },
+      ],
     });
 
     if (!customer) {

@@ -18,6 +18,7 @@ import ItemRatingController from './app/controllers/ItemRatingController';
 
 import CustomerController from './app/controllers/CustomerController';
 import CustomerSessionController from './app/controllers/CustomerSessionController';
+import AvatarController from './app/controllers/AvatarController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -82,6 +83,14 @@ routes.post(
   FileController.store
 );
 routes.delete('/files/:id', establishmentAuthMiddleware, FileController.delete);
+
+routes.post(
+  '/avatar',
+  customerAuthMiddleware,
+  upload.single('file'),
+  AvatarController.store
+);
+routes.delete('/avatar/:id', customerAuthMiddleware, AvatarController.delete);
 
 routes.post('/customers', CustomerController.store);
 routes.put('/customers', customerAuthMiddleware, CustomerController.update);

@@ -7,7 +7,7 @@ class FileController {
   async store(req, res) {
     const { originalname: name, filename: path } = req.file;
 
-    const establishment_id = req.establishmentId; // eslint-disable-line
+    const establishment_id = req.establishmentId;
 
     const file = await File.create({
       name,
@@ -19,19 +19,19 @@ class FileController {
   }
 
   async delete(req, res) {
-    const photo_id = req.params.id; // eslint-disable-line
-    const establishment_id = req.establishmentId; // eslint-disable-line
+    const photo_id = req.params.id;
+    const establishment_id = req.establishmentId;
 
     const file = await File.findByPk(photo_id);
 
     if (!file) {
-      return res.status(400).json({ error: 'File does not exist.' });
+      return res.status(400).json({ error: 'Arquivo não existe.' });
     }
 
-    if (file.establishment_id !== establishment_id) { // eslint-disable-line
+    if (file.establishment_id !== establishment_id) {
       return res
         .status(401)
-        .json({ error: 'You can only delete your own photos.' });
+        .json({ error: 'Você só pode deletar seu próprio avatar.' });
     }
 
     fs.unlink(

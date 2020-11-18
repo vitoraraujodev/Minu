@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
+import fs from 'fs';
+import { resolve } from 'path';
 
 import Customer from '../models/Customer';
+import Avatar from '../models/Avatar';
 import Establishment from '../models/Establishment';
 
-class EstablishmentController {
+class CustomerController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -70,6 +73,7 @@ class EstablishmentController {
       status: Yup.string(),
       phone_number: Yup.string(),
       old_password: Yup.string().min(6),
+      avatar_id: Yup.number(),
       password: Yup.string()
         .min(6)
         .when('oldPassword', (oldPassword, field) =>
@@ -84,53 +88,91 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
-    const customerExists = await Customer.findByPk(req.customerId);
-
-    if (!customerExists) {
-      return res.status(400).json({ error: 'Cliente não está cadastrado' });
-    }
-
-    const customer = await Customer.findOne({
-      where: {
-        [Op.or]: [
-          { email: req.body.email },
-          { phone_number: req.body.phone_number },
-        ],
+    const customer = await Customer.findByPk(req.customerId, {
+      include: {
+        model: Avatar,
+        as: 'avatar',
+        attributes: ['id', 'path', 'url'],
       },
     });
 
-    const establishmentExists = await Establishment.findOne({
-      where: { email: req.body.email },
-    });
+    if (!customer) {
+      return res.status(400).json({ error: 'Cliente não está cadastrado' });
+    }
 
-    if (
-      (customer && customer.email === req.body.email) ||
-      establishmentExists
-    ) {
-      if (customer.phone_number === req.body.phone_number) {
+    const { mail, phone, avatar_id } = req.body;
+
+    if (mail && customer.email !== mail) {
+      const customerExists = await Customer.findOne({
+        where: { mail },
+      });
+
+      const establishmentExists = await Establishment.findOne({
+        where: { mail },
+      });
+
+      if (customerExists || establishmentExists) {
+        return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
+      }
+    }
+
+    if (phone && customer.phone_number !== phone) {
+      const customerExists = await Customer.findOne({
+        where: { phone },
+      });
+
+      if (customerExists) {
+        return res.status(400).json({ error: 'Esse número já está em uso.' });
+      }
+    }
+
+    if (avatar_id) {
+      const avatarExists = await Avatar.findByPk(avatar_id);
+
+      if (!avatarExists) {
         return res.status(400).json({
-          error: 'E-mail e número do celular já estão em uso.',
+          error: 'Essa foto não foi registrada. Por favor, tente novamente. ',
         });
       }
-      return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
+
+      if (customer.avatar && avatar_id !== customer.avatar.id) {
+        fs.unlink(
+          resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            customer.avatar.path
+          ),
+          (err) => {
+            if (err) throw err;
+          }
+        );
+        await Avatar.destroy({ where: { id: customer.avatar.id } });
+      }
     }
 
-    if (customer.phone_number === req.body.phone_number) {
-      return res
-        .status(400)
-        .json({ error: 'Esse número de celular já está em uso.' });
-    }
+    await customer.update(req.body);
 
     const {
       name,
       lastname,
       email,
-      status,
       phone_number,
-    } = await Customer.update(req.body);
+      status,
+      avatar,
+    } = await Customer.findByPk(req.customerId, {
+      include: {
+        model: Avatar,
+        as: 'avatar',
+        attributes: ['id', 'path', 'url'],
+      },
+    });
 
-    return res.json({ name, lastname, email, status, phone_number });
+    return res.json({ name, lastname, email, status, phone_number, avatar });
   }
 }
 
-export default new EstablishmentController();
+export default new CustomerController();

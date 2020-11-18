@@ -12,12 +12,14 @@ import OrderAdditional from '../app/models/OrderAdditional';
 import EstablishmentRating from '../app/models/EstablishmentRating';
 import ItemRating from '../app/models/ItemRating';
 import Customer from '../app/models/Customer';
+import Avatar from '../app/models/Avatar';
 
 import databaseConfig from '../config/database';
 
 const models = [
   Establishment,
   File,
+  Avatar,
   Menu,
   Item,
   MenuItem,
