@@ -85,7 +85,7 @@ export default function Picture() {
         />
       )}
 
-      <Prompt when={file} message={handleDelete} />
+      <Prompt when={file !== null} message={handleDelete} />
 
       <div className="container">
         <div className="button-container">

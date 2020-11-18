@@ -5,6 +5,8 @@
   bottom: 0;
   min-width: 320px;
   z-index: 5;
+  display: flex;
+  justify-content: center;
 }
 
 #customer-navtab .header-content {
@@ -12,9 +14,9 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: 0 8px;
-  margin: 0 auto;
+  margin: 0 32px;
   border-top: 1px solid #535BFE;
+  width: 100%;
   max-width: 520px;
 }
 

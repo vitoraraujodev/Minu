@@ -53,14 +53,8 @@
   width: 100%;
 }
 
-#customer-profile .symbol1 {
+#customer-profile .symbol {
   position: absolute;
-}
-
-#customer-profile .symbol2 {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
 }
 
 #customer-profile .img-container {
@@ -72,13 +66,15 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 2px solid #bbb;
+  border: 2px solid #fff;
   z-index: 5;
+  background: #fff;
+  box-shadow: 0px 0px 6px #00000029;
 }
 
 #customer-profile .costumer-img {
   height: 100%;
-  background: #ddd;
+  background: #fff;
 }
 
 #customer-profile .info {

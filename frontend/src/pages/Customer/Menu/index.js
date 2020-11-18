@@ -193,7 +193,7 @@ export default function CustomerMenu() {
                   {establishment.establishment_name || 'Carregando...'}
                 </span>
               </div>
-              {establishment.rating && (
+              {establishment.rating ? (
                 <div className="rating-area">
                   <span className="rating-text">
                     {establishment.rating % 1 > 0
@@ -202,6 +202,12 @@ export default function CustomerMenu() {
                   </span>
                   <RatingStar style={{ height: 15, margin: '0 4px' }} />
                   <span className="rating-text">({establishment.raters})</span>
+                </div>
+              ) : (
+                <div className="rating-area">
+                  <span className="rating-text">0.0</span>
+                  <RatingStar style={{ height: 15, margin: '0 4px' }} />
+                  <span className="rating-text">(0)</span>
                 </div>
               )}
             </div>
@@ -286,7 +292,7 @@ export default function CustomerMenu() {
           }
           className="bill-button"
         >
-          <OrdersIcon size="20" fill="#fff" />
+          <OrdersIcon height="21" fill="#fff" />
         </button>
       </div>
 

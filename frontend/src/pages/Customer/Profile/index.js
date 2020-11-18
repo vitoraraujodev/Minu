@@ -10,7 +10,7 @@ import logo from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 
-import defaultPicture from '~/assets/images/default-picture.png';
+import defaultPicture from '~/assets/images/default-user.png';
 
 import './styles.css';
 
@@ -33,14 +33,14 @@ export default function Profile() {
 
           <div className="img-background">
             <div className="symbols-container">
-              <div className="symbol1">
+              <div className="symbol">
                 <Symbols height={96} />
               </div>
             </div>
 
             <div className="img-container">
               <img
-                src={defaultPicture}
+                src={customer.avatar ? customer.avatar.url : defaultPicture}
                 onError={(e) => {
                   e.target.src = defaultPicture;
                 }}

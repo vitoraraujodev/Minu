@@ -21,7 +21,7 @@ export default function EstablishmentTab() {
   const [active, setActive] = useState();
 
   async function handleResize() {
-    const tabnavigator = document.getElementById('tabnavigator');
+    const tabnavigator = document.getElementById('establishment-navtab');
     if (tabnavigator && tabnavigator.offsetWidth !== windowWidth) {
       setWindowWidth(tabnavigator.offsetWidth);
     }
