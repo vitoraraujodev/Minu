@@ -46,7 +46,7 @@ class ItemController {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const { additionals } = req.body || [];
+    const { additionals } = req.body;
 
     try {
       await Item.create({
@@ -145,7 +145,7 @@ class ItemController {
     }
 
     const itemAdditionals = item.additionals.map((add) => add.id);
-    const { additionals } = req.body;
+    const { additionals } = req.body || {};
 
     try {
       await Item.update(
@@ -156,7 +156,7 @@ class ItemController {
       )
         .then(async (result) => {
           // Creates all new Additionals relations
-          if (additionals.length > 0) {
+          if (additionals && additionals.length > 0) {
             const newAdditionals = additionals
               .filter((additional) => !itemAdditionals.includes(additional))
               .map((add) => ({
@@ -167,23 +167,27 @@ class ItemController {
             if (newAdditionals.length > 0)
               await ItemAdditional.bulkCreate(newAdditionals);
           }
+
           return result;
         })
         .then(async (result) => {
           // Delete Item's Additionals
-          const deleteAdditionals = itemAdditionals.filter(
-            (itemAdditional) => !additionals.includes(itemAdditional)
-          );
+          if (additionals) {
+            const deleteAdditionals = itemAdditionals.filter(
+              (itemAdditional) => !additionals.includes(itemAdditional)
+            );
 
-          if (deleteAdditionals.length > 0)
-            await ItemAdditional.destroy({
-              where: {
-                item_id: item.id,
-                additional_id: {
-                  [Op.in]: deleteAdditionals,
+            if (deleteAdditionals.length > 0) {
+              await ItemAdditional.destroy({
+                where: {
+                  item_id: item.id,
+                  additional_id: {
+                    [Op.in]: deleteAdditionals,
+                  },
                 },
-              },
-            });
+              });
+            }
+          }
           return result;
         })
         .then(async () =>
