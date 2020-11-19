@@ -11,7 +11,7 @@ export function* updateCustomer({ payload }) {
 
     yield put(updateCustomerSuccess(response.data));
 
-    history.push('/');
+    history.push('/cliente');
   } catch (err) {
     if (err.response.data) {
       alert(err.response.data.error);

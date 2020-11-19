@@ -53,10 +53,6 @@
   width: 100%;
 }
 
-#customer-profile .symbol {
-  position: absolute;
-}
-
 #customer-profile .img-container {
   margin-top: 16px;
   height: 144px;
@@ -89,18 +85,21 @@
 
 #customer-profile .img-button {
   position: absolute;
-  right: 48px;
-  top: -16px;
-  height: 32px;
-  padding: 0 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 5px;
-  background: #535bfe;
-  color: #fff;
+  top: -12px;
+  margin-right: 8px;
   border: 0;
-  box-shadow: 0px 0px 5px #00000029;
-  transition: transform 0.2s;
+}
+
+#customer-profile .img-label {
+  cursor: pointer;
+  box-shadow: 0px 0px 6px #00000029;
+  background: #535bfe;
+  border-radius: 5px;
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: 600;
+  transition: transform .2s;
+  font-size: 14px;
 }
 
 #customer-profile .img-button:hover {
@@ -108,8 +107,7 @@
 }
 
 #customer-profile .img-button:active {
-  color: #fff;
-  background: #535bfe;
+  transform: none;
 }
 
 #customer-profile .title-area {
