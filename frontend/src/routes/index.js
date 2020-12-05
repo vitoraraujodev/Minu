@@ -23,6 +23,7 @@ import NewMenu from '~/pages/Establishment/Menu/Menu/New';
 import EditMenu from '~/pages/Establishment/Menu/Menu/Edit';
 
 import CustomerProfile from '~/pages/Customer/Profile';
+import CustomerAccount from '~/pages/Customer/Profile/Account';
 import CustomerMenu from '~/pages/Customer/Menu';
 import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
 import CustomerBill from '~/pages/Customer/Menu/CustomerBill';
@@ -100,10 +101,10 @@ export default function Routes() {
         />
 
         <Route path="/cliente" exact component={CustomerProfile} customers />
-        <Route path="/cliente/perfil" component={CustomerProfile} customers />
+        <Route path="/cliente/conta" component={CustomerAccount} customers />
         <Route path="/cliente/menu" component={CustomerMenu} customers />
         <Route path="/cliente/produto" component={ProductOrder} customers />
-        <Route path="/cliente/conta" component={CustomerBill} customers />
+        <Route path="/cliente/comanda" component={CustomerBill} customers />
 
         <Redirect from="*" to="/estabelecimento/acesso" notPrivate />
       </Switch>

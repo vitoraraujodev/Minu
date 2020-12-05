@@ -93,7 +93,7 @@ export default function Profile() {
           </div>
         </div>
 
-        <Link to="/cliente/perfil">
+        <Link to="/cliente/conta">
           <div className="option-area">
             <div className="option">
               <span className="option-text">Editar conta</span>

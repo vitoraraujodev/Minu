@@ -122,7 +122,7 @@ export default function NewItem({ location }) {
 
   return (
     <div id="item-page">
-      <Prompt when={file} message={handleDelete} />
+      <Prompt when={file !== null} message={handleDelete} />
 
       {windowWidth >= 768 ? <Header /> : null}
 

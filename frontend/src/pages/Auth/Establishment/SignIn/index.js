@@ -44,6 +44,9 @@ export default function SignUp() {
             name="email"
             type="email"
             className="form-input"
+            onKeyDown={(e) => {
+              if (e.key === ' ') e.preventDefault();
+            }}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
           />

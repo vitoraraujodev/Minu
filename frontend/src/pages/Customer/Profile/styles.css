@@ -38,7 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 240px;
+  height: 256px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -54,7 +54,6 @@
 }
 
 #customer-profile .img-container {
-  margin-top: 16px;
   height: 144px;
   width: 144px;
   border-radius: 50%;
@@ -87,6 +86,7 @@
   position: absolute;
   top: -12px;
   margin-right: 8px;
+  right: 32px;
   border: 0;
 }
 
@@ -166,14 +166,9 @@
   #customer-profile .info {
     bottom: -56px;
     padding: 16px 24px;
+    padding-top: 24px;
     width: 100%;
   }
-
-  #customer-profile .img-button {
-    font-size: 12px;
-    right: 32px;
-  }
-
 
   #customer-profile .option {
     padding: 16px 0;

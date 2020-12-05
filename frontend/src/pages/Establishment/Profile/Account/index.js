@@ -172,6 +172,9 @@ export default function Account() {
               disabled={disabled}
               className={disabled ? 'input-disabled' : 'input'}
               placeholder="exemplo@email.com"
+              onKeyDown={(e) => {
+                if (e.key === ' ') e.preventDefault();
+              }}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
