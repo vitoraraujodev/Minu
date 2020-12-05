@@ -6,13 +6,12 @@ import PhoneNumberInput from '~/components/PhoneNumberInput';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
-import history from '~/services/history';
-
 import './styles.css';
 
 export default function PhoneNumberForm({
   phoneNumber,
   onChangePhoneNumber,
+  handleBack,
   handleNext,
   handleSocialMedia,
 }) {
@@ -55,7 +54,7 @@ export default function PhoneNumberForm({
           style={{ color: '#606060' }}
           className="button"
           type="button"
-          onClick={() => history.goBack()}
+          onClick={handleBack}
         >
           <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
           Voltar

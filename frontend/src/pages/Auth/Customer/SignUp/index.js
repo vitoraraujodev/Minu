@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import './styles.css';
-
 import ProgressionBar from '~/components/ProgressionBar';
 
 import PhoneNumberForm from './Forms/PhoneNumberForm';
@@ -10,6 +8,9 @@ import AccountForm from './Forms/AccountForm';
 import FinishPage from './Forms/FinishPage';
 
 import api from '~/services/api';
+import history from '~/services/history';
+
+import './styles.css';
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
@@ -51,7 +52,9 @@ export default function SignUp() {
   }
 
   function handleBack(page) {
-    if (step > 1) {
+    if (step === 1) {
+      history.push('/cliente/acesso');
+    } else {
       setStep(page && step - 1);
     }
   }
@@ -65,6 +68,7 @@ export default function SignUp() {
           <PhoneNumberForm
             phoneNumber={phone_number}
             onChangePhoneNumber={setPhoneNumber}
+            handleBack={handleBack}
             handleNext={handleNext}
           />
         )}

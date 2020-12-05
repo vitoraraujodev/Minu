@@ -43,13 +43,13 @@
   }
 
   #establishment-navtab .header-content {
-    border-top: 1px solid #535BFE;
+    border-top: 1.5px solid #535BFE;
     padding: 0 8px;
     margin: 0 32px;
   }
 
   #establishment-navtab .navlink {
-    height: 32px;
+    height: 100%;
     width: 48px;
     margin: 0;
     display: flex;

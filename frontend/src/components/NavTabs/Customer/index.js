@@ -3,7 +3,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
-import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import './styles.css';
 
@@ -13,24 +12,16 @@ export default function CustomerTab() {
   const [active, setActive] = useState('customer');
 
   useEffect(() => {
-    if (location.pathname === '/checkin') setActive('checkin');
-    else if (location.pathname === '/cliente/historico') setActive('history');
+    if (location.pathname === '/sessao') setActive('session');
     else if (location.pathname === '/cliente') setActive('customer');
   }, [location.pathname]);
 
   return (
     <div id="customer-navtab">
       <div className="header-content">
-        <NavLink className="navlink" to="/checkin">
+        <NavLink className="navlink" to="/sessao">
           <Menu
-            fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
-            className="tab-icon"
-          />
-        </NavLink>
-
-        <NavLink className="navlink" to="/cliente/historico">
-          <Orders
-            fill={active === 'history' ? '#535BFE' : '#cfcfcf'}
+            fill={active === 'session' ? '#535BFE' : '#cfcfcf'}
             className="tab-icon"
           />
         </NavLink>

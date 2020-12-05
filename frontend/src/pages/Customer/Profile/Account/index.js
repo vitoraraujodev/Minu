@@ -76,7 +76,7 @@ export default function Account() {
             style={{ color: '#606060' }}
             className="button"
             type="button"
-            onClick={() => history.push('cliente')}
+            onClick={() => history.push('/cliente')}
           >
             <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
             Voltar

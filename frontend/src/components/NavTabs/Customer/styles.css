@@ -13,17 +13,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 64px;
   margin: 0 32px;
-  border-top: 1px solid #535BFE;
+  border-top: 1.5px solid #535BFE;
   width: 100%;
   max-width: 520px;
 }
 
 #customer-navtab .navlink {
-  margin: 0 20px;
-  height: 32px;
-  width: 48px;
+  height: 100%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
