@@ -135,6 +135,7 @@ export default function Account() {
             <input
               value={establishmentName}
               className={disabled ? 'input-disabled' : 'input'}
+              style={{ textTransform: 'capitalize' }}
               disabled={disabled}
               placeholder="Restaurante X"
               onChange={(e) => setEstablishmentName(e.target.value)}
@@ -150,6 +151,7 @@ export default function Account() {
               disabled={disabled}
               placeholder="Nome"
               className={disabled ? 'input-disabled' : 'input'}
+              style={{ textTransform: 'capitalize' }}
             />
             <p className={disabled ? 'input-label-disabled' : 'input-label'}>
               Sobrenome
@@ -157,6 +159,7 @@ export default function Account() {
             <input
               value={managerLastName}
               className={disabled ? 'input-disabled' : 'input'}
+              style={{ textTransform: 'capitalize' }}
               disabled={disabled}
               placeholder="Sobrenome"
               onChange={(e) => setManagerLastName(e.target.value)}

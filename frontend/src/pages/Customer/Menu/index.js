@@ -286,7 +286,7 @@ export default function CustomerMenu() {
           type="button"
           onClick={() =>
             history.push({
-              pathname: '/cliente/comanda',
+              pathname: '/cardapio/comanda',
               state: { establishment },
             })
           }

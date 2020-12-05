@@ -11,22 +11,25 @@ import CustomerSignUp from '~/pages/Auth/Customer/SignUp';
 import CustomerSignIn from '~/pages/Auth/Customer/SignIn';
 
 import EstablishmentProfile from '~/pages/Establishment/Profile';
-import Picture from '~/pages/Establishment/Profile/Picture';
-import Account from '~/pages/Establishment/Profile/Account';
-import Pin from '~/pages/Establishment/Profile/Pin';
-import Address from '~/pages/Establishment/Profile/Address';
+import EstablishmentPicture from '~/pages/Establishment/Profile/Picture';
+import EstablishmentAccount from '~/pages/Establishment/Profile/Account';
+import EstablishmentPin from '~/pages/Establishment/Profile/Pin';
+import EstablishmentAddress from '~/pages/Establishment/Profile/Address';
 
-import Inventory from '~/pages/Establishment/Menu/Inventory';
-import NewItem from '~/pages/Establishment/Menu/Item/New';
-import EditItem from '~/pages/Establishment/Menu/Item/Edit';
-import NewMenu from '~/pages/Establishment/Menu/Menu/New';
-import EditMenu from '~/pages/Establishment/Menu/Menu/Edit';
+import Inventory from '~/pages/Establishment/Inventory/Inventory';
+import NewItem from '~/pages/Establishment/Inventory/Item/New';
+import EditItem from '~/pages/Establishment/Inventory/Item/Edit';
+import NewMenu from '~/pages/Establishment/Inventory/Menu/New';
+import EditMenu from '~/pages/Establishment/Inventory/Menu/Edit';
 
 import CustomerProfile from '~/pages/Customer/Profile';
 import CustomerAccount from '~/pages/Customer/Profile/Account';
-import CustomerMenu from '~/pages/Customer/Menu';
+
+import Menu from '~/pages/Customer/Menu';
 import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
-import CustomerBill from '~/pages/Customer/Menu/CustomerBill';
+import Bill from '~/pages/Customer/Menu/Bill';
+
+import Session from '~/pages/Customer/Session';
 
 import history from '~/services/history';
 
@@ -61,18 +64,22 @@ export default function Routes() {
         />
         <Route
           path="/estabelecimento/foto"
-          component={Picture}
+          component={EstablishmentPicture}
           establishments
         />
         <Route
           path="/estabelecimento/conta"
-          component={Account}
+          component={EstablishmentAccount}
           establishments
         />
-        <Route path="/estabelecimento/pin" component={Pin} establishments />
+        <Route
+          path="/estabelecimento/pin"
+          component={EstablishmentPin}
+          establishments
+        />
         <Route
           path="/estabelecimento/endereco"
-          component={Address}
+          component={EstablishmentAddress}
           establishments
         />
 
@@ -102,9 +109,12 @@ export default function Routes() {
 
         <Route path="/cliente" exact component={CustomerProfile} customers />
         <Route path="/cliente/conta" component={CustomerAccount} customers />
-        <Route path="/cliente/menu" component={CustomerMenu} customers />
-        <Route path="/cliente/produto" component={ProductOrder} customers />
-        <Route path="/cliente/comanda" component={CustomerBill} customers />
+
+        <Route path="/sessao" component={Session} customers />
+
+        <Route path="/cardapio" component={Menu} customers />
+        <Route path="/cardapio/produto" component={ProductOrder} customers />
+        <Route path="/cardapio/comanda" component={Bill} customers />
 
         <Redirect from="*" to="/estabelecimento/acesso" notPrivate />
       </Switch>

@@ -61,7 +61,7 @@ export default function PinModal({ onClose, onAccess }) {
             className={
               filled ? 'modal-confirm-button-enabled' : 'modal-confirm-button'
             }
-            onClick={filled ? handleConfirm : null}
+            onClick={filled && handleConfirm}
           >
             {loading ? 'Carregando' : 'Confirmar'}
           </button>

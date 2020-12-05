@@ -89,9 +89,11 @@ export default function Account() {
             <input
               value={name}
               className="input"
+              style={{ textTransform: 'capitalize' }}
               placeholder="Nome"
               onKeyDown={(e) => {
-                if (e.key === ' ') e.preventDefault();
+                if (e.key === ' ' || (e.key >= 0 && e.key <= 9))
+                  e.preventDefault();
               }}
               onChange={(e) => setName(e.target.value)}
             />
@@ -100,9 +102,11 @@ export default function Account() {
             <input
               value={lastname}
               className="input"
+              style={{ textTransform: 'capitalize' }}
               placeholder="Sobrenome"
               onKeyDown={(e) => {
-                if (e.key === ' ') e.preventDefault();
+                if (e.key === ' ' || (e.key >= 0 && e.key <= 9))
+                  e.preventDefault();
               }}
               onChange={(e) => setLastname(e.target.value)}
             />
@@ -114,7 +118,8 @@ export default function Account() {
               className="input"
               placeholder="exemplo@email.com"
               onKeyDown={(e) => {
-                if (e.key === ' ') e.preventDefault();
+                if (e.key === ' ' || (e.key >= 0 && e.key <= 9))
+                  e.preventDefault();
               }}
               onChange={(e) => setEmail(e.target.value)}
             />

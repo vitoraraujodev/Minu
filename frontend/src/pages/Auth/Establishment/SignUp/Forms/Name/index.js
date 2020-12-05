@@ -32,6 +32,7 @@ export default function Name({
         <input
           name="establishmentName"
           className="form-input"
+          style={{ textTransform: 'capitalize' }}
           value={establishmentName}
           autoFocus //eslint-disable-line
           onChange={(e) => onChangeEstablishmentName(e.target.value)}
@@ -42,7 +43,11 @@ export default function Name({
         <input
           name="managerName"
           className="form-input"
+          style={{ textTransform: 'capitalize' }}
           value={managerName}
+          onKeyDown={(e) => {
+            if (e.key === ' ' || (e.key >= 0 && e.key <= 9)) e.preventDefault();
+          }}
           onChange={(e) => onChangeManagerName(e.target.value)}
           placeholder="Nome"
         />
@@ -50,9 +55,10 @@ export default function Name({
           name="managerLastName"
           className="form-input"
           value={managerLastName}
-          style={{ marginBottom: 0 }}
+          style={{ marginBottom: 0, textTransform: 'capitalize' }}
           onKeyDown={(e) => {
-            if (e.keyCode === 13 && filled) {
+            if (e.key === ' ' || (e.key >= 0 && e.key <= 9)) e.preventDefault();
+            else if (e.keyCode === 13 && filled) {
               onNextPage();
             }
           }}
