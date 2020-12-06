@@ -13,6 +13,7 @@
   width: 100%;
   padding: 0 24px;
   max-width: 432px;
+  justify-content: center;
 }
 
 #session-page .image-container {
@@ -23,20 +24,24 @@
 }
 
 #session-page .image {
-  height: 100%;
+  width: 100%;
 }
 
 #session-page .session-container{
-  margin-right: 32px;
   width: 100%;
-  padding-bottom: 96px;
+  padding-bottom: 88px;
 }
 
 #session-page .text-label {
   margin-top: 16px;
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+}
+
+#session-page .code-container {
+  padding-top: 24px;
+  position: relative;
 }
 
 #session-page .pincode-input-container {
@@ -64,8 +69,14 @@
   margin-left: 8px !important;
 }
 
-#session-page .input::placeholder {
-  content: '0'
+#session-page .invalid-text {
+  position: absolute;
+  text-align: right;
+  top: -4px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fe5f53;
 }
 
 #session-page .qrcode-or {
@@ -111,6 +122,6 @@
   #session-page .qrcode-button {
     font-size: 16px;
     height: 40px;
-    margin-top: 16px;
+    margin-top: 24px;
   }
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PinInput from 'react-pin-input';
 
 import NavTab from '~/components/NavTabs/Customer';
@@ -11,8 +10,16 @@ import './styles.css';
 export default function Session() {
   const [code, setCode] = useState('');
   const [inputs, setInputs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [invalid, setInvalid] = useState(false);
 
-  function handleCode(code) {}
+  function handleCode() {
+    setLoading(true);
+    if (!code === '12345') {
+      setInvalid(true);
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
     setInputs(document.getElementsByClassName('pincode-input-text'));
@@ -24,6 +31,7 @@ export default function Session() {
   return (
     <div id="session-page">
       <NavTab />
+
       <div className="container">
         <div className="image-container">
           <img src={waitress} className="image" alt="" />
@@ -36,22 +44,21 @@ export default function Session() {
             <PinInput
               length={5}
               onChange={(value) => {
+                if (invalid) setInvalid(false);
                 setCode(value);
               }}
               type="custom"
-              in
-              onComplete={(value) => handleCode(value)}
             />
+            {invalid && <p className="invalid-text">Código inválido</p>}
           </div>
-          <p className="qrcode-or">- Ou -</p>
 
-          <Link to="/cliente/cadastro">
-            <button type="button" className="qrcode-button">
-              Entrar com QR Code
-            </button>
-          </Link>
+          <button type="button" className="qrcode-button" onClick={handleCode}>
+            {loading ? 'Carregando...' : 'Acessar'}
+          </button>
         </div>
       </div>
     </div>
   );
 }
+
+// <p className="qrcode-or">- Ou -</p>
