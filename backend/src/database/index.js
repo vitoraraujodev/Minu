@@ -7,12 +7,12 @@ import Item from '../app/models/Item';
 import MenuItem from '../app/models/MenuItem';
 import Additional from '../app/models/Additional';
 import ItemAdditional from '../app/models/ItemAdditional';
-import Order from '../app/models/Order';
-import OrderAdditional from '../app/models/OrderAdditional';
 import EstablishmentRating from '../app/models/EstablishmentRating';
 import ItemRating from '../app/models/ItemRating';
 import Customer from '../app/models/Customer';
 import Avatar from '../app/models/Avatar';
+import ServiceSession from '../app/models/ServiceSession';
+import SessionEvent from '../app/models/SessionEvent';
 
 import databaseConfig from '../config/database';
 
@@ -25,11 +25,11 @@ const models = [
   MenuItem,
   Additional,
   ItemAdditional,
-  Order,
-  OrderAdditional,
   EstablishmentRating,
   ItemRating,
   Customer,
+  ServiceSession,
+  SessionEvent,
 ]; // Todos os models a serem carregados
 
 class Database {

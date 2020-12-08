@@ -27,11 +27,11 @@ class CustomerSessionController {
     });
 
     if (!customer) {
-      return res.status(400).json({ error: 'Cliente não encontrado.' });
+      return res.status(400).json({ error: 'Cliente não registrado.' });
     }
 
     return res.json({
-      user: customer,
+      customer,
       token: jwt.sign(
         { id: customer.id, kind: 'customer' },
         authConfig.secret,

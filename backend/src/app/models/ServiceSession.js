@@ -1,12 +1,10 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Additional extends Model {
+class ServiceSession extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: Sequelize.STRING,
-        price: Sequelize.FLOAT,
-        available: Sequelize.BOOLEAN,
+        table_number: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -20,14 +18,15 @@ class Additional extends Model {
       foreignKey: 'establishment_id',
       as: 'establishment',
     });
-
-    this.belongsToMany(models.Item, {
-      through: 'ItemAdditional',
-      as: 'items',
-      foreignKey: 'additional_id',
-      otherKey: 'item_id',
+    this.belongsTo(models.Customer, {
+      foreignKey: 'customer_id',
+      as: 'customer',
+    });
+    this.hasMany(models.SessionEvent, {
+      foreignKey: 'session_id',
+      as: 'events',
     });
   }
 }
 
-export default Additional;
+export default ServiceSession;

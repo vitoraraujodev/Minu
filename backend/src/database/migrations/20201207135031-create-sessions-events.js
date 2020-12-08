@@ -1,24 +1,21 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('order_additionals', {
+    return queryInterface.createTable('session_events', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      order_id: {
+      session_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'orders', key: 'id' },
+        references: { model: 'service_sessions', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: true,
       },
-      additional_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'additionals', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+      status: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
@@ -33,6 +30,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('order_additionals');
+    return queryInterface.dropTable('session_events');
   },
 };

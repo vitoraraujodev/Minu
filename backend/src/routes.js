@@ -12,13 +12,13 @@ import FileController from './app/controllers/FileController';
 import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
 import AdditionalController from './app/controllers/AdditionalController';
-import OrderController from './app/controllers/OrderController';
 import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
 import ItemRatingController from './app/controllers/ItemRatingController';
 
 import CustomerController from './app/controllers/CustomerController';
 import CustomerSessionController from './app/controllers/CustomerSessionController';
 import AvatarController from './app/controllers/AvatarController';
+import ServiceSessionController from './app/controllers/ServiceSessionController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -26,8 +26,22 @@ const upload = multer(multerConfig);
 routes.post('/establishment-sessions', EstablishmentSessionController.store);
 routes.post('/customer-sessions', CustomerSessionController.store);
 routes.post('/pin', establishmentAuthMiddleware, PinController.store);
+routes.post(
+  '/service-sessions',
+  customerAuthMiddleware,
+  ServiceSessionController.store
+);
+routes.delete(
+  '/service-sessions',
+  customerAuthMiddleware,
+  ServiceSessionController.delete
+);
 
-routes.get('/establishments/:id', EstablishmentsController.index);
+routes.get(
+  '/establishments',
+  customerAuthMiddleware,
+  EstablishmentsController.index
+);
 routes.post('/establishments', EstablishmentsController.store);
 routes.put(
   '/establishments',
@@ -65,10 +79,6 @@ routes.delete(
   establishmentAuthMiddleware,
   AdditionalController.delete
 );
-
-routes.get('/orders', establishmentAuthMiddleware, OrderController.index);
-routes.post('/orders', OrderController.store);
-routes.delete('/orders/:id', OrderController.delete);
 
 routes.get('/establishments/:id/ratings', EstablishmentRatingController.index);
 routes.post('/establishments/:id/ratings', EstablishmentRatingController.store);
