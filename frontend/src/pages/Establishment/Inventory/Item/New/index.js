@@ -19,7 +19,7 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function NewItem({ location }) {
-  const length = location.state.length || '';
+  const length = location.state ? location.state.length : '';
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [submit, setSubmit] = useState(false);
@@ -173,7 +173,9 @@ export default function NewItem({ location }) {
             </button>
 
             <p className="header-label">
-              {length ? `Produto ${length <= 9 ? `0${length}` : length}` : ''}
+              {length
+                ? `Produto ${length <= 9 ? `0${length}` : length}`
+                : 'Novo Produto'}
             </p>
           </div>
 

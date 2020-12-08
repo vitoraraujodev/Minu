@@ -28,6 +28,20 @@
   margin-bottom: 48px;
 }
 
+#customer-menu .back-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 8px;
+  left: 16px;
+  border: 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  height: 40px;
+  z-index: 5;
+}
+
 #customer-menu .logo-container {
   position: absolute;
   width: 100%;
@@ -81,6 +95,11 @@
   font-size: 24px;
   color: #505050;
   font-weight: 700;
+}
+
+#customer-menu .establishment-address {
+  color: #9C9C9C;
+  font-size: 14px;
 }
 
 #customer-menu .rating-area {

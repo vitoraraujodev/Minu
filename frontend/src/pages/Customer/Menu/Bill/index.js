@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import BillModal from './BillModal';
 import BillPending from './BillPending';
@@ -7,18 +6,17 @@ import BillPending from './BillPending';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
 import history from '~/services/history';
+import api from '~/services/api';
 
 import { formatPrice } from '~/util/format';
-
-import { signOutRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
 export default function CustomerBill({ location }) {
-  const dispatch = useDispatch();
-  const establishment = location.state
-    ? location.state.establishment
-    : history.push('/cliente');
+  const establishment =
+    location.state && location.state.establishment
+      ? location.state.establishment
+      : history.push('/cliente');
 
   const [totalPrice, setTotalPrice] = useState();
   const [modalVisible, setModalVisible] = useState(false);
@@ -69,8 +67,13 @@ export default function CustomerBill({ location }) {
     }
   }, [productOrders]);
 
-  function handleSignOut() {
-    dispatch(signOutRequest());
+  async function handleSignOut() {
+    try {
+      await api.delete('service-sessions');
+      history.push('/sessao');
+    } catch (err) {
+      if (err.response) alert(err.response.data.error);
+    }
   }
 
   function handleBillRequested() {
@@ -113,8 +116,7 @@ export default function CustomerBill({ location }) {
                     {establishment.establishment_name}
                   </p>
                   <span className="establishment-address">
-                    {establishment.street}
-                    {'  '}
+                    {establishment.street},{'  '}
                     {establishment.address_number &&
                       `n. ${establishment.address_number}.`}
                   </span>

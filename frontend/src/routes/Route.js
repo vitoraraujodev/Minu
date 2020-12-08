@@ -6,9 +6,11 @@ import { store } from '~/store';
 
 export default function RouteWrapper({
   component: Component,
+  location,
   notPrivate = false,
   establishments = false,
   customers = false,
+  stateRequired,
   ...rest
 }) {
   const { token } = store.getState().auth;
@@ -27,6 +29,10 @@ export default function RouteWrapper({
 
   if (kind === 'customer' && !customers) {
     return <Redirect to="/cliente" />;
+  }
+
+  if (stateRequired && !location.state) {
+    return <Redirect to="/" />;
   }
 
   return <Route {...rest} component={Component} />;

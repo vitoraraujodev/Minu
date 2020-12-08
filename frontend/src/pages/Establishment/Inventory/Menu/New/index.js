@@ -16,7 +16,7 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function NewMenu({ location }) {
-  const length = location.state.length || '';
+  const length = location.state ? location.state.length : '';
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
@@ -129,7 +129,9 @@ export default function NewMenu({ location }) {
             </button>
 
             <p className="header-label">
-              {length ? `Cardápio ${length <= 9 ? `0${length}` : length}` : ''}
+              {length
+                ? `Cardápio ${length <= 9 ? `0${length}` : length}`
+                : 'Novo Cardápio'}
             </p>
           </div>
 

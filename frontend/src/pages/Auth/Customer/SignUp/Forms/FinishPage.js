@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ReactComponent as Close } from '~/assets/icons/close-icon2.svg';
 import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { customerSignInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
@@ -12,7 +12,7 @@ export default function End({ phone_number, password }) {
   const dispatch = useDispatch();
 
   function handleLogin(route) {
-    dispatch(signInRequest(phone_number, password, 'customers', route));
+    dispatch(customerSignInRequest(phone_number, password, route));
   }
 
   return (

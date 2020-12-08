@@ -16,18 +16,10 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function ProductOrder({ location }) {
-  const product = location.state
-    ? location.state.product
-    : {
-        id: 0,
-        title: '',
-        description: '',
-        price: '',
-        rating: 0,
-        raters: 0,
-        photo: {},
-        additionals: [],
-      };
+  const product =
+    location.state && location.state.product
+      ? location.state.product
+      : history.push('/cliente');
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -48,10 +40,6 @@ export default function ProductOrder({ location }) {
       setAdditionals([...additionals, additional]);
     }
   }
-
-  useEffect(() => {
-    if (!location.state) history.push('/');
-  }, [location]);
 
   useEffect(() => {
     const total = product.price * amount;

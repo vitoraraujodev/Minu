@@ -17,7 +17,10 @@ import { formatPrice } from '~/util/format';
 import '../New/styles.css';
 
 export default function EditMenu({ location }) {
-  const { menu } = location.state;
+  const menu =
+    location.state && location.state.menu
+      ? location.state.menu
+      : history.push('/inventario');
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
@@ -39,8 +42,9 @@ export default function EditMenu({ location }) {
   }
 
   useEffect(() => {
+    if (!menu) history.goBack();
     handleResize();
-  }, []);
+  }, [menu]);
 
   window.addEventListener('resize', handleResize);
 

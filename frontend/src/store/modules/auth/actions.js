@@ -1,7 +1,14 @@
-export function signInRequest(identifier, password, kind, route) {
+export function establishmentSignInRequest(email, password, route) {
   return {
-    type: '@auth/SIGN_IN_REQUEST',
-    payload: { identifier, password, kind, route },
+    type: '@auth/ESTABLISHMENT_SIGN_IN_REQUEST',
+    payload: { email, password, route },
+  };
+}
+
+export function customerSignInRequest(phone_number, password, route) {
+  return {
+    type: '@auth/CUSTOMER_SIGN_IN_REQUEST',
+    payload: { phone_number, password, route },
   };
 }
 

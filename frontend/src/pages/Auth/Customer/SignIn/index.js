@@ -7,7 +7,7 @@ import AccountForm from './Forms/AccountForm';
 
 import ProgressionBar from '~/components/ProgressionBar';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { customerSignInRequest } from '~/store/modules/auth/actions';
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -20,12 +20,7 @@ export default function SignIn() {
 
   function handleSubmit() {
     dispatch(
-      signInRequest(
-        `+${phone_number}`,
-        password,
-        'customers',
-        '/cliente/cardapio'
-      )
+      customerSignInRequest(`+${phone_number}`, password, '/cliente/cardapio')
     );
   }
 

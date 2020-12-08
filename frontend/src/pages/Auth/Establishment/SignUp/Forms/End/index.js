@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { establishmentSignInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
@@ -9,7 +9,7 @@ export default function End({ email, password }) {
   const dispatch = useDispatch();
 
   function handleLogin(route) {
-    dispatch(signInRequest(email, password, 'establishments', route));
+    dispatch(establishmentSignInRequest(email, password, route));
   }
 
   return (

@@ -11,36 +11,50 @@ import {
   inventoryAccess,
 } from './actions';
 
-export function* signIn({ payload }) {
+export function* establishmentSignIn({ payload }) {
   try {
-    const { identifier, password, kind, route } = payload;
+    const { email, password, route } = payload;
 
-    const response =
-      kind === 'establishments'
-        ? yield call(api.post, 'establishment-sessions', {
-            email: identifier,
-            password,
-          })
-        : yield call(api.post, 'customer-sessions', {
-            phone_number: identifier[0] === '+' ? identifier : `+${identifier}`,
-            password,
-          });
+    const response = yield call(api.post, 'establishment-sessions', {
+      email,
+      password,
+    });
 
-    const { token, user } = response.data;
+    const { token, establishment } = response.data;
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    if (kind === 'establishments') {
-      yield put(establishmentSignInSuccess(token, user));
-    } else if (kind === 'customers') {
-      yield put(customerSignInSuccess(token, user));
-    }
+    yield put(establishmentSignInSuccess(token, establishment));
 
     history.push(route);
 
     if (route === '/estabelecimento/inventario') {
       yield put(inventoryAccess(true));
     }
+  } catch (err) {
+    yield put(signFailure());
+    if (err.response.data) {
+      alert(err.response.data.error);
+    }
+  }
+}
+
+export function* customerSignIn({ payload }) {
+  try {
+    const { phone_number, password, route } = payload;
+
+    const response = yield call(api.post, 'customer-sessions', {
+      phone_number: phone_number[0] === '+' ? phone_number : `+${phone_number}`,
+      password,
+    });
+
+    const { token, customer } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(customerSignInSuccess(token, customer));
+
+    history.push(route);
   } catch (err) {
     yield put(signFailure());
     if (err.response.data) {
@@ -77,6 +91,7 @@ export function* setToken({ payload }) {
 
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
-  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/ESTABLISHMENT_SIGN_IN_REQUEST', establishmentSignIn),
+  takeLatest('@auth/CUSTOMER_SIGN_IN_REQUEST', customerSignIn),
   takeLatest('@auth/SIGN_OUT_REQUEST', signOut),
 ]);

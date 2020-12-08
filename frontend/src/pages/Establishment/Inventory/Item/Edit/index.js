@@ -20,20 +20,22 @@ import { formatPrice } from '~/util/format';
 import '../New/styles.css';
 
 export default function EditItem({ location }) {
-  const { item } = location.state;
+  const item = location.state && location.state.item ? location.state.item : '';
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
-  const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
+  const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
 
   const [file, setFile] = useState(item.photo ? item.photo.photo_id : null);
   const [title, setTitle] = useState(item.title || '');
   const [description, setDescription] = useState(item.description || '');
   const [price, setPrice] = useState(item.price || 0.0);
-  const [preparationTime, setPreparationTime] = useState(item.preparation_time);
+  const [preparationTime, setPreparationTime] = useState(
+    item.preparation_time || 1
+  );
   const [category, setCategory] = useState(item.category || '');
   const [maskedPrice, setMaskedPrice] = useState(
     item.price.toString().replace('.', ',') || 'R$ 0,00'

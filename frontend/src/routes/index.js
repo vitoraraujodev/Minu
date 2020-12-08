@@ -93,6 +93,7 @@ export default function Routes() {
         <Route
           path="/inventario/produto/:id"
           component={EditItem}
+          stateRequired
           establishments
         />
         <Route
@@ -103,6 +104,7 @@ export default function Routes() {
         />
         <Route
           path="/inventario/cardapio/:id"
+          stateRequired
           component={EditMenu}
           establishments
         />
@@ -112,7 +114,7 @@ export default function Routes() {
 
         <Route path="/sessao" component={Session} customers />
 
-        <Route path="/cardapio" component={Menu} customers />
+        <Route path="/cardapio" exact component={Menu} customers />
         <Route path="/cardapio/produto" component={ProductOrder} customers />
         <Route path="/cardapio/comanda" component={Bill} customers />
 

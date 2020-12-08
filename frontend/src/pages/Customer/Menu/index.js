@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
 
 import logo from '~/assets/icons/simple-logo.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
+
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as OrdersIcon } from '~/assets/icons/orders-icon.svg';
+import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -33,7 +34,7 @@ export default function CustomerMenu() {
   async function loadEstablishment() {
     setLoading(true);
     try {
-      const response = await api.get('establishments/1');
+      const response = await api.get('establishments');
       setEstablishment(response.data);
 
       if (response.data.items && response.data.items.length > 0) {
@@ -77,10 +78,13 @@ export default function CustomerMenu() {
           setActiveCategory('starters');
         }
       }
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
+
+      history.push('/sessao');
       if (err.response) alert(err.response.data.error);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -170,6 +174,15 @@ export default function CustomerMenu() {
     <div id="customer-menu">
       <div onScroll={handleScroll} id="container" className="container">
         <div className="info-container">
+          <button
+            type="button"
+            className="back-button"
+            onClick={() => history.push('/cliente')}
+          >
+            <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
+            Voltar
+          </button>
+
           <div className="logo-container">
             <img className="logo" src={logo} alt="minu" />
           </div>
@@ -204,11 +217,11 @@ export default function CustomerMenu() {
                   <span className="rating-text">({establishment.raters})</span>
                 </div>
               ) : (
-                <div className="rating-area">
-                  <span className="rating-text">0.0</span>
-                  <RatingStar style={{ height: 15, margin: '0 4px' }} />
-                  <span className="rating-text">(0)</span>
-                </div>
+                <span className="establishment-address">
+                  {establishment.street},{'  '}
+                  {establishment.address_number &&
+                    `n. ${establishment.address_number}.`}
+                </span>
               )}
             </div>
           </div>

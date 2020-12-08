@@ -8,7 +8,7 @@ import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
 import history from '~/services/history';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { establishmentSignInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
@@ -29,9 +29,7 @@ export default function SignUp() {
   }, [email, password]);
 
   function handleSubmit() {
-    dispatch(
-      signInRequest(email, password, 'establishments', '/estabelecimento')
-    );
+    dispatch(establishmentSignInRequest(email, password, '/estabelecimento'));
   }
 
   return (

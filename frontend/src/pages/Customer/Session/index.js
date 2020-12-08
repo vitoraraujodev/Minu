@@ -3,7 +3,10 @@ import PinInput from 'react-pin-input';
 
 import NavTab from '~/components/NavTabs/Customer';
 
-import waitress from '~/assets/images/waitress.jpg';
+import leaflet from '~/assets/images/leaflet.png';
+
+import api from '~/services/api';
+import history from '~/services/history';
 
 import './styles.css';
 
@@ -13,12 +16,28 @@ export default function Session() {
   const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
 
-  function handleCode() {
+  async function handleCode() {
     setLoading(true);
-    if (!code === '12345') {
+    const establishment_id = parseInt(code.substr(0, 3), 10);
+    const table_number = parseInt(code.substr(3, 4), 10);
+
+    if (code.length === 5) {
+      try {
+        await api.post('service-sessions', {
+          establishment_id,
+          table_number,
+        });
+        setLoading(false);
+        history.push('/cardapio');
+      } catch (err) {
+        setInvalid(true);
+        if (err.response) alert(err.response.data.error);
+        setLoading(false);
+      }
+    } else {
       setInvalid(true);
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -34,7 +53,7 @@ export default function Session() {
 
       <div className="container">
         <div className="image-container">
-          <img src={waitress} className="image" alt="" />
+          <img src={leaflet} className="image" alt="" />
         </div>
 
         <div className="session-container">
