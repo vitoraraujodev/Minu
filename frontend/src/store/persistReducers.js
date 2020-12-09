@@ -7,7 +7,7 @@ export default (reducers) => {
     {
       key: 'minu',
       storage,
-      whitelist: ['auth', 'establishment', 'customer'],
+      whitelist: ['auth', 'establishment', 'customer', 'session'],
     },
     reducers
   );

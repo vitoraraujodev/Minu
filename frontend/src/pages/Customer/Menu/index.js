@@ -220,7 +220,7 @@ export default function CustomerMenu() {
                 <span className="establishment-address">
                   {establishment.street},{'  '}
                   {establishment.address_number &&
-                    `n. ${establishment.address_number}.`}
+                    `n. ${establishment.address_number}`}
                 </span>
               )}
             </div>

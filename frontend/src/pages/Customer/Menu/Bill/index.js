@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import BillModal from './BillModal';
 import BillPending from './BillPending';
 
+import { checkOutRequest } from '~/store/modules/session/actions';
+
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
 import history from '~/services/history';
-import api from '~/services/api';
 
 import { formatPrice } from '~/util/format';
 
@@ -17,6 +19,8 @@ export default function CustomerBill({ location }) {
     location.state && location.state.establishment
       ? location.state.establishment
       : history.push('/cliente');
+
+  const dispatch = useDispatch();
 
   const [totalPrice, setTotalPrice] = useState();
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,13 +71,8 @@ export default function CustomerBill({ location }) {
     }
   }, [productOrders]);
 
-  async function handleSignOut() {
-    try {
-      await api.delete('service-sessions');
-      history.push('/sessao');
-    } catch (err) {
-      if (err.response) alert(err.response.data.error);
-    }
+  async function handleCheckOut() {
+    dispatch(checkOutRequest());
   }
 
   function handleBillRequested() {
@@ -118,7 +117,7 @@ export default function CustomerBill({ location }) {
                   <span className="establishment-address">
                     {establishment.street},{'  '}
                     {establishment.address_number &&
-                      `n. ${establishment.address_number}.`}
+                      `n. ${establishment.address_number}`}
                   </span>
                 </div>
 
@@ -154,7 +153,7 @@ export default function CustomerBill({ location }) {
                 <div className="group">
                   <button
                     className="waiter-button"
-                    onClick={handleSignOut}
+                    onClick={handleCheckOut}
                     type="button"
                   >
                     Chamar garçon

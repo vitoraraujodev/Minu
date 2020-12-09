@@ -114,9 +114,14 @@ export default function Routes() {
 
         <Route path="/sessao" component={Session} customers />
 
-        <Route path="/cardapio" exact component={Menu} customers />
-        <Route path="/cardapio/produto" component={ProductOrder} customers />
-        <Route path="/cardapio/comanda" component={Bill} customers />
+        <Route path="/cardapio" exact component={Menu} customers session />
+        <Route
+          path="/cardapio/produto"
+          component={ProductOrder}
+          customers
+          session
+        />
+        <Route path="/cardapio/comanda" component={Bill} customers session />
 
         <Redirect from="*" to="/estabelecimento/acesso" notPrivate />
       </Switch>

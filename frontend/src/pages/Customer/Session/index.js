@@ -1,44 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import PinInput from 'react-pin-input';
+import { useDispatch, useSelector } from 'react-redux';
 
 import NavTab from '~/components/NavTabs/Customer';
 
 import leaflet from '~/assets/images/leaflet.png';
 
-import api from '~/services/api';
-import history from '~/services/history';
+import { checkSession, checkInRequest } from '~/store/modules/session/actions';
 
 import './styles.css';
 
 export default function Session() {
+  const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.session.loading);
+
   const [code, setCode] = useState('');
   const [inputs, setInputs] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [invalid, setInvalid] = useState(false);
 
   async function handleCode() {
-    setLoading(true);
     const establishment_id = parseInt(code.substr(0, 3), 10);
     const table_number = parseInt(code.substr(3, 4), 10);
 
     if (code.length === 5) {
-      try {
-        await api.post('service-sessions', {
-          establishment_id,
-          table_number,
-        });
-        setLoading(false);
-        history.push('/cardapio');
-      } catch (err) {
-        setInvalid(true);
-        if (err.response) alert(err.response.data.error);
-        setLoading(false);
-      }
+      dispatch(checkInRequest(establishment_id, table_number));
     } else {
       setInvalid(true);
-      setLoading(false);
     }
   }
+
+  useEffect(() => {
+    dispatch(checkSession());
+  }, [dispatch]);
 
   useEffect(() => {
     setInputs(document.getElementsByClassName('pincode-input-text'));
