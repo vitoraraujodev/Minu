@@ -36,6 +36,9 @@ export default function Information({
           className="form-input"
           value={email}
           autoFocus //eslint-disable-line
+          onKeyDown={(e) => {
+            if (e.key === ' ') e.preventDefault();
+          }}
           onChange={(e) => onChangeEmail(e.target.value)}
           placeholder="exemplo@email.com"
         />

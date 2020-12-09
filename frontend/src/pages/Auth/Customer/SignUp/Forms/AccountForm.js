@@ -56,8 +56,9 @@ export default function AccountForm({
       <input
         value={name}
         className="input"
+        style={{ textTransform: 'capitalize' }}
         onKeyDown={(e) => {
-          if (e.key === ' ') e.preventDefault();
+          if (e.key === ' ' || (e.key >= 0 && e.key <= 9)) e.preventDefault();
         }}
         onChange={(e) => onChangeName(e.target.value)}
         placeholder="Nome"
@@ -66,8 +67,9 @@ export default function AccountForm({
       <input
         value={lastname}
         className="input"
+        style={{ textTransform: 'capitalize' }}
         onKeyDown={(e) => {
-          if (e.key === ' ') e.preventDefault();
+          if (e.key === ' ' || (e.key >= 0 && e.key <= 9)) e.preventDefault();
         }}
         onChange={(e) => onChangeLastname(e.target.value)}
         placeholder="Sobrenome"

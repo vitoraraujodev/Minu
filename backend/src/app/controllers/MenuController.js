@@ -60,7 +60,7 @@ class MenuController {
       return res.status(400).json({ error: 'Menu title already in use.' });
     }
 
-    const { items } = req.body || [];
+    const { items } = req.body;
 
     await Menu.create({
       ...req.body,
@@ -68,7 +68,7 @@ class MenuController {
     })
       .then(async (menu) => {
         // Creates all Additional relations
-        if (items.length > 0) {
+        if (items && items.length > 0) {
           const menuItems = items.map((item) => ({
             menu_id: menu.id,
             item_id: item,
@@ -150,7 +150,7 @@ class MenuController {
       )
         .then(async (result) => {
           // Creates all new Items relations
-          if (items.length > 0) {
+          if (items && items.length > 0) {
             const newItems = items
               .filter((item) => !menuItems.includes(item))
               .map((item) => ({
@@ -160,23 +160,28 @@ class MenuController {
 
             if (newItems.length > 0) await MenuItem.bulkCreate(newItems);
           }
+
           return result;
         })
         .then(async (result) => {
           // Delete Menu's Items
-          const deleteItems = menuItems.filter(
-            (menuItem) => !items.includes(menuItem)
-          );
+          if (items) {
+            const deleteItems = menuItems.filter(
+              (menuItem) => !items.includes(menuItem)
+            );
 
-          if (deleteItems.length > 0)
-            await MenuItem.destroy({
-              where: {
-                menu_id: menu.id,
-                item_id: {
-                  [Op.in]: deleteItems,
+            if (deleteItems.length > 0) {
+              await MenuItem.destroy({
+                where: {
+                  menu_id: menu.id,
+                  item_id: {
+                    [Op.in]: deleteItems,
+                  },
                 },
-              },
-            });
+              });
+            }
+          }
+
           return result;
         })
         .then(async () =>

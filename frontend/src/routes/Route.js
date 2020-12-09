@@ -6,12 +6,16 @@ import { store } from '~/store';
 
 export default function RouteWrapper({
   component: Component,
+  location,
   notPrivate = false,
   establishments = false,
   customers = false,
+  session = false,
+  stateRequired,
   ...rest
 }) {
   const { token } = store.getState().auth;
+  const { signed } = store.getState().session;
 
   const decoded = token && decode(token);
 
@@ -26,7 +30,15 @@ export default function RouteWrapper({
   }
 
   if (kind === 'customer' && !customers) {
-    return <Redirect to="/cliente/menu" />;
+    return <Redirect to="/cliente" />;
+  }
+
+  if (session && !signed) {
+    return <Redirect to="/cliente" />;
+  }
+
+  if (stateRequired && !location.state) {
+    return <Redirect to="/" />;
   }
 
   return <Route {...rest} component={Component} />;

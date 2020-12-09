@@ -175,12 +175,12 @@ export default function Address({
   };
 
   useEffect(() => {
-    if (cep && addressNumber && street && complement && city && state) {
+    if (cep && addressNumber && street && city && state) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [cep, addressNumber, street, complement, city, state]);
+  }, [cep, addressNumber, street, city, state]);
 
   return (
     <>
@@ -216,7 +216,7 @@ export default function Address({
             <p className="input-label">Número</p>
             <input
               name="addressNumber"
-              type="number"
+              inputMode="numeric"
               value={addressNumber}
               className="form-input"
               onChange={(e) => onChangeAddressNumber(e.target.value)}
@@ -230,6 +230,7 @@ export default function Address({
           name="street"
           value={street}
           className="form-input"
+          style={{ textTransform: 'capitalize' }}
           onChange={(e) => onChangeStreet(e.target.value)}
           placeholder="Rua Oswaldo Cruz"
         />

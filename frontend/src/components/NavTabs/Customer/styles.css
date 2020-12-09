@@ -1,0 +1,39 @@
+#customer-navtab {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  min-width: 320px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+}
+
+#customer-navtab .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  margin: 0 32px;
+  border-top: 1.5px solid #535BFE;
+  width: 100%;
+  max-width: 520px;
+}
+
+#customer-navtab .navlink {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#customer-navtab .logo {
+  width: 64px;
+  margin: 0 24px;
+}
+
+#customer-navtab .tab-icon {
+  width: 24px;
+  height: 24px;
+}

@@ -7,8 +7,8 @@ const INITIAL_STATE = {
 export default function customer(state = INITIAL_STATE, action) {
   return producer(state, (draft) => {
     switch (action.type) {
-      case '@auth/SIGN_IN_SUCCESS': {
-        draft.customer = action.payload.user;
+      case '@auth/CUSTOMER_SIGN_IN_SUCCESS': {
+        draft.customer = action.payload.customer;
         break;
       }
       case '@customer/UPDATE_CUSTOMER_SUCCESS': {

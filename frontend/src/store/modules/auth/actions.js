@@ -1,14 +1,28 @@
-export function signInRequest(identifier, password, kind, route) {
+export function establishmentSignInRequest(email, password, route) {
   return {
-    type: '@auth/SIGN_IN_REQUEST',
-    payload: { identifier, password, kind, route },
+    type: '@auth/ESTABLISHMENT_SIGN_IN_REQUEST',
+    payload: { email, password, route },
   };
 }
 
-export function signInSuccess(token, user) {
+export function customerSignInRequest(phone_number, password, route) {
   return {
-    type: '@auth/SIGN_IN_SUCCESS',
-    payload: { token, user },
+    type: '@auth/CUSTOMER_SIGN_IN_REQUEST',
+    payload: { phone_number, password, route },
+  };
+}
+
+export function establishmentSignInSuccess(token, establishment) {
+  return {
+    type: '@auth/ESTABLISHMENT_SIGN_IN_SUCCESS',
+    payload: { token, establishment },
+  };
+}
+
+export function customerSignInSuccess(token, customer) {
+  return {
+    type: '@auth/CUSTOMER_SIGN_IN_SUCCESS',
+    payload: { token, customer },
   };
 }
 

@@ -8,7 +8,7 @@ import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
 import history from '~/services/history';
 
-import { signInRequest } from '~/store/modules/auth/actions';
+import { establishmentSignInRequest } from '~/store/modules/auth/actions';
 
 import './styles.css';
 
@@ -29,9 +29,7 @@ export default function SignUp() {
   }, [email, password]);
 
   function handleSubmit() {
-    dispatch(
-      signInRequest(email, password, 'establishments', '/estabelecimento')
-    );
+    dispatch(establishmentSignInRequest(email, password, '/estabelecimento'));
   }
 
   return (
@@ -44,6 +42,9 @@ export default function SignUp() {
             name="email"
             type="email"
             className="form-input"
+            onKeyDown={(e) => {
+              if (e.key === ' ') e.preventDefault();
+            }}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
           />
@@ -53,7 +54,7 @@ export default function SignUp() {
             type="password"
             className="form-input"
             onKeyDown={(e) => {
-              if (e.keyCode === 13) {
+              if (e.keyCode === 13 && filled) {
                 handleSubmit();
               }
             }}
@@ -66,7 +67,7 @@ export default function SignUp() {
               style={{ color: '#606060' }}
               className="button"
               type="button"
-              onClick={() => history.goBack()}
+              onClick={() => history.push('/estabelecimento/acesso')}
             >
               <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
               Voltar

@@ -53,7 +53,7 @@ export default function AccountForm({
       <div className="social-media" onClick={() => {}}>
         <p className="register-link">
           <span className="register-or">ou</span>
-          Cadastre-se com uma rede social
+          Acesse com uma rede social
         </p>
       </div>
 
@@ -62,7 +62,7 @@ export default function AccountForm({
           style={{ color: '#606060' }}
           className="button"
           type="button"
-          onClick={() => history.goBack()}
+          onClick={() => history.push('/cliente/acesso')}
         >
           <Backward style={{ height: 16, marginRight: 4 }} fill="#606060" />
           Voltar

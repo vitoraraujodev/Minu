@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
 import Customer from '../models/Customer';
+import Avatar from '../models/Avatar';
 
 import authConfig from '../../config/auth';
 
@@ -20,14 +21,17 @@ class CustomerSessionController {
 
     const customer = await Customer.findOne({
       where: { phone_number },
+      include: [
+        { model: Avatar, as: 'avatar', attributes: ['id', 'path', 'url'] },
+      ],
     });
 
     if (!customer) {
-      return res.status(400).json({ error: 'Cliente não encontrado.' });
+      return res.status(400).json({ error: 'Cliente não registrado.' });
     }
 
     return res.json({
-      user: customer,
+      customer,
       token: jwt.sign(
         { id: customer.id, kind: 'customer' },
         authConfig.secret,

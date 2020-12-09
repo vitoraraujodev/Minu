@@ -9,6 +9,7 @@
 }
 
 #customer-sign-up .container {
+  position: relative;
   padding: 0 24px;
   height: 100%;
   width: 100%;

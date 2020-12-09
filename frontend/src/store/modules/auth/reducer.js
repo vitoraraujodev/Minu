@@ -13,7 +13,12 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = true;
         break;
       }
-      case '@auth/SIGN_IN_SUCCESS': {
+      case '@auth/ESTABLISHMENT_SIGN_IN_SUCCESS': {
+        draft.token = action.payload.token;
+        draft.loading = false;
+        break;
+      }
+      case '@auth/CUSTOMER_SIGN_IN_SUCCESS': {
         draft.token = action.payload.token;
         draft.loading = false;
         break;

@@ -71,7 +71,7 @@ export default function SignUp() {
     if (step > 1) {
       setStep(step - 1);
     } else {
-      history.goBack();
+      history.push('/estabelecimento/acesso');
     }
   }
 
@@ -80,7 +80,7 @@ export default function SignUp() {
       <div style={step === 5 ? { margin: 0 } : null} className="form">
         {step < 5 && <ProgressionBar step={step} maxSteps={4} />}
 
-        {step === 1 ? (
+        {step === 1 && (
           <InformationForm
             email={email}
             onChangeEmail={(info) => setEmail(info)}
@@ -91,9 +91,9 @@ export default function SignUp() {
             onNextPage={() => handleNext()}
             onBackPage={() => handleBack()}
           />
-        ) : null}
+        )}
 
-        {step === 2 ? (
+        {step === 2 && (
           <NameForm
             establishmentName={establishmentName}
             onChangeEstablishmentName={(name) => setEstablishmentName(name)}
@@ -104,9 +104,9 @@ export default function SignUp() {
             onNextPage={() => handleNext()}
             onBackPage={() => handleBack()}
           />
-        ) : null}
+        )}
 
-        {step === 3 ? (
+        {step === 3 && (
           <AddressForm
             cep={cep}
             onChangeCep={(address) => setCep(address)}
@@ -123,16 +123,16 @@ export default function SignUp() {
             onNextPage={() => handleNext()}
             onBackPage={() => handleBack()}
           />
-        ) : null}
+        )}
 
-        {step === 4 ? (
+        {step === 4 && (
           <AdmPinForm
             adminPin={adminPin}
             onChangeAdminPin={(pass) => setAdminPin(pass)}
             onNextPage={() => handleNext()}
             onBackPage={() => handleBack()}
           />
-        ) : null}
+        )}
 
         {step === 5 ? <EndForm email={email} password={password} /> : null}
       </div>
