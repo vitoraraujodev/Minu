@@ -26,6 +26,12 @@ const upload = multer(multerConfig);
 routes.post('/establishment-sessions', EstablishmentSessionController.store);
 routes.post('/customer-sessions', CustomerSessionController.store);
 routes.post('/pin', establishmentAuthMiddleware, PinController.store);
+
+routes.get(
+  '/service-sessions',
+  customerAuthMiddleware,
+  ServiceSessionController.index
+);
 routes.post(
   '/service-sessions',
   customerAuthMiddleware,

@@ -5,6 +5,28 @@ import SessionEvent from '../models/SessionEvent';
 import Establishment from '../models/Establishment';
 
 class ServiceSessionController {
+  async index(req, res) {
+    const lastSessionEvent = await SessionEvent.findAll({
+      limit: 1,
+      order: [['created_at', 'DESC']],
+      include: {
+        model: ServiceSession,
+        required: true,
+        where: { customer_id: req.customerId },
+        as: 'session',
+      },
+    });
+
+    const event = lastSessionEvent.length > 0 ? lastSessionEvent[0] : null;
+
+    // Checks if there is session and it's not finished
+    if (event && event.status !== 'finished') {
+      return res.status(200).json({ signed: true });
+    }
+
+    return res.status(200).json({ signed: false });
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       table_number: Yup.number().required(),
@@ -15,18 +37,18 @@ class ServiceSessionController {
       return res.status(400).json({ error: 'Dados inválidos.' });
     }
 
-    const establishment = await Establishment.findByPk(
-      req.body.establishment_id
-    );
+    const { establishment_id, table_number } = req.body;
+
+    const establishment = await Establishment.findByPk(establishment_id);
 
     if (!establishment) {
       return res.status(400).json({
         error:
-          'Estabelecimento não encontrado. Por favor, tente novamente mais tarde.',
+          'Estabelecimento não encontrado. Por favor, verifique o código e tente novamente.',
       });
     }
 
-    if (req.body.table_number <= 0)
+    if (table_number <= 0)
       return res.status(400).json({
         error: 'O restaurante não possui essa mesa.',
       });
@@ -42,19 +64,25 @@ class ServiceSessionController {
       },
     });
 
-    if (
-      lastSessionEvent.length > 0 &&
-      lastSessionEvent[0].status !== 'finished'
-    )
+    const event = lastSessionEvent.length > 0 ? lastSessionEvent[0] : null;
+
+    if (event && event.status !== 'finished') {
+      if (
+        event.session.establishment_id === establishment_id &&
+        event.session.table_number === table_number
+      ) {
+        return res.status(200).json({ okay: true });
+      }
+
       return res.status(401).json({
         error: 'Você ainda está em uma sessão. Encerre-a e tente novamente.',
       });
+    }
 
     // Verifica número máximo de mesas do restaurante e table_number
 
     // Futuramente verifica se usuário está banido
 
-    // Futuramente verifica se o usuário está em uma mesa
     // Futuramente verifica se tem usuário na mesa
 
     // Futuramente envia pro kafka e retorna sucesso
@@ -85,17 +113,16 @@ class ServiceSessionController {
       },
     });
 
-    if (
-      lastSessionEvent.length === 0 ||
-      lastSessionEvent[0].status === 'finished'
-    ) {
+    const event = lastSessionEvent.length > 0 ? lastSessionEvent[0] : null;
+
+    if (!event || event.status === 'finished') {
       return res.status(401).json({
         error: 'Você não se encontra em uma sessão.',
       });
     }
 
     await SessionEvent.create({
-      session_id: lastSessionEvent[0].session_id,
+      session_id: event.session_id,
       status: 'finished',
     });
 
