@@ -100,7 +100,7 @@ cd Minu/backend
 yarn
 
 # Faça as migrações
-yarn sequelize db:migrate
+yarn sequelize --options-path ./.sequelize-dev db:migrate
 
 # Rode a API
 yarn dev 
