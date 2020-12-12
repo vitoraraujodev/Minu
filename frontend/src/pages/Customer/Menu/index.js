@@ -240,7 +240,7 @@ export default function CustomerMenu() {
           alcoholics.length === 0 &&
           !loading && (
             <h3 className="empty-text">
-              Nenhum cardápio está diponivel ainda...
+              Nenhum cardápio está diponivel agora...
             </h3>
           )}
 

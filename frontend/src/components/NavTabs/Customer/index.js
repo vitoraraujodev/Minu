@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
-import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
+import { ReactComponent as Establishment } from '~/assets/icons/establishment-icon.svg';
 
 import './styles.css';
 
@@ -23,7 +23,7 @@ export default function CustomerTab() {
     <div id="customer-navtab">
       <div className="header-content">
         <NavLink className="navlink" to={session ? '/cardapio' : '/sessao'}>
-          <Menu
+          <Establishment
             fill={active === 'session' ? '#535BFE' : '#cfcfcf'}
             className="tab-icon"
           />

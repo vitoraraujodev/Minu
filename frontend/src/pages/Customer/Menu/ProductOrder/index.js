@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import OrderModal from './OrderModal';
 
@@ -9,6 +10,8 @@ import { ReactComponent as Check } from '~/assets/icons/save-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import { ReactComponent as Clock } from '~/assets/icons/clock-icon.svg';
 
+import { addToCartRequest } from '~/store/modules/cart/actions';
+
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
@@ -16,6 +19,8 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function ProductOrder({ location }) {
+  const dispatch = useDispatch();
+
   const product =
     location.state && location.state.product
       ? location.state.product
@@ -25,6 +30,7 @@ export default function ProductOrder({ location }) {
 
   const [totalPrice, setTotalPrice] = useState(1);
 
+  const [observation, setObservation] = useState('');
   const [amount, setAmount] = useState(1);
   const [takeaway, setTakeaway] = useState(false);
   const [additionals, setAdditionals] = useState([]);
@@ -39,6 +45,21 @@ export default function ProductOrder({ location }) {
     } else {
       setAdditionals([...additionals, additional]);
     }
+  }
+
+  function handleCart() {
+    const productOrder = {
+      id: product.id,
+      code: product.code,
+      title: product.title,
+      price: product.price,
+      observation,
+      amount,
+      takeaway,
+      additionals,
+    };
+
+    dispatch(addToCartRequest(productOrder));
   }
 
   useEffect(() => {
@@ -57,7 +78,12 @@ export default function ProductOrder({ location }) {
 
   return (
     <div id="product-order">
-      {modalVisible && <OrderModal onClose={() => setModalVisible(false)} />}
+      {modalVisible && (
+        <OrderModal
+          onCart={handleCart}
+          onClose={() => setModalVisible(false)}
+        />
+      )}
 
       <div className="header">
         <button
@@ -140,6 +166,9 @@ export default function ProductOrder({ location }) {
         <p className="observation-label">Observações</p>
         <textarea
           className="observation-input"
+          value={observation}
+          onChange={(e) => setObservation(e.target.value)}
+          maxLength="100"
           placeholder="Observações do seu pedido"
         />
 

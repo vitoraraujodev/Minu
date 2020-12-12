@@ -275,14 +275,14 @@
 @media screen and (max-width: 370px) {
   #product-order .input-group {
     flex-direction: column;
-    margin-top: 0;
+    margin-top: 8px;
   }
 
   #product-order .amount {
     border-right: 0;
     padding: 0;
     order: 2;
-    margin-top: 32px;
+    margin-top: 24px;
   }
 
   #product-order .takeaway, #product-order .takeaway-selected {

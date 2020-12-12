@@ -123,7 +123,7 @@ export default function Routes() {
         />
         <Route path="/cardapio/comanda" component={Bill} customers session />
 
-        <Redirect from="*" to="/estabelecimento/acesso" notPrivate />
+        <Redirect from="*" to="/cliente/acesso" notPrivate />
       </Switch>
     </Router>
   );

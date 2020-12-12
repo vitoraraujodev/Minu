@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import './styles.css';
 
-export default function OrderModal({ onClose }) {
+export default function OrderModal({ onCart, onClose }) {
   return (
     <div id="order-modal">
       <div className="modal-container">
@@ -26,11 +26,7 @@ export default function OrderModal({ onClose }) {
         </p>
 
         <div className="button-group">
-          <button
-            type="button"
-            onClick={() => {}}
-            className="modal-cart-button"
-          >
+          <button type="button" onClick={onCart} className="modal-cart-button">
             Adicionar ao carrinho
           </button>
           <button
