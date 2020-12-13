@@ -36,7 +36,7 @@
   left: 16px;
   border: 0;
   color: #fff;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   height: 40px;
   z-index: 5;
@@ -175,7 +175,7 @@
   display: flex;
 }
 
-#customer-menu .bill-button {
+#customer-menu .bill-button, #customer-menu .cart-button {
   width: 48px;
   min-width: 48px;
   height: 48px;
@@ -186,6 +186,15 @@
   align-items: center;
   background: #24D18A;
   box-shadow: 0px 3px 6px #00000029;
+}
+
+#customer-menu .bill-button {
+  background: #24D18A;
+}
+
+#customer-menu .cart-button {
+  background: #535bfe;
+  margin-right: 8px;
 }
 
 @media screen and (max-width: 767px) {

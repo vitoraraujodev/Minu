@@ -22,7 +22,7 @@ export default function RouteWrapper({
   const { kind } = decoded || '';
 
   if (!kind && !notPrivate) {
-    return <Redirect to="/estabelecimento/acesso" />;
+    return <Redirect to="/cliente/acesso" />;
   }
 
   if (kind === 'establishment' && !establishments) {

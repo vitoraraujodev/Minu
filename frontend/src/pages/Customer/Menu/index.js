@@ -240,7 +240,7 @@ export default function CustomerMenu() {
           alcoholics.length === 0 &&
           !loading && (
             <h3 className="empty-text">
-              Nenhum cardápio está diponivel ainda...
+              Nenhum cardápio está diponivel agora...
             </h3>
           )}
 
@@ -295,6 +295,19 @@ export default function CustomerMenu() {
       </div>
 
       <div className="buttons-container">
+        <button
+          type="button"
+          onClick={() =>
+            history.push({
+              pathname: '/cardapio/carrinho',
+              state: { establishment },
+            })
+          }
+          className="cart-button"
+        >
+          <OrdersIcon height="21" fill="#fff" />
+        </button>
+
         <button
           type="button"
           onClick={() =>

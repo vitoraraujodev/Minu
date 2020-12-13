@@ -4,5 +4,12 @@ import auth from './auth/reducer';
 import establishment from './establishment/reducer';
 import customer from './customer/reducer';
 import session from './session/reducer';
+import cart from './cart/reducer';
 
-export default combineReducers({ auth, establishment, customer, session });
+export default combineReducers({
+  auth,
+  establishment,
+  customer,
+  session,
+  cart,
+});

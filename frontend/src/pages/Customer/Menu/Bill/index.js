@@ -14,7 +14,7 @@ import { formatPrice } from '~/util/format';
 
 import './styles.css';
 
-export default function CustomerBill({ location }) {
+export default function Bill({ location }) {
   const establishment =
     location.state && location.state.establishment
       ? location.state.establishment
@@ -89,98 +89,90 @@ export default function CustomerBill({ location }) {
         />
       )}
 
-      {establishment && (
+      {pendingBillVisible ? (
+        <BillPending onClose={() => setPendingBillVisible(false)} />
+      ) : (
         <>
-          {pendingBillVisible ? (
-            <BillPending onClose={() => setPendingBillVisible(false)} />
-          ) : (
-            <>
-              <div className="header">
-                <button
-                  style={{ color: '#252525' }}
-                  className="back-button"
-                  type="button"
-                  onClick={() => history.goBack()}
-                >
-                  <Backward
-                    style={{ height: 16, marginRight: 4 }}
-                    fill="#252525"
-                  />
-                  Voltar
-                </button>
-              </div>
-              <div className="container">
-                <div className="establishment-info">
-                  <p className="establishment-title">
-                    {establishment.establishment_name}
-                  </p>
-                  <span className="establishment-address">
-                    {establishment.street},{'  '}
-                    {establishment.address_number &&
-                      `n. ${establishment.address_number}`}
-                  </span>
-                </div>
+          <div className="header">
+            <button
+              style={{ color: '#252525' }}
+              className="back-button"
+              type="button"
+              onClick={() => history.goBack()}
+            >
+              <Backward style={{ height: 16, marginRight: 4 }} fill="#252525" />
+              Voltar
+            </button>
+          </div>
+          <div className="container">
+            <div className="establishment-info">
+              <p className="establishment-title">
+                {establishment.establishment_name}
+              </p>
+              <span className="establishment-address">
+                {establishment.street},{'  '}
+                {establishment.address_number &&
+                  `n. ${establishment.address_number}`}
+              </span>
+            </div>
 
-                {productOrders.length > 0 ? (
-                  <div className="product-orders">
-                    {productOrders.map((productOrder) => (
-                      <div className="product" key={productOrder.id}>
-                        <div className="product-info">
-                          <p className="product-text">
-                            {productOrder.amount}x {productOrder.title}
-                          </p>
-                          <p className="product-subtext">
-                            {productOrder.additionals &&
-                              productOrder.additionals.length}{' '}
-                            Adicional
-                          </p>
-                        </div>
+            {productOrders.length > 0 ? (
+              <div className="product-orders">
+                {productOrders.map((productOrder) => (
+                  <div className="product" key={productOrder.id}>
+                    <div className="product-info">
+                      <p className="product-text">
+                        {productOrder.amount}x {productOrder.title}
+                      </p>
+                      <p className="product-subtext">
+                        {productOrder.additionals &&
+                          productOrder.additionals.length}{' '}
+                        Adicional
+                      </p>
+                    </div>
 
-                        <div className="product-info2">
-                          <p className="product-text">
-                            {formatPrice(productOrder.totalPrice)}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                    <div className="product-info2">
+                      <p className="product-text">
+                        {formatPrice(productOrder.totalPrice)}
+                      </p>
+                    </div>
                   </div>
-                ) : (
-                  <p className="empty-text">
-                    Você ainda não realizou um pedido
-                  </p>
-                )}
-
-                <div className="group">
-                  <button
-                    className="waiter-button"
-                    onClick={handleCheckOut}
-                    type="button"
-                  >
-                    Chamar garçon
-                  </button>
-
-                  <p className="total-price">
-                    Total:{' '}
-                    <span className="price">
-                      {totalPrice > 0 ? formatPrice(totalPrice) : '---'}
-                    </span>
-                  </p>
-                </div>
+                ))}
               </div>
+            ) : (
+              <p className="empty-text">Você ainda não realizou um pedido</p>
+            )}
 
+            <div className="group">
               <button
-                className={
-                  productOrders.length > 0
-                    ? 'submit-button-enabled'
-                    : 'submit-button-disabled'
-                }
-                onClick={() => setModalVisible(!modalVisible)}
+                className="waiter-button"
+                onClick={handleCheckOut}
                 type="button"
               >
-                <p className="order-text">Pedir a conta</p>
+                Chamar garçon
               </button>
-            </>
-          )}
+
+              <p className="total-price">
+                Total:{' '}
+                <span className="price">
+                  {totalPrice > 0 ? formatPrice(totalPrice) : '---'}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <button
+            className={
+              productOrders.length > 0
+                ? 'submit-button-enabled'
+                : 'submit-button-disabled'
+            }
+            disabled={productOrders.length === 0}
+            onClick={() => setModalVisible(!modalVisible)}
+            type="button"
+          >
+            <p className="order-text">Pedir a conta</p>
+          </button>
         </>
       )}
     </div>
