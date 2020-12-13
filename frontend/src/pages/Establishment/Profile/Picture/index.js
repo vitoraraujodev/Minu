@@ -23,7 +23,7 @@ export default function Picture() {
   const dispatch = useDispatch();
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [pinModalVisible, setPinModalVisible] = useState(false);
   const [submit, setSubmit] = useState(false);
 

@@ -20,8 +20,11 @@ export default function Session() {
   const [invalid, setInvalid] = useState(false);
 
   async function handleCode() {
-    const establishment_id = parseInt(code.substr(0, 3), 10);
-    const table_number = parseInt(code.substr(3, 4), 10);
+    // const establishment_id = parseInt(code.substr(0, 3), 10);
+    // const table_number = parseInt(code.substr(3, 4), 10);
+
+    const establishment_id = 1;
+    const table_number = 2;
 
     if (code.length === 5) {
       dispatch(checkInRequest(establishment_id, table_number));
@@ -54,6 +57,7 @@ export default function Session() {
           <p className="text-label">Insira o código da mesa</p>
 
           <div className="code-container">
+            <p className="hint-text">Escreva 9-9-9-9-9</p>
             <PinInput
               length={5}
               onChange={(value) => {

@@ -82,6 +82,7 @@ export default function ProductOrder({ location }) {
       {modalVisible && (
         <OrderModal
           onCart={handleCart}
+          onOrder={() => alert('Você realizou um pedido! Seu pedido já vem.')}
           onClose={() => setModalVisible(false)}
         />
       )}

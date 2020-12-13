@@ -14,9 +14,8 @@ import Avatar from '../app/models/Avatar';
 import ServiceSession from '../app/models/ServiceSession';
 import SessionEvent from '../app/models/SessionEvent';
 
-import prodDatabaseConfig  from '../config/prodDatabase.js' ;
-import databaseConfig from '../config/database.js';
-
+import prodDatabaseConfig from '../config/prodDatabase';
+import databaseConfig from '../config/database';
 
 const models = [
   Establishment,
@@ -40,14 +39,13 @@ class Database {
   }
 
   init() {
-    let ENV = process.env.NODE_ENV;
-    if (ENV != undefined && ENV == "production") {
+    const ENV = process.env.NODE_ENV;
+    if (ENV && ENV === 'production') {
       this.connection = new Sequelize(prodDatabaseConfig);
-    }
-    else {
+    } else {
       this.connection = new Sequelize(databaseConfig);
     }
-    
+
     models
       .map((model) => model.init(this.connection))
       .map(

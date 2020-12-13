@@ -34,7 +34,10 @@ class EstablishmentSessionController {
     });
 
     if (!establishment) {
-      return res.status(400).json({ error: 'Estabelecimento não existe.' });
+      return res.status(400).json({
+        error:
+          'Estabelecimento não encontrado. Por favor, verifique seus dados e tente novamente',
+      });
     }
 
     if (!(await establishment.checkPassword(password))) {

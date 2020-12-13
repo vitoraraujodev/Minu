@@ -19,7 +19,7 @@ export default function Pin() {
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [filled, setFilled] = useState(true);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false); // Colocar como true
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
   const [pin, setPin] = useState('');

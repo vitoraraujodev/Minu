@@ -45,18 +45,27 @@ export default function EstablishmentTab() {
 
   window.addEventListener('resize', handleResize);
 
+  //   <NavLink
+  //   activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
+  //   className="navlink"
+  //   to="/pedidos"
+  // >
+  //   Pedidos
+  // </NavLink>
+
+  // <NavLink className="navlink" to="/pedidos">
+  //   <Orders
+  //     fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
+  //     className="tab-icon"
+  //   />
+  // </NavLink>
+
   return (
     <div id="establishment-navtab">
       {windowWidth >= 768 ? (
         <div className="header-content">
           <div className="navlink-container">
-            <NavLink
-              activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
-              className="navlink"
-              to="/pedidos"
-            >
-              Pedidos
-            </NavLink>
+            <div className="navlink">Pedidos</div>
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
@@ -80,12 +89,19 @@ export default function EstablishmentTab() {
         </div>
       ) : (
         <div className="header-content">
-          <NavLink className="navlink" to="/pedidos">
+          <div
+            className="navlink"
+            onClick={() =>
+              alert(
+                'Desculpe! O dashboard de pedidos ainda está em desenvolvimento.'
+              )
+            }
+          >
             <Orders
               fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
               className="tab-icon"
             />
-          </NavLink>
+          </div>
 
           <NavLink className="navlink" to="/inventario">
             <Menu

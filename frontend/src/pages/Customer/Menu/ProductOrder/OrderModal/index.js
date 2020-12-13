@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import './styles.css';
 
-export default function OrderModal({ onCart, onClose }) {
+export default function OrderModal({ onCart, onOrder, onClose }) {
   return (
     <div id="order-modal">
       <div className="modal-container">
@@ -31,7 +31,7 @@ export default function OrderModal({ onCart, onClose }) {
           </button>
           <button
             type="button"
-            onClick={() => {}}
+            onClick={onOrder}
             className="modal-order-button"
           >
             Pedir

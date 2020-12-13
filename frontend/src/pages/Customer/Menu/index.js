@@ -7,6 +7,7 @@ import defaultPicture from '~/assets/images/default-picture.png';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as OrdersIcon } from '~/assets/icons/orders-icon.svg';
+import { ReactComponent as CartIcon } from '~/assets/icons/cart-icon.svg';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
 import api from '~/services/api';
@@ -305,7 +306,7 @@ export default function CustomerMenu() {
           }
           className="cart-button"
         >
-          <OrdersIcon height="21" fill="#fff" />
+          <CartIcon height="21" fill="#fff" />
         </button>
 
         <button

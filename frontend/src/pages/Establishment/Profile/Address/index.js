@@ -26,7 +26,7 @@ export default function Address() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [formWidth, setFormWidth] = useState();
   const [pinModalVisible, setPinModalVisible] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false); // Colocar como true
 
   const [validCep, setValidCep] = useState(true);
   const [filled, setFilled] = useState(true);

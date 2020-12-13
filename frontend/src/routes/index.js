@@ -2,6 +2,8 @@ import React from 'react';
 import { Router, Switch, Redirect } from 'react-router-dom';
 import Route from './Route';
 
+import Home from '~/pages/Auth/Home';
+
 import EstablishmentHome from '~/pages/Auth/Establishment/Home';
 import EstablishmentSignUp from '~/pages/Auth/Establishment/SignUp';
 import EstablishmentSignIn from '~/pages/Auth/Establishment/SignIn';
@@ -38,6 +40,8 @@ export default function Routes() {
   return (
     <Router history={history}>
       <Switch>
+        <Route path="/" exact component={Home} notPrivate />
+
         <Route
           path="/estabelecimento/acesso"
           component={EstablishmentHome}
