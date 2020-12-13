@@ -10,6 +10,10 @@ else {
   backendUrl = "http://192.168.0.2:3333"; 
 }
 
+console.log("ENV: ",ENV);
+console.log("backendUrl: ",backendUrl);
+console.log("process.env: ",process.env);
+
 const api = axios.create({
   baseURL: backendUrl,
 });
