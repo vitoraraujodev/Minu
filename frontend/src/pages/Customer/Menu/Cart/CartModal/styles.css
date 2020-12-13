@@ -1,0 +1,72 @@
+#cart-modal {
+  position: fixed;
+  background: rgba(0,0,0,0.4);
+  width: 100%;
+  height: calc(100% + 100px);
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+#cart-modal .modal-container {
+  position: absolute;
+  padding: 16px 24px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 432px;
+  background: #fff;
+  box-shadow: 0px 0px 6px #00000029;
+  border-radius: 5px;
+  opacity: 1;
+  top: calc(50% - 160px);
+}
+
+#cart-modal .modal-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cart-modal .modal-text {
+  color: #606060;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+#cart-modal .modal-close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  right: 24px;
+  top: 24px;
+  border: 0;
+}
+
+#cart-modal .modal-subtext {
+  color: #606060;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 16px;
+}
+
+#cart-modal .modal-confirm-button {
+  border: 1.5px solid #24D18A;
+  background:#24D18A;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  padding: 8px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+#cart-modal .modal-confirm-button:active {
+  transform: scale(1.03);
+}

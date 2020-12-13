@@ -12,23 +12,25 @@ export default function cart(state = INITIAL_STATE, action) {
         break;
       }
       case '@cart/REMOVE': {
-        // Finds productOrder's index in cart
-        const productIndex = draft.cart.findIndex(
-          (p) => p.id === action.payload.id
-        );
+        if (window.confirm('Deseja retirar esse produto do carrinho?')) {
+          // Finds productOrder's index in cart
+          const productIndex = draft.cart.findIndex(
+            (p) => p.id === action.payload.id
+          );
 
-        if (productIndex >= 0) {
-          draft.cart.splice(productIndex, 1);
+          if (productIndex >= 0) {
+            draft.cart.splice(productIndex, 1);
+          }
         }
         break;
       }
-      case '@cart/UPDATE_AMOUNT_SUCCESS': {
+      case '@cart/UPDATE_AMOUNT': {
         // Finds productOrder's index in cart
         const productIndex = draft.cart.findIndex(
           (p) => p.id === action.payload.id
         );
 
-        if (productIndex >= 0) {
+        if (productIndex >= 0 && action.payload.amount > 0) {
           draft.cart[productIndex].amount = Number(action.payload.amount);
         }
         break;

@@ -299,6 +299,19 @@ export default function CustomerMenu() {
           type="button"
           onClick={() =>
             history.push({
+              pathname: '/cardapio/carrinho',
+              state: { establishment },
+            })
+          }
+          className="cart-button"
+        >
+          <OrdersIcon height="21" fill="#fff" />
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            history.push({
               pathname: '/cardapio/comanda',
               state: { establishment },
             })

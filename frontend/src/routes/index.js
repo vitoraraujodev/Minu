@@ -28,6 +28,7 @@ import CustomerAccount from '~/pages/Customer/Profile/Account';
 import Menu from '~/pages/Customer/Menu';
 import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
 import Bill from '~/pages/Customer/Menu/Bill';
+import Cart from '~/pages/Customer/Menu/Cart';
 
 import Session from '~/pages/Customer/Session';
 
@@ -120,8 +121,16 @@ export default function Routes() {
           component={ProductOrder}
           customers
           session
+          stateRequired
         />
-        <Route path="/cardapio/comanda" component={Bill} customers session />
+        <Route
+          path="/cardapio/comanda"
+          component={Bill}
+          customers
+          session
+          stateRequired
+        />
+        <Route path="/cardapio/carrinho" component={Cart} customers session />
 
         <Redirect from="*" to="/cliente/acesso" notPrivate />
       </Switch>

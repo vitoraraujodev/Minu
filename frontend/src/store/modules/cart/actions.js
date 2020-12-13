@@ -13,19 +13,15 @@ export function addToCartSuccess(productOrder) {
 }
 
 export function removeFromCart(id) {
-  return { type: '@cart/REMOVE', id };
-}
-
-export function updateAmountRequest(id, amount) {
   return {
-    type: '@cart/UPDATE_AMOUNT_REQUEST',
-    payload: { id, amount },
+    type: '@cart/REMOVE',
+    payload: { id },
   };
 }
 
-export function updateAmountSuccess(id, amount) {
+export function updateAmount(id, amount) {
   return {
-    type: '@cart/UPDATE_AMOUNT_SUCCESS',
+    type: '@cart/UPDATE_AMOUNT',
     payload: { id, amount },
   };
 }

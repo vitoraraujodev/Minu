@@ -53,6 +53,7 @@ export default function ProductOrder({ location }) {
       code: product.code,
       title: product.title,
       price: product.price,
+      totalPrice,
       observation,
       amount,
       takeaway,
