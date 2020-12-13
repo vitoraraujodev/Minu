@@ -40,7 +40,7 @@ class Database {
   }
 
   init() {
-    let ENV = process.env.ENVIRONMENT;
+    let ENV = process.env.NODE_ENV;
     if (ENV != undefined && ENV == "production") {
       this.connection = new Sequelize(prodDatabaseConfig);
     }

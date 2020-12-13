@@ -5,7 +5,7 @@ WORKDIR /app
 COPY backend/package.json /app/backend/package.json
 RUN cd /app/backend && yarn
 
-COPY backend/.env/ /app/backend/.env/
+COPY backend/.env /app/backend/.env
 COPY backend/.sequelize-dev /app/backend/.sequelize-dev
 COPY backend/.sequelize-prod /app/backend/.sequelize-prod
 COPY backend/uploads/ /app/backend/uploads/
