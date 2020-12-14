@@ -7,7 +7,7 @@ import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
 
-const ENV = process.env.ENV_NODE;
+const ENV = process.env.NODE_ENV;
 
 const bucketName =
   ENV && ENV === 'production' ? 'minu-general' : 'minu-development';

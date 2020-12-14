@@ -6,7 +6,7 @@ import Customer from '../models/Customer';
 
 import authConfig from '../../config/auth';
 
-const ENV = process.env.ENV_NODE;
+const ENV = process.env.NODE_ENV;
 
 const bucketName =
   ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
@@ -43,6 +43,7 @@ class CustomerSessionController {
       Prefix: `customers/avatar/${customer.id}`,
     };
 
+
     const imageKey = await new Promise((accept) => {
       s3.listObjects(params, (err, data) => {
         // This function can return many different file extensions, so we order by lastModified
@@ -59,10 +60,11 @@ class CustomerSessionController {
         }
       });
     });
-
+    
     const avatar = imageKey
       ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
       : null;
+
 
     return res.json({
       customer: {

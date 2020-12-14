@@ -29,4 +29,5 @@ yarn sequelize --url postgres://"$DB_USERNAME":"$DB_PASSWORD"@"$DB_HOST"/"$DB_NA
 
 # Update infra
 cd $(git rev-parse --show-toplevel)/infra
+terraform destroy --auto-approve
 terraform apply --auto-approve
