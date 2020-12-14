@@ -15,7 +15,7 @@ import ItemRating from '../models/ItemRating';
 import ServiceSession from '../models/ServiceSession';
 import SessionEvent from '../models/SessionEvent';
 
-const ENV = process.env.ENV_NODE;
+const ENV = process.env.NODE_ENV;
 
 const bucketName =
   ENV && ENV === 'production' ? 'minu-general' : 'minu-development';

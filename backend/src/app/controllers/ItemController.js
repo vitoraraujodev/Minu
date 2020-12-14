@@ -9,7 +9,7 @@ import Additional from '../models/Additional';
 import ItemAdditional from '../models/ItemAdditional';
 import File from '../models/File';
 
-const ENV = process.env.ENV_NODE;
+const ENV = process.env.NODE_ENV;
 
 const bucketName =
   ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
