@@ -19,7 +19,8 @@
   height: 760px;
   z-index: 4;
   transition: 0.3s ease-in-out;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #menu-page .form-container {

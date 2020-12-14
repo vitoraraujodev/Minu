@@ -83,7 +83,7 @@ export default function ItemSelector({
           </div>
         )}
 
-        {items.length === 0 && (
+        {items.length === 0 && !loading && (
           <h3 className="empty-text">
             Você ainda não possui
             <br />
@@ -131,7 +131,7 @@ export default function ItemSelector({
           </div>
         ))}
       </div>
-      {items.length !== 0 && (
+      {items.length !== 0 && !loading && (
         <button
           className="submit-item-container"
           onClick={onClose}

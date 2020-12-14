@@ -83,7 +83,6 @@ export default function CustomerMenu() {
     } catch (err) {
       setLoading(false);
 
-      history.push('/sessao');
       if (err.response) alert(err.response.data.error);
     }
   }

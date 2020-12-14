@@ -2,6 +2,7 @@
   max-width: 432px;
   width: 432px;
   background: #fff;
+  min-height: 100%;
 }
 
 #item-selector .amount-container {
@@ -59,6 +60,8 @@
 }
 
 #item-selector .submit-item-container {
+  position: sticky;
+  position: -webkit-sticky;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,11 +71,9 @@
   border: 0;
   background: #535bfe;
   z-index: 3;
-  margin-left: 24px;
-  position: absolute;
   box-shadow: 0px 3px 6px #00000029;
   bottom: 40px;
-  right: 32px;
+  left: 80%;
 }
 
 #item-selector .submit-item-container:active {
