@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartModal from './CartModal';
 
+import { removeFromCart, clearCart } from '~/store/modules/cart/actions';
+
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+import { ReactComponent as Remove } from '~/assets/icons/close-icon.svg';
 
 import history from '~/services/history';
 
@@ -12,6 +15,8 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function Cart() {
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart.cart);
 
   const [totalPrice, setTotalPrice] = useState();
@@ -29,14 +34,21 @@ export default function Cart() {
     alert('Você chamou o garçom! Aguarde um instante.');
   }
 
+  function handleRemove(id) {
+    dispatch(removeFromCart(id));
+  }
+
+  function handleOrder() {
+    dispatch(clearCart());
+    alert('Você realizou um pedido! Seu pedido já vem.');
+  }
+
   return (
     <div id="customer-bill">
       {modalVisible && (
         <CartModal
           onClose={() => setModalVisible(false)}
-          handleOrder={() =>
-            alert('Você realizou um pedido! Seu pedido já vem.')
-          }
+          onOrder={handleOrder}
         />
       )}
 
@@ -63,7 +75,7 @@ export default function Cart() {
           <div className="product-orders">
             {cart.map((productOrder) => (
               <div className="product" key={productOrder.id}>
-                <div className="product-info">
+                <div>
                   <p className="product-text">
                     {productOrder.amount}x {productOrder.title}
                   </p>
@@ -79,10 +91,18 @@ export default function Cart() {
                   )}
                 </div>
 
-                <div className="product-info2">
+                <div className="product-group">
                   <p className="product-text">
                     {formatPrice(productOrder.totalPrice)}
                   </p>
+
+                  <button
+                    type="button"
+                    className="remove-button"
+                    onClick={() => handleRemove(productOrder.id)}
+                  >
+                    <Remove size={21} />
+                  </button>
                 </div>
               </div>
             ))}

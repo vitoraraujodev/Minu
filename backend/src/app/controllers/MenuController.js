@@ -3,7 +3,6 @@ import { Op } from 'sequelize';
 
 import Menu from '../models/Menu';
 import MenuItem from '../models/MenuItem';
-import File from '../models/File';
 import Item from '../models/Item';
 
 class MenuController {
@@ -18,14 +17,6 @@ class MenuController {
           required: false,
           order: [['title', 'ASC']],
           attributes: ['id', 'title', 'code', 'price'],
-          include: [
-            {
-              model: File,
-              as: 'photo',
-              required: false,
-              attributes: ['id', 'path', 'url'],
-            },
-          ],
           through: {
             include: [],
           },

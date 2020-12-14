@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import './styles.css';
 
-export default function CartModal({ onClose, handleOrder }) {
+export default function CartModal({ onClose, onOrder }) {
   return (
     <div id="cart-modal">
       <div className="modal-container">
@@ -25,7 +25,7 @@ export default function CartModal({ onClose, handleOrder }) {
         </p>
         <button
           type="button"
-          onClick={handleOrder}
+          onClick={onOrder}
           className="modal-confirm-button"
         >
           Confirmar

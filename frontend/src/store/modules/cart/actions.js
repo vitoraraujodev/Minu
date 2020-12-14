@@ -25,3 +25,9 @@ export function updateAmount(id, amount) {
     payload: { id, amount },
   };
 }
+
+export function clearCart() {
+  return {
+    type: '@cart/CLEAR_CART',
+  };
+}

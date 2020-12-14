@@ -27,10 +27,12 @@
   align-items: center;
   justify-content: center;
   top: 16px;
+  z-index: 1;
 }
 
 #profile .logo {
   width: 48px;
+
 }
 
 #profile .img-container {
@@ -39,6 +41,17 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+#profile .img-container:before {
+  content: '';
+  position:absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0) 70%, rgba(0,0,0,0.6) 115%);
+  z-index: 0;
 }
 
 #profile .establishment-img {

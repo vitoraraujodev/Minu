@@ -35,10 +35,15 @@ export default function cart(state = INITIAL_STATE, action) {
         }
         break;
       }
+      case '@cart/CLEAR_CART': {
+        draft.cart = [];
+        break;
+      }
       case '@session/CHECK_OUT': {
         draft.cart = [];
         break;
       }
+
       default:
     }
   });

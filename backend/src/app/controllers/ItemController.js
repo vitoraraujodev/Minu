@@ -1,13 +1,10 @@
 import aws from 'aws-sdk';
 import * as Yup from 'yup';
-import fs from 'fs';
-import { resolve } from 'path';
 import { Op } from 'sequelize';
 
 import Item from '../models/Item';
 import Additional from '../models/Additional';
 import ItemAdditional from '../models/ItemAdditional';
-import File from '../models/File';
 
 const ENV = process.env.NODE_ENV;
 
@@ -182,19 +179,6 @@ class ItemController {
       return res.status(400).json({ error: 'Item does not exist.' });
     }
 
-    const { photo_id } = req.body;
-
-    if (photo_id && item.photo_id && photo_id !== item.photo_id) {
-      const file = await File.findByPk(item.photo_id);
-      fs.unlink(
-        resolve(__dirname, '..', '..', '..', 'tmp', 'uploads', file.path),
-        (err) => {
-          if (err) throw err;
-        }
-      );
-      await file.destroy();
-    }
-
     const itemAdditionals = item.additionals.map((add) => add.id);
     const { additionals } = req.body || {};
 
@@ -288,13 +272,6 @@ class ItemController {
     if (!item.establishment_id === req.establishmentId) {
       return res.status(401).json('You can only delete your own items.');
     }
-
-    const file = await File.findByPk(item.photo_id);
-
-    if (file) {
-      await file.destroy();
-    }
-    await item.destroy();
 
     return res.json({ okay: true });
   }

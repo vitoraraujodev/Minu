@@ -18,9 +18,12 @@ export default function ItemSelector({
   selectedItems,
   onChangeItems,
 }) {
+  const [loading, setLoading] = useState(true);
+
   const [items, setItems] = useState([]);
 
   async function loadItems() {
+    setLoading(true);
     try {
       const response = await api.get('items');
       setItems(response.data);
@@ -29,6 +32,7 @@ export default function ItemSelector({
         'Não foi possível carregar suas informações. Por favor, tente mais tarde.'
       );
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -73,7 +77,13 @@ export default function ItemSelector({
           <div />
         </div>
 
-        {items && items.length === 0 && (
+        {loading && items.length === 0 && (
+          <div className="loader-container">
+            <div className="loader" />
+          </div>
+        )}
+
+        {items.length === 0 && (
           <h3 className="empty-text">
             Você ainda não possui
             <br />
