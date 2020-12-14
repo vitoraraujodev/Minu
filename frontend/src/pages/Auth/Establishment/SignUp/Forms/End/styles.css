@@ -1,4 +1,4 @@
-.circle-container {
+#establishment-sign-up .circle-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.circle {
+#establishment-sign-up .circle {
   position: absolute;
   background: #535bfe;
   border-radius: 50%;
@@ -17,11 +17,11 @@
   right: calc(50% - 1160px);
 }
 
-.circle-container .wave {
+#establishment-sign-up .circle-container .wave {
   position: absolute;
 }
 
-.done-text {
+#establishment-sign-up .done-text {
   position: relative;
   font-size: 64px;
   font-weight: 700;
@@ -30,7 +30,7 @@
   margin-bottom: 150px;
 }
 
-.menu-button {
+#establishment-sign-up .menu-button {
   position: relative;
   color: #535bfe;
   background: #fff;
@@ -44,16 +44,16 @@
   transition: transform .2s;
 }
 
-.menu-button:hover {
+#establishment-sign-up .menu-button:hover {
   transform: scale(1.03);
 }
 
-.menu-button:active {
+#establishment-sign-up .menu-button:active {
   color: #fff;
   background: #535bfe;
 }
 
-.later-button {
+#establishment-sign-up .later-button {
   position: relative;
   font-size: 18px;
   margin-top: 20px;
@@ -64,7 +64,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .circle {
+  #establishment-sign-up .circle {
     width: 864px;
     height: 864px;
     top: -420px;
@@ -72,22 +72,22 @@
 
   }
 
-  .done-text {
+  #establishment-sign-up .done-text {
     margin-top: 180px;
     margin-bottom: 180px;
     font-size: 50px;
   }
 
-  .menu-button {
+  #establishment-sign-up .menu-button {
     font-size: 18px;
     height: 48px;
   }
 
-  .menu-button:hover {
+  #establishment-sign-up .menu-button:hover {
     transform: none;
   }
 
-  .later-button {
+  #establishment-sign-up .later-button {
     font-size: 15px;
   }
 }

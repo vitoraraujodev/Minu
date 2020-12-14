@@ -23,7 +23,7 @@ export default function Session() {
     // const establishment_id = parseInt(code.substr(0, 3), 10);
     // const table_number = parseInt(code.substr(3, 4), 10);
 
-    const establishment_id = 2;
+    const establishment_id = 1;
     const table_number = 2;
 
     if (code.length === 5) {
