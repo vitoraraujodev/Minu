@@ -42,13 +42,12 @@ export function* checkIn({ payload }) {
 }
 
 export function* checkOut() {
-  if (window.confirm('Tem certeza que deseja encerrar a sessão?')) {
-    yield call(api.delete, 'service-sessions');
+  // if (window.confirm('Tem certeza que deseja encerrar a sessão?')) {
+  yield call(api.delete, 'service-sessions');
 
-    yield put(checkOutSuccess());
-    // futuramente enviar para tela de avaliação
-    history.push('/sessao');
-  }
+  yield put(checkOutSuccess());
+
+  // history.push('/sessao');
 }
 
 export default all([

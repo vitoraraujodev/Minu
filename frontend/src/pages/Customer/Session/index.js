@@ -6,7 +6,7 @@ import NavTab from '~/components/NavTabs/Customer';
 
 import leaflet from '~/assets/images/leaflet.png';
 
-import { checkSession, checkInRequest } from '~/store/modules/session/actions';
+import { checkInRequest } from '~/store/modules/session/actions';
 
 import './styles.css';
 
@@ -33,9 +33,9 @@ export default function Session() {
     }
   }
 
-  useEffect(() => {
-    dispatch(checkSession());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(checkSession());
+  // }, []);
 
   useEffect(() => {
     setInputs(document.getElementsByClassName('pincode-input-text'));

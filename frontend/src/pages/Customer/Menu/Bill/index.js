@@ -58,12 +58,13 @@ export default function Bill({ location }) {
   }
 
   function handleClose() {
-    dispatch(checkOutRequest());
     setModalVisible(false);
+    history.push('/sessao');
   }
 
   function handleBillRequested() {
     setModalVisible(false);
+    dispatch(checkOutRequest());
     setPendingBillVisible(true);
   }
 
@@ -150,6 +151,9 @@ export default function Bill({ location }) {
                 </span>
               </p>
             </div>
+            <p className="hint">
+              Lembre-se de pedir a conta para finalizar sua experiência!
+            </p>
           </div>
 
           <button

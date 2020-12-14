@@ -11,6 +11,8 @@ import {
   inventoryAccess,
 } from './actions';
 
+import { checkOutSuccess } from '../session/actions';
+
 export function* establishmentSignIn({ payload }) {
   try {
     const { email, password, route } = payload;
@@ -41,7 +43,7 @@ export function* establishmentSignIn({ payload }) {
 
 export function* customerSignIn({ payload }) {
   try {
-    const { phone_number, password, route } = payload;
+    const { phone_number, password } = payload;
 
     const response = yield call(api.post, 'customer-sessions', {
       phone_number: phone_number[0] === '+' ? phone_number : `+${phone_number}`,
@@ -52,9 +54,10 @@ export function* customerSignIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
+    yield put(checkOutSuccess());
     yield put(customerSignInSuccess(token, customer));
 
-    history.push(route);
+    history.push('/sessao');
   } catch (err) {
     yield put(signFailure());
     if (err.response.data) {
