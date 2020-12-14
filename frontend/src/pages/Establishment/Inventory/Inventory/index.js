@@ -38,6 +38,7 @@ export default function Inventory() {
 
   const [pinModalVisible, setPinModalVisible] = useState(false);
   const [additionalForm, setAdditionalForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0.0);
@@ -48,6 +49,7 @@ export default function Inventory() {
   const [menus, setMenus] = useState([]);
 
   async function loadItems() {
+    setLoading(true);
     try {
       let response = await api.get('items');
       setItems(response.data);
@@ -62,6 +64,7 @@ export default function Inventory() {
         'Não foi possível carregar suas informações. Por favor, tente mais tarde.'
       );
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -115,7 +118,11 @@ export default function Inventory() {
         </div>
 
         <div className="content">
-          <Accordion title="Cardápios" disabled={!inventoryAccessed}>
+          <Accordion
+            title="Cardápios"
+            loading={loading}
+            disabled={!inventoryAccessed}
+          >
             <Link
               to={{
                 pathname: '/inventario/cardapio',
@@ -144,7 +151,11 @@ export default function Inventory() {
             ))}
           </Accordion>
 
-          <Accordion title="Produtos" disabled={!inventoryAccessed}>
+          <Accordion
+            title="Produtos"
+            loading={loading}
+            disabled={!inventoryAccessed}
+          >
             <Link
               to={{
                 pathname: '/inventario/produto',
@@ -200,6 +211,7 @@ export default function Inventory() {
 
           <Accordion
             title="Adicionais"
+            loading={loading}
             length={additionals.length}
             disabled={!inventoryAccessed}
           >

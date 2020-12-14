@@ -4,7 +4,13 @@ import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 
 import './styles.css';
 
-export default function Accordion({ title, children, disabled, length }) {
+export default function Accordion({
+  title,
+  loading,
+  children,
+  disabled,
+  length,
+}) {
   const [active, setActive] = useState(false);
   const contentRef = useRef(null);
 
@@ -15,7 +21,7 @@ export default function Accordion({ title, children, disabled, length }) {
   }, [contentRef, active, length]);
 
   function toogleActive() {
-    if (!disabled) {
+    if (!disabled && !loading) {
       setActive(!active);
     }
   }
@@ -28,12 +34,19 @@ export default function Accordion({ title, children, disabled, length }) {
         onClick={toogleActive}
       >
         <p>{title}</p>
-        <span className={active ? 'accordion-icon rotate' : 'accordion-icon'}>
-          <ExpandArrow
-            style={{ height: 8 }}
-            fill={disabled ? '#acacac' : '#535BFE'}
-          />
-        </span>
+
+        {loading ? (
+          <div className="loader-container">
+            <div className="loader" />
+          </div>
+        ) : (
+          <span className={active ? 'accordion-icon rotate' : 'accordion-icon'}>
+            <ExpandArrow
+              style={{ height: 8 }}
+              fill={disabled ? '#acacac' : '#535BFE'}
+            />
+          </span>
+        )}
       </button>
 
       <div ref={contentRef} className="accordion-content">

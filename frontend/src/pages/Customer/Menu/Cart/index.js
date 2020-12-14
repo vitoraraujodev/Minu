@@ -19,9 +19,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (cart.length > 0) {
-      const prices = cart.map(
-        (productOrder) => productOrder.totalPrice * productOrder.amount
-      );
+      const prices = cart.map((productOrder) => productOrder.totalPrice);
       const total = prices.reduce((acumulator, price) => acumulator + price);
       setTotalPrice(total);
     }
