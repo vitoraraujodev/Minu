@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import CartModal from './CartModal';
-
-import { checkOutRequest } from '~/store/modules/session/actions';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
@@ -14,8 +12,6 @@ import { formatPrice } from '~/util/format';
 import './styles.css';
 
 export default function Cart() {
-  const dispatch = useDispatch();
-
   const cart = useSelector((state) => state.cart.cart);
 
   const [totalPrice, setTotalPrice] = useState();
@@ -31,8 +27,8 @@ export default function Cart() {
     }
   }, [cart]);
 
-  async function handleCheckOut() {
-    dispatch(checkOutRequest());
+  function handleWaiter() {
+    alert('Você chamou o garçom! Aguarde um instante.');
   }
 
   return (
@@ -40,7 +36,9 @@ export default function Cart() {
       {modalVisible && (
         <CartModal
           onClose={() => setModalVisible(false)}
-          handleOrder={() => {}}
+          handleOrder={() =>
+            alert('Você realizou um pedido! Seu pedido já vem.')
+          }
         />
       )}
 
@@ -100,7 +98,7 @@ export default function Cart() {
         <div className="group">
           <button
             className="waiter-button"
-            onClick={handleCheckOut}
+            onClick={handleWaiter}
             type="button"
           >
             Chamar garçon

@@ -26,6 +26,7 @@
   height: 24px;
   margin: 0 20px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 #establishment-navtab .header-logo {

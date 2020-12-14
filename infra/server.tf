@@ -5,7 +5,7 @@ resource "aws_iam_instance_profile" "site_iam" {
 
 resource "aws_instance" "site" {
     ami = "ami-03657b56516ab7912"
-    instance_type = "t3a.small"
+    instance_type = "t3a.medium"
     iam_instance_profile = aws_iam_instance_profile.site_iam.name
     key_name = "Minu"
     

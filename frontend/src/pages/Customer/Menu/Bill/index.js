@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import BillModal from './BillModal';
 import BillPending from './BillPending';
 
-import { checkOutRequest } from '~/store/modules/session/actions';
-
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+
+import { checkOutRequest } from '~/store/modules/session/actions';
 
 import history from '~/services/history';
 
@@ -31,33 +31,15 @@ export default function Bill({ location }) {
       id: 1,
       amount: 1,
       title: 'Sopa de repolho',
-      additionals: [{ id: 1, title: 'foda-se', price: 1.5 }],
-      totalPrice: 13,
-      status: 1,
+      additionals: [{ id: 1, price: 1.5 }],
+      totalPrice: 11,
     },
     {
       id: 2,
-      amount: 2,
-      title: 'Sopa de macaco',
-      additionals: [{ id: 1, title: 'foda-se', price: 1.5 }],
-      totalPrice: 24,
-      status: 1,
-    },
-    {
-      id: 3,
-      amount: 2,
-      title: 'Sopa de macaco',
-      additionals: [{ id: 1, title: 'foda-se', price: 1.5 }],
-      totalPrice: 24,
-      status: 1,
-    },
-    {
-      id: 4,
-      amount: 2,
-      title: 'Sopa de macaco',
-      additionals: [{ id: 1, title: 'foda-se', price: 1.5 }],
-      totalPrice: 24,
-      status: 1,
+      amount: 1,
+      title: 'Chá Matte Leão 350ml',
+      additionals: [],
+      totalPrice: 5,
     },
   ];
 
@@ -71,8 +53,13 @@ export default function Bill({ location }) {
     }
   }, [productOrders]);
 
-  async function handleCheckOut() {
+  function handleWaiter() {
+    alert('Você chamou o garçom! Aguarde um instante.');
+  }
+
+  function handleClose() {
     dispatch(checkOutRequest());
+    setModalVisible(false);
   }
 
   function handleBillRequested() {
@@ -90,7 +77,7 @@ export default function Bill({ location }) {
       )}
 
       {pendingBillVisible ? (
-        <BillPending onClose={() => setPendingBillVisible(false)} />
+        <BillPending onClose={handleClose} />
       ) : (
         <>
           <div className="header">
@@ -124,11 +111,15 @@ export default function Bill({ location }) {
                       <p className="product-text">
                         {productOrder.amount}x {productOrder.title}
                       </p>
-                      <p className="product-subtext">
-                        {productOrder.additionals &&
-                          productOrder.additionals.length}{' '}
-                        Adicional
-                      </p>
+                      {productOrder.additionals.length === 1 ? (
+                        <p className="product-subtext">
+                          {productOrder.additionals.length} Adicional
+                        </p>
+                      ) : (
+                        <p className="product-subtext">
+                          {productOrder.additionals.length} Adicionais
+                        </p>
+                      )}
                     </div>
 
                     <div className="product-info2">
@@ -146,7 +137,7 @@ export default function Bill({ location }) {
             <div className="group">
               <button
                 className="waiter-button"
-                onClick={handleCheckOut}
+                onClick={handleWaiter}
                 type="button"
               >
                 Chamar garçon

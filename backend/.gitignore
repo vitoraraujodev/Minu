@@ -2,3 +2,5 @@
 node_modules/
 src/database/seeds/
 tmp/uploads/
+.env
+dist

@@ -44,6 +44,16 @@
   position: relative;
 }
 
+#session-page .hint-text {
+  position: absolute;
+  text-align: left;
+  top: -4px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fe5f53;
+}
+
 #session-page .pincode-input-container {
   display: flex;
   justify-content: space-between;

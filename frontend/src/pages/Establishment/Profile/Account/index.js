@@ -20,7 +20,7 @@ export default function Account() {
   const dispatch = useDispatch();
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false); // Colocar como true
   const [filled, setFilled] = useState(true);
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
