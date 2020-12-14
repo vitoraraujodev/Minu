@@ -1,3 +1,4 @@
+import aws from 'aws-sdk';
 import * as Yup from 'yup';
 import fs from 'fs';
 import { resolve } from 'path';
@@ -41,6 +42,9 @@ class EstablishmentController {
     const date = session.createdAt;
     const weekDay = getDay(date);
 
+    aws.config.update({ region: 'us-east-2' });
+    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+
     await Establishment.findByPk(session.establishment_id, {
       attributes: [
         'id',
@@ -52,12 +56,6 @@ class EstablishmentController {
       ],
       include: [
         {
-          model: File,
-          as: 'photo',
-          required: false,
-          attributes: ['id', 'path', 'url'],
-        },
-        {
           model: EstablishmentRating,
           as: 'ratings',
           required: false,
@@ -65,6 +63,54 @@ class EstablishmentController {
         },
       ],
     })
+      .then(async (establishment) => {
+        const params = {
+          Bucket: 'minu-general',
+          Prefix: `establishments/photo/${establishment.id}`,
+        };
+
+        const imageKey = await new Promise((accept) => {
+          s3.listObjects(params, (err, data) => {
+            // This function can return many different file extensions, so we order by lastModified
+            if (data.Contents.length > 0) {
+              const orderedContents = data.Contents.sort((actual, next) => {
+                if (actual.LastModified > next.LastModified) {
+                  return -1;
+                }
+                return 1;
+              });
+              accept(orderedContents[0].Key);
+            } else {
+              accept(null);
+            }
+          });
+        });
+
+        const photo = imageKey
+          ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+          : null;
+
+        const {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          ratings,
+        } = establishment;
+
+        return {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          ratings,
+          photo,
+        };
+      })
       .then(async (establishment) => {
         const menus = await Menu.findAll({
           where: {
@@ -130,12 +176,6 @@ class EstablishmentController {
             ],
             include: [
               {
-                model: File,
-                required: false,
-                as: 'photo',
-                attributes: ['id', 'path', 'url'],
-              },
-              {
                 model: ItemRating,
                 as: 'ratings',
                 required: false,
@@ -164,45 +204,74 @@ class EstablishmentController {
             ],
           });
 
-          const items = establishmentItems.map((item) => {
-            const raters = item.ratings.length;
-            const rating =
-              raters > 0
-                ? item.ratings
-                    .map((rate) => rate.rating)
-                    .reduce((acumulator, rate) => acumulator + rate) / raters
-                : 0;
+          const items = await Promise.all(
+            establishmentItems.map(async (item) => {
+              const params = {
+                Bucket: 'minu-general',
+                Prefix: `establishments/products/photo/${item.id}`,
+              };
 
-            const {
-              id,
-              code,
-              title,
-              description,
-              category,
-              preparation_time,
-              price,
-              available,
-              photo,
-              additionals,
-              ratings,
-            } = item;
+              const imageKey = await new Promise((accept) => {
+                s3.listObjects(params, (err, data) => {
+                  // This function can return many different file extensions, so we order by lastModified
+                  if (data.Contents.length > 0) {
+                    const orderedContents = data.Contents.sort(
+                      (actual, next) => {
+                        if (actual.LastModified > next.LastModified) {
+                          return -1;
+                        }
+                        return 1;
+                      }
+                    );
+                    accept(orderedContents[0].Key);
+                  } else {
+                    accept(null);
+                  }
+                });
+              });
 
-            return {
-              id,
-              code,
-              title,
-              description,
-              category,
-              preparation_time,
-              price,
-              available,
-              photo,
-              additionals,
-              ratings,
-              raters,
-              rating,
-            };
-          });
+              const photo = imageKey
+                ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+                : null;
+
+              const raters = item.ratings.length;
+              const rating =
+                raters > 0
+                  ? item.ratings
+                      .map((rate) => rate.rating)
+                      .reduce((acumulator, rate) => acumulator + rate) / raters
+                  : 0;
+
+              const {
+                id,
+                code,
+                title,
+                description,
+                category,
+                preparation_time,
+                price,
+                available,
+                additionals,
+                ratings,
+              } = item;
+
+              return {
+                id,
+                code,
+                title,
+                description,
+                category,
+                preparation_time,
+                price,
+                available,
+                photo,
+                additionals,
+                ratings,
+                raters,
+                rating,
+              };
+            })
+          );
 
           return { ...establishment, items };
         }

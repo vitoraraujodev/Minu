@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input';
-import { Prompt } from 'react-router-dom';
 
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
@@ -23,13 +22,12 @@ export default function EditItem({ location }) {
   const item = location.state && location.state.item ? location.state.item : '';
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [submit, setSubmit] = useState(false);
-  const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
+  const [photo, setPhoto] = useState(item.photo ? item.photo : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
 
-  const [file, setFile] = useState(item.photo ? item.photo.photo_id : null);
+  const [file, setFile] = useState();
   const [title, setTitle] = useState(item.title || '');
   const [description, setDescription] = useState(item.description || '');
   const [price, setPrice] = useState(item.price || 0.0);
@@ -74,47 +72,30 @@ export default function EditItem({ location }) {
     if ((title, price, preparationTime, category)) setFilled(true);
   }, [title, price, preparationTime, category]);
 
-  async function handleDelete() {
-    if (file && !submit) {
-      await api.delete(`files/${file}`);
-    }
-  }
-
   async function handleChange(e) {
-    if (file) handleDelete(file);
+    setFile(e.target.files[0]);
 
-    const data = new FormData();
-
-    data.append('file', e.target.files[0]);
-
-    try {
-      const response = await api.post('files', data);
-      const { id, url } = response.data;
-
-      setFile(id);
-      setPhoto(url);
-    } catch (err) {
-      alert(
-        'Houve um erro ao salvar sua foto. Por favor, tente novamente mais tarde...'
-      );
-    }
+    setPhoto(URL.createObjectURL(e.target.files[0]));
   }
 
   async function handleSubmit() {
     const additionals_id = additionals.map((add) => add.id);
-    const data = {
+    const body = {
       title,
       description,
       price,
       preparation_time: preparationTime,
       category,
-      photo_id: file,
       additionals: additionals_id,
     };
 
     try {
-      await api.put(`items/${item.id}`, data);
-      setSubmit(true);
+      await api.put(`items/${item.id}`, body);
+      if (file) {
+        const data = new FormData();
+        data.append('file', file);
+        await api.post(`product-photo/${item.id}`, data);
+      }
       history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
@@ -123,8 +104,6 @@ export default function EditItem({ location }) {
 
   return (
     <div id="item-page">
-      <Prompt when={file !== null} message={handleDelete} />
-
       {windowWidth >= 768 ? <Header /> : null}
 
       <div className="container">

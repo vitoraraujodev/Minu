@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import multerConfig from './config/multer';
+import MulterConfig from './config/multer';
 
 import establishmentAuthMiddleware from './app/middlewares/establishmentAuth';
 import customerAuthMiddleware from './app/middlewares/customerAuth';
@@ -8,7 +8,8 @@ import customerAuthMiddleware from './app/middlewares/customerAuth';
 import EstablishmentSessionController from './app/controllers/EstablishmentSessionController';
 import PinController from './app/controllers/PinController';
 import EstablishmentsController from './app/controllers/EstablishmentController';
-import FileController from './app/controllers/FileController';
+import EstablishmentPhotoController from './app/controllers/EstablishmentPhotoController';
+import ProductPhotoController from './app/controllers/ProductPhotoController';
 import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
 import AdditionalController from './app/controllers/AdditionalController';
@@ -21,7 +22,9 @@ import AvatarController from './app/controllers/AvatarController';
 import ServiceSessionController from './app/controllers/ServiceSessionController';
 
 const routes = new Router();
-const upload = multer(multerConfig);
+const customerUpload = multer(MulterConfig.getCustomerConfig());
+const establishmentUpload = multer(MulterConfig.getEstablishmentConfig());
+const productUpload = multer(MulterConfig.getProductConfig());
 
 routes.post('/establishment-sessions', EstablishmentSessionController.store);
 routes.post('/customer-sessions', CustomerSessionController.store);
@@ -93,20 +96,25 @@ routes.get('/items/:id/ratings', ItemRatingController.index);
 routes.post('/items/:id/ratings', ItemRatingController.store);
 
 routes.post(
-  '/files',
+  '/establishment-photo',
   establishmentAuthMiddleware,
-  upload.single('file'),
-  FileController.store
+  establishmentUpload.single('file'),
+  EstablishmentPhotoController.store
 );
-routes.delete('/files/:id', establishmentAuthMiddleware, FileController.delete);
+
+routes.post(
+  '/product-photo/:id',
+  establishmentAuthMiddleware,
+  productUpload.single('file'),
+  ProductPhotoController.store
+);
 
 routes.post(
   '/avatar',
   customerAuthMiddleware,
-  upload.single('file'),
+  customerUpload.single('file'),
   AvatarController.store
 );
-routes.delete('/avatar/:id', customerAuthMiddleware, AvatarController.delete);
 
 routes.post('/customers', CustomerController.store);
 routes.put('/customers', customerAuthMiddleware, CustomerController.update);

@@ -15,3 +15,9 @@ export function updateCustomerFailure() {
     type: '@customer/UPDATE_CUSTOMER_FAILURE',
   };
 }
+export function updateCustomerAvatar(avatar) {
+  return {
+    type: '@customer/UPDATE_CUSTOMER_AVATAR',
+    payload: { avatar },
+  };
+}

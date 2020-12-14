@@ -1,8 +1,8 @@
+import aws from 'aws-sdk';
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
 import Establishment from '../models/Establishment';
-import File from '../models/File';
 import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
@@ -23,7 +23,6 @@ class EstablishmentSessionController {
     const establishment = await Establishment.findOne({
       where: { email },
       include: [
-        { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
         {
           model: EstablishmentRating,
           as: 'ratings',
@@ -54,6 +53,35 @@ class EstablishmentSessionController {
             .reduce((acumulator, rate) => acumulator + rate) / raters
         : 0;
 
+    aws.config.update({ region: 'us-east-2' });
+    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+
+    const params = {
+      Bucket: 'minu-general',
+      Prefix: `establishments/photo/${establishment.id}`,
+    };
+
+    const imageKey = await new Promise((accept) => {
+      s3.listObjects(params, (err, data) => {
+        // This function can return many different file extensions, so we order by lastModified
+        if (data.Contents.length > 0) {
+          const orderedContents = data.Contents.sort((actual, next) => {
+            if (actual.LastModified > next.LastModified) {
+              return -1;
+            }
+            return 1;
+          });
+          accept(orderedContents[0].Key);
+        } else {
+          accept(null);
+        }
+      });
+    });
+
+    const photo = imageKey
+      ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+      : null;
+
     const {
       id,
       cnpj,
@@ -66,7 +94,6 @@ class EstablishmentSessionController {
       complement,
       city,
       state,
-      photo,
     } = establishment;
 
     return res.json({

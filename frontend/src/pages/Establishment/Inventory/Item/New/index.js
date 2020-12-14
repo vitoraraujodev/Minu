@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input';
-import { Prompt } from 'react-router-dom';
 
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
@@ -22,7 +21,6 @@ export default function NewItem({ location }) {
   const length = location.state ? location.state.length : '';
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [submit, setSubmit] = useState(false);
   const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
@@ -73,47 +71,31 @@ export default function NewItem({ location }) {
     }
   }, [title, price, preparationTime, category]);
 
-  async function handleDelete() {
-    if (file && !submit) {
-      await api.delete(`files/${file}`);
-    }
-  }
-
   async function handleChange(e) {
-    if (file) handleDelete(file);
+    setFile(e.target.files[0]);
 
-    const data = new FormData();
-
-    data.append('file', e.target.files[0]);
-
-    try {
-      const response = await api.post('files', data);
-      const { id, url } = response.data;
-
-      setFile(id);
-      setPhoto(url);
-    } catch (err) {
-      alert(
-        'Houve um erro ao salvar sua foto. Por favor, tente novamente mais tarde...'
-      );
-    }
+    setPhoto(URL.createObjectURL(e.target.files[0]));
   }
 
   async function handleSubmit() {
     const additionals_id = additionals.map((add) => add.id);
-    const data = {
+    const body = {
       title,
       description,
       price,
       preparation_time: preparationTime,
       category,
-      photo_id: file,
       additionals: additionals_id,
     };
 
     try {
-      await api.post('items', data);
-      setSubmit(true);
+      const response = await api.post('items', body);
+      if (file) {
+        const data = new FormData();
+        data.append('file', file);
+
+        await api.post(`product-photo/${response.data.id}`, data);
+      }
       history.push('/inventario');
     } catch (err) {
       alert(err.response.data.error);
@@ -122,8 +104,6 @@ export default function NewItem({ location }) {
 
   return (
     <div id="item-page">
-      <Prompt when={file !== null} message={handleDelete} />
-
       {windowWidth >= 768 ? <Header /> : null}
 
       <div className="container">

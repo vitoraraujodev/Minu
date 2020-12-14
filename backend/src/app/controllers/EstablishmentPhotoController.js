@@ -1,4 +1,4 @@
-class AvatarController {
+class EstablishmentPhotoController {
   async store(req, res) {
     if (!req.file) {
       return res.status(400).json({
@@ -7,8 +7,8 @@ class AvatarController {
       });
     }
 
-    return res.json({ avatar: req.file.location });
+    return res.json({ photo: req.file.location });
   }
 }
 
-export default new AvatarController();
+export default new EstablishmentPhotoController();

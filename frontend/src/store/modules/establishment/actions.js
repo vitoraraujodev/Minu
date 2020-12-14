@@ -15,3 +15,9 @@ export function updateEstablishmentFailure() {
     type: '@establishment/UPDATE_ESTABLISHMENT_FAILURE',
   };
 }
+export function updateEstablishmentPhoto(photo) {
+  return {
+    type: '@establishment/UPDATE_ESTABLISHMENT_PHOTO',
+    payload: { photo },
+  };
+}

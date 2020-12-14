@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Prompt } from 'react-router-dom';
 
 import Header from '~/components/NavTabs/Establishment';
 import PinModal from '~/components/PinModal';
@@ -9,7 +8,7 @@ import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Lock } from '~/assets/icons/lock-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
+import { updateEstablishmentPhoto } from '~/store/modules/establishment/actions';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -25,7 +24,6 @@ export default function Picture() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(true);
   const [pinModalVisible, setPinModalVisible] = useState(false);
-  const [submit, setSubmit] = useState(false);
 
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState(
@@ -46,32 +44,23 @@ export default function Picture() {
   window.addEventListener('resize', handleResize);
 
   async function handleChange(e) {
-    const data = new FormData();
+    setFile(e.target.files[0]);
 
-    data.append('file', e.target.files[0]);
-
-    try {
-      const response = await api.post('files', data);
-      const { id, url } = response.data;
-
-      setFile(id);
-      setPhoto(url);
-    } catch (err) {
-      alert(
-        'Houve um erro ao salvar sua foto. Por favor, tente novamente mais tarde...'
-      );
-    }
-  }
-
-  async function handleDelete() {
-    if (file && !submit) {
-      await api.delete(`files/${file}`);
-    }
+    setPhoto(URL.createObjectURL(e.target.files[0]));
   }
 
   async function handleSubmit() {
-    dispatch(updateEstablishmentRequest({ photo_id: file }));
-    setSubmit(true);
+    const data = new FormData();
+    data.append('file', file);
+
+    try {
+      const response = await api.post('establishment-photo', data);
+      dispatch(updateEstablishmentPhoto(response.data.photo));
+    } catch (err) {
+      alert(
+        'Houve um erro ao atualizar a foto. Por favor, tente novamente mais tarde.'
+      );
+    }
   }
 
   return (
@@ -84,8 +73,6 @@ export default function Picture() {
           onAccess={() => setDisabled(false)}
         />
       )}
-
-      <Prompt when={file !== null} message={handleDelete} />
 
       <div className="container">
         <div className="button-container">

@@ -19,6 +19,10 @@ export default function establishment(state = INITIAL_STATE, action) {
         draft.establishment = null;
         break;
       }
+      case '@establishment/UPDATE_ESTABLISHMENT_PHOTO': {
+        draft.establishment.photo = action.payload.photo;
+        break;
+      }
       default:
     }
   });

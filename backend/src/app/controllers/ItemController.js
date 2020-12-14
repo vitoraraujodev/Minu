@@ -1,3 +1,4 @@
+import aws from 'aws-sdk';
 import * as Yup from 'yup';
 import fs from 'fs';
 import { resolve } from 'path';
@@ -14,7 +15,6 @@ class ItemController {
       where: { establishment_id: req.establishmentId },
       order: [['title', 'ASC']],
       include: [
-        { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
         {
           model: Additional,
           as: 'additionals',
@@ -27,7 +27,53 @@ class ItemController {
       ],
     });
 
-    return res.json(items);
+    aws.config.update({ region: 'us-east-2' });
+    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
+
+    const itemsWithPhoto = await Promise.all(
+      items.map(async (item) => {
+        const params = {
+          Bucket: 'minu-general',
+          Prefix: `establishments/products/photo/${item.id}`,
+        };
+
+        const imageKey = await new Promise((accept) => {
+          s3.listObjects(params, (err, data) => {
+            // This function can return many different file extensions, so we order by lastModified
+            if (data.Contents.length > 0) {
+              const orderedContents = data.Contents.sort((actual, next) => {
+                if (actual.LastModified > next.LastModified) {
+                  return -1;
+                }
+                return 1;
+              });
+              accept(orderedContents[0].Key);
+            } else {
+              accept(null);
+            }
+          });
+        });
+
+        const photo = imageKey
+          ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+          : null;
+
+        return {
+          id: item.id,
+          code: item.code,
+          title: item.title,
+          description: item.description,
+          category: item.category,
+          preparation_time: item.preparation_time,
+          price: item.price,
+          available: item.available,
+          additionals: item.additionals,
+          photo,
+        };
+      })
+    );
+
+    return res.json(itemsWithPhoto);
   }
 
   async store(req, res) {

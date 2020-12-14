@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 import logo from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
-import { updateCustomerRequest } from '~/store/modules/customer/actions';
+import { updateCustomerAvatar } from '~/store/modules/customer/actions';
 
 import defaultPicture from '~/assets/images/default-user.png';
 
@@ -21,7 +21,9 @@ export default function Profile() {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customer.customer);
 
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(
+    customer.avatar ? customer.avatar : null
+  );
 
   async function handleChangeAvatar(e) {
     const data = new FormData();
@@ -30,17 +32,16 @@ export default function Profile() {
 
     try {
       const response = await api.post('avatar', data);
-      setAvatar(response.data.id);
+      if (response.data.avatar) {
+        setAvatar(response.data.avatar);
+        dispatch(updateCustomerAvatar(response.data.avatar));
+      }
     } catch (err) {
       alert(
         'Houve um erro ao salvar sua foto. Por favor, tente novamente mais tarde...'
       );
     }
   }
-
-  useEffect(() => {
-    if (avatar) dispatch(updateCustomerRequest({ avatar_id: avatar }));
-  }, [avatar, dispatch]);
 
   function handleSignOut() {
     dispatch(signOutRequest());
@@ -62,7 +63,7 @@ export default function Profile() {
 
             <div className="img-container">
               <img
-                src={customer.avatar ? customer.avatar.url : defaultPicture}
+                src={avatar || defaultPicture}
                 onError={(e) => {
                   e.target.src = defaultPicture;
                 }}

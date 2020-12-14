@@ -57,9 +57,7 @@ export default function Profile() {
 
           <div className="img-container">
             <img
-              src={
-                establishment.photo ? establishment.photo.url : defaultPicture
-              }
+              src={establishment.photo ? establishment.photo : defaultPicture}
               onError={(e) => {
                 e.target.src = defaultPicture;
               }}
