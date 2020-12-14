@@ -12,6 +12,7 @@ export default function establishment(state = INITIAL_STATE, action) {
         break;
       }
       case '@establishment/UPDATE_ESTABLISHMENT_SUCCESS': {
+        action.payload.establishment.photo = draft.establishment.photo;
         draft.establishment = action.payload.establishment;
         break;
       }

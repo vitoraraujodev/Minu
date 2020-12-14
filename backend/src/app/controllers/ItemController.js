@@ -9,7 +9,10 @@ import Additional from '../models/Additional';
 import ItemAdditional from '../models/ItemAdditional';
 import File from '../models/File';
 
-const ENV = proccess.env.ENV_NODE;
+const ENV = process.env.ENV_NODE;
+
+const bucketName =
+  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class ItemController {
   async index(req, res) {
@@ -35,7 +38,7 @@ class ItemController {
     const itemsWithPhoto = await Promise.all(
       items.map(async (item) => {
         const params = {
-          Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
+          Bucket: bucketName,
           Prefix: `establishments/products/photo/${item.id}`,
         };
 
@@ -57,7 +60,7 @@ class ItemController {
         });
 
         const photo = imageKey
-          ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+          ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
           : null;
 
         return {

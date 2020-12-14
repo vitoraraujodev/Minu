@@ -95,7 +95,7 @@ export default function ItemSelector({
                 }
               >
                 <img
-                  src={item.photo ? item.photo.url : defaultPicture}
+                  src={item.photo ? item.photo : defaultPicture}
                   onError={(e) => {
                     e.target.src = defaultPicture;
                   }}

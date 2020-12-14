@@ -15,7 +15,10 @@ import ItemRating from '../models/ItemRating';
 import ServiceSession from '../models/ServiceSession';
 import SessionEvent from '../models/SessionEvent';
 
-const ENV = proccess.env.ENV_NODE;
+const ENV = process.env.ENV_NODE;
+
+const bucketName =
+  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class EstablishmentController {
   async index(req, res) {
@@ -67,7 +70,7 @@ class EstablishmentController {
     })
       .then(async (establishment) => {
         const params = {
-          Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
+          Bucket: bucketName,
           Prefix: `establishments/photo/${establishment.id}`,
         };
 
@@ -89,7 +92,7 @@ class EstablishmentController {
         });
 
         const photo = imageKey
-          ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+          ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
           : null;
 
         const {
@@ -209,7 +212,7 @@ class EstablishmentController {
           const items = await Promise.all(
             establishmentItems.map(async (item) => {
               const params = {
-                Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
+                Bucket: bucketName,
                 Prefix: `establishments/products/photo/${item.id}`,
               };
 
@@ -233,7 +236,7 @@ class EstablishmentController {
               });
 
               const photo = imageKey
-                ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+                ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
                 : null;
 
               const raters = item.ratings.length;
@@ -387,21 +390,6 @@ class EstablishmentController {
       return res.status(401).json({ error: 'Senha antiga incorreta.' });
     }
 
-    if (
-      photo_id &&
-      establishment.photo_id &&
-      photo_id !== establishment.photo_id
-    ) {
-      const file = await File.findByPk(establishment.photo_id);
-      fs.unlink(
-        resolve(__dirname, '..', '..', '..', 'tmp', 'uploads', file.path),
-        (err) => {
-          if (err) throw err;
-        }
-      );
-      await file.destroy();
-    }
-
     await establishment.update(req.body);
 
     const {
@@ -416,12 +404,10 @@ class EstablishmentController {
       complement,
       city,
       state,
-      photo,
       rating,
       raters,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
-        { model: File, as: 'photo', attributes: ['id', 'path', 'url'] },
         {
           model: Menu,
           as: 'menus',
@@ -443,7 +429,6 @@ class EstablishmentController {
       complement,
       city,
       state,
-      photo,
       rating,
       raters,
     });

@@ -102,7 +102,7 @@ export default function ProductOrder({ location }) {
       {product.photo && (
         <div className="img-container">
           <img
-            src={product.photo.url}
+            src={product.photo}
             onError={(e) => {
               e.target.src = defaultPicture;
             }}

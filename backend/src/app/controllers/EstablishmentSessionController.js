@@ -7,7 +7,10 @@ import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
 
-const ENV = proccess.env.ENV_NODE;
+const ENV = process.env.ENV_NODE;
+
+const bucketName =
+  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class EstablishmentSessionController {
   async store(req, res) {
@@ -59,7 +62,7 @@ class EstablishmentSessionController {
     const s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
     const params = {
-      Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
+      Bucket: bucketName,
       Prefix: `establishments/photo/${establishment.id}`,
     };
 
@@ -81,7 +84,7 @@ class EstablishmentSessionController {
     });
 
     const photo = imageKey
-      ? `https://minu-general.s3.us-east-2.amazonaws.com/${imageKey}`
+      ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
       : null;
 
     const {

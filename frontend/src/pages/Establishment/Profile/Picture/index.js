@@ -22,12 +22,12 @@ export default function Picture() {
   const dispatch = useDispatch();
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [pinModalVisible, setPinModalVisible] = useState(false);
 
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState(
-    establishment.photo ? establishment.photo.url : defaultPicture
+    establishment.photo ? establishment.photo : defaultPicture
   );
 
   function handleResize() {
@@ -55,7 +55,9 @@ export default function Picture() {
 
     try {
       const response = await api.post('establishment-photo', data);
+
       dispatch(updateEstablishmentPhoto(response.data.photo));
+      history.push('/estabelecimento');
     } catch (err) {
       alert(
         'Houve um erro ao atualizar a foto. Por favor, tente novamente mais tarde.'

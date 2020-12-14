@@ -28,7 +28,7 @@ export default function Product({ product }) {
               <>
                 <div className="product-img-container">
                   <img
-                    src={product.photo ? product.photo.url : defaultPicture}
+                    src={product.photo ? product.photo : defaultPicture}
                     onError={(e) => {
                       e.target.src = defaultPicture;
                     }}
