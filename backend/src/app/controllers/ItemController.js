@@ -9,6 +9,8 @@ import Additional from '../models/Additional';
 import ItemAdditional from '../models/ItemAdditional';
 import File from '../models/File';
 
+const ENV = proccess.env.ENV_NODE;
+
 class ItemController {
   async index(req, res) {
     const items = await Item.findAll({
@@ -33,7 +35,7 @@ class ItemController {
     const itemsWithPhoto = await Promise.all(
       items.map(async (item) => {
         const params = {
-          Bucket: 'minu-general',
+          Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
           Prefix: `establishments/products/photo/${item.id}`,
         };
 

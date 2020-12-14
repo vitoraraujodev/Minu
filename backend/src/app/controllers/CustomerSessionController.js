@@ -6,6 +6,8 @@ import Customer from '../models/Customer';
 
 import authConfig from '../../config/auth';
 
+const ENV = proccess.env.ENV_NODE;
+
 class CustomerSessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -34,7 +36,7 @@ class CustomerSessionController {
     const s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
     const params = {
-      Bucket: 'minu-general',
+      Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
       Prefix: `customers/avatar/${customer.id}`,
     };
 

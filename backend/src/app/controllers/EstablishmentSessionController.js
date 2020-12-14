@@ -7,6 +7,8 @@ import EstablishmentRating from '../models/EstablishmentRating';
 
 import authConfig from '../../config/auth';
 
+const ENV = proccess.env.ENV_NODE;
+
 class EstablishmentSessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -57,7 +59,7 @@ class EstablishmentSessionController {
     const s3 = new aws.S3({ apiVersion: '2006-03-01' });
 
     const params = {
-      Bucket: 'minu-general',
+      Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
       Prefix: `establishments/photo/${establishment.id}`,
     };
 

@@ -2,6 +2,8 @@ import aws from 'aws-sdk';
 import multerS3 from 'multer-s3';
 import { extname } from 'path';
 
+const ENV = proccess.env.NODE_ENV;
+
 class MulterConfig {
   static getCustomerConfig() {
     aws.config.update({ region: 'us-east-2' });
@@ -10,7 +12,7 @@ class MulterConfig {
 
     const storage = multerS3({
       s3,
-      bucket: 'minu-general',
+      bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',
       metadata(req, file, cb) {
         cb(null, { fieldName: file.fieldname });
       },
@@ -32,7 +34,7 @@ class MulterConfig {
 
     const storage = multerS3({
       s3,
-      bucket: 'minu-general',
+      bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',
       metadata(req, file, cb) {
         cb(null, { fieldName: file.fieldname });
       },
@@ -56,7 +58,7 @@ class MulterConfig {
 
     const storage = multerS3({
       s3,
-      bucket: 'minu-general',
+      bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',
       metadata(req, file, cb) {
         cb(null, { fieldName: file.fieldname });
       },

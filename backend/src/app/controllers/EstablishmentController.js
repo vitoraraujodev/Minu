@@ -15,6 +15,8 @@ import ItemRating from '../models/ItemRating';
 import ServiceSession from '../models/ServiceSession';
 import SessionEvent from '../models/SessionEvent';
 
+const ENV = proccess.env.ENV_NODE;
+
 class EstablishmentController {
   async index(req, res) {
     const lastSessionEvent = await SessionEvent.findAll({
@@ -65,7 +67,7 @@ class EstablishmentController {
     })
       .then(async (establishment) => {
         const params = {
-          Bucket: 'minu-general',
+          Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
           Prefix: `establishments/photo/${establishment.id}`,
         };
 
@@ -207,7 +209,7 @@ class EstablishmentController {
           const items = await Promise.all(
             establishmentItems.map(async (item) => {
               const params = {
-                Bucket: 'minu-general',
+                Bucket: ENV && ENV === 'production' ? 'minu-general' : 'minu-development',,
                 Prefix: `establishments/products/photo/${item.id}`,
               };
 
