@@ -21,6 +21,7 @@ import '../New/styles.css';
 export default function EditItem({ location }) {
   const item = location.state && location.state.item ? location.state.item : '';
 
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [photo, setPhoto] = useState(item.photo ? item.photo : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
@@ -79,6 +80,7 @@ export default function EditItem({ location }) {
   }
 
   async function handleSubmit() {
+    setLoading(true);
     const additionals_id = additionals.map((add) => add.id);
     const body = {
       title,
@@ -96,8 +98,10 @@ export default function EditItem({ location }) {
         data.append('file', file);
         await api.post(`product-photo/${item.id}`, data);
       }
+      setLoading(false);
       history.push('/inventario');
     } catch (err) {
+      setLoading(false);
       alert(err.response.data.error);
     }
   }
@@ -320,10 +324,10 @@ export default function EditItem({ location }) {
             className={
               filled ? 'submit-button-enabled' : 'submit-button-disabled'
             }
-            onClick={filled ? handleSubmit : null}
+            onClick={filled && !loading ? handleSubmit : null}
             type="button"
           >
-            Concluir
+            {loading ? 'Carregando...' : 'Concluir'}
           </button>
         )}
       </div>

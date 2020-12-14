@@ -273,6 +273,8 @@ class ItemController {
       return res.status(401).json('You can only delete your own items.');
     }
 
+    await item.destroy();
+
     return res.json({ okay: true });
   }
 }

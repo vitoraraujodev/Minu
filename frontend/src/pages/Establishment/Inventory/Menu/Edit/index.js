@@ -22,6 +22,7 @@ export default function EditMenu({ location }) {
       ? location.state.menu
       : history.push('/inventario');
 
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
@@ -78,6 +79,7 @@ export default function EditMenu({ location }) {
   }, [title, startAt, endAt, availability, items]);
 
   async function handleSubmit() {
+    setLoading(true);
     const items_id = items.map((item) => item.id);
     const data = {
       title,
@@ -89,8 +91,10 @@ export default function EditMenu({ location }) {
 
     try {
       await api.put(`/menus/${menu.id}`, data);
+      setLoading(false);
       history.push('/inventario');
     } catch (err) {
+      setLoading(false);
       alert(err.response.data.error);
     }
   }
@@ -257,10 +261,10 @@ export default function EditMenu({ location }) {
             className={
               filled ? 'submit-button-enabled' : 'submit-button-disabled'
             }
-            onClick={filled ? handleSubmit : null}
+            onClick={filled && !loading ? handleSubmit : null}
             type="button"
           >
-            Concluir
+            {loading ? 'Carregando...' : 'Concluir'}
           </button>
         )}
       </div>

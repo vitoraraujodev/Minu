@@ -20,6 +20,7 @@ import './styles.css';
 export default function NewItem({ location }) {
   const length = location.state ? location.state.length : '';
 
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
@@ -78,6 +79,7 @@ export default function NewItem({ location }) {
   }
 
   async function handleSubmit() {
+    setLoading(true);
     const additionals_id = additionals.map((add) => add.id);
     const body = {
       title,
@@ -96,8 +98,10 @@ export default function NewItem({ location }) {
 
         await api.post(`product-photo/${response.data.id}`, data);
       }
+      setLoading(false);
       history.push('/inventario');
     } catch (err) {
+      setLoading(false);
       alert(err.response.data.error);
     }
   }
@@ -313,10 +317,10 @@ export default function NewItem({ location }) {
             className={
               filled ? 'submit-button-enabled' : 'submit-button-disabled'
             }
-            onClick={filled ? handleSubmit : null}
+            onClick={filled && !loading ? handleSubmit : null}
             type="button"
           >
-            Concluir
+            {loading ? 'Carregando...' : 'Concluir'}
           </button>
         )}
       </div>

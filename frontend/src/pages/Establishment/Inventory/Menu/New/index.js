@@ -18,6 +18,7 @@ import './styles.css';
 export default function NewMenu({ location }) {
   const length = location.state ? location.state.length : '';
 
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
@@ -71,6 +72,7 @@ export default function NewMenu({ location }) {
   }, [title, startAt, endAt, availability, items]);
 
   async function handleSubmit() {
+    setLoading(true);
     const items_id = items.map((item) => item.id);
     const data = {
       title,
@@ -82,8 +84,10 @@ export default function NewMenu({ location }) {
 
     try {
       await api.post('/menus', data);
+      setLoading(false);
       history.push('/inventario');
     } catch (err) {
+      setLoading(false);
       alert(err.response.data.error);
     }
   }
@@ -244,10 +248,10 @@ export default function NewMenu({ location }) {
             className={
               filled ? 'submit-button-enabled' : 'submit-button-disabled'
             }
-            onClick={filled ? handleSubmit : null}
+            onClick={filled && !loading ? handleSubmit : null}
             type="button"
           >
-            Concluir
+            {loading ? 'Carregando...' : 'Concluir'}
           </button>
         )}
       </div>
