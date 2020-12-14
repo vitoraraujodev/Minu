@@ -60,11 +60,12 @@ export default function Session() {
             <p className="hint-text">Escreva 9-9-9-9-9</p>
             <PinInput
               length={5}
+              type="numeric"
+              inputMode="number"
               onChange={(value) => {
                 if (invalid) setInvalid(false);
                 setCode(value);
               }}
-              type="custom"
             />
             {invalid && <p className="invalid-text">Código inválido</p>}
           </div>
