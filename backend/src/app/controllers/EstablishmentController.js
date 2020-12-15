@@ -1,12 +1,9 @@
 import aws from 'aws-sdk';
 import * as Yup from 'yup';
-import fs from 'fs';
-import { resolve } from 'path';
 import { Op } from 'sequelize';
 import { getHours, getDay } from 'date-fns';
 
 import Establishment from '../models/Establishment';
-import File from '../models/File';
 import Menu from '../models/Menu';
 import Item from '../models/Item';
 import Additional from '../models/Additional';
@@ -105,40 +102,6 @@ class EstablishmentController {
           ratings,
         } = establishment;
 
-        return {
-          id,
-          establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
-          ratings,
-          photo,
-        };
-      })
-      .then(async (establishment) => {
-        const menus = await Menu.findAll({
-          where: {
-            establishment_id: establishment.id,
-            available: true,
-            start_at: { [Op.lte]: getHours(date) },
-            end_at: { [Op.gt]: getHours(date) },
-          },
-          order: [['title', 'ASC']],
-          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
-        });
-
-        const {
-          id,
-          establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
-          ratings,
-          photo,
-        } = establishment;
-
         const raters = ratings.length;
 
         const rating =
@@ -156,6 +119,46 @@ class EstablishmentController {
           street,
           complement,
           ratings,
+          rating,
+          raters,
+          photo,
+        };
+      })
+      .then(async (establishment) => {
+        const menus = await Menu.findAll({
+          where: {
+            establishment_id: establishment.id,
+            available: true,
+            start_at: { [Op.lte]: getHours(date) },
+            end_at: { [Op.gt]: getHours(date) },
+          },
+          order: [['title', 'ASC']],
+          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
+        });
+
+        console.log('1 ==> ', menus);
+
+        const {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          ratings,
+          rating,
+          raters,
+          photo,
+        } = establishment;
+
+        return {
+          id,
+          establishment_name,
+          cep,
+          address_number,
+          street,
+          complement,
+          ratings,
           raters,
           rating,
           photo,
@@ -163,6 +166,8 @@ class EstablishmentController {
         };
       })
       .then(async (establishment) => {
+        console.log('2 ==> ', establishment);
+
         if (establishment.menus.length > 0) {
           const establishmentItems = await Item.findAll({
             where: {
@@ -208,6 +213,8 @@ class EstablishmentController {
               },
             ],
           });
+
+          console.log('3 ==> ', establishmentItems);
 
           const items = await Promise.all(
             establishmentItems.map(async (item) => {
@@ -277,6 +284,8 @@ class EstablishmentController {
               };
             })
           );
+
+          console.log('4 ==> ', items);
 
           return { ...establishment, items };
         }
