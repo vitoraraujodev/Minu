@@ -130,13 +130,13 @@ class EstablishmentController {
             establishment_id: establishment.id,
             available: true,
             start_at: { [Op.lte]: getHours(date) },
-            end_at: { [Op.gt]: getHours(date) },
+            end_at: { [Op.gte]: getHours(date) },
           },
           order: [['title', 'ASC']],
           attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
         });
 
-        console.log('1 ==> ', menus);
+        console.log('1 ==>  ', menus);
 
         const {
           id,
