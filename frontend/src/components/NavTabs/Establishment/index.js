@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
+import { ReactComponent as Menu2 } from '~/assets/icons/menu-icon-2.svg';
 import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import logo from '~/assets/icons/simple-logo.svg';
@@ -104,10 +105,11 @@ export default function EstablishmentTab() {
           </div>
 
           <NavLink className="navlink" to="/inventario">
-            <Menu
-              fill={active === 'menu' ? '#535BFE' : '#cfcfcf'}
-              className="tab-icon"
-            />
+            {active === 'menu' ? (
+              <Menu className="tab-icon" />
+            ) : (
+              <Menu2 className="tab-icon" />
+            )}
           </NavLink>
 
           <NavLink className="navlink" to="/estabelecimento">

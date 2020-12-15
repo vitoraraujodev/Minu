@@ -120,7 +120,7 @@ export default function Cart() {
             onClick={handleWaiter}
             type="button"
           >
-            Chamar garçon
+            Chamar garçom
           </button>
 
           <p className="total-price">

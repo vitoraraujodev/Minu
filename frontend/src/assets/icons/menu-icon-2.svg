@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.586" height="20.077" viewBox="0 0 21.586 20.077">
+  <defs>
+    <style>
+      .menu-icon-2-1 {
+        fill: #cfcfcf;
+      }
+
+      .menu-icon-2-1, .menu-icon-2-2 {
+        stroke: #cfcfcf;
+        stroke-linejoin: round;
+      }
+
+      .menu-icon-2-2 {
+        fill: none;
+        stroke-linecap: round;
+        stroke-width: 0.958px;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1405" data-name="Grupo 1405" transform="translate(0.5 0.471)">
+    <path id="Caminho_39" data-name="Caminho 39" class="menu-icon-2-1" d="M900.818,278.965l-.481-.24a13.473,13.473,0,0,0-8.954-1.476h0l-.858,15.232h0a16.043,16.043,0,0,1,9.812,1.476l.481.24Z" transform="translate(-890.525 -277.029)"/>
+    <path id="Caminho_40" data-name="Caminho 40" class="menu-icon-2-1" d="M902.516,278.965l.481-.24a13.472,13.472,0,0,1,8.954-1.476h0l.858,15.232h0A16.04,16.04,0,0,0,903,293.956l-.481.24Z" transform="translate(-892.223 -277.029)"/>
+    <path id="Caminho_41" data-name="Caminho 41" class="menu-icon-2-2" d="M891.028,297.17h0a15.369,15.369,0,0,1,9.4,1.415l.46.231" transform="translate(-890.596 -279.852)"/>
+    <path id="Caminho_42" data-name="Caminho 42" class="menu-icon-2-2" d="M912.377,297.17h0a15.369,15.369,0,0,0-9.4,1.415l-.46.231" transform="translate(-892.223 -279.852)"/>
+  </g>
+</svg>

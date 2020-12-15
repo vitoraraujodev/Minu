@@ -287,8 +287,10 @@
 
   #product-order .takeaway, #product-order .takeaway-selected {
     margin: 0;
-    margin-top: 8px;
     order: 1;
+  }
 
+  #product-order .order-text, #product-order .total-price {
+    font-size: 19px;
   }
 }

@@ -121,16 +121,15 @@
 
 #customer-bill .hint {
   text-align: center;
-  color: #fe5f53;
-  font-size: 16px;
-  padding: 16px 24px;
+  color: #9c9c9c;
+  font-size: 15px;
+  padding: 0 24px;
   font-weight: 600;
 }
 
 #customer-bill .submit-button-enabled,
 #customer-bill .submit-button-disabled {
   display: flex;
-  position: relative;
   justify-content: center;
   align-items: center;
   width: 100%;

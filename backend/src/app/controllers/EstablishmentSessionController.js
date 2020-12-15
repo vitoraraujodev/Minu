@@ -63,7 +63,7 @@ class EstablishmentSessionController {
 
     const params = {
       Bucket: bucketName,
-      Prefix: `establishments/photo/${establishment.id}`,
+      Prefix: `establishments/photo/${establishment.id}.`,
     };
 
     const imageKey = await new Promise((accept) => {

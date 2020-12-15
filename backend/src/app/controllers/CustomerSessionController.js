@@ -40,9 +40,8 @@ class CustomerSessionController {
 
     const params = {
       Bucket: bucketName,
-      Prefix: `customers/avatar/${customer.id}`,
+      Prefix: `customers/avatar/${customer.id}.`,
     };
-
 
     const imageKey = await new Promise((accept) => {
       s3.listObjects(params, (err, data) => {
@@ -60,11 +59,10 @@ class CustomerSessionController {
         }
       });
     });
-    
+
     const avatar = imageKey
       ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
       : null;
-
 
     return res.json({
       customer: {

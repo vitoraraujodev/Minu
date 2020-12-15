@@ -36,7 +36,7 @@ class ItemController {
       items.map(async (item) => {
         const params = {
           Bucket: bucketName,
-          Prefix: `establishments/products/photo/${item.id}`,
+          Prefix: `establishments/products/photo/${item.id}.`,
         };
 
         const imageKey = await new Promise((accept) => {

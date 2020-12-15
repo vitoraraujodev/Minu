@@ -21,8 +21,7 @@ export default function OrderModal({ onCart, onOrder, onClose }) {
         </div>
 
         <p className="modal-subtext">
-          Você também pode adicionar ao carrinho para realizar um grupo de
-          pedidos de uma só vez
+          Você também pode adicionar este produto ao carrinho
         </p>
 
         <div className="button-group">

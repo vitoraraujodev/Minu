@@ -104,6 +104,8 @@ export default function Bill({ location }) {
               </span>
             </div>
 
+            <p className="hint">Pedidos meramente ilustrativos</p>
+
             {productOrders.length > 0 ? (
               <div className="product-orders">
                 {productOrders.map((productOrder) => (
@@ -141,7 +143,7 @@ export default function Bill({ location }) {
                 onClick={handleWaiter}
                 type="button"
               >
-                Chamar garçon
+                Chamar garçom
               </button>
 
               <p className="total-price">
