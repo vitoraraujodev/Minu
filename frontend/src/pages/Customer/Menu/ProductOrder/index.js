@@ -170,7 +170,7 @@ export default function ProductOrder({ location }) {
           className="observation-input"
           value={observation}
           onChange={(e) => setObservation(e.target.value)}
-          maxLength="100"
+          maxLength="128"
           placeholder="Observações do seu pedido"
         />
 
