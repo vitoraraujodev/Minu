@@ -3,11 +3,12 @@ resource "aws_iam_instance_profile" "site_iam" {
   role = "ec2MinuBackend"
 }
 
-resource "aws_instance" "site" {
+resource "aws_spot_instance_request" "site" {
     ami = "ami-03657b56516ab7912"
-    instance_type = "t3a.medium"
+    instance_type = "t3a.nano"
     iam_instance_profile = aws_iam_instance_profile.site_iam.name
     key_name = "Minu"
+    # availability_zone = "us-east-2b"
     
     network_interface {
       device_index = 0
