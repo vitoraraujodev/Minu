@@ -1,9 +1,9 @@
-import aws from 'aws-sdk';
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import { getHours, getDay } from 'date-fns';
 
 import Establishment from '../models/Establishment';
+import File from '../models/File';
 import Menu from '../models/Menu';
 import Item from '../models/Item';
 import Additional from '../models/Additional';
@@ -11,11 +11,6 @@ import EstablishmentRating from '../models/EstablishmentRating';
 import ItemRating from '../models/ItemRating';
 import ServiceSession from '../models/ServiceSession';
 import SessionEvent from '../models/SessionEvent';
-
-const ENV = process.env.NODE_ENV;
-
-const bucketName =
-  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class EstablishmentController {
   async index(req, res) {
@@ -44,9 +39,6 @@ class EstablishmentController {
     const date = session.createdAt;
     const weekDay = getDay(date);
 
-    aws.config.update({ region: 'us-east-2' });
-    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
-
     await Establishment.findByPk(session.establishment_id, {
       attributes: [
         'id',
@@ -63,35 +55,15 @@ class EstablishmentController {
           required: false,
           attributes: ['id', 'description', 'rating', 'client_name'],
         },
+        {
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
+        },
       ],
     })
       .then(async (establishment) => {
-        const params = {
-          Bucket: bucketName,
-          Prefix: `establishments/photo/${establishment.id}.`,
-        };
-
-        const imageKey = await new Promise((accept) => {
-          s3.listObjects(params, (err, data) => {
-            // This function can return many different file extensions, so we order by lastModified
-            if (data.Contents.length > 0) {
-              const orderedContents = data.Contents.sort((actual, next) => {
-                if (actual.LastModified > next.LastModified) {
-                  return -1;
-                }
-                return 1;
-              });
-              accept(orderedContents[0].Key);
-            } else {
-              accept(null);
-            }
-          });
-        });
-
-        const photo = imageKey
-          ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
-          : null;
-
         const {
           id,
           establishment_name,
@@ -99,6 +71,7 @@ class EstablishmentController {
           address_number,
           street,
           complement,
+          photo,
           ratings,
         } = establishment;
 
@@ -136,8 +109,6 @@ class EstablishmentController {
           attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
         });
 
-        console.log('1 ==>  ', menus);
-
         const {
           id,
           establishment_name,
@@ -166,10 +137,8 @@ class EstablishmentController {
         };
       })
       .then(async (establishment) => {
-        console.log('2 ==> ', establishment);
-
         if (establishment.menus.length > 0) {
-          const establishmentItems = await Item.findAll({
+          const items = await Item.findAll({
             where: {
               establishment_id: establishment.id,
             },
@@ -211,81 +180,14 @@ class EstablishmentController {
                   attributes: [],
                 },
               },
+              {
+                model: File,
+                as: 'photo',
+                required: false,
+                attributes: ['id', 'path', 'url'],
+              },
             ],
           });
-
-          console.log('3 ==> ', establishmentItems);
-
-          const items = await Promise.all(
-            establishmentItems.map(async (item) => {
-              const params = {
-                Bucket: bucketName,
-                Prefix: `establishments/products/photo/${item.id}.`,
-              };
-
-              const imageKey = await new Promise((accept) => {
-                s3.listObjects(params, (err, data) => {
-                  // This function can return many different file extensions, so we order by lastModified
-                  if (data.Contents.length > 0) {
-                    const orderedContents = data.Contents.sort(
-                      (actual, next) => {
-                        if (actual.LastModified > next.LastModified) {
-                          return -1;
-                        }
-                        return 1;
-                      }
-                    );
-                    accept(orderedContents[0].Key);
-                  } else {
-                    accept(null);
-                  }
-                });
-              });
-
-              const photo = imageKey
-                ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
-                : null;
-
-              const raters = item.ratings.length;
-              const rating =
-                raters > 0
-                  ? item.ratings
-                      .map((rate) => rate.rating)
-                      .reduce((acumulator, rate) => acumulator + rate) / raters
-                  : 0;
-
-              const {
-                id,
-                code,
-                title,
-                description,
-                category,
-                preparation_time,
-                price,
-                available,
-                additionals,
-                ratings,
-              } = item;
-
-              return {
-                id,
-                code,
-                title,
-                description,
-                category,
-                preparation_time,
-                price,
-                available,
-                photo,
-                additionals,
-                ratings,
-                raters,
-                rating,
-              };
-            })
-          );
-
-          console.log('4 ==> ', items);
 
           return { ...establishment, items };
         }
@@ -316,7 +218,9 @@ class EstablishmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const establishmentExists = await Establishment.findOne({
@@ -358,7 +262,9 @@ class EstablishmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { cnpj, oldPassword, photo_id } = req.body;
@@ -391,20 +297,38 @@ class EstablishmentController {
       if (establishmentExists) {
         return res
           .status(400)
-          .json({ error: 'Estabelecimento já está cadastrado.' });
+          .json({ error: 'Estabelecimento com este CNPJ já está cadastrado.' });
       }
     }
 
     if (oldPassword && !(await establishment.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Senha antiga incorreta.' });
+      return res.status(401).json({
+        error:
+          'Senha antiga incorreta. Verifique seus dados e tente novamente.',
+      });
+    }
+
+    if (photo_id) {
+      const file = await File.findByPk(photo_id);
+
+      if (!file) {
+        return res.status(400).json({
+          error:
+            'Parece que essa imagem não foi registrada. Por favor, tente novamente mais tarde.',
+        });
+      }
+
+      if (establishment.photo_id && establishment.photo_id !== photo_id) {
+        await File.destroy({ where: { id: establishment.photo_id } });
+      }
     }
 
     await establishment.update(req.body);
 
     const {
       id,
-      establishment_name,
       email,
+      establishment_name,
       manager_name,
       manager_lastname,
       cep,
@@ -413,17 +337,52 @@ class EstablishmentController {
       complement,
       city,
       state,
-      rating,
-      raters,
+      photo,
+      ratings,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
         {
-          model: Menu,
-          as: 'menus',
-          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: EstablishmentRating,
+          as: 'ratings',
+          required: false,
+          attributes: ['id', 'description', 'rating', 'client_name'],
         },
       ],
     });
+
+    const raters = ratings.length;
+
+    const rating =
+      raters > 0
+        ? ratings
+            .map((rate) => rate.rating)
+            .reduce((acumulator, rate) => acumulator + rate) / raters
+        : 0;
+
+    console.log(
+      id,
+      cnpj,
+      email,
+      establishment_name,
+      manager_name,
+      manager_lastname,
+      cep,
+      address_number,
+      street,
+      complement,
+      city,
+      state,
+      photo,
+      ratings,
+      rating,
+      raters
+    );
 
     return res.json({
       id,
@@ -438,6 +397,8 @@ class EstablishmentController {
       complement,
       city,
       state,
+      photo,
+      ratings,
       rating,
       raters,
     });

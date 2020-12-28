@@ -8,8 +8,7 @@ import customerAuthMiddleware from './app/middlewares/customerAuth';
 import EstablishmentSessionController from './app/controllers/EstablishmentSessionController';
 import PinController from './app/controllers/PinController';
 import EstablishmentsController from './app/controllers/EstablishmentController';
-import EstablishmentPhotoController from './app/controllers/EstablishmentPhotoController';
-import ProductPhotoController from './app/controllers/ProductPhotoController';
+import FileController from './app/controllers/FileController';
 import MenuController from './app/controllers/MenuController';
 import ItemController from './app/controllers/ItemController';
 import AdditionalController from './app/controllers/AdditionalController';
@@ -22,6 +21,7 @@ import AvatarController from './app/controllers/AvatarController';
 import ServiceSessionController from './app/controllers/ServiceSessionController';
 
 const routes = new Router();
+
 const customerUpload = multer(MulterConfig.getCustomerConfig());
 const establishmentUpload = multer(MulterConfig.getEstablishmentConfig());
 const productUpload = multer(MulterConfig.getProductConfig());
@@ -99,14 +99,14 @@ routes.post(
   '/establishment-photo',
   establishmentAuthMiddleware,
   establishmentUpload.single('file'),
-  EstablishmentPhotoController.store
+  FileController.store
 );
 
 routes.post(
-  '/product-photo/:id',
+  '/product-photo',
   establishmentAuthMiddleware,
   productUpload.single('file'),
-  ProductPhotoController.store
+  FileController.store
 );
 
 routes.post(

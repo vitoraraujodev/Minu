@@ -34,7 +34,9 @@ class ServiceSessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { establishment_id, table_number } = req.body;

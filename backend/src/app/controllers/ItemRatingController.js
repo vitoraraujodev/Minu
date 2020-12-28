@@ -29,7 +29,9 @@ class ItemRatingController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { id } = req.params;

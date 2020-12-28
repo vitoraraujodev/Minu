@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
-import fs from 'fs';
-import { resolve } from 'path';
 
 import Customer from '../models/Customer';
 import Avatar from '../models/Avatar';
@@ -23,7 +21,9 @@ class CustomerController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const customerExists = await Customer.findOne({
@@ -88,7 +88,9 @@ class CustomerController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const customer = await Customer.findByPk(req.customerId, {
@@ -138,22 +140,8 @@ class CustomerController {
         });
       }
 
-      if (customer.avatar && avatar_id !== customer.avatar.id) {
-        fs.unlink(
-          resolve(
-            __dirname,
-            '..',
-            '..',
-            '..',
-            'tmp',
-            'uploads',
-            customer.avatar.path
-          ),
-          (err) => {
-            if (err) throw err;
-          }
-        );
-        await Avatar.destroy({ where: { id: customer.avatar.id } });
+      if (customer.avatar_id && customer.avatar_id !== avatar_id) {
+        await Avatar.destroy({ where: { id: customer.avatar_id } });
       }
     }
 
@@ -170,6 +158,7 @@ class CustomerController {
       include: {
         model: Avatar,
         as: 'avatar',
+        required: false,
         attributes: ['id', 'path', 'url'],
       },
     });

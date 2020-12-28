@@ -29,7 +29,9 @@ class EstablishmentRatingController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { id } = req.params;
@@ -37,7 +39,10 @@ class EstablishmentRatingController {
     const establishment = await Establishment.findByPk(id);
 
     if (!establishment) {
-      return res.status(400).json({ error: "Establishment doesn't exist." });
+      return res.status(400).json({
+        error:
+          'Estabelecimento não encontrado. Por favor, verifique e tente novamente.',
+      });
     }
 
     const establishmentRating = await EstablishmentRating.create({

@@ -7,6 +7,10 @@ const bucketName =
   ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class MulterConfig {
+  // EVERY IMAGE SENT TO S3 WILL HAVE AN AUTOMATIC THUMBNAIL VERSION, SO WE SEND
+  // ONLY THE "FULL" VERSION TO S3 AND ON FRONTEND WE REPLACE "FULL" AS "THUMBNAIL"
+  // IN URL IN ORDER TO HAVE THE THUMBNAIL VERSION
+
   static getCustomerConfig() {
     aws.config.update({ region: 'us-east-2' });
 
@@ -21,7 +25,9 @@ class MulterConfig {
       key(req, file, cb) {
         cb(
           null,
-          `customers/avatar/${req.customerId + extname(file.originalname)}`
+          `customers/avatar/${req.customerId}-${Date.now()}-full${extname(
+            file.originalname
+          )}`
         );
       },
     });
@@ -44,8 +50,8 @@ class MulterConfig {
         cb(
           null,
           `establishments/photo/${
-            req.establishmentId + extname(file.originalname)
-          }`
+            req.establishmentId
+          }-${Date.now()}-full${extname(file.originalname)}`
         );
       },
     });
@@ -68,8 +74,8 @@ class MulterConfig {
         cb(
           null,
           `establishments/products/photo/${
-            req.params.id + extname(file.originalname)
-          }`
+            req.establishmentId
+          }-${Date.now()}-full${extname(file.originalname)}`
         );
       },
     });

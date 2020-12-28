@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 
 import Establishment from '../models/Establishment';
 import EstablishmentRating from '../models/EstablishmentRating';
+import File from '../models/File';
 
 import authConfig from '../../config/auth';
 
@@ -20,7 +21,9 @@ class EstablishmentSessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Dados inválidos.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { email, password } = req.body;
@@ -33,6 +36,12 @@ class EstablishmentSessionController {
           as: 'ratings',
           required: false,
           attributes: ['id', 'description', 'rating', 'client_name'],
+        },
+        {
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
         },
       ],
     });
@@ -58,35 +67,6 @@ class EstablishmentSessionController {
             .reduce((acumulator, rate) => acumulator + rate) / raters
         : 0;
 
-    aws.config.update({ region: 'us-east-2' });
-    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
-
-    const params = {
-      Bucket: bucketName,
-      Prefix: `establishments/photo/${establishment.id}.`,
-    };
-
-    const imageKey = await new Promise((accept) => {
-      s3.listObjects(params, (err, data) => {
-        // This function can return many different file extensions, so we order by lastModified
-        if (data.Contents.length > 0) {
-          const orderedContents = data.Contents.sort((actual, next) => {
-            if (actual.LastModified > next.LastModified) {
-              return -1;
-            }
-            return 1;
-          });
-          accept(orderedContents[0].Key);
-        } else {
-          accept(null);
-        }
-      });
-    });
-
-    const photo = imageKey
-      ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
-      : null;
-
     const {
       id,
       cnpj,
@@ -99,6 +79,7 @@ class EstablishmentSessionController {
       complement,
       city,
       state,
+      photo,
     } = establishment;
 
     return res.json({

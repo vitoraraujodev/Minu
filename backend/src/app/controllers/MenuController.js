@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 import Menu from '../models/Menu';
 import MenuItem from '../models/MenuItem';
 import Item from '../models/Item';
+import File from '../models/File';
 
 class MenuController {
   async index(req, res) {
@@ -17,8 +18,14 @@ class MenuController {
           required: false,
           order: [['title', 'ASC']],
           attributes: ['id', 'title', 'code', 'price'],
+          include: {
+            model: File,
+            as: 'photo',
+            required: false,
+            attributes: ['id', 'path', 'url'],
+          },
           through: {
-            include: [],
+            attributes: [],
           },
         },
       ],
@@ -38,7 +45,9 @@ class MenuController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const establishment_id = req.establishmentId; // eslint-disable-line
@@ -48,7 +57,9 @@ class MenuController {
     });
 
     if (menuExists) {
-      return res.status(400).json({ error: 'Menu title already in use.' });
+      return res
+        .status(400)
+        .json({ error: 'Você já possui um cardápio com esse título.' });
     }
 
     const { items } = req.body;
@@ -79,6 +90,12 @@ class MenuController {
               as: 'items',
               order: [['title', 'ASC']],
               attributes: ['id', 'title', 'price', 'available'],
+              include: {
+                model: File,
+                as: 'photo',
+                required: false,
+                attributes: ['id', 'path', 'url'],
+              },
               through: {
                 attributes: [],
               },
@@ -100,7 +117,9 @@ class MenuController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
     const establishment_id = req.establishmentId; // eslint-disable-line
 
@@ -109,6 +128,12 @@ class MenuController {
         model: Item,
         as: 'items',
         attributes: ['id'],
+        include: {
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
+        },
         through: {
           attributes: [],
         },
@@ -116,7 +141,10 @@ class MenuController {
     });
 
     if (!menu) {
-      return res.status(400).json({ error: 'Menu does not exist.' });
+      return res.status(400).json({
+        error:
+          'Cardápios não encontrado. Por favor, verifique e tente novamente.',
+      });
     }
 
     if (req.body.title && req.body.title !== menu.title) {
@@ -125,7 +153,9 @@ class MenuController {
       });
 
       if (menuExists) {
-        return res.status(400).json({ error: 'Menu title already in use.' });
+        return res
+          .status(400)
+          .json({ error: 'Você já possui um cardápio com esse título.' });
       }
     }
 
@@ -193,6 +223,12 @@ class MenuController {
                 as: 'items',
                 order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
+                include: {
+                  model: File,
+                  as: 'photo',
+                  required: false,
+                  attributes: ['id', 'path', 'url'],
+                },
                 through: {
                   attributes: [],
                 },
@@ -214,11 +250,19 @@ class MenuController {
     const menu = await Menu.findByPk(id);
 
     if (!menu) {
-      return res.status(400).json('Menu does not exist.');
+      return res
+        .status(400)
+        .json(
+          'Cardápio não encontrado. Por favor, verifique e tente novamente.'
+        );
     }
 
     if (!menu.establishment_id === req.establishmentId) {
-      return res.status(401).json('You can only delete your own menu.');
+      return res
+        .status(401)
+        .json(
+          'Você só pode deletar seus próprios cardápios. Por favor, verifique e tente novamente.'
+        );
     }
 
     await menu.destroy();

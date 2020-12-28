@@ -21,7 +21,9 @@ class AdditionalController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const establishment_id = req.establishmentId;
@@ -50,7 +52,9 @@ class AdditionalController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const establishment_id = req.establishmentId; // eslint-disable-line
@@ -80,11 +84,17 @@ class AdditionalController {
     const additional = await Additional.findByPk(id);
 
     if (!additional) {
-      return res.status(400).json('Additional does not exist.');
+      return res
+        .status(400)
+        .json('Adicional não existente. Por favor, tente novamente.');
     }
 
     if (!additional.establishment_id === req.establishmentId) {
-      return res.status(401).json('You can only delete your own Additionals.');
+      return res
+        .status(401)
+        .json(
+          'Você só pode deletar seus próprios adicionais. Por favor, verifique e tente novamente.'
+        );
     }
 
     await additional.destroy();

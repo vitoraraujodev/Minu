@@ -9,7 +9,9 @@ class PinController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { admin_pin } = req.body; // eslint-disable-line
@@ -17,11 +19,16 @@ class PinController {
     const establishment = await Establishment.findByPk(req.establishmentId);
 
     if (!establishment) {
-      return res.status(400).json({ error: "Establishment doesn't exist." });
+      return res.status(400).json({
+        error:
+          'Estabelecimento não encontrado. Por favor, verifique e tente novamente.',
+      });
     }
 
     if (!(await establishment.checkPin(admin_pin))) {
-      return res.status(401).json({ error: 'PIN is invalid.' });
+      return res.status(401).json({
+        error: 'PIN inválido. Por favor, verifique etente novamente.',
+      });
     }
 
     return res.status(200).json({ okay: true });

@@ -1,6 +1,6 @@
-import Avatar from '../models/Avatar';
+import File from '../models/File';
 
-class AvatarController {
+class FileController {
   async store(req, res) {
     if (!req.file) {
       return res.status(400).json({
@@ -9,12 +9,13 @@ class AvatarController {
       });
     }
 
-    const avatar = await Avatar.create({
+    const file = await File.create({
       path: req.file.key,
+      establishment_id: req.establishmentId,
     });
 
-    return res.json(avatar);
+    return res.json(file);
   }
 }
 
-export default new AvatarController();
+export default new FileController();

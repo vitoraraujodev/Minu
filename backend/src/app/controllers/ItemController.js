@@ -1,15 +1,10 @@
-import aws from 'aws-sdk';
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
 import Item from '../models/Item';
+import File from '../models/File';
 import Additional from '../models/Additional';
 import ItemAdditional from '../models/ItemAdditional';
-
-const ENV = process.env.NODE_ENV;
-
-const bucketName =
-  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class ItemController {
   async index(req, res) {
@@ -26,56 +21,16 @@ class ItemController {
             attributes: [],
           },
         },
+        {
+          model: File,
+          as: 'photo',
+          required: false,
+          attributes: ['id', 'path', 'url'],
+        },
       ],
     });
 
-    aws.config.update({ region: 'us-east-2' });
-    const s3 = new aws.S3({ apiVersion: '2006-03-01' });
-
-    const itemsWithPhoto = await Promise.all(
-      items.map(async (item) => {
-        const params = {
-          Bucket: bucketName,
-          Prefix: `establishments/products/photo/${item.id}.`,
-        };
-
-        const imageKey = await new Promise((accept) => {
-          s3.listObjects(params, (err, data) => {
-            // This function can return many different file extensions, so we order by lastModified
-            if (data.Contents.length > 0) {
-              const orderedContents = data.Contents.sort((actual, next) => {
-                if (actual.LastModified > next.LastModified) {
-                  return -1;
-                }
-                return 1;
-              });
-              accept(orderedContents[0].Key);
-            } else {
-              accept(null);
-            }
-          });
-        });
-
-        const photo = imageKey
-          ? `https://${bucketName}.s3.us-east-2.amazonaws.com/${imageKey}`
-          : null;
-
-        return {
-          id: item.id,
-          code: item.code,
-          title: item.title,
-          description: item.description,
-          category: item.category,
-          preparation_time: item.preparation_time,
-          price: item.price,
-          available: item.available,
-          additionals: item.additionals,
-          photo,
-        };
-      })
-    );
-
-    return res.json(itemsWithPhoto);
+    return res.json(items);
   }
 
   async store(req, res) {
@@ -91,7 +46,9 @@ class ItemController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const { additionals } = req.body;
@@ -137,14 +94,21 @@ class ItemController {
                   attributes: [],
                 },
               },
+              {
+                model: File,
+                as: 'photo',
+                required: false,
+                attributes: ['id', 'path', 'url'],
+              },
             ],
           })
         )
         .then((item) => res.json(item));
     } catch (err) {
-      return res
-        .status(400)
-        .json({ error: 'Houve um erro na requisão. Verifique os dados' });
+      return res.status(400).json({
+        error:
+          'Houve um erro na requisão. Por favor, tente novamente mais tarde.',
+      });
     }
   }
 
@@ -161,7 +125,9 @@ class ItemController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed.' });
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
     }
 
     const item = await Item.findByPk(req.params.id, {
@@ -177,6 +143,23 @@ class ItemController {
 
     if (!item) {
       return res.status(400).json({ error: 'Item does not exist.' });
+    }
+
+    const { photo_id } = req.body;
+
+    if (photo_id) {
+      const file = await File.findByPk(photo_id);
+
+      if (!file) {
+        return res.status(400).json({
+          error:
+            'Parece que essa imagem não foi registrada. Por favor, tente novamente mais tarde.',
+        });
+      }
+
+      if (item.photo_id && item.photo_id !== photo_id) {
+        await File.destroy({ where: { id: item.photo_id } });
+      }
     }
 
     const itemAdditionals = item.additionals.map((add) => add.id);
@@ -249,6 +232,12 @@ class ItemController {
                   attributes: [],
                 },
               },
+              {
+                model: File,
+                as: 'photo',
+                required: false,
+                attributes: ['id', 'path', 'url'],
+              },
             ],
           })
         )
@@ -266,11 +255,19 @@ class ItemController {
     const item = await Item.findByPk(id);
 
     if (!item) {
-      return res.status(400).json('Item does not exist.');
+      return res
+        .status(400)
+        .json(
+          'Produto não encontrado. Por favor, verifique seus dados e tente novamente.'
+        );
     }
 
     if (!item.establishment_id === req.establishmentId) {
-      return res.status(401).json('You can only delete your own items.');
+      return res
+        .status(401)
+        .json(
+          'Você só pode deletar seus próprios produtos. Por favor, verifique e tente novamente.'
+        );
     }
 
     await item.destroy();
