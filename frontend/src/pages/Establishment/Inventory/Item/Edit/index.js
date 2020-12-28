@@ -23,7 +23,7 @@ export default function EditItem({ location }) {
 
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
-  const [photo, setPhoto] = useState(item.photo ? item.photo : '');
+  const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
@@ -82,22 +82,25 @@ export default function EditItem({ location }) {
   async function handleSubmit() {
     setLoading(true);
     const additionals_id = additionals.map((add) => add.id);
-    const body = {
-      title,
-      description,
-      price,
-      preparation_time: preparationTime,
-      category,
-      additionals: additionals_id,
-    };
+
+    const data = new FormData();
+    data.append('file', file);
 
     try {
+      const result = await api.post(`product-photo`, data);
+
+      const body = {
+        title,
+        description,
+        price,
+        preparation_time: preparationTime,
+        category,
+        additionals: additionals_id,
+        photo_id: result.data.id,
+      };
+
       await api.put(`items/${item.id}`, body);
-      if (file) {
-        const data = new FormData();
-        data.append('file', file);
-        await api.post(`product-photo/${item.id}`, data);
-      }
+
       setLoading(false);
       history.push('/inventario');
     } catch (err) {

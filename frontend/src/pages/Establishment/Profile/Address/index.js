@@ -295,7 +295,6 @@ export default function Address() {
             name="street"
             value={street}
             className={disabled ? 'input-disabled' : 'input'}
-            style={{ textTransform: 'capitalize' }}
             disabled={disabled}
             onChange={(e) => setStreet(e.target.value)}
             placeholder="Rua Oswaldo Cruz"

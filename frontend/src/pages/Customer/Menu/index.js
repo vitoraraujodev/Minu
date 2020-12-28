@@ -189,7 +189,9 @@ export default function CustomerMenu() {
 
           <div className="img-container">
             <img
-              src={establishment.photo ? establishment.photo : defaultPicture}
+              src={
+                establishment.photo ? establishment.photo.url : defaultPicture
+              }
               onError={(e) => {
                 e.target.src = defaultPicture;
               }}

@@ -15,6 +15,7 @@ export default function Account() {
 
   const [windowWidth, setWindowWidth] = useState(768);
   const [filled, setFilled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState(customer.name || '');
   const [lastname, setLastname] = useState(customer.lastname || '');
@@ -53,6 +54,10 @@ export default function Account() {
   window.addEventListener('resize', handleResize);
 
   function handleSubmit() {
+    if (loading) return;
+
+    setLoading(true);
+
     const data = {
       name,
       lastname,
@@ -64,8 +69,8 @@ export default function Account() {
       data.password = password;
       data.confirm_password = confirmPassword;
     }
-
     dispatch(updateCustomerRequest(data));
+    setLoading(false);
   }
 
   return (
@@ -182,7 +187,7 @@ export default function Account() {
           }
           onClick={filled ? handleSubmit : null}
         >
-          Concluir
+          {loading ? 'Carregando...' : 'Concluir'}
         </button>
       ) : null}
     </div>

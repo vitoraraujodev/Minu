@@ -223,7 +223,7 @@ export default function NewMenu({ location }) {
               >
                 <div className="img-container">
                   <img
-                    src={item.photo ? item.photo : defaultPicture}
+                    src={item.photo ? item.photo.url : defaultPicture}
                     onError={(e) => {
                       e.target.src = defaultPicture;
                     }}

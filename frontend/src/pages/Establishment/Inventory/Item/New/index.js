@@ -81,23 +81,25 @@ export default function NewItem({ location }) {
   async function handleSubmit() {
     setLoading(true);
     const additionals_id = additionals.map((add) => add.id);
-    const body = {
-      title,
-      description,
-      price,
-      preparation_time: preparationTime,
-      category,
-      additionals: additionals_id,
-    };
+
+    const data = new FormData();
+    data.append('file', file);
 
     try {
-      const response = await api.post('items', body);
-      if (file) {
-        const data = new FormData();
-        data.append('file', file);
+      const response = await api.post(`product-photo`, data);
 
-        await api.post(`product-photo/${response.data.id}`, data);
-      }
+      const body = {
+        title,
+        description,
+        price,
+        preparation_time: preparationTime,
+        category,
+        additionals: additionals_id,
+        photo_id: response.data.id,
+      };
+
+      await api.post('items', body);
+
       setLoading(false);
       history.push('/inventario');
     } catch (err) {

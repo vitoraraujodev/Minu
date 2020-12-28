@@ -135,7 +135,6 @@ export default function Account() {
             <input
               value={establishmentName}
               className={disabled ? 'input-disabled' : 'input'}
-              style={{ textTransform: 'capitalize' }}
               disabled={disabled}
               placeholder="Restaurante X"
               onChange={(e) => setEstablishmentName(e.target.value)}

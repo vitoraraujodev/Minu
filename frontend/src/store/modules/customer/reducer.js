@@ -12,7 +12,6 @@ export default function customer(state = INITIAL_STATE, action) {
         break;
       }
       case '@customer/UPDATE_CUSTOMER_SUCCESS': {
-        action.payload.customer.avatar = draft.customer.avatar;
         draft.customer = action.payload.customer;
         break;
       }

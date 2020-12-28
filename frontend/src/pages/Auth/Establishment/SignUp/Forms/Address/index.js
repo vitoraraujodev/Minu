@@ -230,7 +230,6 @@ export default function Address({
           name="street"
           value={street}
           className="form-input"
-          style={{ textTransform: 'capitalize' }}
           onChange={(e) => onChangeStreet(e.target.value)}
           placeholder="Rua Oswaldo Cruz"
         />

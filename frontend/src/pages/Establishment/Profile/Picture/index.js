@@ -8,7 +8,7 @@ import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Lock } from '~/assets/icons/lock-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import { updateEstablishmentPhoto } from '~/store/modules/establishment/actions';
+import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -24,10 +24,11 @@ export default function Picture() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [disabled, setDisabled] = useState(false);
   const [pinModalVisible, setPinModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [file, setFile] = useState();
   const [photo, setPhoto] = useState(
-    establishment.photo ? establishment.photo : defaultPicture
+    establishment.photo ? establishment.photo.url : defaultPicture
   );
 
   function handleResize() {
@@ -50,18 +51,28 @@ export default function Picture() {
   }
 
   async function handleSubmit() {
+    if (loading) return;
+
+    setLoading(true);
+
     const data = new FormData();
     data.append('file', file);
 
     try {
       const response = await api.post('establishment-photo', data);
-
-      dispatch(updateEstablishmentPhoto(response.data.photo));
-      history.push('/estabelecimento');
+      if (response.data) {
+        dispatch(
+          updateEstablishmentRequest({
+            photo_id: response.data.id,
+          })
+        );
+      }
+      setLoading(false);
     } catch (err) {
       alert(
         'Houve um erro ao atualizar a foto. Por favor, tente novamente mais tarde.'
       );
+      setLoading(false);
     }
   }
 
@@ -143,7 +154,7 @@ export default function Picture() {
               onClick={file ? handleSubmit : null}
               type="button"
             >
-              Concluir
+              {loading ? 'Carregando...' : 'Concluir'}
             </button>
           ) : null}
         </div>
@@ -154,7 +165,7 @@ export default function Picture() {
           onClick={file ? handleSubmit : null}
           type="button"
         >
-          Concluir
+          {loading ? 'Carregando...' : 'Concluir'}
         </button>
       ) : null}
     </div>

@@ -32,7 +32,6 @@ export default function Name({
         <input
           name="establishmentName"
           className="form-input"
-          style={{ textTransform: 'capitalize' }}
           value={establishmentName}
           autoFocus //eslint-disable-line
           onChange={(e) => onChangeEstablishmentName(e.target.value)}

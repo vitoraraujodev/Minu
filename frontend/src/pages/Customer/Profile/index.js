@@ -9,7 +9,7 @@ import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 import logo from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
-import { updateCustomerAvatar } from '~/store/modules/customer/actions';
+import { updateCustomerRequest } from '~/store/modules/customer/actions';
 
 import defaultPicture from '~/assets/images/default-user.png';
 
@@ -21,26 +21,35 @@ export default function Profile() {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customer.customer);
 
+  const [loading, setLoading] = useState(false);
+
   const [avatar, setAvatar] = useState(
-    customer.avatar ? customer.avatar : null
+    customer.avatar ? customer.avatar.url : null
   );
 
   async function handleChangeAvatar(e) {
+    if (loading) return;
+
+    setLoading(true);
+
     const data = new FormData();
 
     data.append('file', e.target.files[0]);
 
     try {
       const response = await api.post('avatar', data);
-      if (response.data.avatar) {
-        setAvatar(response.data.avatar);
-        dispatch(updateCustomerAvatar(response.data.avatar));
+
+      if (response.data) {
+        setAvatar(response.data.url);
+        dispatch(updateCustomerRequest({ avatar_id: response.data.id }));
       }
     } catch (err) {
       alert(
         'Houve um erro ao salvar sua foto. Por favor, tente novamente mais tarde...'
       );
     }
+
+    setLoading(false);
   }
 
   function handleSignOut() {
@@ -62,14 +71,20 @@ export default function Profile() {
             </div>
 
             <div className="img-container">
-              <img
-                src={avatar || defaultPicture}
-                onError={(e) => {
-                  e.target.src = defaultPicture;
-                }}
-                className="costumer-img"
-                alt=""
-              />
+              {loading ? (
+                <div className="loader-container">
+                  <div className="loader" />
+                </div>
+              ) : (
+                <img
+                  src={avatar || defaultPicture}
+                  onError={(e) => {
+                    e.target.src = defaultPicture;
+                  }}
+                  className="costumer-img"
+                  alt=""
+                />
+              )}
             </div>
           </div>
           <div className="info">

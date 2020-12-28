@@ -18,7 +18,7 @@ export function* updateEstablishment({ payload }) {
 
     yield put(updateEstablishmentSuccess(response.data));
 
-    history.push('/');
+    history.push('/estabelecimento');
   } catch (err) {
     if (err.response.data) {
       alert(err.response.data.error);
