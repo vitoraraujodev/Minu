@@ -84,23 +84,35 @@ export default function EditItem({ location }) {
     const additionals_id = additionals.map((add) => add.id);
 
     const data = new FormData();
-    data.append('file', file);
 
     try {
-      const result = await api.post(`product-photo`, data);
+      if (file) {
+        data.append('file', file);
+        const result = await api.post(`product-photo`, data);
 
-      const body = {
-        title,
-        description,
-        price,
-        preparation_time: preparationTime,
-        category,
-        additionals: additionals_id,
-        photo_id: result.data.id,
-      };
+        const body = {
+          title,
+          description,
+          price,
+          preparation_time: preparationTime,
+          category,
+          additionals: additionals_id,
+          photo_id: result.data.id,
+        };
 
-      await api.put(`items/${item.id}`, body);
+        await api.put(`items/${item.id}`, body);
+      } else {
+        const body = {
+          title,
+          description,
+          price,
+          preparation_time: preparationTime,
+          category,
+          additionals: additionals_id,
+        };
 
+        await api.put(`items/${item.id}`, body);
+      }
       setLoading(false);
       history.push('/inventario');
     } catch (err) {
