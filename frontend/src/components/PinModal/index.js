@@ -31,7 +31,6 @@ export default function PinModal({ onClose, onAccess }) {
 
       if (response.data.okay) {
         onAccess();
-        onClose();
       }
     } catch (err) {
       setInvalid(true);

@@ -3,7 +3,6 @@ import producer from 'immer';
 const INITIAL_STATE = {
   token: null,
   loading: false,
-  inventoryAccessed: true,
 };
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -33,10 +32,6 @@ export default function auth(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.token = null;
-        break;
-      }
-      case '@auth/INVENTORY_ACCESS': {
-        draft.inventoryAccessed = action.payload.access;
         break;
       }
       default:

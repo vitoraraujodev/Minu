@@ -17,3 +17,10 @@ export function updateEstablishmentFailure() {
     type: '@establishment/UPDATE_ESTABLISHMENT_FAILURE',
   };
 }
+
+export function inventoryAccess(access) {
+  return {
+    type: '@establishment/INVENTORY_ACCESS',
+    payload: { access },
+  };
+}

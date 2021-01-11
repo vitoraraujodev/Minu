@@ -41,10 +41,3 @@ export function signOutSuccess() {
     type: '@auth/SIGN_OUT',
   };
 }
-
-export function inventoryAccess(access) {
-  return {
-    type: '@auth/INVENTORY_ACCESS',
-    payload: { access },
-  };
-}

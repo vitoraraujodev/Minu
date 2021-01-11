@@ -8,10 +8,10 @@ import {
   customerSignInSuccess,
   signFailure,
   signOutSuccess,
-  inventoryAccess,
 } from './actions';
 
 import { checkOutSuccess } from '../session/actions';
+import { inventoryAccess } from '../establishment/actions';
 
 export function* establishmentSignIn({ payload }) {
   try {

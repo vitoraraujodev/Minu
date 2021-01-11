@@ -9,14 +9,16 @@ import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import logo from '~/assets/icons/simple-logo.svg';
 
-import { inventoryAccess } from '~/store/modules/auth/actions';
+import { inventoryAccess } from '~/store/modules/establishment/actions';
 
 import './styles.css';
 
 export default function EstablishmentTab() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const accessed = useSelector((state) => state.auth.inventoryAccessed);
+  const accessed = useSelector(
+    (state) => state.establishment.inventoryAccessed
+  );
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [active, setActive] = useState();
@@ -34,8 +36,9 @@ export default function EstablishmentTab() {
     else if (location.pathname === '/estabelecimento')
       setActive('establishment');
 
-    if (location.pathname.substr(0, 11) !== '/inventario' && accessed)
+    if (location.pathname.substr(0, 11) !== '/inventario' && accessed) {
       dispatch(inventoryAccess(false));
+    }
   }, [location.pathname, dispatch, accessed]);
 
   useEffect(() => {

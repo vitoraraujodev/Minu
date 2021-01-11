@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
 import Menu from './Menu';
@@ -23,16 +23,16 @@ import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 
-import { inventoryAccess } from '~/store/modules/auth/actions';
+import { inventoryAccess } from '~/store/modules/establishment/actions';
 
 import './styles.css';
 
 export default function Inventory() {
-  // const inventoryAccessed = useSelector(
-  //   (state) => state.auth.inventoryAccessed
-  // );
+  const inventoryAccessed = useSelector(
+    (state) => state.establishment.inventoryAccessed
+  );
 
-  const inventoryAccessed = true;
+  // const inventoryAccessed = true;
 
   const dispatch = useDispatch();
 
@@ -105,7 +105,10 @@ export default function Inventory() {
       {pinModalVisible && (
         <PinModal
           onClose={() => setPinModalVisible(false)}
-          onAccess={() => dispatch(inventoryAccess(true))}
+          onAccess={() => {
+            dispatch(inventoryAccess(true));
+            setPinModalVisible(false);
+          }}
         />
       )}
 

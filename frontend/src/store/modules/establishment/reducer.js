@@ -2,6 +2,7 @@ import producer from 'immer';
 
 const INITIAL_STATE = {
   establishment: null,
+  inventoryAccessed: false,
 };
 
 export default function establishment(state = INITIAL_STATE, action) {
@@ -17,6 +18,10 @@ export default function establishment(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.establishment = null;
+        break;
+      }
+      case '@establishment/INVENTORY_ACCESS': {
+        draft.inventoryAccessed = action.payload.access;
         break;
       }
       default:
