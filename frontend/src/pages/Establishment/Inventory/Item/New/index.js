@@ -18,9 +18,7 @@ import capitalize from '~/util/capitalize';
 
 import './styles.css';
 
-export default function NewItem({ location }) {
-  const length = location.state ? location.state.length : '';
-
+export default function NewItem() {
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [photo, setPhoto] = useState('');
@@ -178,11 +176,7 @@ export default function NewItem({ location }) {
               Voltar
             </button>
 
-            <p className="header-label">
-              {length
-                ? `Produto ${length <= 9 ? `0${length}` : length}`
-                : 'Novo Produto'}
-            </p>
+            <p className="header-label">Novo Produto</p>
           </div>
 
           <div className="content">

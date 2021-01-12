@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
 import Menu from './Menu';
+import Item from './Item';
 import Additional from './Additional';
 import Actions from '~/components/Actions';
 
@@ -19,7 +20,6 @@ import {
 } from '~/assets/icons/add-icon.svg';
 
 import { ReactComponent as SaveIcon } from '~/assets/icons/save-icon.svg';
-import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 
@@ -44,19 +44,61 @@ export default function Inventory() {
   const [price, setPrice] = useState(0.0);
   const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
 
-  const [items, setItems] = useState([]);
+  const [starters, setStarters] = useState([]);
+  const [mains, setMains] = useState([]);
+  const [desserts, setDesserts] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const [alcoholics, setAlcoholics] = useState([]);
   const [additionals, setAdditionals] = useState([]);
   const [menus, setMenus] = useState([]);
 
   async function loadItems() {
     setLoading(true);
     try {
+      // Load items and separe by category
       let response = await api.get('items');
-      setItems(response.data);
+      if (response.data && response.data.length > 0) {
+        const alcoholicItems = response.data.filter(
+          (item) => item.category === 'Bebidas alcoólicas'
+        );
+        if (alcoholicItems.length > 0) {
+          setAlcoholics(alcoholicItems);
+        }
 
+        const drinkItems = response.data.filter(
+          (item) => item.category === 'Bebidas'
+        );
+        if (drinkItems.length > 0) {
+          setDrinks(drinkItems);
+        }
+
+        const dessertItems = response.data.filter(
+          (item) => item.category === 'Sobremesas'
+        );
+        if (dessertItems.length > 0) {
+          setDesserts(dessertItems);
+        }
+
+        const mainItems = response.data.filter(
+          (item) => item.category === 'Pratos principais'
+        );
+        if (mainItems.length > 0) {
+          setMains(mainItems);
+        }
+
+        const starterItems = response.data.filter(
+          (item) => item.category === 'Entradas'
+        );
+        if (starterItems.length > 0) {
+          setStarters(starterItems);
+        }
+      }
+
+      // Load Additional
       response = await api.get('additionals');
       setAdditionals(response.data);
 
+      // Load Menus
       response = await api.get('menus');
       setMenus(response.data);
     } catch (err) {
@@ -121,6 +163,7 @@ export default function Inventory() {
         </div>
 
         <div className="content">
+          {/* Menus Accordion */}
           <Accordion
             title="Cardápios"
             loading={loading}
@@ -154,17 +197,13 @@ export default function Inventory() {
             ))}
           </Accordion>
 
+          {/* Products Accordion */}
           <Accordion
             title="Produtos"
             loading={loading}
             disabled={!inventoryAccessed}
           >
-            <Link
-              to={{
-                pathname: '/inventario/produto',
-                state: { length: items.length + 1 },
-              }}
-            >
+            <Link to="/inventario/produto">
               <div className="add-item-container">
                 <AddIcon
                   style={{ height: 16, marginRight: 8, minWidth: 16 }}
@@ -174,44 +213,161 @@ export default function Inventory() {
               </div>
             </Link>
 
-            {items.map((item) => (
-              <div key={item.id} className="item-container">
-                <Link
-                  to={{
-                    pathname: `/inventario/produto/${item.id}`,
-                    state: { item },
-                  }}
-                >
-                  <div className="img-container">
-                    <img
-                      src={item.photo ? item.photo.url : defaultPicture}
-                      onError={(e) => {
-                        e.target.src = defaultPicture;
+            {starters.length > 0 && (
+              <>
+                <p className="category-text">Entradas</p>
+                {starters.map((item) => (
+                  <div key={item.id} className="item-container">
+                    <Link
+                      to={{
+                        pathname: `/inventario/produto/${item.id}`,
+                        state: { item },
                       }}
-                      className="item-img"
-                      alt="item-img"
-                    />
-                  </div>
+                    >
+                      <Item item={item} />
+                    </Link>
 
-                  <div className="item-info">
-                    <p className="item-title">{item.title}</p>
-                    {item.code && <p className="item-code">{item.code}</p>}
+                    <div className="icon-area">
+                      <Actions
+                        item={item}
+                        route="items"
+                        onDelete={(id) =>
+                          setStarters(
+                            starters.filter((product) => product.id !== id)
+                          )
+                        }
+                        fill="#535BFE"
+                      />
+                    </div>
                   </div>
-                </Link>
-                <div className="icon-area">
-                  <Actions
-                    item={item}
-                    route="items"
-                    onDelete={(id) =>
-                      setItems(items.filter((product) => product.id !== id))
-                    }
-                    fill="#535BFE"
-                  />
-                </div>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
+
+            {mains.length > 0 && (
+              <>
+                <p className="category-text">Pratos principais</p>
+                {mains.map((item) => (
+                  <div key={item.id} className="item-container">
+                    <Link
+                      to={{
+                        pathname: `/inventario/produto/${item.id}`,
+                        state: { item },
+                      }}
+                    >
+                      <Item item={item} />
+                    </Link>
+
+                    <div className="icon-area">
+                      <Actions
+                        item={item}
+                        route="items"
+                        onDelete={(id) =>
+                          setMains(mains.filter((product) => product.id !== id))
+                        }
+                        fill="#535BFE"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {desserts.length > 0 && (
+              <>
+                <p className="category-text">Sobremesas</p>
+                {desserts.map((item) => (
+                  <div key={item.id} className="item-container">
+                    <Link
+                      to={{
+                        pathname: `/inventario/produto/${item.id}`,
+                        state: { item },
+                      }}
+                    >
+                      <Item item={item} />
+                    </Link>
+
+                    <div className="icon-area">
+                      <Actions
+                        item={item}
+                        route="items"
+                        onDelete={(id) =>
+                          setDesserts(
+                            desserts.filter((product) => product.id !== id)
+                          )
+                        }
+                        fill="#535BFE"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {drinks.length > 0 && (
+              <>
+                <p className="category-text">Bebidas</p>
+                {drinks.map((item) => (
+                  <div key={item.id} className="item-container">
+                    <Link
+                      to={{
+                        pathname: `/inventario/produto/${item.id}`,
+                        state: { item },
+                      }}
+                    >
+                      <Item item={item} />
+                    </Link>
+
+                    <div className="icon-area">
+                      <Actions
+                        item={item}
+                        route="items"
+                        onDelete={(id) =>
+                          setDrinks(
+                            drinks.filter((product) => product.id !== id)
+                          )
+                        }
+                        fill="#535BFE"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+
+            {alcoholics.length > 0 && (
+              <>
+                <p className="category-text">Bebidas alcoólicas</p>
+                {alcoholics.map((item) => (
+                  <div key={item.id} className="item-container">
+                    <Link
+                      to={{
+                        pathname: `/inventario/produto/${item.id}`,
+                        state: { item },
+                      }}
+                    >
+                      <Item item={item} />
+                    </Link>
+
+                    <div className="icon-area">
+                      <Actions
+                        item={item}
+                        route="items"
+                        onDelete={(id) =>
+                          setAlcoholics(
+                            alcoholics.filter((product) => product.id !== id)
+                          )
+                        }
+                        fill="#535BFE"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </Accordion>
 
+          {/* Additional Accordion */}
           <Accordion
             title="Adicionais"
             loading={loading}
