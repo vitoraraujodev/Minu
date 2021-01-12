@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
 import Menu from './Menu';
@@ -28,11 +28,11 @@ import { inventoryAccess } from '~/store/modules/establishment/actions';
 import './styles.css';
 
 export default function Inventory() {
-  const inventoryAccessed = useSelector(
-    (state) => state.establishment.inventoryAccessed
-  );
+  // const inventoryAccessed = useSelector(
+  //   (state) => state.establishment.inventoryAccessed
+  // );
 
-  // const inventoryAccessed = true;
+  const inventoryAccessed = true;
 
   const dispatch = useDispatch();
 

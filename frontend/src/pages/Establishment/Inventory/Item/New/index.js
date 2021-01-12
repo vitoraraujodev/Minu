@@ -121,6 +121,16 @@ export default function NewItem({ location }) {
     }
   }
 
+  function handleBack() {
+    if (file || title || description || category || additionals.length > 0) {
+      if (window.confirm('Deseja descartar as alterações?')) {
+        history.goBack();
+      }
+    } else {
+      history.goBack();
+    }
+  }
+
   return (
     <div id="item-page">
       {windowWidth >= 768 ? <Header /> : null}
@@ -162,11 +172,7 @@ export default function NewItem({ location }) {
           }
         >
           <div className="header">
-            <button
-              className="back-button"
-              type="button"
-              onClick={() => history.goBack()}
-            >
+            <button className="back-button" type="button" onClick={handleBack}>
               <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
               Voltar
             </button>

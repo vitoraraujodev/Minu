@@ -121,6 +121,24 @@ export default function EditItem({ location }) {
     }
   }
 
+  function handleBack() {
+    if (
+      file ||
+      title !== item.title ||
+      description !== item.description ||
+      preparationTime !== item.preparation_time ||
+      description !== item.description ||
+      category !== item.category ||
+      additionals.length !== item.additionals.length
+    ) {
+      if (window.confirm('Deseja descartar as alterações?')) {
+        history.goBack();
+      }
+    } else {
+      history.goBack();
+    }
+  }
+
   return (
     <div id="item-page">
       {windowWidth >= 768 ? <Header /> : null}
@@ -162,11 +180,7 @@ export default function EditItem({ location }) {
           }
         >
           <div className="header">
-            <button
-              className="back-button"
-              type="button"
-              onClick={() => history.goBack()}
-            >
+            <button className="back-button" type="button" onClick={handleBack}>
               <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
               Voltar
             </button>

@@ -102,21 +102,23 @@
 }
 
 #product-order .check-box {
-  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; height: 20px;
   min-width: 20px;
   width: 20px;
   border-radius: 10px;
   border: 1.5px solid #9c9c9c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #product-order .check-box-selected {
-  height: 10px;
-  min-width: 10px;
-  width: 10px;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  min-width: 20px;
+  width: 20px;
+  border-radius: 10px;
   background: #535bfe;
 }
 

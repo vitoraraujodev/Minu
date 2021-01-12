@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { FaCheck } from 'react-icons/fa';
 
 import OrderModal from './OrderModal';
 
@@ -7,6 +8,7 @@ import defaultPicture from '~/assets/images/default-picture.png';
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Check } from '~/assets/icons/save-icon.svg';
+
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import { ReactComponent as Clock } from '~/assets/icons/clock-icon.svg';
 
@@ -151,7 +153,9 @@ export default function ProductOrder({ location }) {
               >
                 <div className="check-box">
                   {additionals.includes(additional) && (
-                    <div className="check-box-selected" />
+                    <div className="check-box-selected">
+                      <FaCheck size={10} color="white" />
+                    </div>
                   )}
                 </div>
 
@@ -212,7 +216,7 @@ export default function ProductOrder({ location }) {
           >
             <span style={{ paddingRight: 8 }}>Para viagem</span>
             {takeaway ? (
-              <Check height={20} />
+              <Check height={24} />
             ) : (
               <div
                 className="check-box"
