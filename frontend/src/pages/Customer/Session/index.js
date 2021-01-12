@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import NavTab from '~/components/NavTabs/Customer';
 
-import leaflet from '~/assets/images/leaflet.png';
+import leaflet from '~/assets/images/leaflet.jpg';
 
 import { checkInRequest } from '~/store/modules/session/actions';
 
