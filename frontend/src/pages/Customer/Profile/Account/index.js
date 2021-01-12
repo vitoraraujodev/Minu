@@ -7,6 +7,8 @@ import { updateCustomerRequest } from '~/store/modules/customer/actions';
 
 import history from '~/services/history';
 
+import capitalize from '~/util/capitalize';
+
 import './styles.css';
 
 export default function Account() {
@@ -59,8 +61,8 @@ export default function Account() {
     setLoading(true);
 
     const data = {
-      name,
-      lastname,
+      name: capitalize(name),
+      lastname: capitalize(lastname),
       email,
     };
 

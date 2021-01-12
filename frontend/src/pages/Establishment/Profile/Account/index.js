@@ -11,6 +11,8 @@ import { updateEstablishmentRequest } from '~/store/modules/establishment/action
 
 import history from '~/services/history';
 
+import capitalize from '~/util/capitalize';
+
 import './styles.css';
 
 export default function Account() {
@@ -77,9 +79,9 @@ export default function Account() {
 
   function handleSubmit() {
     const data = {
-      establishment_name: establishmentName,
-      manager_name: managerName,
-      manager_lastname: managerLastName,
+      establishment_name: capitalize(establishmentName),
+      manager_name: capitalize(managerName),
+      manager_lastname: capitalize(managerLastName),
       email,
     };
 
@@ -172,6 +174,7 @@ export default function Account() {
               type="email"
               value={email}
               disabled={disabled}
+              autoComplete="off"
               className={disabled ? 'input-disabled' : 'input'}
               placeholder="exemplo@email.com"
               onKeyDown={(e) => {
@@ -190,6 +193,7 @@ export default function Account() {
             <input
               value={oldPassword}
               type="password"
+              autoComplete="off"
               className={disabled ? 'input-disabled' : 'input'}
               disabled={disabled}
               placeholder="********"

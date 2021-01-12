@@ -12,6 +12,8 @@ import EndForm from './Forms/End';
 import history from '~/services/history';
 import api from '~/services/api';
 
+import capitalize from '~/util/capitalize';
+
 export default function SignUp() {
   const [step, setStep] = useState(1);
 
@@ -34,15 +36,15 @@ export default function SignUp() {
 
   async function handleSubmit() {
     const data = {
-      establishment_name: establishmentName,
-      manager_name: managerName,
-      manager_lastname: managerLastName,
+      establishment_name: capitalize(establishmentName),
+      manager_name: capitalize(managerName),
+      manager_lastname: capitalize(managerLastName),
       cep,
       address_number: addressNumber,
       complement,
-      street,
-      city,
-      state,
+      street: capitalize(street),
+      city: capitalize(city),
+      state: capitalize(state),
       email,
       password,
       confirm_password: confirmPassword,

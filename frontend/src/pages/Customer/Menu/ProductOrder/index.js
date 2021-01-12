@@ -17,6 +17,7 @@ import { addToCartRequest } from '~/store/modules/cart/actions';
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
+import capitalize from '~/util/capitalize';
 
 import './styles.css';
 
@@ -56,7 +57,7 @@ export default function ProductOrder({ location }) {
       title: product.title,
       price: product.price,
       totalPrice,
-      observation,
+      observation: capitalize(observation),
       amount,
       takeaway,
       additionals,

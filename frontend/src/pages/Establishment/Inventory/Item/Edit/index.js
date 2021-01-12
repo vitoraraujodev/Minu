@@ -15,6 +15,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
+import capitalize from '~/util/capitalize';
 
 import '../New/styles.css';
 
@@ -91,8 +92,8 @@ export default function EditItem({ location }) {
         const result = await api.post(`product-photo`, data);
 
         const body = {
-          title,
-          description,
+          title: capitalize(title),
+          description: capitalize(description),
           price,
           preparation_time: preparationTime,
           category,
@@ -103,8 +104,8 @@ export default function EditItem({ location }) {
         await api.put(`items/${item.id}`, body);
       } else {
         const body = {
-          title,
-          description,
+          title: capitalize(title),
+          description: capitalize(description),
           price,
           preparation_time: preparationTime,
           category,

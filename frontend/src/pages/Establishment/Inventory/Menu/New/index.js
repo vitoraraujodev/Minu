@@ -12,6 +12,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
+import capitalize from '~/util/capitalize';
 
 import './styles.css';
 
@@ -83,7 +84,7 @@ export default function NewMenu({ location }) {
     setLoading(true);
     const items_id = items.map((item) => item.id);
     const data = {
-      title,
+      title: capitalize(title),
       availability,
       start_at: startAt.replace('h', ''),
       end_at: endAt.replace('h', ''),
