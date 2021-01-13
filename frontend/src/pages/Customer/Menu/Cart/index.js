@@ -40,6 +40,7 @@ export default function Cart() {
 
   function handleOrder() {
     dispatch(clearCart());
+    setTotalPrice(0);
     setModalVisible(false);
     alert('Você realizou um pedido! Seu pedido já vem.');
   }

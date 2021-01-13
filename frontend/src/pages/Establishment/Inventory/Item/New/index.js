@@ -14,12 +14,11 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
+import capitalize from '~/util/capitalize';
 
 import './styles.css';
 
-export default function NewItem({ location }) {
-  const length = location.state ? location.state.length : '';
-
+export default function NewItem() {
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
   const [photo, setPhoto] = useState('');
@@ -90,8 +89,8 @@ export default function NewItem({ location }) {
         const response = await api.post(`product-photo`, data);
 
         const body = {
-          title,
-          description,
+          title: capitalize(title),
+          description: capitalize(description),
           price,
           preparation_time: preparationTime,
           category,
@@ -103,8 +102,8 @@ export default function NewItem({ location }) {
         setLoading(false);
       } else {
         const body = {
-          title,
-          description,
+          title: capitalize(title),
+          description: capitalize(description),
           price,
           preparation_time: preparationTime,
           category,
@@ -118,6 +117,16 @@ export default function NewItem({ location }) {
     } catch (err) {
       setLoading(false);
       alert(err.response.data.error);
+    }
+  }
+
+  function handleBack() {
+    if (file || title || description || category || additionals.length > 0) {
+      if (window.confirm('Deseja descartar as alterações?')) {
+        history.goBack();
+      }
+    } else {
+      history.goBack();
     }
   }
 
@@ -162,20 +171,12 @@ export default function NewItem({ location }) {
           }
         >
           <div className="header">
-            <button
-              className="back-button"
-              type="button"
-              onClick={() => history.goBack()}
-            >
+            <button className="back-button" type="button" onClick={handleBack}>
               <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
               Voltar
             </button>
 
-            <p className="header-label">
-              {length
-                ? `Produto ${length <= 9 ? `0${length}` : length}`
-                : 'Novo Produto'}
-            </p>
+            <p className="header-label">Novo Produto</p>
           </div>
 
           <div className="content">

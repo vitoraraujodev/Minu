@@ -13,6 +13,7 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import { formatPrice } from '~/util/format';
+import capitalize from '~/util/capitalize';
 
 import '../New/styles.css';
 
@@ -52,15 +53,23 @@ export default function EditMenu({ location }) {
   function handleHour(value, input) {
     const hour = value.replace('h', '');
 
-    if ((parseInt(hour, 10) >= 0 && parseInt(hour, 10) < 24) || hour === '') {
-      if (input === 1) {
+    // Checks if last input was a number between 0 and 9
+    // and if its between 0 and 24
+    if (
+      (hour.slice(-1) >= '0' &&
+        hour.slice(-1) <= '9' &&
+        parseInt(hour, 10) >= 0 &&
+        parseInt(hour, 10) < 24) ||
+      hour === ''
+    ) {
+      if (input === 'start_at') {
         if (hour === '') {
           setStartAt('');
         } else {
           setStartAt(`${hour}h`);
         }
       }
-      if (input === 2) {
+      if (input === 'end_at') {
         if (hour === '') {
           setEndAt('');
         } else {
@@ -82,7 +91,7 @@ export default function EditMenu({ location }) {
     setLoading(true);
     const items_id = items.map((item) => item.id);
     const data = {
-      title,
+      title: capitalize(title),
       availability,
       start_at: startAt.replace('h', ''),
       end_at: endAt.replace('h', ''),
@@ -96,6 +105,20 @@ export default function EditMenu({ location }) {
     } catch (err) {
       setLoading(false);
       alert(err.response.data.error);
+    }
+  }
+
+  function handleBack() {
+    if (
+      title !== menu.title ||
+      availability !== menu.availability ||
+      items.length !== menu.items.length
+    ) {
+      if (window.confirm('Deseja descartar as alterações?')) {
+        history.goBack();
+      }
+    } else {
+      history.goBack();
     }
   }
 
@@ -130,11 +153,7 @@ export default function EditMenu({ location }) {
           }
         >
           <div className="header">
-            <button
-              className="back-button"
-              type="button"
-              onClick={() => history.goBack()}
-            >
+            <button className="back-button" type="button" onClick={handleBack}>
               <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
               Voltar
             </button>
@@ -177,7 +196,7 @@ export default function EditMenu({ location }) {
                   if (e.keyCode === 8) {
                     const index = startAt.indexOf('h');
                     if (index > 0) {
-                      handleHour(startAt.substr(0, index - 1), 1);
+                      handleHour(startAt.substr(0, index - 1), 'start_at');
                     }
                   }
                 }}
@@ -203,7 +222,7 @@ export default function EditMenu({ location }) {
                   if (e.keyCode === 8) {
                     const index = endAt.indexOf('h');
                     if (index > 0) {
-                      handleHour(endAt.substr(0, index - 1), 2);
+                      handleHour(endAt.substr(0, index - 1), 'end_at');
                     }
                   }
                 }}

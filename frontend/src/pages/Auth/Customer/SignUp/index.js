@@ -10,6 +10,8 @@ import FinishPage from './Forms/FinishPage';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import capitalize from '~/util/capitalize';
+
 import './styles.css';
 
 export default function SignUp() {
@@ -26,8 +28,8 @@ export default function SignUp() {
     try {
       const data = {
         phone_number: `+${phone_number}`,
-        name,
-        lastname,
+        name: capitalize(name),
+        lastname: capitalize(lastname),
         email,
         password,
         confirm_password,

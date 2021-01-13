@@ -31,7 +31,6 @@ export default function PinModal({ onClose, onAccess }) {
 
       if (response.data.okay) {
         onAccess();
-        onClose();
       }
     } catch (err) {
       setInvalid(true);
@@ -49,7 +48,6 @@ export default function PinModal({ onClose, onAccess }) {
         >
           PIN inválido
         </p>
-
         <PinCodeInput adminPin={pin} onChangeAdminPin={setPin} />
 
         <div className="modal-button-area">

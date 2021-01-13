@@ -13,6 +13,8 @@ import { updateEstablishmentRequest } from '~/store/modules/establishment/action
 
 import history from '~/services/history';
 
+import capitalize from '~/util/capitalize';
+
 import { estados } from '~/json/states-cities.json';
 
 import './styles.css';
@@ -198,10 +200,10 @@ export default function Address() {
     const data = {
       cep,
       address_number: addressNumber,
-      street,
+      street: capitalize(street),
       complement,
-      state,
-      city,
+      state: capitalize(state),
+      city: capitalize(city),
     };
 
     dispatch(updateEstablishmentRequest(data));

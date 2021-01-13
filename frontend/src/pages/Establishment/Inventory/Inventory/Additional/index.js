@@ -7,6 +7,8 @@ import { ReactComponent as SaveIcon } from '~/assets/icons/save-icon.svg';
 
 import api from '~/services/api';
 
+import capitalize from '~/util/capitalize';
+
 export default function Additional({ additional, onDelete }) {
   const [title, setTitle] = useState(additional.title);
   const [price, setPrice] = useState(additional.price);
@@ -27,7 +29,7 @@ export default function Additional({ additional, onDelete }) {
 
   async function handleSubmit() {
     const data = {
-      title,
+      title: capitalize(title),
       price,
     };
 

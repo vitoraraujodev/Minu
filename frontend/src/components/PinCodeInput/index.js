@@ -63,7 +63,7 @@ export default function PinCodeInput({
             secondInputRef.current.focus();
           }
         }}
-        placeholder="0"
+        placeholder="•"
       />
       <input
         className="pin-input"
@@ -88,7 +88,7 @@ export default function PinCodeInput({
             thirdInputRef.current.focus();
           }
         }}
-        placeholder="0"
+        placeholder="•"
       />
       <input
         className="pin-input"
@@ -113,7 +113,7 @@ export default function PinCodeInput({
             fourthInputRef.current.focus();
           }
         }}
-        placeholder="0"
+        placeholder="•"
       />
       <input
         className="pin-input"
@@ -133,7 +133,7 @@ export default function PinCodeInput({
         onChange={(e) => {
           handleInput(e.target.value, 3);
         }}
-        placeholder="0"
+        placeholder="•"
       />
     </div>
   );

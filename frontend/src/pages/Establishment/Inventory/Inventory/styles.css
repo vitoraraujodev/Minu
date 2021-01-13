@@ -52,6 +52,16 @@
   margin: 24px 0;
 }
 
+#inventory .category-text {
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6e6e6e;
+}
+#inventory .item-container + .category-text{
+  margin-top: 4px;
+}
+
 #inventory .add-item-container {
   padding: 16px 16px;
   display: flex;
