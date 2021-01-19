@@ -9,37 +9,13 @@ import Item from '../models/Item';
 import Additional from '../models/Additional';
 import EstablishmentRating from '../models/EstablishmentRating';
 import ItemRating from '../models/ItemRating';
-import ServiceSession from '../models/ServiceSession';
-import SessionEvent from '../models/SessionEvent';
 
 class EstablishmentController {
   async index(req, res) {
-    const lastSessionEvent = await SessionEvent.findAll({
-      limit: 1,
-      order: [['created_at', 'DESC']],
-      include: {
-        model: ServiceSession,
-        required: true,
-        where: { customer_id: req.customerId },
-        as: 'session',
-      },
-    });
-
-    if (
-      lastSessionEvent.length === 0 ||
-      lastSessionEvent[0].status === 'finished'
-    ) {
-      return res.status(401).json({
-        error:
-          'É preciso estar em uma sessão para acessar o cardápio. Por favor, inicie uma sessão e tente novamente.',
-      });
-    }
-
-    const { session } = lastSessionEvent[0];
-    const date = session.createdAt;
+    const date = new Date();
     const weekDay = getDay(date);
 
-    await Establishment.findByPk(session.establishment_id, {
+    await Establishment.findByPk(req.params.id, {
       attributes: [
         'id',
         'establishment_name',
@@ -64,6 +40,12 @@ class EstablishmentController {
       ],
     })
       .then(async (establishment) => {
+        if (!establishment)
+          return res.status(400).json({
+            error:
+              'Restaurante não encontrado. Por favor, verifique o código e tente novamente.',
+          });
+
         const {
           id,
           establishment_name,
@@ -274,9 +256,10 @@ class EstablishmentController {
     const establishment = await Establishment.findByPk(req.establishmentId);
 
     if (!establishment) {
-      return res
-        .status(400)
-        .json({ error: 'Estabelecimento não está cadastrado' });
+      return res.status(400).json({
+        error:
+          'Estabelecimento não está cadastrado. Por favor, verifique seus dados e tente novamente.',
+      });
     }
 
     if (mail && mail !== establishment.email) {
@@ -314,7 +297,7 @@ class EstablishmentController {
       if (!file) {
         return res.status(400).json({
           error:
-            'Parece que essa imagem não foi registrada. Por favor, tente novamente mais tarde.',
+            'Parece que essa imagem não foi registrada. Por favor, tente novamente.',
         });
       }
 
