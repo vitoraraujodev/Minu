@@ -97,7 +97,7 @@
   margin-top: 24px;
 }
 
-#session-page .qrcode-button {
+#session-page .access-button {
   color: #535bfe;
   font-size: 18px;
   font-weight: 600;
@@ -110,11 +110,11 @@
   transition: transform .2s;
 }
 
-#session-page .qrcode-button:hover {
+#session-page .access-button:hover {
   transform: scale(1.03);
 }
 
-#session-page .qrcode-button:active {
+#session-page .access-button:active {
   color: #fff;
   background: #535bfe;
 }
@@ -129,7 +129,7 @@
     margin-top: 16px;
   }
 
-  #session-page .qrcode-button {
+  #session-page .access-button {
     font-size: 16px;
     height: 40px;
     margin-top: 24px;

@@ -27,12 +27,16 @@ import EditMenu from '~/pages/Establishment/Inventory/Menu/Edit';
 import CustomerProfile from '~/pages/Customer/Profile';
 import CustomerAccount from '~/pages/Customer/Profile/Account';
 
-import Menu from '~/pages/Customer/Menu';
-import ProductOrder from '~/pages/Customer/Menu/ProductOrder';
-import Bill from '~/pages/Customer/Menu/Bill';
-import Cart from '~/pages/Customer/Menu/Cart';
+import BasicMenu from '~/pages/Service/Menu/BasicMenu';
+import BasicProductOrder from '~/pages/Service/Menu/BasicMenu/ProductOrder';
 
-import Session from '~/pages/Customer/Session';
+import CustomerMenu from '~/pages/Service/Menu/CustomerMenu';
+import CustomerProductOrder from '~/pages/Service/Menu/CustomerMenu/ProductOrder';
+import Bill from '~/pages/Service/Menu/CustomerMenu/Bill';
+import Cart from '~/pages/Service/Menu/CustomerMenu/Cart';
+
+import CustomerSession from '~/pages/Service/Session/CustomerSession';
+import BasicSession from '~/pages/Service/Session/BasicSession';
 
 import history from '~/services/history';
 
@@ -117,12 +121,19 @@ export default function Routes() {
         <Route path="/cliente" exact component={CustomerProfile} customers />
         <Route path="/cliente/conta" component={CustomerAccount} customers />
 
-        <Route path="/sessao" component={Session} customers />
+        <Route path="/acesso/sessao" component={CustomerSession} customers />
+        <Route path="/sessao" component={BasicSession} notPrivate />
 
-        <Route path="/cardapio" exact component={Menu} customers session />
+        <Route
+          path="/cardapio"
+          exact
+          component={CustomerMenu}
+          customers
+          session
+        />
         <Route
           path="/cardapio/produto"
-          component={ProductOrder}
+          component={CustomerProductOrder}
           customers
           session
           stateRequired
@@ -135,6 +146,14 @@ export default function Routes() {
           stateRequired
         />
         <Route path="/cardapio/carrinho" component={Cart} customers session />
+
+        <Route path="/cardapio/:id" exact component={BasicMenu} notPrivate />
+        <Route
+          path="/cardapio/:id/produto"
+          component={BasicProductOrder}
+          notPrivate
+          stateRequired
+        />
 
         <Redirect from="*" to="/cliente/acesso" notPrivate />
       </Switch>
