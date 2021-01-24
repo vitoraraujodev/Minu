@@ -5,7 +5,7 @@ resource "aws_iam_instance_profile" "site_iam" {
 
 resource "aws_spot_instance_request" "site" {
     ami = "ami-03657b56516ab7912"
-    instance_type = "t3a.nano"
+    instance_type = "t3.nano"
     iam_instance_profile = aws_iam_instance_profile.site_iam.name
     key_name = "Minu"
     wait_for_fulfillment=true
@@ -21,4 +21,20 @@ resource "aws_spot_instance_request" "site" {
         Name = "MinuSite"
         product = "MinuSite"
     }
+}
+
+resource "aws_route53_record" "site" {
+  zone_id = "Z02376092O1PJE98BKWAF"
+  name    = "seuminu.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["3.23.231.99"]
+}
+
+resource "aws_route53_record" "site_www" {
+  zone_id = "Z02376092O1PJE98BKWAF"
+  name    = "www.seuminu.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["3.23.231.99"]
 }
