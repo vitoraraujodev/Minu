@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
 
@@ -34,8 +35,9 @@ export default function CustomerMenu() {
 
   async function loadEstablishment() {
     setLoading(true);
+
     try {
-      const response = await api.get('establishments');
+      const response = await api.get('service-menu');
       setEstablishment(response.data);
 
       if (response.data.items && response.data.items.length > 0) {
@@ -89,7 +91,7 @@ export default function CustomerMenu() {
 
   useEffect(() => {
     loadEstablishment();
-  }, []);
+  }, []); // eslint-disable-line
 
   function handleScroll() {
     if (containerRef) {

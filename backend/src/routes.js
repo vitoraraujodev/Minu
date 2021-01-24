@@ -19,6 +19,7 @@ import CustomerController from './app/controllers/CustomerController';
 import CustomerSessionController from './app/controllers/CustomerSessionController';
 import AvatarController from './app/controllers/AvatarController';
 import ServiceSessionController from './app/controllers/ServiceSessionController';
+import ServiceMenuController from './app/controllers/ServiceMenuController';
 
 const routes = new Router();
 
@@ -46,9 +47,10 @@ routes.delete(
   ServiceSessionController.delete
 );
 
+routes.get('/service-menu', customerAuthMiddleware,ServiceMenuController.index);
+
 routes.get(
-  '/establishments',
-  customerAuthMiddleware,
+  '/establishments/:id',
   EstablishmentsController.index
 );
 routes.post('/establishments', EstablishmentsController.store);

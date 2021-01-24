@@ -1,0 +1,235 @@
+#basic-menu {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#basic-menu .container {
+  position: relative;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll ;
+  max-width: 1024px;
+  margin: 0 auto;
+  height: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#basic-menu .container::-webkit-scrollbar {
+  display: none;
+}
+
+#basic-menu .info-container {
+  position: relative;
+  min-width: 320px;
+  margin: 0 auto;
+  margin-bottom: 48px;
+}
+
+#basic-menu .back-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 8px;
+  left: 16px;
+  border: 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  height: 40px;
+  z-index: 5;
+}
+
+#basic-menu .logo-container {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 16px;
+  z-index: 1;
+}
+
+#basic-menu .logo {
+  width: 48px;
+}
+
+#basic-menu .img-container {
+  max-height: 432px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#basic-menu .img-container:before {
+  content: '';
+  position:absolute;
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0) 70%, rgba(0,0,0,0.6) 115%);
+  z-index: 0;
+}
+
+#basic-menu .establishment-img {
+  width: 100%;
+  min-width: 320px;
+  min-height: 200px;
+  background: #ddd;
+}
+
+#basic-menu .info-area {
+  position: absolute;
+  display: block;
+  width: 100%;
+  padding: 24px 40px;
+  bottom: -48px;
+  background: #fff;
+  box-shadow: 0px 0px 10px #00000029;
+}
+
+#basic-menu .info {
+  width: 100%;
+  max-width: 432px;
+  margin: 0 auto;
+}
+
+#basic-menu .title-area {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+#basic-menu .title {
+  font-size: 24px;
+  color: #505050;
+  font-weight: 700;
+}
+
+#basic-menu .establishment-address {
+  color: #9C9C9C;
+  font-size: 14px;
+}
+
+#basic-menu .rating-area {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+#basic-menu .rating-text {
+  color: #6F6F6F;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+#basic-menu .products-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 48px;
+}
+
+#basic-menu .products {
+  width: 100%;
+  margin: 0 16px;
+  max-width: 432px;
+  margin-bottom: 64px;
+}
+
+#basic-menu .category-label {
+  padding-top: 24px;
+  font-size: 21px;
+  color: #505050;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+#basic-menu .empty-text {
+  padding: 32px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #acacac;
+  text-align: center;
+}
+
+#basic-menu .loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+}
+
+#basic-menu .loader {
+  margin: 0 auto;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #535bfe;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#basic-menu .buttons-container {
+  position: absolute;
+  right: 24px;
+  bottom: 72px;
+  display: flex;
+}
+
+#basic-menu .bill-button, #basic-menu .cart-button {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #24D18A;
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+#basic-menu .bill-button {
+  background: #24D18A;
+}
+
+#basic-menu .cart-button {
+  background: #535bfe;
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 767px) {
+  #basic-menu {
+    overflow-y: scroll;
+  }
+  #basic-menu .info-container {
+    margin-bottom: 56px;
+  }
+
+  #basic-menu .img-container {
+    max-height: 364px;
+  }
+
+  #basic-menu .info-area {
+    bottom: -56px;
+    padding: 16px 24px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-height: 567px) {
+  #basic-menu .img-container{
+    max-height: 280px;
+  }
+}

@@ -15,14 +15,17 @@ export default function CustomerTab() {
   const [active, setActive] = useState('customer');
 
   useEffect(() => {
-    if (location.pathname === '/sessao') setActive('session');
+    if (location.pathname === '/acesso/sessao') setActive('session');
     else if (location.pathname === '/cliente') setActive('customer');
   }, [location.pathname]);
 
   return (
     <div id="customer-navtab">
       <div className="header-content">
-        <NavLink className="navlink" to={session ? '/cardapio' : '/sessao'}>
+        <NavLink
+          className="navlink"
+          to={session ? '/cardapio' : '/acesso/sessao'}
+        >
           <Establishment
             fill={active === 'session' ? '#535BFE' : '#cfcfcf'}
             className="tab-icon"

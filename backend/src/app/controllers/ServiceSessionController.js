@@ -19,7 +19,7 @@ class ServiceSessionController {
 
     const event = lastSessionEvent.length > 0 ? lastSessionEvent[0] : null;
 
-    // Checks if there is session and it's not finished
+    // Checks if there is session and if it's not finished
     if (event && event.status !== 'finished') {
       return res.status(200).json({ signed: true });
     }
