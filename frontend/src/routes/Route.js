@@ -21,6 +21,10 @@ export default function RouteWrapper({
 
   const { kind } = decoded || '';
 
+  if (!notPrivate && !customers && !establishments) {
+    return <Route {...rest} component={Component} />;
+  }
+
   if (!kind && !notPrivate) {
     return <Redirect to="/cliente/acesso" />;
   }
