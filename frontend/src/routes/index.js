@@ -24,6 +24,8 @@ import EditItem from '~/pages/Establishment/Inventory/Item/Edit';
 import NewMenu from '~/pages/Establishment/Inventory/Menu/New';
 import EditMenu from '~/pages/Establishment/Inventory/Menu/Edit';
 
+import Dashboard from '~/pages/Establishment/Dashboard';
+
 import CustomerProfile from '~/pages/Customer/Profile';
 import CustomerAccount from '~/pages/Customer/Profile/Account';
 
@@ -117,6 +119,8 @@ export default function Routes() {
           component={EditMenu}
           establishments
         />
+
+        <Route path="/dashboard" component={Dashboard} establishments />
 
         <Route path="/cliente" exact component={CustomerProfile} customers />
         <Route path="/cliente/conta" component={CustomerAccount} customers />

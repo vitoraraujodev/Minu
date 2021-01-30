@@ -3,8 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ReactComponent as Profile } from '~/assets/icons/profile-icon.svg';
+import { ReactComponent as MenuActive } from '~/assets/icons/menu-icon-active.svg';
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
-import { ReactComponent as Menu2 } from '~/assets/icons/menu-icon-2.svg';
 import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
 import logo from '~/assets/icons/simple-logo.svg';
@@ -31,7 +31,7 @@ export default function EstablishmentTab() {
   }
 
   useEffect(() => {
-    if (location.pathname === '/pedidos') setActive('orders');
+    if (location.pathname === '/dashboard') setActive('orders');
     else if (location.pathname === '/inventario') setActive('menu');
     else if (location.pathname === '/estabelecimento')
       setActive('establishment');
@@ -49,27 +49,23 @@ export default function EstablishmentTab() {
 
   window.addEventListener('resize', handleResize);
 
-  //   <NavLink
-  //   activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
-  //   className="navlink"
-  //   to="/pedidos"
-  // >
-  //   Pedidos
-  // </NavLink>
+  //
 
-  // <NavLink className="navlink" to="/pedidos">
-  //   <Orders
-  //     fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
-  //     className="tab-icon"
-  //   />
-  // </NavLink>
+  //
 
   return (
     <div id="establishment-navtab">
       {windowWidth >= 768 ? (
         <div className="header-content">
           <div className="navlink-container">
-            <div className="navlink">Pedidos</div>
+            <NavLink
+              activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
+              className="navlink"
+              to="/dashboard"
+            >
+              Pedidos
+            </NavLink>
+
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}
               className="navlink"
@@ -93,25 +89,18 @@ export default function EstablishmentTab() {
         </div>
       ) : (
         <div className="header-content">
-          <div
-            className="navlink"
-            onClick={() =>
-              alert(
-                'Desculpe! O dashboard de pedidos ainda está em desenvolvimento.'
-              )
-            }
-          >
+          <NavLink className="navlink" to="/dashboard">
             <Orders
               fill={active === 'orders' ? '#535BFE' : '#cfcfcf'}
               className="tab-icon"
             />
-          </div>
+          </NavLink>
 
           <NavLink className="navlink" to="/inventario">
             {active === 'menu' ? (
-              <Menu className="tab-icon" />
+              <MenuActive className="tab-icon" />
             ) : (
-              <Menu2 className="tab-icon" />
+              <Menu className="tab-icon" />
             )}
           </NavLink>
 

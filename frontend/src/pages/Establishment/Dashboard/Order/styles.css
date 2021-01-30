@@ -1,0 +1,27 @@
+#order-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #535BFE;
+  padding: 0 24px;
+  height: 56px;
+  width: 100%;
+  font-size: 20px;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+}
+
+#order-component:hover {
+  opacity: 0.9;
+}
+
+#order-component + #order-component {
+  margin-top: 12px;
+}
+
+@media screen and (max-width: 767px) {
+  #order-component {
+    font-size: 19px;
+  }
+}

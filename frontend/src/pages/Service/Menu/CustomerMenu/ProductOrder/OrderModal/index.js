@@ -6,7 +6,7 @@ import './styles.css';
 
 export default function OrderModal({ onCart, onOrder, onClose }) {
   return (
-    <div id="order-modal">
+    <div id="product-order-modal">
       <div className="modal-container">
         <div className="group">
           <p className="modal-text">Pedir agora?</p>
