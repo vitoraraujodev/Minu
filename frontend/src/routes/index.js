@@ -24,6 +24,8 @@ import EditItem from '~/pages/Establishment/Inventory/Item/Edit';
 import NewMenu from '~/pages/Establishment/Inventory/Menu/New';
 import EditMenu from '~/pages/Establishment/Inventory/Menu/Edit';
 
+import Dashboard from '~/pages/Establishment/Dashboard';
+
 import CustomerProfile from '~/pages/Customer/Profile';
 import CustomerAccount from '~/pages/Customer/Profile/Account';
 
@@ -118,11 +120,12 @@ export default function Routes() {
           establishments
         />
 
+        <Route path="/dashboard" component={Dashboard} establishments />
+
         <Route path="/cliente" exact component={CustomerProfile} customers />
         <Route path="/cliente/conta" component={CustomerAccount} customers />
 
         <Route path="/acesso/sessao" component={CustomerSession} customers />
-        <Route path="/sessao" component={BasicSession} notPrivate />
 
         <Route
           path="/cardapio"
@@ -147,11 +150,11 @@ export default function Routes() {
         />
         <Route path="/cardapio/carrinho" component={Cart} customers session />
 
-        <Route path="/cardapio/:id" exact component={BasicMenu} notPrivate />
+        <Route path="/sessao" component={BasicSession} />
+        <Route path="/cardapio/:id" exact component={BasicMenu} />
         <Route
           path="/cardapio/:id/produto"
           component={BasicProductOrder}
-          notPrivate
           stateRequired
         />
 
