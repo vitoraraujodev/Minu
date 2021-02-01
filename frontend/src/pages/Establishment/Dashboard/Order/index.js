@@ -2,11 +2,22 @@ import React from 'react';
 
 import './styles.css';
 
-export default function Order({ order, onClick }) {
+export default function Order({ tableNumber, timestamp, onClick }) {
+  /* 
+    Currently, this component only receives the table number and the timestamp of the order.
+    In the near future, it should receive a list of orders for a given table, and expand (or open modal) to reveal all the information
+  */
+  var date = new Date(timestamp);
+
+  var hours = date.getHours(); 
+  var minutes = "0" + date.getMinutes();
+
+  // Will display time in 10:30:23 format
+  var formattedTime = hours + ':' + minutes.substr(-2);
   return (
     <button type="button" id="order-component" onClick={onClick}>
-      <span>Mesa {order >= '0' && order <= '9' ? `0${order}` : order}</span>
-      <span>11:03</span>
+      <span>Mesa {tableNumber >= 0 && tableNumber <= 9 ? `0${tableNumber}` : tableNumber}</span>
+      <span>{formattedTime}</span>
     </button>
   );
 }

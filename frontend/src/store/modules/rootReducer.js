@@ -6,6 +6,7 @@ import customer from './customer/reducer';
 import session from './session/reducer';
 import cart from './cart/reducer';
 import notification from './notification/reducer';
+import dashboard from './dashboard/reducer';
 
 export default combineReducers({
   auth,
@@ -14,4 +15,5 @@ export default combineReducers({
   session,
   cart,
   notification,
+  dashboard,
 });

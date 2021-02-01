@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import { store } from '~/store';
-import { CreateNotificationListeners, DeleteNotificationListeners } from '~/assets/NotificationListeners';
+import { CreateNotificationListeners, DeleteNotificationListeners } from '~/assets/notifications/NotificationListeners';
 
 export default function RouteWrapper({
   component: Component,
@@ -32,7 +32,7 @@ export default function RouteWrapper({
   }
 
   
-  if (kind === 'establishment' && establishments && (!eventSourceObject || eventSourceObject.readyState != 1)) {
+  if (kind === 'establishment' && establishments && (!eventSourceObject || eventSourceObject.readyState !== 1)) {
     CreateNotificationListeners(token);
   } 
   

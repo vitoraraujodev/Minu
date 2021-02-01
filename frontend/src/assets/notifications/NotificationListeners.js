@@ -2,6 +2,9 @@ import EventSource from 'eventsource';
 import { useDispatch } from 'react-redux';
 
 import { createNotificationListenerAction, deleteNotificationListenerAction } from '~/store/modules/notification/action';
+import { createDashboardOrderAction } from '~/store/modules/dashboard/actions';
+
+import { ParseNotification } from '~/assets/notifications/parseNotifications';
 
 export function CreateNotificationListeners(establishmentToken) {
     const dispatch = useDispatch();
@@ -14,7 +17,7 @@ export function CreateNotificationListeners(establishmentToken) {
         }
     });
     
-    createListeners(eventSource);
+    CreateListeners(eventSource);
     dispatch(createNotificationListenerAction(eventSource));
 }
 
@@ -27,7 +30,9 @@ export function DeleteNotificationListeners(eventSourceObject) {
     dispatch(deleteNotificationListenerAction());
 }
 
-function createListeners(eventSourceObject) {
+function CreateListeners(eventSourceObject) {
+    const dispatch = useDispatch();
+
     try {
         eventSourceObject.onopen = function(event) {
             console.log('--- Opened SSE connection.');
@@ -38,8 +43,13 @@ function createListeners(eventSourceObject) {
         };
         
         eventSourceObject.onmessage = function(event) {
-            // event.data will be a JSON string containing the message event.
-            console.log(JSON.parse(event.data));
+            try {
+                var parsedNotification = ParseNotification(event.data)
+            } catch (error) {
+                console.log(error.message)
+            }
+
+            dispatch(createDashboardOrderAction(parsedNotification));
         };
     } catch(error) {}
 }
