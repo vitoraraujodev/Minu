@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import { store } from '~/store';
+import { CreateNotificationListeners, DeleteNotificationListeners } from '~/assets/NotificationListeners';
 
 export default function RouteWrapper({
   component: Component,
@@ -16,6 +17,7 @@ export default function RouteWrapper({
 }) {
   const { token } = store.getState().auth;
   const { signed } = store.getState().session;
+  const { eventSourceObject } = store.getState().notification;
 
   const decoded = token && decode(token);
 
@@ -23,6 +25,15 @@ export default function RouteWrapper({
 
   if (!kind && !notPrivate) {
     return <Redirect to="/cliente/acesso" />;
+  }
+
+  
+  if (kind === 'establishment' && establishments && (!eventSourceObject || eventSourceObject.readyState != 1)) {
+    CreateNotificationListeners(token);
+  } 
+  
+  if (kind !== 'establishment' && eventSourceObject) /* Close and remove existing listener */ {
+    DeleteNotificationListeners(eventSourceObject)
   }
 
   if (kind === 'establishment' && !establishments) {

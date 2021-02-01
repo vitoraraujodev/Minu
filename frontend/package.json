@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "cep-promise": "^3.0.9",
     "customize-cra": "^0.9.1",
+    "eventsource": "^1.0.7",
     "history": "^4.10.1",
     "immer": "^6.0.5",
     "jwt-decode": "^2.2.0",
