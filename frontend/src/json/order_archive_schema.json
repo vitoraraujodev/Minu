@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "name": "WaiterCallArchiveNotification",
+    "namespace": "WaiterCall.Archive",
+    "fields": [
+      { "name": "EstablishmentId", "type": "long", "doc": "" },
+      { "name": "TableNumber", "type": "long", "doc": "" },
+      { "name": "WaiterCallTimestamp", "type": { "type": "string", "avro.java.string": "String" }, "doc": "" }
+    ],
+    "version": "1"
+  }

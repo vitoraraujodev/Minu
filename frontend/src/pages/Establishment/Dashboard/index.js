@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-
-import Header from '~/components/NavTabs/Establishment';
-
-import Order from './Order';
-import OrderModal from './OrderModal';
-
-import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
-
-import './styles.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 import { deleteDashboardOrderAction } from '~/store/modules/dashboard/actions';
 
+import Header from '~/components/NavTabs/Establishment';
+import Order from './Order';
+import OrderModal from './OrderModal';
+import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
+
+import './styles.css';
+
+import orderArchiveSchema from '~/json/order_archive_schema.json'
+
+const orderArchiveEndpoint = "http://peripherals.seuminu.com:9000/topics/WaiterCallArchiveNotification"
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -40,7 +42,31 @@ export default function Dashboard() {
   function ArchiveOrder(order) {
     dispatch(deleteDashboardOrderAction(order));
     setModalVisible(false);
-    // TODO: SEND REQUEST TO SIGNILIZE ORDER ARCHIVING
+    signilizeOrderArchive(order)
+  }
+
+  function signilizeOrderArchive(order) {
+    const headers = {
+      'content-type': 'application/json',
+      'Accept': '*/*',
+    }
+    var body = { 
+      value_schema: JSON.stringify(orderArchiveSchema),
+      records: [{
+        "value": {
+          "EstablishmentId": order.EstablishmentId, 
+          "TableNumber": order.TableNumber,
+          "WaiterCallTimestamp": order.Timestamp.toString()
+        }
+      }]
+    }
+
+    axios.post(orderArchiveEndpoint, JSON.stringify(body), {headers: headers})
+    .then((response) => {
+        console.log(response);
+      }).catch((e) => {
+        console.log(e);
+      });
   }
 
   return (

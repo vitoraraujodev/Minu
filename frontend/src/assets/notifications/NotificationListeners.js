@@ -2,7 +2,7 @@ import EventSource from 'eventsource';
 import { useDispatch } from 'react-redux';
 
 import { createNotificationListenerAction, deleteNotificationListenerAction } from '~/store/modules/notification/action';
-import { createDashboardOrderAction } from '~/store/modules/dashboard/actions';
+import { createDashboardOrderAction, deleteDashboardOrderAction, receivedDashboardOrderArchiveAction } from '~/store/modules/dashboard/actions';
 
 import { ParseNotification } from '~/assets/notifications/parseNotifications';
 
@@ -44,12 +44,16 @@ function CreateListeners(eventSourceObject) {
         
         eventSourceObject.onmessage = function(event) {
             try {
-                var parsedNotification = ParseNotification(event.data)
+                var parsedNotification = ParseNotification(event.data);
             } catch (error) {
                 console.log(error.message)
             }
 
-            dispatch(createDashboardOrderAction(parsedNotification));
+            if(parsedNotification.NotificationType === "waiterCall") {
+                dispatch(createDashboardOrderAction(parsedNotification));
+            } else if (parsedNotification.NotificationType === "waiterCallArchive") {
+                dispatch(receivedDashboardOrderArchiveAction(parsedNotification));
+            }
         };
     } catch(error) {}
 }

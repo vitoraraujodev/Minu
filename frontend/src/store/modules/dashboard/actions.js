@@ -11,3 +11,10 @@ export function deleteDashboardOrderAction(dashboardOrderInfo) {
       payload: dashboardOrderInfo,
     };
 }
+
+export function receivedDashboardOrderArchiveAction(dashboardArchiveOrderInfo) {
+    return {
+      type: '@dashboard/RECEIVED_ARCHIVE_ORDER',
+      payload: dashboardArchiveOrderInfo,
+    };
+}
