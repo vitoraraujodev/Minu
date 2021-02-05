@@ -1,72 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import axios from 'axios';
 
 import { deleteDashboardOrderAction } from '~/store/modules/dashboard/actions';
 
-import Header from '~/components/NavTabs/Establishment';
 import Order from './Order';
 import OrderModal from './OrderModal';
+
+import Header from '~/components/NavTabs/Establishment';
+
 import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
+
+import orderArchiveSchema from '~/json/order_archive_schema.json';
+
+import api from '~/services/api';
 
 import './styles.css';
 
-import orderArchiveSchema from '~/json/order_archive_schema.json'
-
-const orderArchiveEndpoint = "http://peripherals.seuminu.com:9000/topics/WaiterCallArchiveNotification"
-
 export default function Dashboard() {
   const dispatch = useDispatch();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState();
 
   const orders = useSelector((state) => state.dashboard.dashboard);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState();
   const [sortedOrders, setSortedOrders] = useState(Object.keys(orders));
 
   useEffect(() => {
-    var allOrders = Object.entries(orders).map(([tableNumber, tableOrders]) => (
-      Object.entries(tableOrders).map(([timestamp, orderInfo]) => (
-        orderInfo
-      ))
-    ));
-    setSortedOrders(allOrders.flat().sort((a,b) => a.Timestamp - b.Timestamp));
-  }, [orders]);
+    const allOrders = Object.entries(orders).map(([_, tableOrders]) =>
+      Object.entries(tableOrders).map(([__, orderInfo]) => orderInfo)
+    );
 
+    setSortedOrders(allOrders.flat().sort((a, b) => a.Timestamp - b.Timestamp));
+  }, [orders]);
 
   function openModal(order) {
     setModalVisible(true);
     setSelectedOrder(order);
   }
 
-  function ArchiveOrder(order) {
-    dispatch(deleteDashboardOrderAction(order));
-    setModalVisible(false);
-    signilizeOrderArchive(order)
+  async function handleOrderArchive(order) {
+    const data = {
+      data: {
+        value_schema: JSON.stringify(orderArchiveSchema),
+        records: [
+          {
+            value: {
+              EstablishmentId: order.EstablishmentId,
+              TableNumber: order.TableNumber,
+              WaiterCallTimestamp: order.Timestamp.toString(),
+            },
+          },
+        ],
+      },
+    };
+
+    try {
+      await api.delete('waiter-call', data);
+
+      dispatch(deleteDashboardOrderAction(order));
+    } catch (err) {
+      alert(
+        'Não foi possível arquivar essa chamada. Verifique sua conexão e tente novamente mais tarde.'
+      );
+    }
   }
 
-  function signilizeOrderArchive(order) {
-    const headers = {
-      'content-type': 'application/json',
-      'Accept': '*/*',
-    }
-    var body = { 
-      value_schema: JSON.stringify(orderArchiveSchema),
-      records: [{
-        "value": {
-          "EstablishmentId": order.EstablishmentId, 
-          "TableNumber": order.TableNumber,
-          "WaiterCallTimestamp": order.Timestamp.toString()
-        }
-      }]
-    }
-
-    axios.post(orderArchiveEndpoint, JSON.stringify(body), {headers: headers})
-    .then((response) => {
-        console.log(response);
-      }).catch((e) => {
-        console.log(e);
-      });
+  function ArchiveOrder(order) {
+    setModalVisible(false);
+    handleOrderArchive(order);
   }
 
   return (
@@ -92,12 +93,11 @@ export default function Dashboard() {
             sortedOrders.map((order) => (
               <Order
                 key={`${toString(order.TableNumber)}-${order.Timestamp}`}
-                tableNumber = {order.TableNumber}
+                tableNumber={order.TableNumber}
                 timestamp={order.Timestamp}
                 onClick={() => openModal(order)}
               />
-            ))
-          }
+            ))}
 
           {sortedOrders.length === 0 && (
             <p className="hint">Não há chamados para atendimento ainda...</p>

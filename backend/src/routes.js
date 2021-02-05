@@ -21,6 +21,8 @@ import AvatarController from './app/controllers/AvatarController';
 import ServiceSessionController from './app/controllers/ServiceSessionController';
 import ServiceMenuController from './app/controllers/ServiceMenuController';
 
+import WaiterCallController from './app/controllers/WaiterCallController';
+
 const routes = new Router();
 
 const customerUpload = multer(MulterConfig.getCustomerConfig());
@@ -47,12 +49,13 @@ routes.delete(
   ServiceSessionController.delete
 );
 
-routes.get('/service-menu', customerAuthMiddleware,ServiceMenuController.index);
-
 routes.get(
-  '/establishments/:id',
-  EstablishmentsController.index
+  '/service-menu',
+  customerAuthMiddleware,
+  ServiceMenuController.index
 );
+
+routes.get('/establishments/:id', EstablishmentsController.index);
 routes.post('/establishments', EstablishmentsController.store);
 routes.put(
   '/establishments',
@@ -120,5 +123,11 @@ routes.post(
 
 routes.post('/customers', CustomerController.store);
 routes.put('/customers', customerAuthMiddleware, CustomerController.update);
+
+routes.delete(
+  '/waiter-call',
+  establishmentAuthMiddleware,
+  WaiterCallController.delete
+);
 
 export default routes;
