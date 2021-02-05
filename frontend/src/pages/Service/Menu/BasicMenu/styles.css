@@ -182,12 +182,12 @@
 
 #basic-menu .buttons-container {
   position: absolute;
-  right: 24px;
+  right: calc(50% - 512px + 24px);
   bottom: 72px;
   display: flex;
 }
 
-#basic-menu .bill-button, #basic-menu .cart-button {
+#basic-menu .waiter-call-button {
   width: 48px;
   min-width: 48px;
   height: 48px;
@@ -200,13 +200,10 @@
   box-shadow: 0px 3px 6px #00000029;
 }
 
-#basic-menu .bill-button {
-  background: #24D18A;
-}
-
-#basic-menu .cart-button {
-  background: #535bfe;
-  margin-right: 8px;
+@media screen and (max-width: 1024px) {
+  #basic-menu .buttons-container {
+    right: 24px;
+  }
 }
 
 @media screen and (max-width: 767px) {

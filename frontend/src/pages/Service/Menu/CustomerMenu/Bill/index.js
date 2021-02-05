@@ -59,7 +59,7 @@ export default function Bill({ location }) {
 
   function handleClose() {
     setModalVisible(false);
-    history.push('/sessao');
+    history.push('/acesso/sessao');
   }
 
   function handleBillRequested() {

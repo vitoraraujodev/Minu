@@ -57,7 +57,7 @@ export function* customerSignIn({ payload }) {
     yield put(checkOutSuccess());
     yield put(customerSignInSuccess(token, customer));
 
-    history.push('/sessao');
+    history.push('/acesso/sessao');
   } catch (err) {
     yield put(signFailure());
     if (err.response.data) {

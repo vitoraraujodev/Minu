@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
+import WaiterCallModal from './WaiterCallModal';
+import WaiterPending from './WaiterPending';
 
 import logo from '~/assets/icons/simple-logo.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
+import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -15,6 +18,8 @@ import history from '~/services/history';
 import './styles.css';
 
 export default function BasicMenu({ location }) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [pendingModalVisible, setPendingModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [establishment, setEstablishment] = useState({});
   const [starters, setStarters] = useState([]);
@@ -83,7 +88,7 @@ export default function BasicMenu({ location }) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      history.push('/sessao');
+      history.push('/acesso/sessao');
       if (err.response) alert(err.response.data.error);
     }
   }
@@ -173,143 +178,173 @@ export default function BasicMenu({ location }) {
 
   return (
     <div id="basic-menu">
-      <div onScroll={handleScroll} id="container" className="container">
-        <div className="info-container">
-          <button
-            type="button"
-            className="back-button"
-            onClick={() => history.push('/sessao')}
-          >
-            <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
-            Voltar
-          </button>
+      {modalVisible && (
+        <WaiterCallModal
+          establishmentId={establishmentId}
+          onWaiterCall={() => setPendingModalVisible(true)}
+          onClose={() => setModalVisible(false)}
+        />
+      )}
 
-          <div className="logo-container">
-            <img className="logo" src={logo} alt="minu" />
-          </div>
+      {pendingModalVisible && (
+        <WaiterPending onClose={() => setPendingModalVisible(false)} />
+      )}
 
-          <div className="img-container">
-            <img
-              src={
-                establishment.photo ? establishment.photo.url : defaultPicture
-              }
-              onError={(e) => {
-                e.target.src = defaultPicture;
-              }}
-              className="establishment-img"
-              alt=""
-            />
-          </div>
-          <div className="info-area">
-            <div className="info">
-              <div className="title-area">
-                <span className="title">
-                  {establishment.establishment_name || 'Carregando...'}
-                </span>
+      {!pendingModalVisible && (
+        <>
+          <div onScroll={handleScroll} id="container" className="container">
+            <div className="info-container">
+              <button
+                type="button"
+                className="back-button"
+                onClick={() => history.push('/sessao')}
+              >
+                <Backward style={{ height: 16, marginRight: 4 }} fill="#fff" />
+                Voltar
+              </button>
+
+              <div className="logo-container">
+                <img className="logo" src={logo} alt="minu" />
               </div>
-              {establishment.rating ? (
-                <div className="rating-area">
-                  <span className="rating-text">
-                    {establishment.rating % 1 > 0
-                      ? establishment.rating
-                      : `${establishment.rating}.0`}
-                  </span>
-                  <RatingStar style={{ height: 15, margin: '0 4px' }} />
-                  <span className="rating-text">({establishment.raters})</span>
+
+              <div className="img-container">
+                <img
+                  src={
+                    establishment.photo
+                      ? establishment.photo.url
+                      : defaultPicture
+                  }
+                  onError={(e) => {
+                    e.target.src = defaultPicture;
+                  }}
+                  className="establishment-img"
+                  alt=""
+                />
+              </div>
+              <div className="info-area">
+                <div className="info">
+                  <div className="title-area">
+                    <span className="title">
+                      {establishment.establishment_name || 'Carregando...'}
+                    </span>
+                  </div>
+                  {establishment.rating ? (
+                    <div className="rating-area">
+                      <span className="rating-text">
+                        {establishment.rating % 1 > 0
+                          ? establishment.rating
+                          : `${establishment.rating}.0`}
+                      </span>
+                      <RatingStar style={{ height: 15, margin: '0 4px' }} />
+                      <span className="rating-text">
+                        ({establishment.raters})
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="establishment-address">
+                      {establishment.street},{'  '}
+                      {establishment.address_number &&
+                        `n. ${establishment.address_number}`}
+                    </span>
+                  )}
                 </div>
-              ) : (
-                <span className="establishment-address">
-                  {establishment.street},{'  '}
-                  {establishment.address_number &&
-                    `n. ${establishment.address_number}`}
-                </span>
+              </div>
+            </div>
+
+            {loading && (
+              <div className="loader-container">
+                <div className="loader" />
+              </div>
+            )}
+
+            {starters.length === 0 &&
+              mains.length === 0 &&
+              desserts.length === 0 &&
+              drinks.length === 0 &&
+              alcoholics.length === 0 &&
+              !loading && (
+                <h3 className="empty-text">
+                  Nenhum cardápio está diponivel agora...
+                </h3>
               )}
+
+            <div id="products-container" className="products-container">
+              <div className="products">
+                {starters.length > 0 && (
+                  <div id="startersRef">
+                    <p className="category-label">Entradas</p>
+                    {starters.map((product) => (
+                      <Product product={product} key={product.id} />
+                    ))}
+                  </div>
+                )}
+
+                {mains.length > 0 && (
+                  <div id="mainsRef">
+                    <p className="category-label">Pratos Principais</p>
+                    {mains.map((product) => (
+                      <Product
+                        establishmentId={establishmentId}
+                        product={product}
+                        key={product.id}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {desserts.length > 0 && (
+                  <div id="dessertsRef">
+                    <p className="category-label">Sobremesas</p>
+                    {desserts.map((product) => (
+                      <Product product={product} key={product.id} />
+                    ))}
+                  </div>
+                )}
+
+                {drinks.length > 0 && (
+                  <div id="drinksRef">
+                    <p className="category-label">Bebidas</p>
+                    {drinks.map((product) => (
+                      <Product product={product} key={product.id} />
+                    ))}
+                  </div>
+                )}
+
+                {alcoholics.length > 0 && (
+                  <div id="alcoholicsRef">
+                    <p className="category-label">Bebidas Alcoólicas</p>
+                    {alcoholics.map((product) => (
+                      <Product product={product} key={product.id} />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        {loading && (
-          <div className="loader-container">
-            <div className="loader" />
+          <div className="buttons-container">
+            <button
+              type="button"
+              className="waiter-call-button"
+              onClick={() => setModalVisible(true)}
+            >
+              <TrayIcon height="21" style={{ marginBottom: 8 }} fill="#fff" />
+            </button>
           </div>
-        )}
 
-        {starters.length === 0 &&
-          mains.length === 0 &&
-          desserts.length === 0 &&
-          drinks.length === 0 &&
-          alcoholics.length === 0 &&
-          !loading && (
-            <h3 className="empty-text">
-              Nenhum cardápio está diponivel agora...
-            </h3>
-          )}
-
-        <div id="products-container" className="products-container">
-          <div className="products">
-            {starters.length > 0 && (
-              <div id="startersRef">
-                <p className="category-label">Entradas</p>
-                {starters.map((product) => (
-                  <Product product={product} key={product.id} />
-                ))}
-              </div>
-            )}
-
-            {mains.length > 0 && (
-              <div id="mainsRef">
-                <p className="category-label">Pratos Principais</p>
-                {mains.map((product) => (
-                  <Product
-                    establishmentId={establishmentId}
-                    product={product}
-                    key={product.id}
-                  />
-                ))}
-              </div>
-            )}
-
-            {desserts.length > 0 && (
-              <div id="dessertsRef">
-                <p className="category-label">Sobremesas</p>
-                {desserts.map((product) => (
-                  <Product product={product} key={product.id} />
-                ))}
-              </div>
-            )}
-
-            {drinks.length > 0 && (
-              <div id="drinksRef">
-                <p className="category-label">Bebidas</p>
-                {drinks.map((product) => (
-                  <Product product={product} key={product.id} />
-                ))}
-              </div>
-            )}
-
-            {alcoholics.length > 0 && (
-              <div id="alcoholicsRef">
-                <p className="category-label">Bebidas Alcoólicas</p>
-                {alcoholics.map((product) => (
-                  <Product product={product} key={product.id} />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <MenuFooter
-        activeCategory={activeCategory}
-        starters={starters.length > 0}
-        mains={mains.length > 0}
-        desserts={desserts.length > 0}
-        drinks={drinks.length > 0}
-        alcoholics={alcoholics.length > 0}
-        onActiveCategoryChange={(category) => {
-          scrollTo(category);
-        }}
-      />
+          <MenuFooter
+            activeCategory={activeCategory}
+            starters={starters.length > 0}
+            mains={mains.length > 0}
+            desserts={desserts.length > 0}
+            drinks={drinks.length > 0}
+            alcoholics={alcoholics.length > 0}
+            onActiveCategoryChange={(category) => {
+              scrollTo(category);
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }

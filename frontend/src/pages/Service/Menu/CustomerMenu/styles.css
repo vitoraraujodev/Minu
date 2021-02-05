@@ -182,7 +182,7 @@
 
 #customer-menu .buttons-container {
   position: absolute;
-  right: 24px;
+  right: calc(50% - 512px + 24px);
   bottom: 72px;
   display: flex;
 }
@@ -207,6 +207,12 @@
 #customer-menu .cart-button {
   background: #535bfe;
   margin-right: 8px;
+}
+
+@media screen and (max-width: 1024px) {
+  #customer-menu .buttons-container {
+    right: 24px;
+  }
 }
 
 @media screen and (max-width: 767px) {

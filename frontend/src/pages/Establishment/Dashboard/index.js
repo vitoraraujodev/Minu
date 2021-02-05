@@ -10,7 +10,7 @@ import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
 
-import orderArchiveSchema from '~/json/order_archive_schema.json';
+import waiterCallArchiveSchema from '~/json/waiter_call_archive_schema.json';
 
 import api from '~/services/api';
 
@@ -41,7 +41,7 @@ export default function Dashboard() {
   async function handleOrderArchive(order) {
     const data = {
       data: {
-        value_schema: JSON.stringify(orderArchiveSchema),
+        value_schema: JSON.stringify(waiterCallArchiveSchema),
         records: [
           {
             value: {
