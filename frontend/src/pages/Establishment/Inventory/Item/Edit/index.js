@@ -71,8 +71,12 @@ export default function EditItem({ location }) {
   }
 
   useEffect(() => {
-    if ((title, price, preparationTime, category)) setFilled(true);
-  }, [title, price, preparationTime, category]);
+    if ((title, description, price, preparationTime, category)) {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
+  }, [title, description, price, preparationTime, category]);
 
   async function handleChange(e) {
     setFile(e.target.files[0]);

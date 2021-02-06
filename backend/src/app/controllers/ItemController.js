@@ -37,7 +37,7 @@ class ItemController {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       code: Yup.string(),
-      description: Yup.string(),
+      description: Yup.string().required(),
       category: Yup.string().required(),
       available: Yup.boolean(),
       price: Yup.number().required(),
@@ -117,7 +117,7 @@ class ItemController {
       title: Yup.string(),
       code: Yup.string(),
       category: Yup.string(),
-      description: Yup.string(),
+      description: Yup.string().required(),
       available: Yup.boolean(),
       price: Yup.number(),
       preparation_time: Yup.number(),

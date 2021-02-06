@@ -64,12 +64,12 @@ export default function NewItem() {
   }
 
   useEffect(() => {
-    if (title && price && preparationTime && category) {
+    if (title && description && price && preparationTime && category) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [title, price, preparationTime, category]);
+  }, [title, description, price, preparationTime, category]);
 
   async function handleChange(e) {
     setFile(e.target.files[0]);
