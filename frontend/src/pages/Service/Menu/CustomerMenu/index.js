@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
@@ -14,9 +15,17 @@ import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import { setSessionEstablishment } from '~/store/modules/session/actions';
+
 import './styles.css';
 
 export default function CustomerMenu() {
+  const dispatch = useDispatch();
+
+  const stateEstablishment = useSelector(
+    (state) => state.session.establishment
+  );
+
   const [loading, setLoading] = useState(false);
   const [establishment, setEstablishment] = useState({});
   const [starters, setStarters] = useState([]);
@@ -33,54 +42,60 @@ export default function CustomerMenu() {
   const drinksRef = document.getElementById('drinksRef');
   const alcoholicsRef = document.getElementById('alcoholicsRef');
 
+  function handleEstablishment(data) {
+    if (data.items && data.items.length > 0) {
+      const alcoholicItems = data.items.filter(
+        (item) => item.category === 'Bebidas alcoólicas'
+      );
+      if (alcoholicItems.length > 0) {
+        setAlcoholics(alcoholicItems);
+        setActiveCategory('alcoholics');
+      }
+
+      const drinkItems = data.items.filter(
+        (item) => item.category === 'Bebidas'
+      );
+      if (drinkItems.length > 0) {
+        setDrinks(drinkItems);
+        setActiveCategory('drinks');
+      }
+
+      const dessertItems = data.items.filter(
+        (item) => item.category === 'Sobremesas'
+      );
+      if (dessertItems.length > 0) {
+        setDesserts(dessertItems);
+        setActiveCategory('desserts');
+      }
+
+      const mainItems = data.items.filter(
+        (item) => item.category === 'Pratos principais'
+      );
+      if (mainItems.length > 0) {
+        setMains(mainItems);
+        setActiveCategory('mains');
+      }
+
+      const starterItems = data.items.filter(
+        (item) => item.category === 'Entradas'
+      );
+      if (starterItems.length > 0) {
+        setStarters(starterItems);
+        setActiveCategory('starters');
+      }
+    }
+  }
+
   async function loadEstablishment() {
     setLoading(true);
 
     try {
       const response = await api.get('service-menu');
+
       setEstablishment(response.data);
+      handleEstablishment(response.data);
+      dispatch(setSessionEstablishment(response.data));
 
-      if (response.data.items && response.data.items.length > 0) {
-        const alcoholicItems = response.data.items.filter(
-          (item) => item.category === 'Bebidas alcoólicas'
-        );
-        if (alcoholicItems.length > 0) {
-          setAlcoholics(alcoholicItems);
-          setActiveCategory('alcoholics');
-        }
-
-        const drinkItems = response.data.items.filter(
-          (item) => item.category === 'Bebidas'
-        );
-        if (drinkItems.length > 0) {
-          setDrinks(drinkItems);
-          setActiveCategory('drinks');
-        }
-
-        const dessertItems = response.data.items.filter(
-          (item) => item.category === 'Sobremesas'
-        );
-        if (dessertItems.length > 0) {
-          setDesserts(dessertItems);
-          setActiveCategory('desserts');
-        }
-
-        const mainItems = response.data.items.filter(
-          (item) => item.category === 'Pratos principais'
-        );
-        if (mainItems.length > 0) {
-          setMains(mainItems);
-          setActiveCategory('mains');
-        }
-
-        const starterItems = response.data.items.filter(
-          (item) => item.category === 'Entradas'
-        );
-        if (starterItems.length > 0) {
-          setStarters(starterItems);
-          setActiveCategory('starters');
-        }
-      }
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -90,8 +105,13 @@ export default function CustomerMenu() {
   }
 
   useEffect(() => {
-    loadEstablishment();
-  }, []); // eslint-disable-line
+    if (stateEstablishment) {
+      setEstablishment(stateEstablishment);
+      handleEstablishment(stateEstablishment);
+    } else {
+      loadEstablishment();
+    }
+  }, [stateEstablishment]); // eslint-disable-line
 
   function handleScroll() {
     if (containerRef) {

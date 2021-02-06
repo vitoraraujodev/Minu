@@ -67,7 +67,7 @@
   min-width: 48px !important;
   width: 15% !important;
   border-radius: 5px;
-  box-shadow: 0px 0px 6px #00000029;
+  box-shadow: 0px 0px 4px #00000029;
 }
 
 #session-page .pincode-input-text:focus {

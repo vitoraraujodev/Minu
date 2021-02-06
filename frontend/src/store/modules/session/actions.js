@@ -32,3 +32,15 @@ export function checkOutSuccess() {
     type: '@session/CHECK_OUT',
   };
 }
+
+export function setSessionEstablishment(establishment) {
+  return {
+    type: '@session/SET_ESTABLISHMENT',
+    payload: establishment,
+  };
+}
+export function removeSessionEstablishment() {
+  return {
+    type: '@session/REMOVE_ESTABLISHMENT',
+  };
+}
