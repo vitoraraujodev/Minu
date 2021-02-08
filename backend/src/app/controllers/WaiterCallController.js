@@ -21,12 +21,13 @@ class WaiterCallController {
     } catch (err) {
       return res.status(400).json({
         error:
-          'Houve um erro ao arquivar essa chamada. Verifique e tente novamente.',
+          'Houve um erro ao criar a chamada. Verifique e tente novamente.',
       });
     }
   }
 
   async delete(req, res) {
+    console.log(req.body)
     const waiterCallArchiveEndpoint = `${endPoint}/WaiterCallArchiveNotification`;
 
     try {

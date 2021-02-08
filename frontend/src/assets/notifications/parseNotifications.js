@@ -19,6 +19,7 @@ function isWaiterCall(notificationInfo){
 function HandleWaiterCall(notificationInfo) {
     delete notificationInfo._kafka;
 
+    notificationInfo.TableNumber = parseInt(notificationInfo.TableNumber); 
     if (notificationInfo.NotificationType === WAITER_CALL_ARCHIVE) {
         notificationInfo.WaiterCallTimestamp = parseInt(notificationInfo.WaiterCallTimestamp); 
     }

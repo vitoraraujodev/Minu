@@ -45,7 +45,7 @@ export default function Dashboard() {
         records: [
           {
             value: {
-              EstablishmentId: order.EstablishmentId,
+              EstablishmentId: parseInt(order.EstablishmentId),
               TableNumber: order.TableNumber,
               WaiterCallTimestamp: order.Timestamp.toString(),
             },

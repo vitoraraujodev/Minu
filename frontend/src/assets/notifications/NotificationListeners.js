@@ -27,6 +27,7 @@ function CreateListeners(eventSourceObject) {
     eventSourceObject.onmessage = function (event) {
       try {
         var parsedNotification = ParseNotification(event.data);
+        console.log("Received event: ", parsedNotification.NotificationType)
       } catch (error) {
         console.log(error.message);
       }
