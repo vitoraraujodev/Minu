@@ -60,7 +60,8 @@ export default function MenuFooter({
   return (
     <div id="menu-footer">
       {starters && (
-        <div
+        <button
+          type="button"
           id="starters-tab"
           className={activeCategory === 'starters' ? 'tab-active' : 'tab'}
           onClick={() => {
@@ -68,11 +69,12 @@ export default function MenuFooter({
           }}
         >
           <p>Entradas</p>
-        </div>
+        </button>
       )}
 
       {mains && (
-        <div
+        <button
+          type="button"
           id="mains-tab"
           className={activeCategory === 'mains' ? 'tab-active' : 'tab'}
           onClick={() => {
@@ -80,10 +82,11 @@ export default function MenuFooter({
           }}
         >
           <p>Pratos Principais</p>
-        </div>
+        </button>
       )}
       {desserts && (
-        <div
+        <button
+          type="button"
           id="desserts-tab"
           className={activeCategory === 'desserts' ? 'tab-active' : 'tab'}
           onClick={() => {
@@ -91,11 +94,12 @@ export default function MenuFooter({
           }}
         >
           <p>Sobremesas</p>
-        </div>
+        </button>
       )}
 
       {drinks && (
-        <div
+        <button
+          type="button"
           id="drinks-tab"
           className={activeCategory === 'drinks' ? 'tab-active' : 'tab'}
           onClick={() => {
@@ -103,11 +107,12 @@ export default function MenuFooter({
           }}
         >
           <p>Bebidas</p>
-        </div>
+        </button>
       )}
 
       {alcoholics && (
-        <div
+        <button
+          type="button"
           id="alcoholics-tab"
           className={activeCategory === 'alcoholics' ? 'tab-active' : 'tab'}
           onClick={() => {
@@ -115,7 +120,7 @@ export default function MenuFooter({
           }}
         >
           <p>Bebidas Alcoólicas</p>
-        </div>
+        </button>
       )}
     </div>
   );

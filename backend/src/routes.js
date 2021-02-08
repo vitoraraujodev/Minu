@@ -124,7 +124,7 @@ routes.post(
 routes.post('/customers', CustomerController.store);
 routes.put('/customers', customerAuthMiddleware, CustomerController.update);
 
-routes.post('/waiter-call', customerAuthMiddleware, WaiterCallController.store);
+routes.post('/waiter-call', WaiterCallController.store);
 routes.delete(
   '/waiter-call',
   establishmentAuthMiddleware,
