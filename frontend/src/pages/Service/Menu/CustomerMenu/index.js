@@ -169,23 +169,23 @@ export default function CustomerMenu() {
   function scrollTo(category) {
     switch (category) {
       case 'starters':
-        startersRef.scrollIntoView();
+        if (startersRef) startersRef.scrollIntoView();
         setActiveCategory('starters');
         break;
       case 'mains':
-        mainsRef.scrollIntoView();
+        if (mainsRef) mainsRef.scrollIntoView();
         setActiveCategory('mains');
         break;
       case 'desserts':
-        dessertsRef.scrollIntoView();
+        if (dessertsRef) dessertsRef.scrollIntoView();
         setActiveCategory('desserts');
         break;
       case 'drinks':
-        drinksRef.scrollIntoView();
+        if (drinksRef) drinksRef.scrollIntoView();
         setActiveCategory('drinks');
         break;
       case 'alcoholics':
-        alcoholicsRef.scrollIntoView();
+        if (alcoholicsRef) alcoholicsRef.scrollIntoView();
         setActiveCategory('alcoholics');
         break;
       default:
