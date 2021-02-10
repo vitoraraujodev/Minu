@@ -15,30 +15,30 @@ import { ParseNotification } from '~/assets/notifications/parseNotifications';
 function CreateListeners(eventSourceObject) {
   const dispatch = useDispatch();
 
-  try {
-    eventSourceObject.onopen = function (event) {
-      console.log('--- Opened SSE connection.', event);
-    };
+  let parsedNotification = {};
 
-    eventSourceObject.onerror = function (event) {
-      console.log('--- Got SSE error', event);
-    };
+  eventSourceObject.onopen = function (event) {
+    console.log('--- Opened SSE connection.', event);
+  };
 
-    eventSourceObject.onmessage = function (event) {
-      try {
-        var parsedNotification = ParseNotification(event.data);
-        console.log("Received event: ", parsedNotification.NotificationType)
-      } catch (error) {
-        console.log(error.message);
-      }
+  eventSourceObject.onerror = function (event) {
+    console.log('--- Got SSE error', event);
+  };
 
-      if (parsedNotification.NotificationType === 'waiterCall') {
-        dispatch(createDashboardOrderAction(parsedNotification));
-      } else if (parsedNotification.NotificationType === 'waiterCallArchive') {
-        dispatch(receivedDashboardOrderArchiveAction(parsedNotification));
-      }
-    };
-  } catch (error) {}
+  eventSourceObject.onmessage = function (event) {
+    try {
+      parsedNotification = ParseNotification(event.data);
+      console.log('Received event: ', parsedNotification.NotificationType);
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    if (parsedNotification.NotificationType === 'waiterCall') {
+      dispatch(createDashboardOrderAction(parsedNotification));
+    } else if (parsedNotification.NotificationType === 'waiterCallArchive') {
+      dispatch(receivedDashboardOrderArchiveAction(parsedNotification));
+    }
+  };
 }
 
 export function CreateNotificationListeners(establishmentToken) {
@@ -60,7 +60,9 @@ export function DeleteNotificationListeners(eventSourceObject) {
   const dispatch = useDispatch();
   try {
     eventSourceObject.close();
-  } catch (error) {}
+  } catch (error) {
+    console.log('Delete Notifications Error', error);
+  }
 
   dispatch(deleteNotificationListenerAction());
 }
