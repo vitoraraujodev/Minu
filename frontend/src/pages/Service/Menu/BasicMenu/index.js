@@ -48,7 +48,9 @@ export default function BasicMenu({ location }) {
   const drinksRef = document.getElementById('drinksRef');
   const alcoholicsRef = document.getElementById('alcoholicsRef');
 
-  const establishmentId = location.pathname.split('/')[2];
+  const sessionCode = location.pathname.split('/')[2];
+  const establishmentId = sessionCode.substr(0, 2);
+  const tableNumber = sessionCode.substr(2);
 
   function handleEstablishment(data) {
     if (data.items && data.items.length > 0) {
@@ -107,7 +109,7 @@ export default function BasicMenu({ location }) {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      history.push('/sessao');
+      history.push('/');
       if (err.response) alert(err.response.data.error);
     }
   }
@@ -201,7 +203,7 @@ export default function BasicMenu({ location }) {
   }
 
   function handleBack() {
-    history.push('/sessao');
+    history.push('/');
     dispatch(removeSessionEstablishment());
   }
 
