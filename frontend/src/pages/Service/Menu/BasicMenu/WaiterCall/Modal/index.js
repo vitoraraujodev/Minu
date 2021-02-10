@@ -10,6 +10,7 @@ import './styles.css';
 
 export default function WaiterCallModal({
   establishmentId,
+  tableNumber,
   onWaiterCall,
   onClose,
 }) {
@@ -20,7 +21,7 @@ export default function WaiterCallModal({
         {
           value: {
             EstablishmentId: establishmentId,
-            TableNumber: 1,
+            TableNumber: tableNumber,
           },
         },
       ],

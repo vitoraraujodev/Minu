@@ -10,17 +10,18 @@ import './styles.css';
 
 export default function BillCallModal({
   // establishmentId,
+  // tableNumber,
   onBillCall,
   onClose,
 }) {
-  async function handlebillCall() {
+  async function handleBillCall() {
     // const data = {
     //   value_schema: JSON.stringify(billCallSchema),
     //   records: [
     //     {
     //       value: {
     //         EstablishmentId: establishmentId,
-    //         TableNumber: 1,
+    //         TableNumber: tableNumber,
     //       },
     //     },
     //   ],
@@ -56,7 +57,7 @@ export default function BillCallModal({
 
         <button
           type="button"
-          onClick={handlebillCall}
+          onClick={handleBillCall}
           className="confirm-button"
         >
           Pedir conta

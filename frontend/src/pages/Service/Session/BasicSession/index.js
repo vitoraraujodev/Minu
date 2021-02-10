@@ -13,13 +13,8 @@ export default function Session() {
   const [invalid, setInvalid] = useState(false);
 
   async function handleCode() {
-    // const establishment_id = parseInt(code.substr(0, 3), 10);
-    // const table_number = parseInt(code.substr(3, 4), 10);
-
-    const establishment_id = 1;
-
     if (code.length === 5) {
-      history.push(`cardapio/${establishment_id}`);
+      history.push(`cardapio/${code}`);
     } else {
       setInvalid(true);
     }

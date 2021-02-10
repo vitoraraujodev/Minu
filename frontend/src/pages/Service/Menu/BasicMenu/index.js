@@ -57,8 +57,8 @@ export default function BasicMenu({ location }) {
   const alcoholicsRef = document.getElementById('alcoholicsRef');
 
   const sessionCode = location.pathname.split('/')[2];
-  const establishmentId = sessionCode.substr(0, 2);
-  const tableNumber = sessionCode.substr(2);
+  const establishmentId = sessionCode.substr(0, 3);
+  const tableNumber = sessionCode.substr(3);
 
   function handleEstablishment(data) {
     if (data.items && data.items.length > 0) {
@@ -227,6 +227,7 @@ export default function BasicMenu({ location }) {
       {waiterModalVisible && (
         <WaiterCallModal
           establishmentId={establishmentId}
+          tableNumber={tableNumber}
           onWaiterCall={() => setWaiterPendingVisible(true)}
           onClose={() => setWaiterModalVisible(false)}
         />
@@ -234,6 +235,7 @@ export default function BasicMenu({ location }) {
       {billModalVisible && (
         <BillCallModal
           establishmentId={establishmentId}
+          tableNumber={tableNumber}
           onBillCall={() => setBillPendingVisible(true)}
           onClose={() => setBillModalVisible(false)}
         />
