@@ -30,7 +30,7 @@ export function* establishmentSignIn({ payload }) {
 
     history.push(route);
 
-    if (route === '/estabelecimento/inventario') {
+    if (route === '/inventario') {
       yield put(inventoryAccess(true));
     }
   } catch (err) {

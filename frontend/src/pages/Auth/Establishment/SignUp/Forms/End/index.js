@@ -26,7 +26,7 @@ export default function End({ email, password }) {
         <button
           className="menu-button"
           onClick={() => {
-            handleLogin('/estabelecimento/inventario');
+            handleLogin('/inventario');
           }}
           type="button"
         >

@@ -15,7 +15,7 @@ export default function Intro() {
 
         <div className="account-container">
           <p className="welcome">Seja bem-vindo!</p>
-          <Link to="/estabelecimento/login">
+          <Link to="/login">
             <button className="login-button" type="button">
               Acesse sua conta
             </button>
@@ -23,7 +23,7 @@ export default function Intro() {
           <div className="register-container">
             <span className="register-or">ou</span>
 
-            <Link to="/estabelecimento/cadastro">
+            <Link to="/cadastro">
               <button type="button" className="register-button">
                 Cadastre o seu restaurante
               </button>

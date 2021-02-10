@@ -73,7 +73,7 @@ export default function SignUp() {
     if (step > 1) {
       setStep(step - 1);
     } else {
-      history.push('/estabelecimento/acesso');
+      history.push('/acesso');
     }
   }
 

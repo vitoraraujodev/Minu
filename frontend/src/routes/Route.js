@@ -30,8 +30,8 @@ export default function RouteWrapper({
     return <Route {...rest} component={Component} />;
   }
 
-  if (!kind && !notPrivate) {
-    return <Redirect to="/cliente/acesso" />;
+  if (!kind && establishments) {
+    return <Redirect to="/acesso" />;
   }
 
   if (
