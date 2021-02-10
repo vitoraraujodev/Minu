@@ -41,18 +41,17 @@ export default function ProductOrder({ location }) {
         </button>
       </div>
 
-      {product.photo && (
-        <div className="img-container">
-          <img
-            src={product.photo.url}
-            onError={(e) => {
-              e.target.src = defaultPicture;
-            }}
-            className="product-img"
-            alt="product"
-          />
-        </div>
-      )}
+      <div className="img-container">
+        <img
+          src={product.photo ? product.photo.url : defaultPicture}
+          onError={(e) => {
+            e.target.src = defaultPicture;
+          }}
+          className="product-img"
+          alt=""
+        />
+      </div>
+
       <div className="product-info">
         <p className="product-title">{product.title}</p>
         {product.description && (

@@ -3,12 +3,12 @@ import React from 'react';
 import { ReactComponent as Close } from '~/assets/icons/close-icon2.svg';
 import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 
-import './styles.css';
+import '../../styles.css';
 
 export default function WaiterPending({ onClose }) {
   return (
     <>
-      <div className="finish-background" />
+      <div className="waiter-finish-background" />
 
       <div className="finish-page">
         <div>
@@ -23,14 +23,14 @@ export default function WaiterPending({ onClose }) {
             <Symbols height={80} />
           </div>
 
-          <h1 className="finish-text">Você chamou o garçom!</h1>
+          <h1 className="finish-text">Você chamou o garçom</h1>
 
           <div className="symbols-container2">
             <Symbols height={80} />
           </div>
         </div>
 
-        <p className="pending-text">Aguarde, voce já será atendido!</p>
+        <p className="pending-text">Aguarde, você já será atendido!</p>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-#waiter-call-modal {
+#bill-call-modal {
   position: fixed;
   background: rgba(0,0,0,0.4);
   width: 100%;
@@ -8,10 +8,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  z-index: 10;
 }
 
-#waiter-call-modal .modal-container {
+#bill-call-modal .modal-container {
   position: absolute;
   padding: 16px 24px;
   margin: 0 auto;
@@ -24,7 +24,7 @@
   top: calc(50% - 160px);
 }
 
-#waiter-call-modal .modal-close-button {
+#bill-call-modal .modal-close-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,26 +36,26 @@
   border: 0;
 }
 
-#waiter-call-modal .modal-group {
+#bill-call-modal .modal-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#waiter-call-modal .modal-title {
+#bill-call-modal .modal-title {
   color: #606060;
   font-size: 21px;
   font-weight: 600;
 }
 
-#waiter-call-modal .modal-text {
+#bill-call-modal .modal-text {
   margin-top: 16px;
   color: #606060;
   font-size: 15px;
   font-weight: 400;
 }
 
-#waiter-call-modal .confirm-button {
+#bill-call-modal .confirm-button {
   border: 1.5px solid #24D18A;
   background:#24D18A;
   border-radius: 5px;
@@ -67,6 +67,6 @@
   margin-top: 24px;
 }
 
-#waiter-call-modal .confirm-button:active {
+#bill-call-modal .confirm-button:active {
   transform: scale(1.03);
 }

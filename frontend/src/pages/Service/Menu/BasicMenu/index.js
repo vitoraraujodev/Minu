@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
-import WaiterCallModal from './WaiterCallModal';
-import WaiterPending from './WaiterPending';
+
+import WaiterCallModal from './WaiterCall/Modal';
+import WaiterPending from './WaiterCall/Pending';
+import BillCallModal from './BillCall/Modal';
+import BillPending from './BillCall/Pending';
 
 import logo from '~/assets/icons/simple-logo.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
@@ -12,6 +15,7 @@ import defaultPicture from '~/assets/images/default-picture.png';
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
+import { ReactComponent as BillIcon } from '~/assets/icons/orders-icon.svg';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -30,9 +34,13 @@ export default function BasicMenu({ location }) {
     (state) => state.session.establishment
   );
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [pendingModalVisible, setPendingModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [waiterModalVisible, setWaiterModalVisible] = useState(false);
+  const [waiterPendingVisible, setWaiterPendingVisible] = useState(false);
+  const [billModalVisible, setBillModalVisible] = useState(false);
+  const [billPendingVisible, setBillPendingVisible] = useState(false);
+
   const [establishment, setEstablishment] = useState({});
   const [starters, setStarters] = useState([]);
   const [mains, setMains] = useState([]);
@@ -207,19 +215,29 @@ export default function BasicMenu({ location }) {
 
   return (
     <div id="basic-menu">
-      {modalVisible && (
+      {waiterPendingVisible && (
+        <WaiterPending onClose={() => setWaiterPendingVisible(false)} />
+      )}
+      {billPendingVisible && (
+        <BillPending onClose={() => setBillPendingVisible(false)} />
+      )}
+
+      {waiterModalVisible && (
         <WaiterCallModal
           establishmentId={establishmentId}
-          onWaiterCall={() => setPendingModalVisible(true)}
-          onClose={() => setModalVisible(false)}
+          onWaiterCall={() => setWaiterPendingVisible(true)}
+          onClose={() => setWaiterModalVisible(false)}
+        />
+      )}
+      {billModalVisible && (
+        <BillCallModal
+          establishmentId={establishmentId}
+          onBillCall={() => setBillPendingVisible(true)}
+          onClose={() => setBillModalVisible(false)}
         />
       )}
 
-      {pendingModalVisible && (
-        <WaiterPending onClose={() => setPendingModalVisible(false)} />
-      )}
-
-      {!pendingModalVisible && (
+      {!(waiterPendingVisible || billPendingVisible) && (
         <>
           <div onScroll={handleScroll} id="container" className="container">
             <div className="info-container">
@@ -355,9 +373,16 @@ export default function BasicMenu({ location }) {
             <button
               type="button"
               className="waiter-call-button"
-              onClick={() => setModalVisible(true)}
+              onClick={() => setWaiterModalVisible(true)}
             >
               <TrayIcon height="21" style={{ marginBottom: 8 }} fill="#fff" />
+            </button>
+            <button
+              type="button"
+              className="bill-call-button"
+              onClick={() => setBillModalVisible(true)}
+            >
+              <BillIcon height="21" fill="#fff" />
             </button>
           </div>
 

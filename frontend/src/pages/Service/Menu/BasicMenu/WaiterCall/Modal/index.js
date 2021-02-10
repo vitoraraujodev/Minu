@@ -41,7 +41,7 @@ export default function WaiterCallModal({
     <div id="waiter-call-modal">
       <div className="modal-container">
         <div className="modal-group">
-          <p className="modal-title">Deseja chamar o garçom?</p>
+          <p className="modal-title">Chamar o garçom?</p>
 
           <button
             type="button"

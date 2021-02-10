@@ -185,9 +185,10 @@
   right: calc(50% - 512px + 24px);
   bottom: 72px;
   display: flex;
+  z-index: 5;
 }
 
-#basic-menu .waiter-call-button {
+#basic-menu .waiter-call-button, #basic-menu .bill-call-button {
   width: 48px;
   min-width: 48px;
   height: 48px;
@@ -196,9 +197,96 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #24D18A;
+  background: #535bfe;
   box-shadow: 0px 3px 6px #00000029;
 }
+
+#basic-menu .waiter-call-button {
+  margin-right: 8px;
+}
+
+#basic-menu .bill-call-button {
+  background: #24D18A;
+}
+
+#basic-menu .finish-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 24px;
+}
+
+#basic-menu .bill-finish-background,
+  #basic-menu .waiter-finish-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 0;
+}
+
+#basic-menu .bill-finish-background {
+  background: #24d18a;
+}
+
+#basic-menu .waiter-finish-background {
+  background: #535bfe;
+}
+
+#basic-menu .close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  border: 0;
+  font-size: 22px;
+  color: #fff;
+}
+
+#basic-menu .finish-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+#basic-menu .finish-text {
+  color: #fff;
+  text-align: center;
+}
+
+#basic-menu .symbols-container1,
+#basic-menu .symbols-container2 {
+  padding: 16px 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#basic-menu .symbols-container1 {
+  margin-right: -120px;
+}
+
+#basic-menu .symbols-container2 {
+  margin-left: -120px;
+}
+
+#basic-menu .pending-text {
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 8px 0;
+  margin-bottom: 56px;
+  text-align: center;
+}
+
 
 @media screen and (max-width: 1024px) {
   #basic-menu .buttons-container {

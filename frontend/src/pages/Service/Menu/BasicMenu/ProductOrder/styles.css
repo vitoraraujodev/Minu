@@ -27,13 +27,13 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 1px solid #acacac;
+  border: 1px solid #ddd;
 }
 
 #basic-product-order .product-img {
   width: 100%;
   min-width: 320px;
-  min-height: 240px;
+  min-height: 200px;
   background: #ddd;
 }
 
