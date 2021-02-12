@@ -35,7 +35,7 @@
 #establishment-home .account-container{
   order: 1;
   max-width: 360px;
-  margin-right: 32px;
+  margin-top: 40px;
   width: 100%;
 }
 
@@ -106,7 +106,6 @@
 
   #establishment-home .account-container{
     order: 2;
-    margin-top: 12px;
     margin: 0;
     max-width: none;
   }
