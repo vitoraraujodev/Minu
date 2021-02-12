@@ -14,6 +14,7 @@ import ItemController from './app/controllers/ItemController';
 import AdditionalController from './app/controllers/AdditionalController';
 import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
 import ItemRatingController from './app/controllers/ItemRatingController';
+import EmailCheckController from './app/controllers/EmailCheckController';
 
 import CustomerController from './app/controllers/CustomerController';
 import CustomerSessionController from './app/controllers/CustomerSessionController';
@@ -32,6 +33,8 @@ const productUpload = multer(MulterConfig.getProductConfig());
 routes.post('/establishment-sessions', EstablishmentSessionController.store);
 routes.post('/customer-sessions', CustomerSessionController.store);
 routes.post('/pin', establishmentAuthMiddleware, PinController.store);
+
+routes.get('/email-check', EmailCheckController.index);
 
 routes.get(
   '/service-sessions',

@@ -9,6 +9,7 @@ import Item from '../models/Item';
 import Additional from '../models/Additional';
 import EstablishmentRating from '../models/EstablishmentRating';
 import ItemRating from '../models/ItemRating';
+import Customer from '../models/Customer';
 
 class EstablishmentController {
   async index(req, res) {
@@ -23,6 +24,7 @@ class EstablishmentController {
         'address_number',
         'street',
         'complement',
+        'table_amount',
       ],
       include: [
         {
@@ -185,6 +187,7 @@ class EstablishmentController {
       establishment_name: Yup.string().required(),
       manager_name: Yup.string().required(),
       manager_lastname: Yup.string().required(),
+      table_amount: Yup.number().required(),
       cep: Yup.string().required(),
       address_number: Yup.number().required(),
       street: Yup.string().required(),
@@ -209,7 +212,11 @@ class EstablishmentController {
       where: { email: req.body.email },
     });
 
-    if (establishmentExists) {
+    const customerExists = await Customer.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (establishmentExists || customerExists) {
       return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
@@ -225,6 +232,7 @@ class EstablishmentController {
       establishment_name: Yup.string(),
       manager_name: Yup.string(),
       manager_lastname: Yup.string(),
+      table_amount: Yup.number().required(),
       cep: Yup.string(),
       address_number: Yup.number(),
       street: Yup.string(),
@@ -267,7 +275,11 @@ class EstablishmentController {
         where: { mail },
       });
 
-      if (establishmentExists) {
+      const customerExists = await Customer.findOne({
+        where: { email: req.body.email },
+      });
+
+      if (establishmentExists || customerExists) {
         return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
       }
     }

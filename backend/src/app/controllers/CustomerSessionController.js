@@ -6,8 +6,6 @@ import Avatar from '../models/Avatar';
 
 import authConfig from '../../config/auth';
 
-const ENV = process.env.NODE_ENV;
-
 class CustomerSessionController {
   async store(req, res) {
     const schema = Yup.object().shape({
