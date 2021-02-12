@@ -24,7 +24,6 @@ class EstablishmentController {
         'address_number',
         'street',
         'complement',
-        'table_amount',
       ],
       include: [
         {
@@ -187,7 +186,6 @@ class EstablishmentController {
       establishment_name: Yup.string().required(),
       manager_name: Yup.string().required(),
       manager_lastname: Yup.string().required(),
-      table_amount: Yup.number().required(),
       cep: Yup.string().required(),
       address_number: Yup.number().required(),
       street: Yup.string().required(),
@@ -232,7 +230,6 @@ class EstablishmentController {
       establishment_name: Yup.string(),
       manager_name: Yup.string(),
       manager_lastname: Yup.string(),
-      table_amount: Yup.number().required(),
       cep: Yup.string(),
       address_number: Yup.number(),
       street: Yup.string(),
