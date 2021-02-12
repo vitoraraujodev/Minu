@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
-// import api from '~/services/api';
+import api from '~/services/api';
 
-// import billCallSchema from '~/json/bill_call_input.json';
+import billCallSchema from '~/json/bill_call_input.json';
 
 import './styles.css';
 
 export default function BillCallModal({
-  // establishmentId,
-  // tableNumber,
+  establishmentId,
+  tableNumber,
   onBillCall,
   onClose,
 }) {
@@ -19,21 +19,22 @@ export default function BillCallModal({
   async function handleBillCall() {
     if (loading) return;
 
-    // const data = {
-    //   value_schema: JSON.stringify(billCallSchema),
-    //   records: [
-    //     {
-    //       value: {
-    //         EstablishmentId: establishmentId,
-    //         TableNumber: tableNumber,
-    //       },
-    //     },
-    //   ],
-    // };
+    const data = {
+      value_schema: JSON.stringify(billCallSchema),
+      records: [
+        {
+          value: {
+            EstablishmentId: parseInt(establishmentId, 10),
+            TableNumber: parseInt(tableNumber, 10),
+          },
+        },
+      ],
+    };
     setLoading(true);
 
     try {
-      // await api.post('bill-call', data);
+      await api.post('bill-call', data);
+
       setLoading(false);
       onBillCall();
       onClose();

@@ -11,6 +11,7 @@ import Header from '~/components/NavTabs/Establishment';
 import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
 
 import waiterCallArchiveSchema from '~/json/waiter_call_archive_schema.json';
+import billCallArchiveSchema from '~/json/bill_call_archive_schema.json';
 
 import api from '~/services/api';
 
@@ -21,6 +22,7 @@ export default function Dashboard() {
 
   const orders = useSelector((state) => state.dashboard.dashboard);
 
+  const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState();
   const [sortedOrders, setSortedOrders] = useState(Object.keys(orders));
@@ -39,30 +41,49 @@ export default function Dashboard() {
   }
 
   async function handleOrderArchive(order) {
+    if (loading) return;
+
+    setLoading(true);
+
+    const value = {
+      EstablishmentId: parseInt(order.EstablishmentId, 10),
+      TableNumber: order.TableNumber,
+    };
+
+    let schema;
+    let requestRoute;
+
+    if (order.NotificationType === 'waiterCall') {
+      schema = waiterCallArchiveSchema;
+      value.WaiterCallTimestamp = order.Timestamp.toString();
+      requestRoute = 'waiter-call';
+    } else if (order.NotificationType === 'billCall') {
+      schema = billCallArchiveSchema;
+      value.BillCallTimestamp = order.Timestamp.toString();
+      requestRoute = 'bill-call';
+    }
+
     const data = {
       data: {
-        value_schema: JSON.stringify(waiterCallArchiveSchema),
+        value_schema: JSON.stringify(schema),
         records: [
           {
-            value: {
-              EstablishmentId: parseInt(order.EstablishmentId, 10),
-              TableNumber: order.TableNumber,
-              WaiterCallTimestamp: order.Timestamp.toString(),
-            },
+            value,
           },
         ],
       },
     };
 
     try {
-      await api.delete('waiter-call', data);
+      await api.delete(requestRoute, data);
 
       dispatch(deleteDashboardOrderAction(order));
     } catch (err) {
       alert(
-        'Não foi possível arquivar essa chamada. Verifique sua conexão e tente novamente mais tarde.'
+        'Não foi possível arquivar esse pedido. Verifique sua conexão e tente novamente mais tarde.'
       );
     }
+    setLoading(false);
   }
 
   function ArchiveOrder(order) {
@@ -77,6 +98,7 @@ export default function Dashboard() {
       {modalVisible && (
         <OrderModal
           order={selectedOrder}
+          loading={loading}
           onClose={() => setModalVisible(false)}
           onArchive={() => ArchiveOrder(selectedOrder)}
         />

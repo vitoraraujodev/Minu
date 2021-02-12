@@ -47,26 +47,35 @@ export default function dashboard(state = INITIAL_STATE, action) {
         break;
       }
       case '@dashboard/RECEIVED_ARCHIVE_ORDER': {
-        var { TableNumber, WaiterCallTimestamp } = action.payload;
-        TableNumber = TableNumber.toString()
-        WaiterCallTimestamp = WaiterCallTimestamp.toString()
+        const { TableNumber, NotificationType } = action.payload;
+
+        let CallTimestamp;
+
+        if (NotificationType === 'waiterCallArchive') {
+          CallTimestamp = action.payload.WaiterCallTimestamp;
+        } else if (NotificationType === 'billCallArchive') {
+          CallTimestamp = action.payload.BillCallTimestamp;
+        }
+
+        const tableNumber = TableNumber.toString();
+        CallTimestamp = CallTimestamp.toString();
         const stateClone = JSON.parse(JSON.stringify(state));
 
         try {
-          stateClone.dashboard[TableNumber] = returnWithoutKey(
-            stateClone.dashboard[TableNumber],
-            WaiterCallTimestamp
-            );
-          
-          if (Object.keys(stateClone.dashboard[TableNumber]).length === 0) {
+          stateClone.dashboard[tableNumber] = returnWithoutKey(
+            stateClone.dashboard[tableNumber],
+            CallTimestamp
+          );
+
+          if (Object.keys(stateClone.dashboard[tableNumber]).length === 0) {
             stateClone.dashboard = returnWithoutKey(
               stateClone.dashboard,
-              TableNumber
+              tableNumber
             );
           }
           draft.dashboard = stateClone.dashboard;
         } catch (err) {
-          console.log("Unable to remove order: ", err)
+          console.log('Unable to remove order: ', err);
           // If this is who archived, it will already be out of the state
           // Order may be archived by someone else at the same time
           // If an order is not in the state for some reason, there is no reason to raise an exception

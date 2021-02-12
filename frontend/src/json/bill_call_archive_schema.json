@@ -1,0 +1,26 @@
+{
+  "fields": [
+    {
+      "doc": "",
+      "name": "EstablishmentId",
+      "type": "long"
+    },
+    {
+      "doc": "",
+      "name": "TableNumber",
+      "type": "long"
+    },
+    {
+      "doc": "",
+      "name": "BillCallTimestamp",
+      "type": {
+        "avro.java.string": "String",
+        "type": "string"
+      }
+    }
+  ],
+  "name": "BillCallArchiveNotification",
+  "namespace": "BillCall.Archive",
+  "type": "record",
+  "version": "1"
+}

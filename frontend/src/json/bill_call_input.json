@@ -1,0 +1,18 @@
+{
+  "fields": [
+    {
+      "doc": "",
+      "name": "EstablishmentId",
+      "type": "long"
+    },
+    {
+      "doc": "",
+      "name": "TableNumber",
+      "type": "long"
+    }
+  ],
+  "name": "BillCallNotification",
+  "namespace": "BillCall.Input",
+  "type": "record",
+  "version": "1"
+}

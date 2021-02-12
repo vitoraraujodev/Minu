@@ -33,9 +33,15 @@ function CreateListeners(eventSourceObject) {
       console.log(error.message);
     }
 
-    if (parsedNotification.NotificationType === 'waiterCall') {
+    if (
+      parsedNotification.NotificationType === 'waiterCall' ||
+      parsedNotification.NotificationType === 'billCall'
+    ) {
       dispatch(createDashboardOrderAction(parsedNotification));
-    } else if (parsedNotification.NotificationType === 'waiterCallArchive') {
+    } else if (
+      parsedNotification.NotificationType === 'waiterCallArchive' ||
+      parsedNotification.NotificationType === 'billCallArchive'
+    ) {
       dispatch(receivedDashboardOrderArchiveAction(parsedNotification));
     }
   };

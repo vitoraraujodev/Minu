@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles.css';
 
-export default function OrderModal({ order, onClose, onArchive }) {
+export default function OrderModal({ order, loading, onClose, onArchive }) {
   const tableNumber = order.TableNumber;
   const orderType = order.NotificationType;
 
@@ -80,7 +80,7 @@ export default function OrderModal({ order, onClose, onArchive }) {
             onClick={onArchive}
             className={`modal-archive-button ${handleButtonColor()}`}
           >
-            Arquivar
+            {loading ? 'Carregando...' : 'Arquivar'}
           </button>
         </div>
       </div>

@@ -23,6 +23,7 @@ import ServiceSessionController from './app/controllers/ServiceSessionController
 import ServiceMenuController from './app/controllers/ServiceMenuController';
 
 import WaiterCallController from './app/controllers/WaiterCallController';
+import BillCallController from './app/controllers/BillCallController';
 
 const routes = new Router();
 
@@ -132,6 +133,13 @@ routes.delete(
   '/waiter-call',
   establishmentAuthMiddleware,
   WaiterCallController.delete
+);
+
+routes.post('/bill-call', BillCallController.store);
+routes.delete(
+  '/bill-call',
+  establishmentAuthMiddleware,
+  BillCallController.delete
 );
 
 export default routes;

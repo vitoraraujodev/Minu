@@ -7,28 +7,28 @@ const headers = {
 
 const endPoint = 'http://peripherals.seuminu.com:9000/topics';
 
-class WaiterCallController {
+class BillCallController {
   async store(req, res) {
-    const waiterCallInputEndpoint = `${endPoint}/WaiterCallNotificationInput`;
+    const billCallInputEndpoint = `${endPoint}/BillCallNotificationInput`;
 
     try {
-      await axios.post(waiterCallInputEndpoint, JSON.stringify(req.body), {
+      await axios.post(billCallInputEndpoint, JSON.stringify(req.body), {
         headers,
       });
       return res.status(200).json({ okay: true });
     } catch (err) {
       return res.status(400).json({
         error:
-          'Houve um erro ao chamar o garçom. Verifique sua conexão e tente novamente.',
+          'Houve um erro ao pedir conta. Verifique sua conexão e tente novamente.',
       });
     }
   }
 
   async delete(req, res) {
-    const waiterCallArchiveEndpoint = `${endPoint}/WaiterCallArchiveNotification`;
+    const billCallArchiveEndpoint = `${endPoint}/BillCallArchiveNotification`;
 
     try {
-      axios.post(waiterCallArchiveEndpoint, JSON.stringify(req.body), {
+      axios.post(billCallArchiveEndpoint, JSON.stringify(req.body), {
         headers,
       });
 
@@ -36,10 +36,10 @@ class WaiterCallController {
     } catch (err) {
       return res.status(400).json({
         error:
-          'Houve um erro ao arquivar essa chamada. Verifique sua conexão e tente novamente.',
+          'Houve um erro ao arquivar esse pedido de conta. Verifique sua conexão e tente novamente.',
       });
     }
   }
 }
 
-export default new WaiterCallController();
+export default new BillCallController();
