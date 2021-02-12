@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
@@ -14,27 +14,36 @@ export default function WaiterCallModal({
   onWaiterCall,
   onClose,
 }) {
+  const [loading, setLoading] = useState(false);
+
   async function handleWaiterCall() {
+    if (loading) return;
+
     const data = {
       value_schema: JSON.stringify(waiterCallSchema),
       records: [
         {
           value: {
-            EstablishmentId: establishmentId,
-            TableNumber: tableNumber,
+            EstablishmentId: parseInt(establishmentId, 10),
+            TableNumber: parseInt(tableNumber, 10),
           },
         },
       ],
     };
 
+    setLoading(true);
+
     try {
       await api.post('waiter-call', data);
+      setLoading(false);
+
       onWaiterCall();
       onClose();
     } catch (err) {
       alert(
         'Não foi possível realizar a chamada de garçom. Verifique sua conexão e tente novamente mais tarde.'
       );
+      setLoading(false);
     }
   }
 
@@ -62,7 +71,7 @@ export default function WaiterCallModal({
           onClick={handleWaiterCall}
           className="confirm-button"
         >
-          Chamar garçom
+          {loading ? 'Carregando...' : 'Chamar garçom'}
         </button>
       </div>
     </div>

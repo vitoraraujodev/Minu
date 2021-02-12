@@ -75,3 +75,23 @@
   background: #9c9c9c;
   color: #fff;
 }
+
+#dashboard-order-modal .waiter {
+  color: #535BFE;
+  border-color: #535BFE;
+}
+
+#dashboard-order-modal .waiter:active {
+  background: #535BFE;
+  color: #fff;
+}
+
+#dashboard-order-modal .bill {
+  color: #24d18a;
+  border-color: #24d18a;
+}
+
+#dashboard-order-modal .bill:active {
+  background: #24d18a;
+  color: #fff;
+}

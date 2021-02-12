@@ -13,21 +13,18 @@ class WaiterCallController {
     const waiterCallInputEndpoint = `${endPoint}/WaiterCallNotificationInput`;
 
     try {
-      axios.post(waiterCallInputEndpoint, JSON.stringify(req.body), {
+      await axios.post(waiterCallInputEndpoint, JSON.stringify(req.body), {
         headers,
       });
-
       return res.status(200).json({ okay: true });
     } catch (err) {
       return res.status(400).json({
-        error:
-          'Houve um erro ao criar a chamada. Verifique e tente novamente.',
+        error: 'Houve um erro ao chamar o garçom. Verifique e tente novamente.',
       });
     }
   }
 
   async delete(req, res) {
-    console.log(req.body)
     const waiterCallArchiveEndpoint = `${endPoint}/WaiterCallArchiveNotification`;
 
     try {

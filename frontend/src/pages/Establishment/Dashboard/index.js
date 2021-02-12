@@ -45,7 +45,7 @@ export default function Dashboard() {
         records: [
           {
             value: {
-              EstablishmentId: parseInt(order.EstablishmentId),
+              EstablishmentId: parseInt(order.EstablishmentId, 10),
               TableNumber: order.TableNumber,
               WaiterCallTimestamp: order.Timestamp.toString(),
             },
@@ -93,8 +93,7 @@ export default function Dashboard() {
             sortedOrders.map((order) => (
               <Order
                 key={`${toString(order.TableNumber)}-${order.Timestamp}`}
-                tableNumber={order.TableNumber}
-                timestamp={order.Timestamp}
+                order={order}
                 onClick={() => openModal(order)}
               />
             ))}

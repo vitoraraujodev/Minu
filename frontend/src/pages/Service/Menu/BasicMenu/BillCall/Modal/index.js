@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
@@ -14,7 +14,11 @@ export default function BillCallModal({
   onBillCall,
   onClose,
 }) {
+  const [loading, setLoading] = useState(false);
+
   async function handleBillCall() {
+    if (loading) return;
+
     // const data = {
     //   value_schema: JSON.stringify(billCallSchema),
     //   records: [
@@ -26,12 +30,15 @@ export default function BillCallModal({
     //     },
     //   ],
     // };
+    setLoading(true);
 
     try {
       // await api.post('bill-call', data);
+      setLoading(false);
       onBillCall();
       onClose();
     } catch (err) {
+      setLoading(false);
       alert(
         'Não foi possível realizar a chamada de garçom. Verifique sua conexão e tente novamente mais tarde.'
       );
@@ -60,7 +67,7 @@ export default function BillCallModal({
           onClick={handleBillCall}
           className="confirm-button"
         >
-          Pedir conta
+          {loading ? 'Carregando...' : 'Pedir conta'}
         </button>
       </div>
     </div>

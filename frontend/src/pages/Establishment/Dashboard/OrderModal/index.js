@@ -4,21 +4,67 @@ import './styles.css';
 
 export default function OrderModal({ order, onClose, onArchive }) {
   const tableNumber = order.TableNumber;
+  const orderType = order.NotificationType;
+
+  function handleOrderTitle() {
+    switch (orderType) {
+      case 'waiterCall':
+        return 'Atendimento';
+      case 'billCall':
+        return 'Pedido de conta';
+
+      default:
+        return 'Atendimento';
+    }
+  }
+
+  function handleTableNumber() {
+    return tableNumber >= 0 && tableNumber <= 9
+      ? `0${tableNumber}`
+      : tableNumber;
+  }
+
+  function handleOrderText() {
+    switch (orderType) {
+      case 'waiterCall':
+        return (
+          <>
+            A <b> mesa {handleTableNumber()}</b> chamou um garçom!
+          </>
+        );
+      case 'billCall':
+        return (
+          <>
+            A <b> mesa {handleTableNumber()}</b> deseja encerrar a conta!
+          </>
+        );
+      default:
+        return (
+          <>
+            A <b> mesa {handleTableNumber()}</b> chamou um garçom!
+          </>
+        );
+    }
+  }
+
+  function handleButtonColor() {
+    switch (orderType) {
+      case 'waiterCall':
+        return 'waiter';
+      case 'billCall':
+        return 'bill';
+
+      default:
+        return 'waiter';
+    }
+  }
+
   return (
     <div id="dashboard-order-modal">
       <div className="modal-container">
-        <p className="modal-title">Atendimento</p>
+        <p className="modal-title">{handleOrderTitle()}</p>
 
-        <p className="modal-text">
-          A{' '}
-          <b>
-            mesa{' '}
-            {tableNumber >= '0' && tableNumber <= '9'
-              ? `0${tableNumber}`
-              : tableNumber}
-          </b>{' '}
-          chamou um garçom!
-        </p>
+        <p className="modal-text">{handleOrderText()}</p>
 
         <div className="button-group">
           <button
@@ -32,7 +78,7 @@ export default function OrderModal({ order, onClose, onArchive }) {
           <button
             type="button"
             onClick={onArchive}
-            className="modal-archive-button"
+            className={`modal-archive-button ${handleButtonColor()}`}
           >
             Arquivar
           </button>
