@@ -24,6 +24,7 @@ import ServiceMenuController from './app/controllers/ServiceMenuController';
 
 import WaiterCallController from './app/controllers/WaiterCallController';
 import BillCallController from './app/controllers/BillCallController';
+import OpenCallsController from './app/controllers/OpenCallsController';
 
 const routes = new Router();
 
@@ -141,5 +142,11 @@ routes.delete(
   establishmentAuthMiddleware,
   BillCallController.delete
 );
+
+routes.get(
+  '/open-calls/:id',
+  establishmentAuthMiddleware,
+  OpenCallsController.index
+)
 
 export default routes;
