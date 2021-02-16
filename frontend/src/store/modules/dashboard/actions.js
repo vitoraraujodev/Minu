@@ -18,3 +18,10 @@ export function receivedDashboardOrderArchiveAction(dashboardArchiveOrderInfo) {
     payload: dashboardArchiveOrderInfo,
   };
 }
+
+export function createBulkOpenCallsAction(openCalls) {
+  return {
+    type: '@dashboard/ADD_BULK_OPEN_CALLS',
+    payload: openCalls,
+  };
+}

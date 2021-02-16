@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { deleteDashboardOrderAction } from '~/store/modules/dashboard/actions';
+import { deleteDashboardOrderAction, createBulkOpenCallsAction } from '~/store/modules/dashboard/actions';
 
 import Order from './Order';
 import OrderModal from './OrderModal';
@@ -26,6 +26,17 @@ export default function Dashboard() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState();
   const [sortedOrders, setSortedOrders] = useState(Object.keys(orders));
+
+
+  useEffect(() => {
+    api.get('open-calls/1')
+    .then((openCalls) => {
+      dispatch(createBulkOpenCallsAction(openCalls.data));
+    })
+    .catch((err) => {
+      console.log("err: ", err)
+    })
+  }, [])
 
   useEffect(() => {
     const allOrders = Object.entries(orders).map(([_, tableOrders]) =>
