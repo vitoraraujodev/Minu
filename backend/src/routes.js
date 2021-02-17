@@ -144,9 +144,9 @@ routes.delete(
 );
 
 routes.get(
-  '/open-calls/:id',
+  '/open-calls',
   establishmentAuthMiddleware,
   OpenCallsController.index
-)
+);
 
 export default routes;

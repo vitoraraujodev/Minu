@@ -20,6 +20,22 @@
   margin-top: 12px;
 }
 
+#order-component .order-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#order-component .order-loader {
+  margin: 0 auto;
+  border: 4px solid #B4B7FF;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+}
+
 @media screen and (max-width: 767px) {
   #order-component {
     font-size: 19px;

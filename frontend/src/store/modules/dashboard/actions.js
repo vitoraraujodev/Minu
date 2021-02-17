@@ -1,27 +1,41 @@
-export function createDashboardOrderAction(dashboardOrderInfo) {
+export function addOrder(order) {
   return {
     type: '@dashboard/ADD_ORDER',
-    payload: dashboardOrderInfo,
+    payload: order,
   };
 }
 
-export function deleteDashboardOrderAction(dashboardOrderInfo) {
+export function archiveOrderRequest(order) {
   return {
-    type: '@dashboard/DELETE_ORDER',
-    payload: dashboardOrderInfo,
+    type: '@dashboard/ARCHIVE_ORDER_REQUEST',
+    payload: order,
   };
 }
 
-export function receivedDashboardOrderArchiveAction(dashboardArchiveOrderInfo) {
+export function archiveOrderSuccess(order) {
   return {
-    type: '@dashboard/RECEIVED_ARCHIVE_ORDER',
-    payload: dashboardArchiveOrderInfo,
+    type: '@dashboard/ARCHIVE_ORDER_SUCCESS',
+    payload: order,
   };
 }
 
-export function createBulkOpenCallsAction(openCalls) {
+export function archiveOrderFailure(order) {
   return {
-    type: '@dashboard/ADD_BULK_OPEN_CALLS',
+    type: '@dashboard/ARCHIVE_ORDER_FAILURE',
+    payload: order,
+  };
+}
+
+export function receivedOrderArchive(order) {
+  return {
+    type: '@dashboard/RECEIVED_ORDER_ARCHIVE',
+    payload: order,
+  };
+}
+
+export function addOpenCalls(openCalls) {
+  return {
+    type: '@dashboard/ADD_OPEN_CALLS',
     payload: openCalls,
   };
 }

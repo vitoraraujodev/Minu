@@ -14,15 +14,19 @@ function returnWithoutKey(object, keyToRemove) {
 }
 
 function parseOpenCall(openCall) {
-  let { NotificationType, TableNumber, EstablishmentId } = openCall;
+  const { NotificationType } = openCall;
+  let { TableNumber, EstablishmentId } = openCall;
   let Timestamp;
 
-  if(NotificationType === "waiterCall") { Timestamp = openCall.WaiterCallTimestamp; }
-  else if (NotificationType === "billCall") { Timestamp = openCall.BillCallTimestamp; }
+  if (NotificationType === 'waiterCall') {
+    Timestamp = openCall.WaiterCallTimestamp;
+  } else if (NotificationType === 'billCall') {
+    Timestamp = openCall.BillCallTimestamp;
+  }
 
-  TableNumber = parseInt(TableNumber);
-  Timestamp = parseInt(Timestamp);
-  EstablishmentId = parseInt(EstablishmentId);
+  TableNumber = parseInt(TableNumber, 10);
+  Timestamp = parseInt(Timestamp, 10);
+  EstablishmentId = parseInt(EstablishmentId, 10);
 
   return { NotificationType, TableNumber, Timestamp, EstablishmentId };
 }
@@ -39,7 +43,13 @@ export default function dashboard(state = INITIAL_STATE, action) {
         draft.dashboard[TableNumber][Timestamp] = action.payload;
         break;
       }
-      case '@dashboard/DELETE_ORDER': {
+      case '@dashboard/ARCHIVE_ORDER_REQUEST': {
+        const order = action.payload;
+
+        draft.dashboard[order.TableNumber][order.Timestamp].loading = true;
+        break;
+      }
+      case '@dashboard/ARCHIVE_ORDER_SUCCESS': {
         const { TableNumber, Timestamp } = action.payload;
         const stateClone = JSON.parse(JSON.stringify(state));
         stateClone.dashboard[TableNumber] = returnWithoutKey(
@@ -57,11 +67,17 @@ export default function dashboard(state = INITIAL_STATE, action) {
         draft.dashboard = stateClone.dashboard;
         break;
       }
-      case '@dashboard/RECEIVED_ARCHIVE_ORDER': {
+      case '@dashboard/ARCHIVE_ORDER_FAILURE': {
+        const order = action.payload;
+
+        draft.dashboard[order.TableNumber][order.Timestamp].loading = false;
+        break;
+      }
+      case '@dashboard/RECEIVED_ORDER_ARCHIVE': {
         const { TableNumber, NotificationType } = action.payload;
-        
+
         let CallTimestamp;
-        
+
         if (NotificationType === 'waiterCallArchive') {
           CallTimestamp = action.payload.WaiterCallTimestamp;
         } else if (NotificationType === 'billCallArchive') {
@@ -76,13 +92,13 @@ export default function dashboard(state = INITIAL_STATE, action) {
           stateClone.dashboard[tableNumber] = returnWithoutKey(
             stateClone.dashboard[tableNumber],
             CallTimestamp
-            );
+          );
 
           if (Object.keys(stateClone.dashboard[tableNumber]).length === 0) {
             stateClone.dashboard = returnWithoutKey(
               stateClone.dashboard,
               tableNumber
-              );
+            );
           }
           draft.dashboard = stateClone.dashboard;
         } catch (err) {
@@ -93,15 +109,27 @@ export default function dashboard(state = INITIAL_STATE, action) {
         }
         break;
       }
-      case '@dashboard/ADD_BULK_OPEN_CALLS': {
+      case '@dashboard/ADD_OPEN_CALLS': {
         const openCalls = action.payload;
-        for(const openCall of openCalls) {
-          const { NotificationType, TableNumber, Timestamp, EstablishmentId } = parseOpenCall(openCall);
+        openCalls.forEach((openCall) => {
+          const {
+            NotificationType,
+            TableNumber,
+            Timestamp,
+            EstablishmentId,
+          } = parseOpenCall(openCall);
+
           if (!draft.dashboard.hasOwnProperty(TableNumber)) {
             draft.dashboard[TableNumber] = {};
           }
-          draft.dashboard[TableNumber][Timestamp] = { NotificationType, TableNumber, Timestamp, EstablishmentId };
-        }
+
+          draft.dashboard[TableNumber][Timestamp] = {
+            NotificationType,
+            TableNumber,
+            Timestamp,
+            EstablishmentId,
+          };
+        });
         break;
       }
       default:

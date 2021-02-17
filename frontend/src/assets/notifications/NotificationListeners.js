@@ -6,8 +6,8 @@ import {
   deleteNotificationListenerAction,
 } from '~/store/modules/notification/action';
 import {
-  createDashboardOrderAction,
-  receivedDashboardOrderArchiveAction,
+  addOrder,
+  receivedOrderArchive,
 } from '~/store/modules/dashboard/actions';
 
 import { ParseNotification } from '~/assets/notifications/parseNotifications';
@@ -37,12 +37,12 @@ function CreateListeners(eventSourceObject) {
       parsedNotification.NotificationType === 'waiterCall' ||
       parsedNotification.NotificationType === 'billCall'
     ) {
-      dispatch(createDashboardOrderAction(parsedNotification));
+      dispatch(addOrder(parsedNotification));
     } else if (
       parsedNotification.NotificationType === 'waiterCallArchive' ||
       parsedNotification.NotificationType === 'billCallArchive'
     ) {
-      dispatch(receivedDashboardOrderArchiveAction(parsedNotification));
+      dispatch(receivedOrderArchive(parsedNotification));
     }
   };
 }

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { deleteDashboardOrderAction, createBulkOpenCallsAction } from '~/store/modules/dashboard/actions';
-
 import Order from './Order';
 import OrderModal from './OrderModal';
 
@@ -10,10 +8,12 @@ import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as TrayIcon } from '~/assets/icons/tray-icon.svg';
 
-import waiterCallArchiveSchema from '~/json/waiter_call_archive_schema.json';
-import billCallArchiveSchema from '~/json/bill_call_archive_schema.json';
-
 import api from '~/services/api';
+
+import {
+  addOpenCalls,
+  archiveOrderRequest,
+} from '~/store/modules/dashboard/actions';
 
 import './styles.css';
 
@@ -27,16 +27,30 @@ export default function Dashboard() {
   const [selectedOrder, setSelectedOrder] = useState();
   const [sortedOrders, setSortedOrders] = useState(Object.keys(orders));
 
+  async function loadActiveOrders() {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      const response = await api.get('open-calls');
+
+      dispatch(addOpenCalls(response.data));
+    } catch (err) {
+      if (err.response) {
+        alert(err.response.data.error);
+      } else {
+        alert(
+          'Não foi possível carregar os pedidos ativos. Verifique sua conexão e tente novamnete'
+        );
+      }
+    }
+    setLoading(false);
+  }
 
   useEffect(() => {
-    api.get('open-calls/1')
-    .then((openCalls) => {
-      dispatch(createBulkOpenCallsAction(openCalls.data));
-    })
-    .catch((err) => {
-      console.log("err: ", err)
-    })
-  }, [])
+    loadActiveOrders();
+  }, []); //eslint-disable-line
 
   useEffect(() => {
     const allOrders = Object.entries(orders).map(([_, tableOrders]) =>
@@ -51,55 +65,9 @@ export default function Dashboard() {
     setSelectedOrder(order);
   }
 
-  async function handleOrderArchive(order) {
-    if (loading) return;
-
-    setLoading(true);
-
-    const value = {
-      EstablishmentId: parseInt(order.EstablishmentId, 10),
-      TableNumber: order.TableNumber,
-    };
-
-    let schema;
-    let requestRoute;
-
-    if (order.NotificationType === 'waiterCall') {
-      schema = waiterCallArchiveSchema;
-      value.WaiterCallTimestamp = order.Timestamp.toString();
-      requestRoute = 'waiter-call';
-    } else if (order.NotificationType === 'billCall') {
-      schema = billCallArchiveSchema;
-      value.BillCallTimestamp = order.Timestamp.toString();
-      requestRoute = 'bill-call';
-    }
-
-    const data = {
-      data: {
-        value_schema: JSON.stringify(schema),
-        records: [
-          {
-            value,
-          },
-        ],
-      },
-    };
-
-    try {
-      await api.delete(requestRoute, data);
-
-      dispatch(deleteDashboardOrderAction(order));
-    } catch (err) {
-      alert(
-        'Não foi possível arquivar esse pedido. Verifique sua conexão e tente novamente mais tarde.'
-      );
-    }
-    setLoading(false);
-  }
-
   function ArchiveOrder(order) {
     setModalVisible(false);
-    handleOrderArchive(order);
+    dispatch(archiveOrderRequest(order));
   }
 
   return (
@@ -122,16 +90,22 @@ export default function Dashboard() {
         </div>
 
         <div className="orders">
+          {loading && (
+            <div className="loader-container">
+              <div className="loader" />
+            </div>
+          )}
+
           {sortedOrders.length > 0 &&
             sortedOrders.map((order) => (
               <Order
                 key={`${toString(order.TableNumber)}-${order.Timestamp}`}
                 order={order}
-                onClick={() => openModal(order)}
+                onClick={() => !order.loading && openModal(order)}
               />
             ))}
 
-          {sortedOrders.length === 0 && (
+          {!loading && sortedOrders.length === 0 && (
             <p className="hint">Não há chamados para atendimento ainda...</p>
           )}
         </div>

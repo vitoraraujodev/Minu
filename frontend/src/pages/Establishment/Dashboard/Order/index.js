@@ -50,6 +50,18 @@ export default function Order({ order, onClick }) {
     }
   }
 
+  function handleLoaderColor() {
+    switch (orderType) {
+      case 'waiterCall':
+        return { border: '4px solid #B4B7FF', borderTop: '4px solid #fff' };
+      case 'billCall':
+        return { border: '4px solid #bef4dd', borderTop: '4px solid #fff' };
+
+      default:
+        return { border: '4px solid #B4B7FF', borderTop: '4px solid #fff' };
+    }
+  }
+
   return (
     <button
       type="button"
@@ -58,7 +70,15 @@ export default function Order({ order, onClick }) {
       onClick={onClick}
     >
       <span>{handleOrderText()}</span>
-      <span>{formattedTime}</span>
+      <span>
+        {order.loading ? (
+          <div className="order-loader-container">
+            <div className="order-loader" style={handleLoaderColor()} />
+          </div>
+        ) : (
+          formattedTime
+        )}
+      </span>
     </button>
   );
 }
