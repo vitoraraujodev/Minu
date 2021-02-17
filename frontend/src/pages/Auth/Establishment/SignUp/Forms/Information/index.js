@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Foward } from '~/assets/icons/foward-icon.svg';
 
+import api from '~/services/api';
+
 import '../styles.css';
 
 export default function Information({
@@ -16,14 +18,55 @@ export default function Information({
   onNextPage,
 }) {
   const [filled, setFilled] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
 
   useEffect(() => {
-    if (email && password && password === confirmPassword) {
+    if (
+      email &&
+      password &&
+      confirmPassword &&
+      !invalidEmail &&
+      !invalidPassword
+    ) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [email, password, confirmPassword]);
+  }, [email, password, confirmPassword, invalidEmail, invalidPassword]);
+
+  useEffect(() => {
+    if (invalidEmail) setInvalidEmail(false);
+    if (invalidPassword) setInvalidPassword(false);
+  }, [email, password, confirmPassword]); //eslint-disable-line
+
+  async function handleNextPage() {
+    if (password !== confirmPassword) {
+      setInvalidPassword(true);
+      alert('Senhas não combinam. Verifique e tente novamente.');
+    } else {
+      if (loading) return;
+
+      setLoading(true);
+
+      const data = {
+        email,
+      };
+
+      try {
+        await api.post('email-check', data);
+
+        onNextPage();
+      } catch (err) {
+        setInvalidEmail(true);
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+      setLoading(false);
+    }
+  }
 
   return (
     <>
@@ -35,6 +78,7 @@ export default function Information({
           type="email"
           className="form-input"
           value={email}
+          style={invalidEmail ? { border: '2px solid #FF3636' } : null}
           autoFocus //eslint-disable-line
           onKeyDown={(e) => {
             if (e.key === ' ') e.preventDefault();
@@ -55,16 +99,12 @@ export default function Information({
         <input
           name="confirmPassword"
           type="password"
-          style={
-            confirmPassword && password !== confirmPassword
-              ? { border: '2px solid #FF3636' }
-              : null
-          }
+          style={invalidPassword ? { border: '2px solid #FF3636' } : null}
           value={confirmPassword}
           className="form-input"
           onKeyDown={(e) => {
             if (e.keyCode === 13 && filled) {
-              onNextPage();
+              handleNextPage();
             }
           }}
           onChange={(e) => onChangeConfirmPassword(e.target.value)}
@@ -87,13 +127,19 @@ export default function Information({
           className="page-button"
           type="button"
           disabled={!filled}
-          onClick={onNextPage}
+          onClick={handleNextPage}
         >
-          Avançar
-          <Foward
-            style={{ height: 16, marginLeft: 4 }}
-            fill={filled ? '#535BFE' : '#acacac'}
-          />
+          {loading ? (
+            'Carregando...'
+          ) : (
+            <>
+              Avançar
+              <Foward
+                style={{ height: 16, marginLeft: 4 }}
+                fill={filled ? '#535BFE' : '#acacac'}
+              />
+            </>
+          )}
         </button>
       </div>
     </>

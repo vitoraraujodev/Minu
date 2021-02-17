@@ -36,7 +36,7 @@ routes.post('/establishment-sessions', EstablishmentSessionController.store);
 routes.post('/customer-sessions', CustomerSessionController.store);
 routes.post('/pin', establishmentAuthMiddleware, PinController.store);
 
-routes.get('/email-check', EmailCheckController.index);
+routes.post('/email-check', EmailCheckController.index);
 
 routes.get(
   '/service-sessions',
