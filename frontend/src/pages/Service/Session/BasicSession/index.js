@@ -38,7 +38,6 @@ export default function Session() {
           <p className="text-label">Insira o código da mesa</p>
 
           <div className="code-container">
-            <p className="hint-text">Escreva 9-9-9-9-9</p>
             <PinInput
               length={5}
               type="numeric"
