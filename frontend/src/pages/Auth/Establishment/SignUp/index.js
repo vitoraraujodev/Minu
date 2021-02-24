@@ -55,7 +55,13 @@ export default function SignUp() {
       await api.post('establishments', data);
       setStep(step + 1);
     } catch (err) {
-      alert(err.response.data.error);
+      if (err.response.data) {
+        alert(err.response.data.error);
+      } else {
+        alert(
+          'Houve um erro ao verificar seu email. Tente novamente mais tarde.'
+        );
+      }
     }
   }
 
