@@ -136,9 +136,9 @@ export default function Routes() {
         <Route path="/cardapio/carrinho" component={Cart} customers session /> */}
 
         <Route path="/" exact component={BasicSession} notPrivate />
-        <Route path="/cardapio/:id" exact component={BasicMenu} notPrivate />
+        <Route path="/cardapio/:code" exact component={BasicMenu} notPrivate />
         <Route
-          path="/cardapio/:id/produto"
+          path="/cardapio/:code/produto"
           component={BasicProductOrder}
           notPrivate
           stateRequired

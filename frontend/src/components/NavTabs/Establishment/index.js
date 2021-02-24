@@ -7,7 +7,7 @@ import { ReactComponent as MenuActive } from '~/assets/icons/menu-icon-active.sv
 import { ReactComponent as Menu } from '~/assets/icons/menu-icon.svg';
 import { ReactComponent as Orders } from '~/assets/icons/orders-icon.svg';
 
-import logo from '~/assets/icons/simple-logo.svg';
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
 import { inventoryAccess } from '~/store/modules/establishment/actions';
 
@@ -74,9 +74,9 @@ export default function EstablishmentTab() {
               Cardápios
             </NavLink>
           </div>
-
-          <img className="header-logo" src={logo} alt="minu" />
-
+          <div className="header-logo">
+            <Logo width={64} fill="#fff" />
+          </div>
           <div className="navlink-container">
             <NavLink
               activeStyle={{ borderBottom: '3px solid #fff', fontWeight: 800 }}

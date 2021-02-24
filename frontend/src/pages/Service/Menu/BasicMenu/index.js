@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Product from './Product';
@@ -9,7 +10,8 @@ import WaiterPending from './WaiterCall/Pending';
 import BillCallModal from './BillCall/Modal';
 import BillPending from './BillCall/Pending';
 
-import logo from '~/assets/icons/simple-logo.svg';
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
+
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
@@ -27,7 +29,7 @@ import {
 
 import './styles.css';
 
-export default function BasicMenu({ location }) {
+export default function BasicMenu() {
   const dispatch = useDispatch();
 
   const stateEstablishment = useSelector(
@@ -56,10 +58,12 @@ export default function BasicMenu({ location }) {
   const drinksRef = document.getElementById('drinksRef');
   const alcoholicsRef = document.getElementById('alcoholicsRef');
 
-  const sessionCode = location.pathname.split('/')[2];
-  const establishmentId = sessionCode.substr(0, 3);
-  const tableNumber = sessionCode.substr(3);
+  // Gets session code from url
+  const { code } = useParams();
+  const establishmentId = code.substr(0, 3);
+  const tableNumber = code.substr(3);
 
+  // Separes products by category
   function handleEstablishment(data) {
     if (data.items && data.items.length > 0) {
       const alcoholicItems = data.items.filter(
@@ -255,7 +259,7 @@ export default function BasicMenu({ location }) {
               </button>
 
               <div className="logo-container">
-                <img className="logo" src={logo} alt="minu" />
+                <Logo width={48} fill="#fff" />
               </div>
 
               <div className="img-container">
@@ -373,22 +377,24 @@ export default function BasicMenu({ location }) {
             </div>
           </div>
 
-          <div className="buttons-container">
-            <button
-              type="button"
-              className="waiter-call-button"
-              onClick={() => setWaiterModalVisible(true)}
-            >
-              <TrayIcon height="21" style={{ marginBottom: 8 }} fill="#fff" />
-            </button>
-            <button
-              type="button"
-              className="bill-call-button"
-              onClick={() => setBillModalVisible(true)}
-            >
-              <BillIcon height="21" fill="#fff" />
-            </button>
-          </div>
+          {tableNumber && (
+            <div className="buttons-container">
+              <button
+                type="button"
+                className="waiter-call-button"
+                onClick={() => setWaiterModalVisible(true)}
+              >
+                <TrayIcon height="21" style={{ marginBottom: 8 }} fill="#fff" />
+              </button>
+              <button
+                type="button"
+                className="bill-call-button"
+                onClick={() => setBillModalVisible(true)}
+              >
+                <BillIcon height="21" fill="#fff" />
+              </button>
+            </div>
+          )}
 
           <MenuFooter
             activeCategory={activeCategory}

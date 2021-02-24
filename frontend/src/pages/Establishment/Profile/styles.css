@@ -30,11 +30,6 @@
   z-index: 1;
 }
 
-#profile .logo {
-  width: 48px;
-
-}
-
 #profile .img-container {
   max-height: 432px;
   display: flex;

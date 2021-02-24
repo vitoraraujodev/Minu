@@ -5,11 +5,17 @@ import './styles.css';
 
 import waitress from '~/assets/images/waitress.jpg';
 
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
+
 export default function Intro() {
   return (
     <div id="establishment-home">
       <div className="container">
         <div className="image-container">
+          <div className="img-logo-container">
+            <Logo width={64} fill="#fff" />
+          </div>
+
           <img className="image" src={waitress} alt="" />
         </div>
 
@@ -28,6 +34,10 @@ export default function Intro() {
                 Cadastre o seu restaurante
               </button>
             </Link>
+          </div>
+
+          <div className="logo-container">
+            <Logo width={64} fill="#535bfe" />
           </div>
         </div>
       </div>

@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Product from './Product';
 import MenuFooter from '~/components/MenuFooter';
 
-import logo from '~/assets/icons/simple-logo.svg';
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
+
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
@@ -206,7 +207,7 @@ export default function CustomerMenu() {
           </button>
 
           <div className="logo-container">
-            <img className="logo" src={logo} alt="minu" />
+            <Logo width={48} fill="#fff" />
           </div>
 
           <div className="img-container">

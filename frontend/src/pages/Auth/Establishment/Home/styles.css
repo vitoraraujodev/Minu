@@ -13,11 +13,12 @@
   justify-content: space-between;
   margin: auto;
   width: 100%;
-  padding: 0 24px;
+  padding: 0 32px;
   min-width: 320px;
 }
 
 #establishment-home .image-container {
+  position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -33,10 +34,12 @@
 }
 
 #establishment-home .account-container{
-  order: 1;
-  max-width: 360px;
-  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  max-width: 360px;
+  margin: 40px 32px 64px 0;
+  order: 1;
 }
 
 #establishment-home .welcome {
@@ -87,6 +90,21 @@
   background: none;
 }
 
+#establishment-home .img-logo-container {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  width: 100%;
+  top: 24px
+}
+
+#establishment-home .logo-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
 @media screen and (max-width: 767px) {
   #establishment-home .container {
     display: flex;
@@ -122,5 +140,13 @@
 
   #establishment-home .register-container {
     margin: 32px 0;
+  }
+
+  #establishment-home .img-logo-container {
+    display: flex;
+  }
+
+  #establishment-home .logo-container {
+    display: none;
   }
 }

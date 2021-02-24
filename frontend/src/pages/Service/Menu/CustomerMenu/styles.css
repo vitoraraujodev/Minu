@@ -52,10 +52,6 @@
   z-index: 1;
 }
 
-#customer-menu .logo {
-  width: 48px;
-}
-
 #customer-menu .img-container {
   max-height: 432px;
   display: flex;

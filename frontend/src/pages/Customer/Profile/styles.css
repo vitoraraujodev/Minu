@@ -29,10 +29,6 @@
   z-index: 5;
 }
 
-#customer-profile .logo {
-  width: 48px;
-}
-
 #customer-profile .img-background {
   background: #24D18A;
   display: flex;

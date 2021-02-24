@@ -6,7 +6,7 @@ import NavTab from '~/components/NavTabs/Customer';
 
 import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 
-import logo from '~/assets/icons/simple-logo.svg';
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 import { updateCustomerRequest } from '~/store/modules/customer/actions';
@@ -62,7 +62,7 @@ export default function Profile() {
       <div className="container">
         <div className="info-container">
           <div className="logo-container">
-            <img className="logo" src={logo} alt="minu" />
+            <Logo width={48} fill="#fff" />
           </div>
 
           <div className="img-background">

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '~/components/NavTabs/Establishment';
 
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
-import logo from '~/assets/icons/simple-logo.svg';
+import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 
@@ -51,7 +51,7 @@ export default function Profile() {
         <div className="info-container">
           {windowWidth <= 768 && (
             <div className="logo-container">
-              <img className="logo" src={logo} alt="minu" />
+              <Logo width={48} fill="#fff" />
             </div>
           )}
 
