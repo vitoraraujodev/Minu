@@ -49,7 +49,7 @@ function CreateListeners(eventSourceObject) {
 
 export function CreateNotificationListeners(establishmentToken) {
   const dispatch = useDispatch();
-  const url = `http://notifications_service.seuminu.com:6917/Notifications`;
+  const url = `https://backend.seuminu.com:6917`;
 
   const eventSource = new EventSource(url, {
     withCredentials: false,

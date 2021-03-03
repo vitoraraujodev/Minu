@@ -1,22 +1,19 @@
 #!/bin/bash
 cd $(git rev-parse --show-toplevel)
 
-# Build images
 # Backend
+# Build images
 docker build -f ./backend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:$(git rev-parse --short HEAD) .
 docker build -f ./backend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:latest .
-# Frontend
-docker build -f ./frontend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/frontend:$(git rev-parse --short HEAD) .
-docker build -f ./frontend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/frontend:latest .
-
-# Backend
 # Push images
 docker login -u AWS -p `aws ecr get-login-password --region us-east-2` 108961151232.dkr.ecr.us-east-2.amazonaws.com
 docker push 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:$(git rev-parse --short HEAD)
 docker push 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:latest
+
 # Frontend
-docker push 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/frontend:$(git rev-parse --short HEAD)
-docker push 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/frontend:latest
+cd $(git rev-parse --show-toplevel)/frontend
+yarn run build
+aws s3 cp --recursive ./build s3://minu-site-deployment/
 
 # Apply database migrations
 cd $(git rev-parse --show-toplevel)/backend
