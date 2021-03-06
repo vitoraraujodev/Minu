@@ -117,7 +117,7 @@ class ItemController {
       title: Yup.string(),
       code: Yup.string(),
       category: Yup.string(),
-      description: Yup.string().required(),
+      description: Yup.string(),
       available: Yup.boolean(),
       price: Yup.number(),
       preparation_time: Yup.number(),
@@ -142,7 +142,10 @@ class ItemController {
     });
 
     if (!item) {
-      return res.status(400).json({ error: 'Item does not exist.' });
+      return res.status(400).json({
+        error:
+          'Produto não encontrado. Verifique seus dados e tente novamente.',
+      });
     }
 
     const { photo_id } = req.body;
@@ -258,7 +261,7 @@ class ItemController {
       return res
         .status(400)
         .json(
-          'Produto não encontrado. Por favor, verifique seus dados e tente novamente.'
+          'Produto não encontrado. Verifique seus dados e tente novamente.'
         );
     }
 
@@ -266,7 +269,7 @@ class ItemController {
       return res
         .status(401)
         .json(
-          'Você só pode deletar seus próprios produtos. Por favor, verifique e tente novamente.'
+          'Você só pode deletar seus próprios produtos. Verifique e tente novamente.'
         );
     }
 
