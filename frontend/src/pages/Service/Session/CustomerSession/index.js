@@ -54,7 +54,7 @@ export default function CustomerSession() {
         </div>
 
         <div className="session-container">
-          <p className="text-label">Insira o código da mesa</p>
+          <p className="text-label">Insira o código da sua mesa</p>
 
           <div className="code-container">
             <PinInput
@@ -64,6 +64,9 @@ export default function CustomerSession() {
               onChange={(value) => {
                 if (invalid) setInvalid(false);
                 setCode(value);
+              }}
+              onComplete={() => {
+                if (document.activeElement === inputs[4]) inputs[4].blur();
               }}
             />
             {invalid && <p className="invalid-text">Código inválido</p>}
