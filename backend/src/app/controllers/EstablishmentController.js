@@ -41,11 +41,12 @@ class EstablishmentController {
       ],
     })
       .then(async (establishment) => {
-        if (!establishment)
+        if (!establishment) {
           return res.status(400).json({
             error:
               'Restaurante não encontrado. Por favor, verifique o código e tente novamente.',
           });
+        }
 
         const {
           id,
@@ -81,46 +82,52 @@ class EstablishmentController {
         };
       })
       .then(async (establishment) => {
-        const menus = await Menu.findAll({
-          where: {
-            establishment_id: establishment.id,
-            available: true,
-            start_at: { [Op.lte]: getHours(date) },
-            end_at: { [Op.gte]: getHours(date) },
-          },
-          order: [['title', 'ASC']],
-          attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
-        });
+        if (establishment && establishment.id) {
+          const menus = await Menu.findAll({
+            where: {
+              establishment_id: establishment.id,
+              available: true,
+              start_at: { [Op.lte]: getHours(date) },
+              end_at: { [Op.gte]: getHours(date) },
+            },
+            order: [['title', 'ASC']],
+            attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
+          });
 
-        const {
-          id,
-          establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
-          ratings,
-          rating,
-          raters,
-          photo,
-        } = establishment;
+          const {
+            id,
+            establishment_name,
+            cep,
+            address_number,
+            street,
+            complement,
+            ratings,
+            rating,
+            raters,
+            photo,
+          } = establishment;
 
-        return {
-          id,
-          establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
-          ratings,
-          raters,
-          rating,
-          photo,
-          menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
-        };
+          return {
+            id,
+            establishment_name,
+            cep,
+            address_number,
+            street,
+            complement,
+            ratings,
+            raters,
+            rating,
+            photo,
+            menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
+          };
+        }
       })
       .then(async (establishment) => {
-        if (establishment.menus.length > 0) {
+        if (
+          establishment &&
+          establishment.id &&
+          establishment.menus.length > 0
+        ) {
           const items = await Item.findAll({
             where: {
               establishment_id: establishment.id,
