@@ -105,10 +105,6 @@
   background: #fff;
 }
 
-#inventory .item-img {
-  height: 100%;
-}
-
 #inventory .item-info {
   overflow: hidden;
   display: row;
@@ -120,14 +116,6 @@
   font-size: 16px;
   color: #252525;
   font-weight: 600;
-}
-
-#inventory .item-code {
-  font-size: 12px;
-  color:#9C9C9C;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 #inventory .icon-area,
@@ -145,37 +133,6 @@
   transform: rotate(45deg);
 }
 
-#inventory .additional-form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#inventory .additional-title-input, #inventory .additional-price-input {
-  border: 1px solid #535BFE;
-  border-radius: 5px;
-  padding: 0 12px;
-  height: 32px;
-  font-size: 15px;
-  color: #535BFE;
-  font-weight: 400;
-}
-
-#inventory .additional-title-input {
-  width: 60%;
-  margin-right: 8px;
-}
-
-#inventory .additional-price-input {
-  width: 35%;
-  min-width: 88px;
-  margin-right: 8px;
-}
-
-#inventory .additional-title-input::placeholder, #inventory .additional-price-input::placeholder {
-  color: #9C9C9C;
-  font-size: 14px;
-}
 
 #inventory .lock-container {
   position: absolute;

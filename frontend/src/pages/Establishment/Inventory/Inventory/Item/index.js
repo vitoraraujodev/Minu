@@ -13,12 +13,15 @@ export default function Item({ item }) {
           onError={(e) => {
             e.target.src = defaultPicture;
           }}
-          className="item-img"
+          className={item.available ? 'item-img' : 'item-img-disabled'}
           alt="item-img"
         />
       </div>
 
-      <div className="item-info">
+      <div
+        className="item-info"
+        style={item.available ? { opacity: 1 } : { opacity: 0.6 }}
+      >
         <p className="item-title">{item.title}</p>
         {item.code && <p className="item-code">{item.code}</p>}
       </div>

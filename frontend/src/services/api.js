@@ -6,7 +6,7 @@ const ENV = process.env.NODE_ENV;
 if (ENV !== undefined && ENV === 'production') {
   backendUrl = 'https://backend.seuminu.com:443';
 } else {
-  backendUrl = 'http://192.168.0.18:3333';
+  backendUrl = 'http://192.168.0.2:3333';
 }
 
 const api = axios.create({

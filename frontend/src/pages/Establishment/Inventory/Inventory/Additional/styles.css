@@ -1,0 +1,43 @@
+#inventory .additional-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#inventory .additional-title-input,
+#inventory .additional-title-input-disabled,
+#inventory .additional-price-input,
+#inventory .additional-price-input-disabled {
+  border: 1px solid #535BFE;
+  border-radius: 5px;
+  padding: 0 12px;
+  height: 32px;
+  font-size: 15px;
+  color: #535BFE;
+  font-weight: 400;
+}
+
+#inventory .additional-title-input,
+#inventory .additional-title-input-disabled {
+  width: 60%;
+  margin-right: 8px;
+}
+
+#inventory .additional-price-input,
+#inventory .additional-price-input-disabled {
+  width: 35%;
+  min-width: 88px;
+  margin-right: 8px;
+}
+
+#inventory .additional-title-input::placeholder,
+#inventory .additional-price-input::placeholder {
+  color: #9C9C9C;
+  font-size: 14px;
+}
+
+#inventory .additional-title-input-disabled,
+#inventory .additional-price-input-disabled {
+  border: 1px solid #acacac;
+  color: #acacac;
+}

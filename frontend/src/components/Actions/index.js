@@ -10,13 +10,13 @@ import './styles.css';
 export default function Actions({
   item,
   route,
+  onUpdate,
   onDelete,
   fill,
   position,
   height = 16,
 }) {
   const [visible, setVisible] = useState(false);
-  const [available, setAvailable] = useState(item.available);
 
   function handleToggleVisible() {
     setVisible(!visible);
@@ -25,9 +25,9 @@ export default function Actions({
   async function handleAvailability() {
     try {
       const response = await api.put(`${route}/${item.id}`, {
-        available: !available,
+        available: !item.available,
       });
-      setAvailable(response.data.available);
+      onUpdate(response.data);
     } catch (err) {
       alert(
         'Não foi possível atualizar a disponibilidade. Por favor, tente mais tarde.'
@@ -65,7 +65,7 @@ export default function Actions({
                 <div className="toggle-background">
                   <div
                     className={
-                      available ? 'toggle-circle-on' : 'toggle-circle-off'
+                      item.available ? 'toggle-circle-on' : 'toggle-circle-off'
                     }
                   />
                 </div>

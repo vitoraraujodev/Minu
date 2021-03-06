@@ -20,27 +20,32 @@ import capitalize from '~/util/capitalize';
 import '../New/styles.css';
 
 export default function EditItem({ location }) {
-  const item = location.state && location.state.item ? location.state.item : '';
+  const itemState =
+    location.state && location.state.item ? location.state.item : '';
 
   const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(768);
-  const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
+  const [photo, setPhoto] = useState(
+    itemState.photo ? itemState.photo.url : ''
+  );
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
 
+  const [item, setItem] = useState(itemState || {});
+
   const [file, setFile] = useState();
-  const [title, setTitle] = useState(item.title || '');
-  const [description, setDescription] = useState(item.description || '');
-  const [price, setPrice] = useState(item.price || 0.0);
+  const [title, setTitle] = useState(itemState.title || '');
+  const [description, setDescription] = useState(itemState.description || '');
+  const [price, setPrice] = useState(itemState.price || 0.0);
   const [preparationTime, setPreparationTime] = useState(
-    item.preparation_time || 1
+    itemState.preparation_time || 1
   );
-  const [category, setCategory] = useState(item.category || '');
+  const [category, setCategory] = useState(itemState.category || '');
   const [maskedPrice, setMaskedPrice] = useState(
-    item.price.toString().replace('.', ',') || 'R$ 0,00'
+    itemState.price.toString().replace('.', ',') || 'R$ 0,00'
   );
-  const [additionals, setAdditionals] = useState(item.additionals || []);
+  const [additionals, setAdditionals] = useState(itemState.additionals || []);
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
@@ -196,6 +201,7 @@ export default function EditItem({ location }) {
               <Actions
                 item={item}
                 route="items"
+                onUpdate={setItem}
                 onDelete={() => history.push('/inventario')}
                 fill="#fff"
                 position="down"

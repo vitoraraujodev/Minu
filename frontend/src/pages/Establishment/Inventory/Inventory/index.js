@@ -236,6 +236,15 @@ export default function Inventory() {
                             starters.filter((product) => product.id !== id)
                           )
                         }
+                        onUpdate={(updatedItem) =>
+                          setStarters(
+                            starters.map((product) =>
+                              product.id === updatedItem.id
+                                ? updatedItem
+                                : product
+                            )
+                          )
+                        }
                         fill="#535BFE"
                       />
                     </div>
@@ -266,6 +275,15 @@ export default function Inventory() {
                           setMains(mains.filter((product) => product.id !== id))
                         }
                         fill="#535BFE"
+                        onUpdate={(updatedItem) =>
+                          setMains(
+                            mains.map((product) =>
+                              product.id === updatedItem.id
+                                ? updatedItem
+                                : product
+                            )
+                          )
+                        }
                       />
                     </div>
                   </div>
@@ -294,6 +312,15 @@ export default function Inventory() {
                         onDelete={(id) =>
                           setDesserts(
                             desserts.filter((product) => product.id !== id)
+                          )
+                        }
+                        onUpdate={(updatedItem) =>
+                          setDesserts(
+                            desserts.map((product) =>
+                              product.id === updatedItem.id
+                                ? updatedItem
+                                : product
+                            )
                           )
                         }
                         fill="#535BFE"
@@ -327,6 +354,15 @@ export default function Inventory() {
                             drinks.filter((product) => product.id !== id)
                           )
                         }
+                        onUpdate={(updatedItem) =>
+                          setDrinks(
+                            drinks.map((product) =>
+                              product.id === updatedItem.id
+                                ? updatedItem
+                                : product
+                            )
+                          )
+                        }
                         fill="#535BFE"
                       />
                     </div>
@@ -356,6 +392,15 @@ export default function Inventory() {
                         onDelete={(id) =>
                           setAlcoholics(
                             alcoholics.filter((product) => product.id !== id)
+                          )
+                        }
+                        onUpdate={(updatedItem) =>
+                          setAlcoholics(
+                            alcoholics.map((product) =>
+                              product.id === updatedItem.id
+                                ? updatedItem
+                                : product
+                            )
                           )
                         }
                         fill="#535BFE"
@@ -426,10 +471,15 @@ export default function Inventory() {
               <Additional
                 key={additional.id}
                 additional={additional}
-                onDelete={(id) =>
+                onUpdate={(newAdditional) => {
                   setAdditionals(
-                    additionals.filter((product) => product.id !== id)
-                  )
+                    additionals.map((add) =>
+                      add.id === newAdditional.id ? newAdditional : add
+                    )
+                  );
+                }}
+                onDelete={(id) =>
+                  setAdditionals(additionals.filter((add) => add.id !== id))
                 }
               />
             ))}

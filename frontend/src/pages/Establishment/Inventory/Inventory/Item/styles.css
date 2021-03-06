@@ -1,52 +1,17 @@
-#inventory .item-date {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+#inventory .item-img,
+#inventory .item-img-disabled {
+  height: 100%;
 }
 
-#inventory .week-line {
-  height: 11px;
-  border: 1px solid #9c9c9c;
-  margin-right: 10px;
+#inventory .item-img-disabled {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
 }
 
-#inventory .item-day + .week-line {
-  margin-left: 10px;
-}
-
-#inventory .item-day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#inventory .item-code {
   font-size: 12px;
   color:#9C9C9C;
-  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-#inventory .item-day + .item-day {
-  margin-left: 8px;
-}
-
-#inventory .item-hour {
-  font-size: 12px;
-  color: #9c9c9c;
-}
-
-@media screen and (max-width: 341px) {
-  #inventory .item-day {
-    font-size: 10px;
-  }
-
-  #inventory .week-line {
-    height: 8px;
-  }
-
-  #inventory .item-hour {
-    font-size: 10px;
-  }
-
-  #inventory .item-day + .item-day {
-    margin-left: 7px;
-  }
-}
-

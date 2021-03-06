@@ -18,7 +18,7 @@ import capitalize from '~/util/capitalize';
 import '../New/styles.css';
 
 export default function EditMenu({ location }) {
-  const menu =
+  const menuState =
     location.state && location.state.menu
       ? location.state.menu
       : history.push('/inventario');
@@ -28,13 +28,15 @@ export default function EditMenu({ location }) {
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
 
-  const [title, setTitle] = useState(menu.title || '');
-  const [startAt, setStartAt] = useState(`${menu.start_at}h` || '');
-  const [endAt, setEndAt] = useState(`${menu.end_at}h` || '');
+  const [menu, setMenu] = useState(menuState || {});
+
+  const [title, setTitle] = useState(menuState.title || '');
+  const [startAt, setStartAt] = useState(`${menuState.start_at}h` || '');
+  const [endAt, setEndAt] = useState(`${menuState.end_at}h` || '');
   const [availability, setAvailability] = useState(
-    menu.availability || '0000000'
+    menuState.availability || '0000000'
   );
-  const [items, setItems] = useState(menu.items || []);
+  const [items, setItems] = useState(menuState.items || []);
 
   function handleResize() {
     const itemPage = document.getElementById('menu-page');
@@ -165,6 +167,7 @@ export default function EditMenu({ location }) {
                 item={menu}
                 route="menus"
                 onDelete={() => history.push('/inventario')}
+                onUpdate={setMenu}
                 fill="#fff"
                 position="down"
               />

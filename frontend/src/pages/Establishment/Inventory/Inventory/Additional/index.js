@@ -9,7 +9,9 @@ import api from '~/services/api';
 
 import capitalize from '~/util/capitalize';
 
-export default function Additional({ additional, onDelete }) {
+import './styles.css';
+
+export default function Additional({ additional, onUpdate, onDelete }) {
   const [title, setTitle] = useState(additional.title);
   const [price, setPrice] = useState(additional.price);
   const [maskedPrice, setMaskedPrice] = useState(
@@ -45,7 +47,11 @@ export default function Additional({ additional, onDelete }) {
     <div className="item-container">
       <div className="additional-form">
         <input
-          className="additional-title-input"
+          className={
+            additional.available
+              ? 'additional-title-input'
+              : 'additional-title-input-disabled'
+          }
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
@@ -58,7 +64,11 @@ export default function Additional({ additional, onDelete }) {
           value={maskedPrice}
           decimalSeparator=","
           prefix="R$ "
-          className="additional-price-input"
+          className={
+            additional.available
+              ? 'additional-price-input'
+              : 'additional-price-input-disabled'
+          }
           thousandSeparator="."
           onChangeEvent={(e) => {
             setMaskedPrice(e.target.value);
@@ -73,7 +83,8 @@ export default function Additional({ additional, onDelete }) {
           <Actions
             item={additional}
             route="additionals"
-            onDelete={(id) => onDelete(id)}
+            onDelete={onDelete}
+            onUpdate={onUpdate}
             fill="#535BFE"
           />
         )}
