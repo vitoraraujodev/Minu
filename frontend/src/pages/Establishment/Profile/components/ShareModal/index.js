@@ -12,8 +12,14 @@ export default function ShareModal({ onClose, establishmentId }) {
   const menuUrl = `https://seuminu.com/cardapio/${establishmentId}`;
 
   function handleCopyClick() {
-    navigator.clipboard.writeText(menuUrl);
-    setCopied(true);
+    try {
+      navigator.clipboard.writeText(menuUrl);
+      setCopied(true);
+    } catch (err) {
+      alert(
+        'Não foi possível copiar para área de transferência. Tente novamente mais tarde.'
+      );
+    }
   }
 
   return (
