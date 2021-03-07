@@ -243,10 +243,7 @@ export default function EditItem({ location }) {
               placeholder="X-Burger Especial"
             />
 
-            <p className="input-label">
-              Descrição{' '}
-              <span style={{ color: '#9c9c9c', fontSize: 14 }}>(opcional)</span>
-            </p>
+            <p className="input-label">Descrição</p>
             <input
               className="input"
               value={description}
