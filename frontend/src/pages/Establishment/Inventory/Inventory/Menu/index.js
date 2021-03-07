@@ -32,6 +32,10 @@ export default function Menu({ menu, index }) {
     return '#DDD';
   }
 
+  function handleDayColor(availability) {
+    if (availability === '1' && menu.available) return '#535BFE';
+  }
+
   return (
     <div className="item-container">
       <div
@@ -49,43 +53,43 @@ export default function Menu({ menu, index }) {
           <div className="week-line" />
           <p
             className="item-day"
-            style={menu.availability[0] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[0]) }}
           >
             D
           </p>
           <p
             className="item-day"
-            style={menu.availability[1] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[1]) }}
           >
             S
           </p>
           <p
             className="item-day"
-            style={menu.availability[2] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[2]) }}
           >
             T
           </p>
           <p
             className="item-day"
-            style={menu.availability[3] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[3]) }}
           >
             Q
           </p>
           <p
             className="item-day"
-            style={menu.availability[4] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[4]) }}
           >
             Q
           </p>
           <p
             className="item-day"
-            style={menu.availability[5] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[5]) }}
           >
             S
           </p>
           <p
             className="item-day"
-            style={menu.availability[6] === '1' ? { color: '#535BFE' } : null}
+            style={{ color: handleDayColor(menu.availability[6]) }}
           >
             S
           </p>

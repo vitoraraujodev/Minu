@@ -11,10 +11,10 @@ import EstablishmentSignIn from '~/pages/Auth/Establishment/SignIn';
 // import CustomerSignIn from '~/pages/Auth/Customer/SignIn';
 
 import EstablishmentProfile from '~/pages/Establishment/Profile';
-import EstablishmentPicture from '~/pages/Establishment/Profile/Picture';
-import EstablishmentAccount from '~/pages/Establishment/Profile/Account';
-import EstablishmentPin from '~/pages/Establishment/Profile/Pin';
-import EstablishmentAddress from '~/pages/Establishment/Profile/Address';
+import EstablishmentPicture from '~/pages/Establishment/Profile/pages/Picture';
+import EstablishmentAccount from '~/pages/Establishment/Profile/pages/Account';
+import EstablishmentPin from '~/pages/Establishment/Profile/pages/Pin';
+import EstablishmentAddress from '~/pages/Establishment/Profile/pages/Address';
 
 import Inventory from '~/pages/Establishment/Inventory/Inventory';
 import NewItem from '~/pages/Establishment/Inventory/Item/New';

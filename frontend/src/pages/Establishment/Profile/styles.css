@@ -87,8 +87,7 @@
 }
 
 #profile .img-button:active {
-  color: #fff;
-  background: #535bfe;
+  transform: none;
 }
 
 #profile .title-area {
@@ -112,26 +111,6 @@
   font-weight: 400;
 }
 
-#profile .option-area {
-  cursor: pointer;
-}
-
-#profile .option-area:hover {
-  background: #f6f6f6;
-}
-
-#profile .option {
-  padding: 24px 0;
-  margin: 0 40px;
-  border-bottom: 1px solid #e6e6e6;
-}
-
-#profile .option-text {
-  color: #252525;
-  font-weight: 400;
-  font-size: 18px;
-}
-
 @media screen and (max-width: 767px) {
   #profile {
     overflow-y: scroll;
@@ -153,16 +132,6 @@
   #profile .img-button {
     font-size: 12px;
     right: 32px;
-  }
-
-
-  #profile .option {
-    padding: 16px 0;
-    margin: 0 24px;
-  }
-
-  #profile .option-text {
-    font-size: 16px;
   }
 }
 

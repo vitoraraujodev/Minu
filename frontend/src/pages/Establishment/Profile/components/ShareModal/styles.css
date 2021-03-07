@@ -1,0 +1,94 @@
+#share-modal .modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#share-modal .modal-title{
+  font-size: 21px;
+  font-weight: 800;
+  color: #535BFE;
+  padding-right: 40px;
+}
+
+
+#share-modal .close-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  right: 24px;
+  top: 24px;
+  border: 0;
+}
+
+#share-modal .modal-text {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #6f6f6f;
+}
+
+#share-modal .modal-url-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+  padding-bottom: 8px;
+}
+
+#share-modal .modal-url {
+  width: 100%;
+  height: 48px;
+  border: 0;
+  font-size: 18px;
+  color: #535BFE;
+  border-radius: 5px;
+  padding: 0 16px;
+  box-shadow: 0px 0px 6px #00000029;
+}
+
+#share-modal .modal-copy-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  min-width: 48px;
+  width: 48px;
+  margin-left: 8px;
+  background: #535BFE;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0px 0px 8px #00000029;
+  transition: transform 0.2s;
+}
+
+#share-modal .modal-copy-button:hover {
+  transform: scale(1.03);
+}
+
+#share-modal .modal-copy-button:active {
+  transform: none;
+}
+
+@media screen and (max-width: 767px) {
+  #share-modal .modal-title{
+    font-size: 18px;
+  }
+
+  #share-modal .modal-url {
+    font-size: 15px;
+    height: 40px;
+  }
+
+  #share-modal .modal-copy-button {
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+
+  }
+}

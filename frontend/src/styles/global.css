@@ -29,6 +29,7 @@ body {
   font: 400 23px Muli, sans-serif;
   background: #fff;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
 }
 
 a {

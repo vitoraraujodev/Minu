@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 import Header from '~/components/NavTabs/Establishment';
 
+import { LinkOption, ClickOption } from './components/Options';
+import ShareModal from './components/ShareModal';
+
 import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
@@ -15,11 +18,13 @@ import './styles.css';
 
 export default function Profile() {
   const dispatch = useDispatch();
+
   const establishment = useSelector(
     (state) => state.establishment.establishment
   );
 
   const [windowWidth, setWindowWidth] = useState(768);
+  const [modalVisible, setModalVisible] = useState(false);
 
   function handleResize() {
     const profile = document.getElementById('profile');
@@ -46,6 +51,13 @@ export default function Profile() {
 
   return (
     <div id="profile">
+      {modalVisible && (
+        <ShareModal
+          onClose={() => setModalVisible(false)}
+          establishmentId={establishment.id}
+        />
+      )}
+
       <Header />
       <div className="container">
         <div className="info-container">
@@ -86,37 +98,18 @@ export default function Profile() {
           </div>
         </div>
 
-        <Link to="/estabelecimento/conta">
-          <div className="option-area">
-            <div className="option">
-              <span className="option-text">Editar conta</span>
-            </div>
-          </div>
-        </Link>
-        <Link to="/estabelecimento/pin">
-          <div className="option-area">
-            <div className="option">
-              <span className="option-text">Redefinir PIN</span>
-            </div>
-          </div>
-        </Link>
-        <Link to="/estabelecimento/endereco">
-          <div className="option-area">
-            <div className="option">
-              <span className="option-text">Editar endereço</span>
-            </div>
-          </div>
-        </Link>
-        <div className="option-area" onClick={handleSignOut}>
-          <div style={{ border: 0 }} className="option">
-            <span
-              className="option-text"
-              style={{ color: '#FF3636', border: 'none' }}
-            >
-              Sair
-            </span>
-          </div>
-        </div>
+        <LinkOption route="/estabelecimento/conta" text="Editar conta" />
+
+        <LinkOption route="/estabelecimento/pin" text="Redefinir PIN" />
+
+        <LinkOption route="/estabelecimento/endereco" text="Editar endereço" />
+
+        <ClickOption
+          onClick={() => setModalVisible(true)}
+          text="Compartilhar cardápio"
+        />
+
+        <ClickOption onClick={handleSignOut} text="Sair" color="#FF3636" />
       </div>
     </div>
   );

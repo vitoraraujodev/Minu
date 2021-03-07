@@ -1,0 +1,34 @@
+#profile-option + #profile-option .option {
+
+  border-top: 1px solid #e6e6e6;
+}
+
+#profile-option .option-area {
+  cursor: pointer;
+}
+
+#profile-option .option-area:hover {
+  background: #f6f6f6;
+}
+
+#profile-option .option {
+  padding: 20px 0;
+  margin: 0 40px;
+}
+
+#profile-option .option-text {
+  color: #252525;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 767px) {
+  #profile-option .option {
+    padding: 16px 0;
+    margin: 0 24px;
+  }
+
+  #profile-option .option-text {
+    font-size: 16px;
+  }
+}
