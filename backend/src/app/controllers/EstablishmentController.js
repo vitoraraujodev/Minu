@@ -196,7 +196,7 @@ class EstablishmentController {
       cep: Yup.string().required(),
       address_number: Yup.number().required(),
       street: Yup.string().required(),
-      complement: Yup.string().required(),
+      complement: Yup.string(),
       city: Yup.string().required(),
       state: Yup.string().required(),
       admin_pin: Yup.string().length(4).required(),
