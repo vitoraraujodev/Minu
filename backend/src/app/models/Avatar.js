@@ -10,7 +10,7 @@ class Avatar extends Model {
           get() {
             const ENV = process.env.NODE_ENV;
             return ENV && ENV === 'production'
-              ? `http://minu-general.s3.us-east-2.amazonaws.com/${this.path}`
+              ? `https://minu-general.s3.us-east-2.amazonaws.com/${this.path}`
               : `http://minu-development.s3.us-east-2.amazonaws.com/${this.path}`;
           },
         },
