@@ -169,12 +169,7 @@ export default function Inventory() {
             loading={loading}
             disabled={!inventoryAccessed}
           >
-            <Link
-              to={{
-                pathname: '/inventario/cardapio',
-                state: { length: menus.length + 1 },
-              }}
-            >
+            <Link to="/inventario/cardapio">
               <div className="add-item-container">
                 <AddIcon
                   style={{ height: 16, marginRight: 8, minWidth: 16 }}

@@ -2,107 +2,69 @@ import React, { useState, useEffect } from 'react';
 
 import ItemSelector from '../ItemSelector';
 import DaySelector from '../DaySelector';
+
 import Header from '~/components/NavTabs/Establishment';
+import Input from '~/components/Input';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import api from '~/services/api';
-import history from '~/services/history';
-
+import handleHour from '~/util/handleHour';
 import { formatPrice } from '~/util/format';
 import capitalize from '~/util/capitalize';
 
+import history from '~/services/history';
+
 import './styles.css';
 
-export default function NewMenu({ location }) {
-  const length = location.state ? location.state.length : '';
-
-  const [loading, setLoading] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(768);
+export default function MenuForm({ menu, onSubmit, loading }) {
+  const [windowWidth, setWindowWidth] = useState();
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
 
-  const [title, setTitle] = useState('');
-  const [startAt, setStartAt] = useState('');
-  const [endAt, setEndAt] = useState('');
-  const [availability, setAvailability] = useState('0000000');
-  const [items, setItems] = useState([]);
+  const [title, setTitle] = useState(menu.title || '');
+  const [startAt, setStartAt] = useState(menu.start_at || '');
+  const [endAt, setEndAt] = useState(menu.end_at || '');
+  const [availability, setAvailability] = useState(
+    menu.availability || '0000000'
+  );
+  const [items, setItems] = useState(menu.items || []);
 
   function handleResize() {
-    const itemPage = document.getElementById('menu-page');
-    if (itemPage) {
-      setWindowWidth(itemPage.offsetWidth);
+    const menuPage = document.getElementById('menu-page');
+    if (menuPage) {
+      setWindowWidth(menuPage.offsetWidth);
     }
   }
 
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
     handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  window.addEventListener('resize', handleResize);
-
-  function handleHour(value, input) {
-    const hour = value.replace('h', '');
-
-    // Checks if last input was a number between 0 and 9
-    // and if its between 0 and 24
-    if (
-      (hour.slice(-1) >= '0' &&
-        hour.slice(-1) <= '9' &&
-        parseInt(hour, 10) >= 0 &&
-        parseInt(hour, 10) < 24) ||
-      hour === ''
-    ) {
-      if (input === 'start_at') {
-        if (hour === '') {
-          setStartAt('');
-        } else {
-          setStartAt(`${hour}h`);
-        }
-      }
-      if (input === 'end_at') {
-        if (hour === '') {
-          setEndAt('');
-        } else {
-          setEndAt(`${hour}h`);
-        }
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (title && startAt && endAt && availability !== '0000000') {
-      setFilled(true);
-    } else {
-      setFilled(false);
-    }
-  }, [title, startAt, endAt, availability, items]);
-
-  async function handleSubmit() {
-    setLoading(true);
-    const items_id = items.map((item) => item.id);
-    const data = {
-      title: capitalize(title),
-      availability,
-      start_at: startAt.replace('h', ''),
-      end_at: endAt.replace('h', ''),
-      items: items_id,
-    };
-
-    try {
-      await api.post('/menus', data);
-      setLoading(false);
-      history.push('/inventario');
-    } catch (err) {
-      setLoading(false);
-      alert(err.response.data.error);
-    }
-  }
-
   function handleBack() {
-    if (
+    if (menu) {
+      // Order to check if items arrays changed
+      const menuItemsId = menu.items.map((item) => item.id).sort();
+      const itemsId = items.map((item) => item.id).sort();
+
+      if (
+        title !== menu.title ||
+        String(startAt) !== String(menu.start_at) ||
+        String(endAt) !== String(menu.end_at) ||
+        availability !== menu.availability ||
+        JSON.stringify(itemsId) !== JSON.stringify(menuItemsId)
+      ) {
+        if (window.confirm('Deseja descartar as alterações?')) {
+          history.goBack();
+        }
+      } else {
+        history.goBack();
+      }
+    } else if (
       title ||
       startAt ||
       endAt ||
@@ -116,6 +78,27 @@ export default function NewMenu({ location }) {
       history.goBack();
     }
   }
+
+  function handleSubmit() {
+    const itemsId = items.map((item) => item.id);
+    const data = {
+      title: capitalize(title),
+      start_at: startAt,
+      end_at: endAt,
+      availability,
+      items: itemsId,
+    };
+
+    onSubmit(data);
+  }
+
+  useEffect(() => {
+    if (title && startAt && endAt && availability !== '0000000') {
+      setFilled(true);
+    } else {
+      setFilled(false);
+    }
+  }, [title, startAt, endAt, availability, items]);
 
   return (
     <div id="menu-page">
@@ -154,15 +137,13 @@ export default function NewMenu({ location }) {
             </button>
 
             <p className="header-label">
-              {length
-                ? `Cardápio ${length <= 9 ? `0${length}` : length}`
-                : 'Novo Cardápio'}
+              {menu && menu.title ? menu.title : 'Novo Cardápio'}
             </p>
           </div>
 
           <div className="content">
             <p className="input-label">Nome do cardápio</p>
-            <input
+            <Input
               className="input"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -177,47 +158,44 @@ export default function NewMenu({ location }) {
 
             <p className="input-label">Horário</p>
             <div className="input-group">
-              <input
-                inputMode="numeric"
-                maxLength="3"
+              <Input
                 value={startAt}
+                maxLength={2}
+                inputMode="number"
+                suffix="h"
+                maxWidth="64px"
+                placeholder="00"
                 onKeyDown={(e) => {
-                  if (e.keyCode === 8) {
-                    const index = startAt.indexOf('h');
-                    if (index > 0) {
-                      handleHour(startAt.substr(0, index - 1), 'start_at');
-                    }
-                  }
+                  if (e.key === ' ') e.preventDefault();
                 }}
-                onChange={(e) => handleHour(e.target.value, 'start_at')}
-                className="input-hour"
-                placeholder="18h"
+                onChange={(e) =>
+                  handleHour(e.target.value) && setStartAt(e.target.value)
+                }
               />
+
               <span
                 style={{
                   color: '#9c9c9c',
-                  margin: '0 8px',
-                  height: 32,
+                  margin: '0 12px',
                   fontSize: 15,
                 }}
               >
                 Até
               </span>
-              <input
-                inputMode="numeric"
-                maxLength="3"
+
+              <Input
                 value={endAt}
+                maxLength={2}
+                inputMode="number"
+                suffix="h"
+                maxWidth="64px"
+                placeholder="23"
                 onKeyDown={(e) => {
-                  if (e.keyCode === 8) {
-                    const index = endAt.indexOf('h');
-                    if (index > 0) {
-                      handleHour(endAt.substr(0, index - 1), 'end_at');
-                    }
-                  }
+                  if (e.key === ' ') e.preventDefault();
                 }}
-                onChange={(e) => handleHour(e.target.value, 'end_at')}
-                className="input-hour"
-                placeholder="00h"
+                onChange={(e) =>
+                  handleHour(e.target.value) && setEndAt(e.target.value)
+                }
               />
             </div>
 

@@ -1,0 +1,52 @@
+#input-component {
+  position: relative;
+  width: 100%;
+}
+
+#input-component .input-component {
+  width: 100%;
+  padding: 0 16px;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid #9C9C9C;
+  font-size: 15px;
+  color: #444444;
+};
+
+#input-component .fodase {
+}
+
+#input-component .prefix {
+  text-indent: 12px;
+}
+
+#input-component .suffix {
+  padding-right: 24px;
+}
+
+#input-component .input-component::placeholder {
+  color: #9C9C9C;
+  font-size: 14px;
+}
+
+#input-component .prefix-container,
+#input-component .suffix-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 15px;
+  font-weight: 400;
+  color: #9c9c9c;
+}
+
+#input-component .prefix-container {
+  left: 12px;
+  top: 1px;
+}
+
+#input-component .suffix-container {
+  right: 12px;
+  top: 1px;
+}

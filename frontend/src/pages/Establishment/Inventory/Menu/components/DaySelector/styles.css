@@ -4,7 +4,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 4px;
-  margin-bottom: 8px;
 }
 
 #day-selector .day, #day-selector .selected-day {

@@ -92,34 +92,19 @@
 }
 
 #menu-page .content {
-  padding: 24px;
+  padding: 8px 24px;
   padding-bottom: 72px;
 }
 
 #menu-page .input-label {
   color: #6E6E6E;
   font-size: 16px;
+  margin-top: 16px;
   margin-bottom: 4px;
 }
-
-#menu-page .input, #menu-page .input-hour {
-  margin-bottom: 16px;
-  width: 100%;
-  padding: 0 16px;
-  height: 32px;
-  border-radius: 5px;
-  border: 1px solid #9C9C9C;
-  font-size: 15px;
-  color: #444444;
-}
-
-#menu-page .input-hour {
-  max-width: 72px;
-}
-
-#menu-page .input::placeholder,  #menu-page .input-hour::placeholder {
-  color: #9C9C9C;
-  font-size: 14px;
+#menu-page .input-group {
+  display: flex;
+  align-items: center;
 }
 
 #menu-page .add-item-container {
@@ -131,7 +116,6 @@
   border: 1px solid #535bfe;
   border-radius: 5px;
   font-size: 15px;
-  margin-bottom: 16px;
   color: #535bfe;
   cursor: pointer;
 }
@@ -141,7 +125,7 @@
   align-items: center;
   cursor: pointer;
   padding: 8px 0;
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 #menu-page .add-item-container:hover,

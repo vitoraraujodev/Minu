@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiCheck, FiCopy } from 'react-icons/fi';
+import { FiCopy, FiCheck } from 'react-icons/fi';
 import Modal from '~/components/Modal';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
@@ -49,7 +49,7 @@ export default function ShareModal({ onClose, establishmentId }) {
             onClick={handleCopyClick}
           >
             {copied ? (
-              <FiCheck size={21} color="#fff" />
+              <FiCheck size={24} color="#fff" />
             ) : (
               <FiCopy size={21} color="#fff" />
             )}

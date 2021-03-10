@@ -19,8 +19,8 @@ import EstablishmentAddress from '~/pages/Establishment/Profile/pages/Address';
 import Inventory from '~/pages/Establishment/Inventory/Inventory';
 import NewItem from '~/pages/Establishment/Inventory/Item/New';
 import EditItem from '~/pages/Establishment/Inventory/Item/Edit';
-import NewMenu from '~/pages/Establishment/Inventory/Menu/New';
-import EditMenu from '~/pages/Establishment/Inventory/Menu/Edit';
+import NewMenu from '~/pages/Establishment/Inventory/Menu/pages/NewMenu';
+import EditMenu from '~/pages/Establishment/Inventory/Menu/pages/EditMenu';
 
 import Dashboard from '~/pages/Establishment/Dashboard';
 
