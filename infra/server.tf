@@ -30,7 +30,7 @@ module "alb" {
   name = "SiteLoadBalancer"
   load_balancer_type = "application"
   idle_timeout = 4000
-
+  enable_deletion_protection = true
 
   vpc_id             = "vpc-072ecc0359799bc54"
   subnets            = ["subnet-05b41b8e24145cd84", "subnet-03219a27dd700040c"]

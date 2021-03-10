@@ -3,8 +3,9 @@ cd $(git rev-parse --show-toplevel)
 
 # Backend
 # Build images
-docker build -f ./backend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:$(git rev-parse --short HEAD) .
-docker build -f ./backend/Dockerfile -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:latest .
+docker build -f ./backend/Dockerfile \
+    -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:$(git rev-parse --short HEAD) \
+    -t 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:latest .
 # Push images
 docker login -u AWS -p `aws ecr get-login-password --region us-east-2` 108961151232.dkr.ecr.us-east-2.amazonaws.com
 docker push 108961151232.dkr.ecr.us-east-2.amazonaws.com/minu/site/backend:$(git rev-parse --short HEAD)
