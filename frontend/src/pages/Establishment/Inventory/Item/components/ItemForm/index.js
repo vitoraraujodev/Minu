@@ -4,36 +4,41 @@ import CurrencyInput from 'react-currency-input';
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
 import Header from '~/components/NavTabs/Establishment';
+import Actions from '~/components/Actions';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import api from '~/services/api';
-import history from '~/services/history';
-
 import { formatPrice } from '~/util/format';
 import capitalize from '~/util/capitalize';
 
+import history from '~/services/history';
+
 import './styles.css';
 
-export default function NewItem() {
-  const [loading, setLoading] = useState(false);
+export default function ItemForm({ item, onSubmit, loading }) {
   const [windowWidth, setWindowWidth] = useState(768);
-  const [photo, setPhoto] = useState('');
   const [selectorVisible, setSelectorVisible] = useState(false);
-  const [selectorType, setSelectorType] = useState(1); // 1 - category, 2 - additional
+  const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
 
+  const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [file, setFile] = useState();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0.0);
-  const [preparationTime, setPreparationTime] = useState(1);
-  const [category, setCategory] = useState('');
-  const [maskedPrice, setMaskedPrice] = useState('R$ 0,00');
-  const [additionals, setAdditionals] = useState([]);
+
+  const [title, setTitle] = useState(item.title || '');
+  const [description, setDescription] = useState(item.description || '');
+  const [price, setPrice] = useState(item.price || 0);
+  const [preparationTime, setPreparationTime] = useState(
+    item.preparation_time || 1
+  );
+  const [category, setCategory] = useState(item.category || '');
+  const [maskedPrice, setMaskedPrice] = useState(
+    item.price.toString().replace('.', ',') || 'R$ 0,00'
+  );
+  const [available, setAvailable] = useState(item.available);
+  const [additionals, setAdditionals] = useState(item.additionals || []);
 
   function handleResize() {
     const itemPage = document.getElementById('item-page');
@@ -43,10 +48,11 @@ export default function NewItem() {
   }
 
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
     handleResize();
-  }, []);
 
-  window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     let newPrice = maskedPrice;
@@ -58,9 +64,28 @@ export default function NewItem() {
     setPrice(newPrice);
   }, [maskedPrice]);
 
-  function handlePreparationTime(value) {
-    if (preparationTime + value !== 0)
-      setPreparationTime(preparationTime + value);
+  function handleBack() {
+    // Order to check if items arrays changed
+    const itemAdditionalsId = item.additionals
+      .map((additional) => additional.id)
+      .sort();
+    const additionalId = additionals.map((additional) => additional.id).sort();
+
+    if (
+      (file && file !== item.photo_id) ||
+      title !== item.title ||
+      description !== item.description ||
+      String(price) !== String(item.price) ||
+      preparationTime !== item.preparation_time ||
+      category !== item.category ||
+      JSON.stringify(additionalId) !== JSON.stringify(itemAdditionalsId)
+    ) {
+      if (window.confirm('Deseja descartar as alterações?')) {
+        history.goBack();
+      }
+    } else {
+      history.goBack();
+    }
   }
 
   useEffect(() => {
@@ -77,57 +102,24 @@ export default function NewItem() {
     setPhoto(URL.createObjectURL(e.target.files[0]));
   }
 
-  async function handleSubmit() {
-    setLoading(true);
-    const additionals_id = additionals.map((add) => add.id);
-
-    const data = new FormData();
-
-    try {
-      if (file) {
-        data.append('file', file);
-        const response = await api.post(`product-photo`, data);
-
-        const body = {
-          title: capitalize(title),
-          description: capitalize(description),
-          price,
-          preparation_time: preparationTime,
-          category,
-          additionals: additionals_id,
-          photo_id: response.data.id,
-        };
-
-        await api.post('items', body);
-        setLoading(false);
-      } else {
-        const body = {
-          title: capitalize(title),
-          description: capitalize(description),
-          price,
-          preparation_time: preparationTime,
-          category,
-          additionals: additionals_id,
-        };
-
-        await api.post('items', body);
-        setLoading(false);
-      }
-      history.push('/inventario');
-    } catch (err) {
-      setLoading(false);
-      alert(err.response.data.error);
-    }
+  function handlePreparationTime(value) {
+    if (preparationTime + value !== 0)
+      setPreparationTime(preparationTime + value);
   }
 
-  function handleBack() {
-    if (file || title || description || category || additionals.length > 0) {
-      if (window.confirm('Deseja descartar as alterações?')) {
-        history.goBack();
-      }
-    } else {
-      history.goBack();
-    }
+  function handleSubmit() {
+    const additionalsId = additionals.map((additional) => additional.id);
+
+    const data = {
+      title: capitalize(title),
+      description: capitalize(description),
+      price: parseFloat(price),
+      preparation_time: preparationTime,
+      category,
+      additionals: additionalsId,
+    };
+
+    onSubmit(data, file);
   }
 
   return (
@@ -176,7 +168,24 @@ export default function NewItem() {
               Voltar
             </button>
 
-            <p className="header-label">Novo Produto</p>
+            <p className="header-label">
+              {item.title ? item.title : 'Novo Produto'}
+            </p>
+
+            {item.id && (
+              <div className="icon-area">
+                <Actions
+                  id={item.id}
+                  available={available}
+                  route="items"
+                  onChangeAvailable={setAvailable}
+                  onDelete={() => history.push('/inventario')}
+                  fill="#fff"
+                  position="down"
+                  size="20"
+                />
+              </div>
+            )}
           </div>
 
           <div className="content">
@@ -313,6 +322,7 @@ export default function NewItem() {
             </div>
             {additionals.map((additional) => (
               <div
+                key={additional.id}
                 className="additional-container"
                 onClick={() => {
                   setSelectorVisible(true);

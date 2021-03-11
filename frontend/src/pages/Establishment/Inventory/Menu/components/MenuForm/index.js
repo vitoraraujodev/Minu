@@ -5,6 +5,7 @@ import DaySelector from '../DaySelector';
 
 import Header from '~/components/NavTabs/Establishment';
 import Input from '~/components/Input';
+import Actions from '~/components/Actions';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
@@ -19,16 +20,17 @@ import history from '~/services/history';
 import './styles.css';
 
 export default function MenuForm({ menu, onSubmit, loading }) {
-  const [windowWidth, setWindowWidth] = useState();
+  const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
 
   const [title, setTitle] = useState(menu.title || '');
-  const [startAt, setStartAt] = useState(menu.start_at || '');
-  const [endAt, setEndAt] = useState(menu.end_at || '');
+  const [startAt, setStartAt] = useState(String(menu.start_at) || '');
+  const [endAt, setEndAt] = useState(String(menu.end_at) || '');
   const [availability, setAvailability] = useState(
     menu.availability || '0000000'
   );
+  const [available, setAvailable] = useState(menu.available);
   const [items, setItems] = useState(menu.items || []);
 
   function handleResize() {
@@ -46,30 +48,16 @@ export default function MenuForm({ menu, onSubmit, loading }) {
   }, []);
 
   function handleBack() {
-    if (menu) {
-      // Order to check if items arrays changed
-      const menuItemsId = menu.items.map((item) => item.id).sort();
-      const itemsId = items.map((item) => item.id).sort();
+    // Order to check if items arrays changed
+    const menuItemsId = menu.items.map((item) => item.id).sort();
+    const itemsId = items.map((item) => item.id).sort();
 
-      if (
-        title !== menu.title ||
-        String(startAt) !== String(menu.start_at) ||
-        String(endAt) !== String(menu.end_at) ||
-        availability !== menu.availability ||
-        JSON.stringify(itemsId) !== JSON.stringify(menuItemsId)
-      ) {
-        if (window.confirm('Deseja descartar as alterações?')) {
-          history.goBack();
-        }
-      } else {
-        history.goBack();
-      }
-    } else if (
-      title ||
-      startAt ||
-      endAt ||
-      availability !== '0000000' ||
-      items.length > 0
+    if (
+      title !== menu.title ||
+      String(startAt) !== String(menu.start_at) ||
+      String(endAt) !== String(menu.end_at) ||
+      availability !== menu.availability ||
+      JSON.stringify(itemsId) !== JSON.stringify(menuItemsId)
     ) {
       if (window.confirm('Deseja descartar as alterações?')) {
         history.goBack();
@@ -139,6 +127,21 @@ export default function MenuForm({ menu, onSubmit, loading }) {
             <p className="header-label">
               {menu && menu.title ? menu.title : 'Novo Cardápio'}
             </p>
+
+            {menu.id && (
+              <div className="icon-area">
+                <Actions
+                  id={menu.id}
+                  available={available}
+                  route="menus"
+                  onChangeAvailable={setAvailable}
+                  onDelete={() => history.push('/inventario')}
+                  fill="#fff"
+                  position="down"
+                  size="20"
+                />
+              </div>
+            )}
           </div>
 
           <div className="content">

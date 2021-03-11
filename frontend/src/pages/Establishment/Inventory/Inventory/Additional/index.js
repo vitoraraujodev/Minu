@@ -11,7 +11,11 @@ import capitalize from '~/util/capitalize';
 
 import './styles.css';
 
-export default function Additional({ additional, onUpdate, onDelete }) {
+export default function Additional({
+  additional,
+  onChangeAvailable,
+  onDelete,
+}) {
   const [title, setTitle] = useState(additional.title);
   const [price, setPrice] = useState(additional.price);
   const [maskedPrice, setMaskedPrice] = useState(
@@ -81,10 +85,11 @@ export default function Additional({ additional, onUpdate, onDelete }) {
           <SaveIcon style={{ height: 22 }} />
         ) : (
           <Actions
-            item={additional}
+            id={additional.id}
+            available={additional.available}
             route="additionals"
             onDelete={onDelete}
-            onUpdate={onUpdate}
+            onChangeAvailable={onChangeAvailable}
             fill="#535BFE"
           />
         )}

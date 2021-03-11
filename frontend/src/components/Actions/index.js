@@ -8,9 +8,10 @@ import api from '~/services/api';
 import './styles.css';
 
 export default function Actions({
-  item,
+  id,
+  available,
   route,
-  onUpdate,
+  onChangeAvailable,
   onDelete,
   fill,
   position,
@@ -24,24 +25,22 @@ export default function Actions({
 
   async function handleAvailability() {
     try {
-      const response = await api.put(`${route}/${item.id}`, {
-        available: !item.available,
+      const response = await api.put(`${route}/${id}`, {
+        available: !available,
       });
-      onUpdate(response.data);
+      onChangeAvailable(response.data.available);
     } catch (err) {
-      alert(
-        'Não foi possível atualizar a disponibilidade. Por favor, tente mais tarde.'
-      );
+      alert('Não foi possível atualizar a disponibilidade. Tente mais tarde.');
     }
   }
 
   async function handleDelete() {
     if (window.confirm('Tem certeza que deseja deletar?')) {
       try {
-        await api.delete(`${route}/${item.id}`);
-        onDelete(item.id);
+        await api.delete(`${route}/${id}`);
+        onDelete(id);
       } catch (err) {
-        alert('Não foi possível deletar. Por favor, tente mais tarde.');
+        alert('Não foi possível deletar. Tente mais tarde.');
       }
     }
   }
@@ -65,7 +64,7 @@ export default function Actions({
                 <div className="toggle-background">
                   <div
                     className={
-                      item.available ? 'toggle-circle-on' : 'toggle-circle-off'
+                      available ? 'toggle-circle-on' : 'toggle-circle-off'
                     }
                   />
                 </div>

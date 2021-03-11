@@ -113,6 +113,8 @@ class ItemController {
   }
 
   async update(req, res) {
+    console.log(req.body);
+
     const schema = Yup.object().shape({
       title: Yup.string(),
       code: Yup.string(),

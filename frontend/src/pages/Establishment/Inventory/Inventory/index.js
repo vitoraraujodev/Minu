@@ -224,18 +224,19 @@ export default function Inventory() {
 
                     <div className="icon-area">
                       <Actions
-                        item={item}
+                        id={item.id}
+                        available={item.available}
                         route="items"
                         onDelete={(id) =>
                           setStarters(
                             starters.filter((product) => product.id !== id)
                           )
                         }
-                        onUpdate={(updatedItem) =>
+                        onChangeAvailable={(available) =>
                           setStarters(
                             starters.map((product) =>
-                              product.id === updatedItem.id
-                                ? updatedItem
+                              product.id === item.id
+                                ? { ...product, available }
                                 : product
                             )
                           )
@@ -264,17 +265,18 @@ export default function Inventory() {
 
                     <div className="icon-area">
                       <Actions
-                        item={item}
+                        id={item.id}
+                        available={item.available}
                         route="items"
                         onDelete={(id) =>
                           setMains(mains.filter((product) => product.id !== id))
                         }
                         fill="#535BFE"
-                        onUpdate={(updatedItem) =>
+                        onChangeAvailable={(available) =>
                           setMains(
                             mains.map((product) =>
-                              product.id === updatedItem.id
-                                ? updatedItem
+                              product.id === item.id
+                                ? { ...product, available }
                                 : product
                             )
                           )
@@ -302,18 +304,19 @@ export default function Inventory() {
 
                     <div className="icon-area">
                       <Actions
-                        item={item}
+                        id={item.id}
+                        available={item.available}
                         route="items"
                         onDelete={(id) =>
                           setDesserts(
                             desserts.filter((product) => product.id !== id)
                           )
                         }
-                        onUpdate={(updatedItem) =>
+                        onChangeAvailable={(available) =>
                           setDesserts(
                             desserts.map((product) =>
-                              product.id === updatedItem.id
-                                ? updatedItem
+                              product.id === item.id
+                                ? { ...product, available }
                                 : product
                             )
                           )
@@ -342,18 +345,19 @@ export default function Inventory() {
 
                     <div className="icon-area">
                       <Actions
-                        item={item}
+                        id={item.id}
+                        available={item.available}
                         route="items"
                         onDelete={(id) =>
                           setDrinks(
                             drinks.filter((product) => product.id !== id)
                           )
                         }
-                        onUpdate={(updatedItem) =>
+                        onChangeAvailable={(available) =>
                           setDrinks(
                             drinks.map((product) =>
-                              product.id === updatedItem.id
-                                ? updatedItem
+                              product.id === item.id
+                                ? { ...product, available }
                                 : product
                             )
                           )
@@ -382,18 +386,19 @@ export default function Inventory() {
 
                     <div className="icon-area">
                       <Actions
-                        item={item}
+                        id={item.id}
+                        available={item.available}
                         route="items"
                         onDelete={(id) =>
                           setAlcoholics(
                             alcoholics.filter((product) => product.id !== id)
                           )
                         }
-                        onUpdate={(updatedItem) =>
+                        onChangeAvailable={(available) =>
                           setAlcoholics(
                             alcoholics.map((product) =>
-                              product.id === updatedItem.id
-                                ? updatedItem
+                              product.id === item.id
+                                ? { ...product, available }
                                 : product
                             )
                           )
@@ -466,10 +471,10 @@ export default function Inventory() {
               <Additional
                 key={additional.id}
                 additional={additional}
-                onUpdate={(newAdditional) => {
+                onChangeAvailable={(available) => {
                   setAdditionals(
                     additionals.map((add) =>
-                      add.id === newAdditional.id ? newAdditional : add
+                      add.id === additional.id ? { ...add, available } : add
                     )
                   );
                 }}
