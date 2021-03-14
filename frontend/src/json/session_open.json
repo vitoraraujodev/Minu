@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "namespace": "SessionOpen.Input",
+    "name": "SessionOpenNotification",
+    "version": "1",
+    "fields": [
+        {"name": "EstablishmentId", "type": "long", "doc": ""},
+        {"name": "TableNumber", "type": "long", "doc": ""}
+    ]
+}
