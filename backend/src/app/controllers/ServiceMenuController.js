@@ -141,7 +141,11 @@ class ServiceMenuController {
             where: {
               establishment_id: establishment.id,
             },
-            order: [['title', 'ASC']],
+            order: [
+              ['title', 'ASC'],
+              [{ model: Additional, as: 'additionals' }, 'title', 'ASC'],
+              [{ model: ItemRating, as: 'ratings' }, 'created_at', 'DESC'],
+            ],
             attributes: [
               'id',
               'code',
@@ -157,7 +161,6 @@ class ServiceMenuController {
                 model: ItemRating,
                 as: 'ratings',
                 required: false,
-                order: [['created_at', 'DESC']],
                 attributes: ['id', 'description', 'rating', 'client_name'],
               },
               {
@@ -173,7 +176,6 @@ class ServiceMenuController {
                 model: Additional,
                 required: false,
                 as: 'additionals',
-                order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
                 through: {
                   attributes: [],

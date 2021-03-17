@@ -44,7 +44,7 @@ class EstablishmentController {
         if (!establishment) {
           return res.status(400).json({
             error:
-              'Restaurante não encontrado. Por favor, verifique o código e tente novamente.',
+              'Restaurante não encontrado. Verifique o código e tente novamente.',
           });
         }
 
@@ -132,7 +132,12 @@ class EstablishmentController {
             where: {
               establishment_id: establishment.id,
             },
-            order: [['title', 'ASC']],
+            order: [
+              ['title', 'ASC'],
+              [{ model: Additional, as: 'additionals' }, 'title', 'ASC'],
+              [{ model: ItemRating, as: 'ratings' }, 'created_at', 'DESC'],
+            ],
+
             attributes: [
               'id',
               'code',
@@ -148,7 +153,6 @@ class EstablishmentController {
                 model: ItemRating,
                 as: 'ratings',
                 required: false,
-                order: [['created_at', 'DESC']],
                 attributes: ['id', 'description', 'rating', 'client_name'],
               },
               {
@@ -164,7 +168,6 @@ class EstablishmentController {
                 model: Additional,
                 required: false,
                 as: 'additionals',
-                order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
                 through: {
                   attributes: [],
@@ -209,7 +212,7 @@ class EstablishmentController {
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
-        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+        error: 'Dados inválidos. Verifique e tente novamente.',
       });
     }
 
@@ -257,7 +260,7 @@ class EstablishmentController {
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
-        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+        error: 'Dados inválidos. Verifique e tente novamente.',
       });
     }
 
@@ -270,7 +273,7 @@ class EstablishmentController {
     if (!establishment) {
       return res.status(400).json({
         error:
-          'Estabelecimento não está cadastrado. Por favor, verifique seus dados e tente novamente.',
+          'Estabelecimento não está cadastrado. Verifique seus dados e tente novamente.',
       });
     }
 
@@ -363,25 +366,6 @@ class EstablishmentController {
             .map((rate) => rate.rating)
             .reduce((acumulator, rate) => acumulator + rate) / raters
         : 0;
-
-    console.log(
-      id,
-      cnpj,
-      email,
-      establishment_name,
-      manager_name,
-      manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
-      photo,
-      ratings,
-      rating,
-      raters
-    );
 
     return res.json({
       id,

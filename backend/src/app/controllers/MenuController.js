@@ -10,13 +10,15 @@ class MenuController {
   async index(req, res) {
     const menus = await Menu.findAll({
       where: { establishment_id: req.establishmentId },
-      order: [['title', 'ASC']],
+      order: [
+        ['title', 'ASC'],
+        [{ model: Item, as: 'items' }, 'title', 'ASC'],
+      ],
       include: [
         {
           model: Item,
           as: 'items',
           required: false,
-          order: [['title', 'ASC']],
           attributes: ['id', 'title', 'code', 'price'],
           include: {
             model: File,
@@ -82,13 +84,15 @@ class MenuController {
       })
       .then(async (menu) =>
         Menu.findByPk(menu.id, {
-          order: [['title', 'ASC']],
+          order: [
+            ['title', 'ASC'],
+            [{ model: Item, as: 'items' }, 'title', 'ASC'],
+          ],
           include: [
             {
               model: Item,
               required: false,
               as: 'items',
-              order: [['title', 'ASC']],
               attributes: ['id', 'title', 'price', 'available'],
               include: {
                 model: File,
@@ -207,7 +211,10 @@ class MenuController {
         })
         .then(async () =>
           Menu.findByPk(menu.id, {
-            order: [['title', 'ASC']],
+            order: [
+              ['title', 'ASC'],
+              [{ model: Item, as: 'items' }, 'title', 'ASC'],
+            ],
             attributes: [
               'id',
               'title',
@@ -221,7 +228,6 @@ class MenuController {
                 model: Item,
                 required: false,
                 as: 'items',
-                order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
                 include: {
                   model: File,

@@ -10,12 +10,14 @@ class ItemController {
   async index(req, res) {
     const items = await Item.findAll({
       where: { establishment_id: req.establishmentId },
-      order: [['title', 'ASC']],
+      order: [
+        ['title', 'ASC'],
+        [{ model: Additional, as: 'additionals' }, 'title', 'ASC'],
+      ],
       include: [
         {
           model: Additional,
           as: 'additionals',
-          order: [['title', 'ASC']],
           attributes: ['id', 'title', 'price', 'available'],
           through: {
             attributes: [],
@@ -72,7 +74,10 @@ class ItemController {
         })
         .then(async (item) =>
           Item.findByPk(item.id, {
-            order: [['title', 'ASC']],
+            order: [
+              ['title', 'ASC'],
+              [{ model: Additional, as: 'additionals' }, 'title', 'ASC'],
+            ],
             attributes: [
               'id',
               'code',
@@ -88,7 +93,6 @@ class ItemController {
                 model: Additional,
                 required: false,
                 as: 'additionals',
-                order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
                 through: {
                   attributes: [],
@@ -215,7 +219,10 @@ class ItemController {
         })
         .then(async () =>
           Item.findByPk(item.id, {
-            order: [['title', 'ASC']],
+            order: [
+              ['title', 'ASC'],
+              [{ model: Additional, as: 'additionals' }, 'title', 'ASC'],
+            ],
             attributes: [
               'id',
               'code',
@@ -231,7 +238,6 @@ class ItemController {
                 model: Additional,
                 required: false,
                 as: 'additionals',
-                order: [['title', 'ASC']],
                 attributes: ['id', 'title', 'price', 'available'],
                 through: {
                   attributes: [],
