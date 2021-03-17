@@ -125,6 +125,13 @@
   padding: 12px 16px;
 }
 
+#additional-selector .additional-title {
+  padding-right: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 #additional-selector .submit-additional-container {
   position: sticky;
   position: -webkit-sticky;

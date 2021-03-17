@@ -184,7 +184,7 @@ export default function AdditionalSelector({
                   : 'additional'
               }
             >
-              <p>{additional.title}</p>
+              <p className="additional-title">{additional.title}</p>
               <p>{formatPrice(additional.price)}</p>
             </div>
           </div>
