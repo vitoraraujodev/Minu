@@ -23,6 +23,27 @@
   overflow-x: hidden;
 }
 
+/* width */
+#menu-page .slider::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+#menu-page .slider::-webkit-scrollbar-track {
+  background: #e6e6e6;
+}
+
+/* Handle */
+#menu-page .slider::-webkit-scrollbar-thumb {
+  background: #acacac;
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+#menu-page .slider::-webkit-scrollbar-thumb:hover {
+  background: #9c9c9c;
+}
+
 #menu-page .form-container {
   width: 100%;
   position: absolute;
@@ -213,7 +234,6 @@
   }
 
   #menu-page .slider {
-    overflow-y: scroll;
     height: 100%;
   }
 
