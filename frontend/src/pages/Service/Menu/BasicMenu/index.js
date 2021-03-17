@@ -329,7 +329,11 @@ export default function BasicMenu() {
                   <div id="startersRef">
                     <p className="category-label">Entradas</p>
                     {starters.map((product) => (
-                      <Product product={product} key={product.id} />
+                      <Product
+                        establishmentId={establishmentId}
+                        product={product}
+                        key={product.id}
+                      />
                     ))}
                   </div>
                 )}
@@ -351,7 +355,11 @@ export default function BasicMenu() {
                   <div id="dessertsRef">
                     <p className="category-label">Sobremesas</p>
                     {desserts.map((product) => (
-                      <Product product={product} key={product.id} />
+                      <Product
+                        establishmentId={establishmentId}
+                        product={product}
+                        key={product.id}
+                      />
                     ))}
                   </div>
                 )}
@@ -360,7 +368,11 @@ export default function BasicMenu() {
                   <div id="drinksRef">
                     <p className="category-label">Bebidas</p>
                     {drinks.map((product) => (
-                      <Product product={product} key={product.id} />
+                      <Product
+                        establishmentId={establishmentId}
+                        product={product}
+                        key={product.id}
+                      />
                     ))}
                   </div>
                 )}
@@ -369,7 +381,11 @@ export default function BasicMenu() {
                   <div id="alcoholicsRef">
                     <p className="category-label">Bebidas Alcoólicas</p>
                     {alcoholics.map((product) => (
-                      <Product product={product} key={product.id} />
+                      <Product
+                        establishmentId={establishmentId}
+                        product={product}
+                        key={product.id}
+                      />
                     ))}
                   </div>
                 )}
