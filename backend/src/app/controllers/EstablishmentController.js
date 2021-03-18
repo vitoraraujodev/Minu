@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
-import { getHours, getDay } from 'date-fns';
 
 import Establishment from '../models/Establishment';
 import File from '../models/File';
@@ -11,10 +10,11 @@ import EstablishmentRating from '../models/EstablishmentRating';
 import ItemRating from '../models/ItemRating';
 import Customer from '../models/Customer';
 
+import { handleActiveMenus } from '../../utils';
+
 class EstablishmentController {
   async index(req, res) {
     const date = new Date();
-    const weekDay = getDay(date);
 
     await Establishment.findByPk(req.params.id, {
       attributes: [
@@ -87,8 +87,6 @@ class EstablishmentController {
             where: {
               establishment_id: establishment.id,
               available: true,
-              start_at: { [Op.lte]: getHours(date) },
-              end_at: { [Op.gte]: getHours(date) },
             },
             order: [['title', 'ASC']],
             attributes: ['id', 'title', 'availability', 'start_at', 'end_at'],
@@ -118,7 +116,7 @@ class EstablishmentController {
             raters,
             rating,
             photo,
-            menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
+            menus: handleActiveMenus(menus, date),
           };
         }
       })
