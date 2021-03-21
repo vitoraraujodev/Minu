@@ -9,8 +9,49 @@ import {
   addOrder,
   receivedOrderArchive,
 } from '~/store/modules/dashboard/actions';
+import {
+  addTableSession,
+  receivedTableSessionClose,
+} from '~/store/modules/tableSession/actions';
 
 import { ParseNotification } from '~/assets/notifications/parseNotifications';
+
+function isCallNotification(notification) {
+  return notification.NotificationType === 'waiterCall' ||
+    notification.NotificationType === 'billCall' ||
+    notification.NotificationType === 'waiterCallArchive' ||
+    notification.NotificationType === 'billCallArchive';
+}
+
+function handleCallNotification(notification, dispatch) {
+  if (
+    notification.NotificationType === 'waiterCall' ||
+    notification.NotificationType === 'billCall'
+  ) {
+    dispatch(addOrder(notification));
+  } else if (
+    notification.NotificationType === 'waiterCallArchive' ||
+    notification.NotificationType === 'billCallArchive'
+  ) {
+    dispatch(receivedOrderArchive(notification));
+  }
+}
+
+function isSessionNotification(notification) {
+  return notification.NotificationType === 'sessionOpen' ||
+    notification.NotificationType === 'sessionClose';
+}
+
+function handleSessionNotification(notification, dispatch) {
+  if (
+    notification.NotificationType === 'sessionOpen') {
+    dispatch(addTableSession(notification));
+  } else if (
+    notification.NotificationType === 'sessionClose'
+  ) {
+    dispatch(receivedTableSessionClose(notification));
+  }
+}
 
 function CreateListeners(eventSourceObject) {
   const dispatch = useDispatch();
@@ -33,16 +74,11 @@ function CreateListeners(eventSourceObject) {
       console.log(error.message);
     }
 
-    if (
-      parsedNotification.NotificationType === 'waiterCall' ||
-      parsedNotification.NotificationType === 'billCall'
-    ) {
-      dispatch(addOrder(parsedNotification));
-    } else if (
-      parsedNotification.NotificationType === 'waiterCallArchive' ||
-      parsedNotification.NotificationType === 'billCallArchive'
-    ) {
-      dispatch(receivedOrderArchive(parsedNotification));
+    if (isCallNotification(parsedNotification)) {
+      handleCallNotification(parsedNotification, dispatch);
+    }
+    else if (isSessionNotification(parsedNotification)) {
+      handleSessionNotification(parsedNotification, dispatch);
     }
   };
 }

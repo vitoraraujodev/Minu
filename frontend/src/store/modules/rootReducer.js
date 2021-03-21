@@ -7,6 +7,7 @@ import session from './session/reducer';
 import cart from './cart/reducer';
 import notification from './notification/reducer';
 import dashboard from './dashboard/reducer';
+import tableSession from './tableSession/reducer';
 
 export default combineReducers({
   auth,
@@ -16,4 +17,5 @@ export default combineReducers({
   cart,
   notification,
   dashboard,
+  tableSession,
 });
