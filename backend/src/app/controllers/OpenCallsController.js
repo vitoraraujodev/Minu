@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const endPoint = 'http://notifications_service.seuminu.com:5000/open-calls';
 
-class WaiterCallController {
+class OpenCallsController {
   async index(req, res) {
     const openCallsEndpoint = `${endPoint}/${req.establishmentId}`;
 
@@ -19,4 +19,4 @@ class WaiterCallController {
   }
 }
 
-export default new WaiterCallController();
+export default new OpenCallsController();
