@@ -5,7 +5,7 @@ import api from '~/services/api';
 
 import './styles.css';
 
-export default function Tables() {
+export default function TableSessions() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default function Tables() {
     try {
       const response = await api.get('open-table-sessions');
 
-      dispatch(response.data);
+      // dispatch(response.data);
     } catch (err) {
       if (err.response) {
         alert(err.response.data.error);

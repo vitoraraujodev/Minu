@@ -25,7 +25,7 @@ export default function tableSession(state = INITIAL_STATE, action) {
         draft.tableSession[TableNumber] = action.payload;
         break;
       }
-      case '@tableSession/RECEIVED_CLOSE_TABLE_SESSION': {
+      case '@tableSession/REMOVE_TABLE_SESSION': {
         const { TableNumber } = action.payload;
         const stateClone = JSON.parse(JSON.stringify(state));
 

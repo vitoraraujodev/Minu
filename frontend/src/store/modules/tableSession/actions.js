@@ -1,13 +1,13 @@
-export function addTableSession(sessionOpen) {
+export function addTableSession(tableSession) {
   return {
     type: '@tableSession/ADD_TABLE_SESSION',
-    payload: sessionOpen,
+    payload: tableSession,
   };
 }
 
-export function receivedTableSessionClose(sessionClose) {
+export function removeTableSession(tableSession) {
   return {
-    type: '@tableSession/RECEIVED_CLOSE_TABLE_SESSION',
-    payload: sessionClose,
+    type: '@tableSession/REMOVE_TABLE_SESSION',
+    payload: tableSession,
   };
 }

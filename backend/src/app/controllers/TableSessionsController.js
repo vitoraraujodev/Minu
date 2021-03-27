@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const getEndpoint = 'http://notifications_service.seuminu.com:5000/open-table-sessions';
 const openPostEndpoint = 'https://sessions.seuminu.com/sessionOpen'
 const closePostEndpoint = 'https://sessions.seuminu.com/sessionClose'
+const getEndpoint = 'http://notifications_service.seuminu.com:5000/open-table-sessions';
 
 const headers = {
   'content-type': 'application/json',
@@ -23,8 +23,8 @@ class TableSessionsController {
       });
     }
   }
-  async storeOpen(req, res) {
-    const payload = {...req.body, establishmentId: req.establishmentId}  
+  async store(req, res) {
+    const payload = {...req.body, establishmentId: req.establishmentId}
     try {
       await axios.post(openPostEndpoint, JSON.stringify(payload), {headers});
       return res.status(200).json({ okay: true });
@@ -37,8 +37,8 @@ class TableSessionsController {
     }
   }
 
-  async storeClose(req, res) {
-    const payload = {...req.body, establishmentId: req.establishmentId}  
+  async delete(req, res) {
+    const payload = {...req.body, establishmentId: req.establishmentId}
     try {
       await axios.post(closePostEndpoint, JSON.stringify(payload), {headers});
       return res.status(200).json({ okay: true });

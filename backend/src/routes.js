@@ -159,13 +159,13 @@ routes.get(
 routes.post(
   '/open-table-session',
   establishmentAuthMiddleware,
-  TableSessionsController.storeOpen
+  TableSessionsController.store
 );
 
 routes.post(
   '/close-table-session',
   establishmentAuthMiddleware,
-  TableSessionsController.storeClose
+  TableSessionsController.delete
 );
 
 export default routes;

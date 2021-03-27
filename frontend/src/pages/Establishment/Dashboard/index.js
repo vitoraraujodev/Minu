@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Orders from './pages/Orders';
-import Tables from './pages/Tables';
+import TableSessions from './pages/TableSessions';
 
 import DashboardHeader from './components/DashboardHeader';
 
@@ -26,7 +26,7 @@ export default function Dashboard() {
 
         {selectedTab === ORDERS_TAB && <Orders />}
 
-        {selectedTab === TABLES_TAB && <Tables />}
+        {selectedTab === TABLES_TAB && <TableSessions />}
       </div>
     </div>
   );
