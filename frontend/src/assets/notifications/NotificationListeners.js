@@ -11,16 +11,18 @@ import {
 } from '~/store/modules/dashboard/actions';
 import {
   addTableSession,
-  receivedTableSessionClose,
+  removeTableSession,
 } from '~/store/modules/tableSession/actions';
 
 import { ParseNotification } from '~/assets/notifications/parseNotifications';
 
 function isCallNotification(notification) {
-  return notification.NotificationType === 'waiterCall' ||
+  return (
+    notification.NotificationType === 'waiterCall' ||
     notification.NotificationType === 'billCall' ||
     notification.NotificationType === 'waiterCallArchive' ||
-    notification.NotificationType === 'billCallArchive';
+    notification.NotificationType === 'billCallArchive'
+  );
 }
 
 function handleCallNotification(notification, dispatch) {
@@ -38,18 +40,17 @@ function handleCallNotification(notification, dispatch) {
 }
 
 function isSessionNotification(notification) {
-  return notification.NotificationType === 'sessionOpen' ||
-    notification.NotificationType === 'sessionClose';
+  return (
+    notification.NotificationType === 'sessionOpen' ||
+    notification.NotificationType === 'sessionClose'
+  );
 }
 
 function handleSessionNotification(notification, dispatch) {
-  if (
-    notification.NotificationType === 'sessionOpen') {
+  if (notification.NotificationType === 'sessionOpen') {
     dispatch(addTableSession(notification));
-  } else if (
-    notification.NotificationType === 'sessionClose'
-  ) {
-    dispatch(receivedTableSessionClose(notification));
+  } else if (notification.NotificationType === 'sessionClose') {
+    dispatch(removeTableSession(notification));
   }
 }
 
@@ -76,8 +77,7 @@ function CreateListeners(eventSourceObject) {
 
     if (isCallNotification(parsedNotification)) {
       handleCallNotification(parsedNotification, dispatch);
-    }
-    else if (isSessionNotification(parsedNotification)) {
+    } else if (isSessionNotification(parsedNotification)) {
       handleSessionNotification(parsedNotification, dispatch);
     }
   };
