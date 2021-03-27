@@ -25,6 +25,7 @@ import ServiceMenuController from './app/controllers/ServiceMenuController';
 import WaiterCallController from './app/controllers/WaiterCallController';
 import BillCallController from './app/controllers/BillCallController';
 import OpenCallsController from './app/controllers/OpenCallsController';
+import OpenTableSessionsController from './app/controllers/OpenTableSessionsController';
 
 const routes = new Router();
 
@@ -147,6 +148,12 @@ routes.get(
   '/open-calls',
   establishmentAuthMiddleware,
   OpenCallsController.index
+);
+
+routes.get(
+  '/open-table-sessions',
+  establishmentAuthMiddleware,
+  OpenTableSessionsController.index
 );
 
 export default routes;
