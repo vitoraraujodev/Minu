@@ -9,6 +9,8 @@ import {
   archiveOrderRequest,
 } from '~/store/modules/dashboard/actions';
 
+import handleNumber from '~/util/handleNumber';
+
 import api from '~/services/api';
 
 import './styles.css';
@@ -22,7 +24,7 @@ export default function Orders() {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState();
-  const [sortedOrders, setSortedOrders] = useState(Object.keys(orders));
+  const [sortedTables, setSortedTables] = useState({});
 
   async function loadActiveOrders() {
     if (loading) return;
@@ -38,7 +40,7 @@ export default function Orders() {
         alert(err.response.data.error);
       } else {
         alert(
-          'Não foi possível carregar os pedidos ativos. Verifique sua conexão e tente novamnete'
+          'Não foi possível carregar os pedidos ativos. Verifique sua conexão e tente novamente.'
         );
       }
     }
@@ -50,11 +52,19 @@ export default function Orders() {
   }, []); //eslint-disable-line
 
   useEffect(() => {
-    const allOrders = Object.entries(orders).map(([_, tableOrders]) =>
-      Object.entries(tableOrders).map(([__, orderInfo]) => orderInfo)
-    );
+    const tableSort = {};
 
-    setSortedOrders(allOrders.flat().sort((a, b) => a.Timestamp - b.Timestamp));
+    const tableNumbers = Object.keys(orders).sort();
+
+    tableNumbers.forEach((tableNumber) => {
+      const tableOrdersTimestamps = Object.keys(orders[tableNumber]).sort();
+
+      tableSort[tableNumber] = tableOrdersTimestamps.map(
+        (timestamp) => orders[tableNumber][timestamp]
+      );
+    });
+
+    setSortedTables(tableSort);
   }, [orders]);
 
   function openModal(order) {
@@ -84,17 +94,23 @@ export default function Orders() {
         </div>
       )}
 
-      {sortedOrders.length > 0 &&
-        sortedOrders.map((order) => (
-          <Order
-            key={`${toString(order.TableNumber)}-${order.Timestamp}`}
-            order={order}
-            onClick={() => !order.loading && openModal(order)}
-          />
-        ))}
+      {Object.entries(sortedTables).map(([tableNumber, tableOrders]) => (
+        <>
+          <p className="table-label">Mesa {handleNumber(tableNumber)}</p>
 
-      {!loading && sortedOrders.length === 0 && (
-        <p className="hint">Não há chamados para atendimento ainda...</p>
+          {tableOrders &&
+            tableOrders.map((order) => (
+              <Order
+                key={`${toString(order.TableNumber)}-${order.Timestamp}`}
+                order={order}
+                onClick={() => !order.loading && openModal(order)}
+              />
+            ))}
+        </>
+      ))}
+
+      {!loading && Object.keys(sortedTables).length === 0 && (
+        <p className="hint">Não há nada aqui por enquanto...</p>
       )}
     </div>
   );

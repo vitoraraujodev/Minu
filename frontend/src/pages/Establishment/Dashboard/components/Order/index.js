@@ -3,7 +3,7 @@ import React from 'react';
 import './styles.css';
 
 export default function Order({ order, onClick }) {
-  /* 
+  /*
     Currently, this component only receives the table number and the timestamp of the order.
     In the near future, it should receive a list of orders for a given table, and expand (or open modal) to reveal all the information
   */
@@ -12,14 +12,7 @@ export default function Order({ order, onClick }) {
   const minutes = `0${date.getMinutes()}`;
   const formattedTime = `${hours}:${minutes.substr(-2)}`;
 
-  const tableNumber = order.TableNumber;
   const orderType = order.NotificationType;
-
-  function handleTableNumber() {
-    return tableNumber >= 0 && tableNumber <= 9
-      ? `0${tableNumber}`
-      : tableNumber;
-  }
 
   function handleBackgroundColor() {
     switch (orderType) {
@@ -34,19 +27,14 @@ export default function Order({ order, onClick }) {
   }
 
   function handleOrderText() {
-    const baseText = `Mesa ${handleTableNumber()}`;
-
     switch (orderType) {
       case 'waiterCall':
-        return baseText;
+        return 'Chamou o garçom';
       case 'billCall':
-        return (
-          <>
-            {baseText} - <b>Conta</b>
-          </>
-        );
+        return 'Pediu a conta';
+
       default:
-        return baseText;
+        return 'Chamou o garçom';
     }
   }
 
@@ -70,6 +58,7 @@ export default function Order({ order, onClick }) {
       onClick={onClick}
     >
       <span>{handleOrderText()}</span>
+
       <span>
         {order.loading ? (
           <div className="order-loader-container">

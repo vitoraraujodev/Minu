@@ -6,11 +6,11 @@ const INITIAL_STATE = {
 
 function returnWithoutKey(object, keyToRemove) {
   return Object.keys(object)
-  .filter((key) =>  keyToRemove !== key)
-  .reduce((obj, key) => {
-    obj[key] = object[key];
-    return obj;
-  }, {});
+    .filter((key) => keyToRemove !== key)
+    .reduce((obj, key) => {
+      obj[key] = object[key];
+      return obj;
+    }, {});
 }
 
 export default function tableSession(state = INITIAL_STATE, action) {
