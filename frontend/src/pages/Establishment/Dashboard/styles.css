@@ -6,26 +6,6 @@
   margin: 48px auto 0 auto;
 }
 
-#dashboard-page .header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 64px;
-  border-bottom: 1.5px solid #535BFE;
-}
-
-#dashboard-page .header-label {
-  margin-left: 16px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #535BFE;
-}
-
-#dashboard-page .orders {
-  margin-top: 24px;
-  padding-bottom: 48px;
-}
-
 #dashboard-page .hint {
   text-align: center;
   margin-top: 56px;

@@ -1,0 +1,10 @@
+#dashboard-page .orders {
+  margin-top: 24px;
+  padding-bottom: 48px;
+}
+
+@media screen and (max-width: 767px) {
+  #dashboard-page .orders {
+    padding-bottom: 96px;
+  }
+}

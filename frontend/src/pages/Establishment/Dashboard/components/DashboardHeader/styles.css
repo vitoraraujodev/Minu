@@ -1,0 +1,40 @@
+#dashboard-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#dashboard-header .tab{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#dashboard-header .tab-button,
+#dashboard-header .tab-button-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  width: 124px;
+  border: 0;
+}
+
+#dashboard-header .tab-button-selected {
+  border-bottom: 3px solid #535BFE;
+}
+
+
+@media screen and (max-width: 767px) {
+  #dashboard-header .tab-button,
+  #dashboard-header .tab-button-selected {
+    width: 80px;
+  }
+
+  #dashboard-header .tab-button-selected {
+    border-bottom: 2px solid #535BFE;
+  }
+}
