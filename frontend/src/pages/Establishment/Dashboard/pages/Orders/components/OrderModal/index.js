@@ -1,5 +1,9 @@
 import React from 'react';
 
+import Modal from '~/components/Modal';
+
+import handleNumber from '~/util/handleNumber';
+
 import './styles.css';
 
 export default function OrderModal({ order, loading, onClose, onArchive }) {
@@ -18,30 +22,24 @@ export default function OrderModal({ order, loading, onClose, onArchive }) {
     }
   }
 
-  function handleTableNumber() {
-    return tableNumber >= 0 && tableNumber <= 9
-      ? `0${tableNumber}`
-      : tableNumber;
-  }
-
   function handleOrderText() {
     switch (orderType) {
       case 'waiterCall':
         return (
           <>
-            A <b> mesa {handleTableNumber()}</b> chamou um garçom!
+            A <b> mesa {handleNumber(tableNumber)}</b> chamou um garçom!
           </>
         );
       case 'billCall':
         return (
           <>
-            A <b> mesa {handleTableNumber()}</b> deseja encerrar a conta!
+            A <b> mesa {handleNumber(tableNumber)}</b> deseja encerrar a conta!
           </>
         );
       default:
         return (
           <>
-            A <b> mesa {handleTableNumber()}</b> chamou um garçom!
+            A <b> mesa {handleNumber(tableNumber)}</b> chamou um garçom!
           </>
         );
     }
@@ -60,8 +58,8 @@ export default function OrderModal({ order, loading, onClose, onArchive }) {
   }
 
   return (
-    <div id="dashboard-order-modal">
-      <div className="modal-container">
+    <Modal onClose={onClose}>
+      <div id="dashboard-order-modal">
         <p className="modal-title">{handleOrderTitle()}</p>
 
         <p className="modal-text">{handleOrderText()}</p>
@@ -84,6 +82,6 @@ export default function OrderModal({ order, loading, onClose, onArchive }) {
           </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

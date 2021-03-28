@@ -13,19 +13,39 @@ function returnWithoutKey(object, keyToRemove) {
     }, {});
 }
 
+function parseTableSession(session) {
+  const Timestamp = parseInt(session.Timestamp, 10);
+
+  return { ...session, Timestamp };
+}
+
 export default function tableSession(state = INITIAL_STATE, action) {
   return producer(state, (draft) => {
     switch (action.type) {
-      case '@tableSession/ADD_TABLE_SESSION': {
-        const { TableNumber } = action.payload;
-        if (!draft.tableSession.hasOwnProperty(TableNumber)) {
-          draft.tableSession[TableNumber] = {};
-        }
+      case '@tableSession/ADD_TABLE_SESSIONS': {
+        const tableSessions = action.payload;
 
-        draft.tableSession[TableNumber] = action.payload;
+        tableSessions.forEach((session) => {
+          draft.tableSession[session.TableNumber] = parseTableSession(session);
+        });
         break;
       }
-      case '@tableSession/REMOVE_TABLE_SESSION': {
+
+      case '@tableSession/ADD_TABLE_SESSION': {
+        const { TableNumber } = action.payload;
+
+        draft.tableSession[TableNumber] = parseTableSession(action.payload);
+        break;
+      }
+
+      case '@tableSession/REMOVE_TABLE_SESSION_REQUEST': {
+        const { TableNumber } = action.payload;
+
+        draft.tableSession[TableNumber].loading = true;
+        break;
+      }
+
+      case '@tableSession/REMOVE_TABLE_SESSION_SUCCESS': {
         const { TableNumber } = action.payload;
         const stateClone = JSON.parse(JSON.stringify(state));
 
@@ -43,6 +63,14 @@ export default function tableSession(state = INITIAL_STATE, action) {
         }
         break;
       }
+
+      case '@tableSession/REMOVE_TABLE_SESSION_FAILURE': {
+        const { TableNumber } = action.payload;
+
+        draft.tableSession[TableNumber].loading = false;
+        break;
+      }
+
       default:
     }
   });

@@ -8,6 +8,7 @@ export default function Order({ order, onClick }) {
     In the near future, it should receive a list of orders for a given table, and expand (or open modal) to reveal all the information
   */
   const date = new Date(order.Timestamp);
+
   const hours = date.getHours();
   const minutes = `0${date.getMinutes()}`;
   const formattedTime = `${hours}:${minutes.substr(-2)}`;

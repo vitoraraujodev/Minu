@@ -7,7 +7,6 @@ const BILL_CALL_ARCHIVE = 'billCallArchive';
 const SESSION_OPEN = 'sessionOpen';
 const SESSION_CLOSE = 'sessionClose';
 
-
 function isWaiterCall(notificationInfo) {
   return (
     notificationInfo.NotificationType === WAITER_CALL ||
@@ -57,6 +56,9 @@ function isSessionNotification(notificationInfo) {
 
 function handleSessionNotification(notificationInfo) {
   delete notificationInfo._kafka;
+
+  notificationInfo.Timestamp = parseInt(notificationInfo.Timestamp, 10);
+
   return notificationInfo;
 }
 
@@ -71,7 +73,7 @@ export function ParseNotification(notification) {
     return handleBillCall(notificationInfo);
   }
 
-  if(isSessionNotification(notificationInfo)) {
+  if (isSessionNotification(notificationInfo)) {
     return handleSessionNotification(notificationInfo);
   }
 

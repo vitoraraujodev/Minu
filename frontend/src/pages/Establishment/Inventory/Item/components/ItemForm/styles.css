@@ -31,6 +31,7 @@
 /* Track */
 #item-page .slider::-webkit-scrollbar-track {
   background: #e6e6e6;
+  border-radius: 6px;
 }
 
 /* Handle */

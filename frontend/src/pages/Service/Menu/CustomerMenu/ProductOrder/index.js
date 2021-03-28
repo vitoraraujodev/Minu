@@ -16,7 +16,7 @@ import { addToCartRequest } from '~/store/modules/cart/actions';
 
 import history from '~/services/history';
 
-import { formatPrice } from '~/util/format';
+import { formatPrice } from '~/util/formatPrice';
 import capitalize from '~/util/capitalize';
 
 import './styles.css';

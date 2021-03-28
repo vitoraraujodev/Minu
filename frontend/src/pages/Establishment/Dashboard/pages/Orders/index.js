@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Order from '../../components/Order';
-import OrderModal from '../../components/OrderModal';
+import Order from './components/Order';
+import OrderModal from './components/OrderModal';
 
 import {
   addOpenCalls,
@@ -72,7 +72,7 @@ export default function Orders() {
     setSelectedOrder(order);
   }
 
-  function ArchiveOrder(order) {
+  function archiveOrder(order) {
     setModalVisible(false);
     dispatch(archiveOrderRequest(order));
   }
@@ -84,7 +84,7 @@ export default function Orders() {
           order={selectedOrder}
           loading={loading}
           onClose={() => setModalVisible(false)}
-          onArchive={() => ArchiveOrder(selectedOrder)}
+          onArchive={() => archiveOrder(selectedOrder)}
         />
       )}
 
@@ -95,18 +95,18 @@ export default function Orders() {
       )}
 
       {Object.entries(sortedTables).map(([tableNumber, tableOrders]) => (
-        <>
+        <div key={tableNumber} className="table-container">
           <p className="table-label">Mesa {handleNumber(tableNumber)}</p>
 
           {tableOrders &&
             tableOrders.map((order) => (
               <Order
-                key={`${toString(order.TableNumber)}-${order.Timestamp}`}
+                key={order.Timestamp}
                 order={order}
                 onClick={() => !order.loading && openModal(order)}
               />
             ))}
-        </>
+        </div>
       ))}
 
       {!loading && Object.keys(sortedTables).length === 0 && (

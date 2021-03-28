@@ -12,7 +12,7 @@ import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
 import handleHour from '~/util/handleHour';
-import { formatPrice } from '~/util/format';
+import { formatPrice } from '~/util/formatPrice';
 import capitalize from '~/util/capitalize';
 
 import history from '~/services/history';

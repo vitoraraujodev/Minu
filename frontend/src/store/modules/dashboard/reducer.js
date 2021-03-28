@@ -36,7 +36,7 @@ export default function dashboard(state = INITIAL_STATE, action) {
     switch (action.type) {
       case '@dashboard/ADD_ORDER': {
         const { TableNumber, Timestamp } = action.payload;
-        if (!draft.dashboard.hasOwnProperty(TableNumber)) {
+        if (!draft.dashboard[TableNumber]) {
           draft.dashboard[TableNumber] = {};
         }
 
@@ -119,7 +119,7 @@ export default function dashboard(state = INITIAL_STATE, action) {
             EstablishmentId,
           } = parseOpenCall(openCall);
 
-          if (!draft.dashboard.hasOwnProperty(TableNumber)) {
+          if (!draft.dashboard[TableNumber]) {
             draft.dashboard[TableNumber] = {};
           }
 

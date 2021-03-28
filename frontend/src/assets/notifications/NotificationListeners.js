@@ -11,7 +11,7 @@ import {
 } from '~/store/modules/dashboard/actions';
 import {
   addTableSession,
-  removeTableSession,
+  removeTableSessionSuccess,
 } from '~/store/modules/tableSession/actions';
 
 import { ParseNotification } from '~/assets/notifications/parseNotifications';
@@ -50,7 +50,7 @@ function handleSessionNotification(notification, dispatch) {
   if (notification.NotificationType === 'sessionOpen') {
     dispatch(addTableSession(notification));
   } else if (notification.NotificationType === 'sessionClose') {
-    dispatch(removeTableSession(notification));
+    dispatch(removeTableSessionSuccess(notification));
   }
 }
 

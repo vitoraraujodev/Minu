@@ -1,0 +1,43 @@
+#table-session-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #535BFE;
+  padding: 0 24px;
+  height: 64px;
+  width: 100%;
+  font-size: 21px;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+}
+
+#table-session-component:hover {
+  opacity: 0.9;
+}
+
+#table-session-component + #table-session-component {
+  margin-top: 12px;
+}
+
+#table-session-component .table-session-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#table-session-component .table-session-loader {
+  margin: 0 auto;
+  border: 4px solid #B4B7FF;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+}
+
+@media screen and (max-width: 767px) {
+  #table-session-component {
+    font-size: 20px;
+  }
+}

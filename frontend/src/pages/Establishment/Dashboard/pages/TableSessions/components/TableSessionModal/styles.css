@@ -1,0 +1,91 @@
+#dashboard-table-modal .modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+#dashboard-table-modal .modal-title {
+  color: #606060;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+#dashboard-table-modal .close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  right: 24px;
+  top: 24px;
+  border: 0;
+}
+
+#dashboard-table-modal .modal-orders-list {
+  width: 100%;
+  min-height: 120px;
+  max-height: 50vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+/* width */
+#dashboard-table-modal .modal-orders-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+#dashboard-table-modal .modal-orders-list::-webkit-scrollbar-track {
+  background: #e6e6e6;
+  border-radius: 6px;
+}
+
+/* Handle */
+#dashboard-table-modal .modal-orders-list::-webkit-scrollbar-thumb {
+  background: #acacac;
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+#dashboard-table-modal .modal-orders-list::-webkit-scrollbar-thumb:hover {
+  background: #9c9c9c;
+}
+
+#dashboard-table-modal .modal-total-block {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 16px;
+  padding: 16px 0;
+  border-top: 1.5px solid #acacac;
+}
+
+#dashboard-table-modal .modal-total-price {
+  font-size: 21px;
+  color: #6F6F6F;
+}
+
+#dashboard-table-modal .button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+}
+
+#dashboard-table-modal .modal-finish-button {
+  padding: 8px 16px;
+  width: 100%;
+  margin-right: 8px;
+  border: 1.5px solid #535BFE;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #535BFE;
+}
+
+#dashboard-table-modal .modal-finish-button:active {
+  background: #535BFE;
+  color: #fff;
+}

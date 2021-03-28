@@ -6,7 +6,16 @@ import customer from './customer/sagas';
 import dashboard from './dashboard/sagas';
 import session from './session/sagas';
 import cart from './cart/sagas';
+import tableSession from './tableSession/sagas';
 
 export default function* rootSaga() {
-  return yield all([auth, establishment, customer, dashboard, session, cart]);
+  return yield all([
+    auth,
+    establishment,
+    customer,
+    dashboard,
+    session,
+    cart,
+    tableSession,
+  ]);
 }

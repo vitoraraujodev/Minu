@@ -1,0 +1,10 @@
+#dashboard-page .tables {
+  margin-top: 24px;
+  padding-bottom: 48px;
+}
+
+@media screen and (max-width: 767px) {
+  #dashboard-page .tables {
+    padding-bottom: 96px;
+  }
+}

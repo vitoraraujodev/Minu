@@ -11,7 +11,7 @@ import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import { formatPrice } from '~/util/format';
+import { formatPrice } from '~/util/formatPrice';
 import capitalize from '~/util/capitalize';
 
 import history from '~/services/history';

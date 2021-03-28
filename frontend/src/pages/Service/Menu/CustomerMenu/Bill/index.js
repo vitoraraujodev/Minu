@@ -10,7 +10,7 @@ import { checkOutRequest } from '~/store/modules/session/actions';
 
 import history from '~/services/history';
 
-import { formatPrice } from '~/util/format';
+import { formatPrice } from '~/util/formatPrice';
 
 import './styles.css';
 
