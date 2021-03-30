@@ -67,10 +67,8 @@ export function* customerSignIn({ payload }) {
 }
 
 export function* signOut() {
-  if (window.confirm('Tem certeza que deseja sair?')) {
-    yield put(signOutSuccess());
-    history.push('/');
-  }
+  yield put(signOutSuccess());
+  history.push('/');
 }
 
 export function* setToken({ payload }) {

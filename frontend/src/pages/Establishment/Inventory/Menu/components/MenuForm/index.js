@@ -6,6 +6,7 @@ import DaySelector from '../DaySelector';
 import Header from '~/components/NavTabs/Establishment';
 import Input from '~/components/Input';
 import Actions from '~/components/Actions';
+import ConfirmationModal from '~/components/ConfirmationModal';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
@@ -23,6 +24,9 @@ export default function MenuForm({ menu, onSubmit, loading }) {
   const [windowWidth, setWindowWidth] = useState(768);
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [filled, setFilled] = useState(false);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(
+    false
+  );
 
   const [title, setTitle] = useState(menu.title || '');
   const [startAt, setStartAt] = useState(String(menu.start_at) || '');
@@ -59,9 +63,7 @@ export default function MenuForm({ menu, onSubmit, loading }) {
       availability !== menu.availability ||
       JSON.stringify(itemsId) !== JSON.stringify(menuItemsId)
     ) {
-      if (window.confirm('Deseja descartar as alterações?')) {
-        history.goBack();
-      }
+      setConfirmationModalVisible(true);
     } else {
       history.goBack();
     }
@@ -91,6 +93,15 @@ export default function MenuForm({ menu, onSubmit, loading }) {
   return (
     <div id="menu-page">
       {windowWidth >= 768 ? <Header /> : null}
+
+      {confirmationModalVisible && (
+        <ConfirmationModal
+          title="Deseja voltar?"
+          description="Sua alterações serão descartadas"
+          onClose={() => setConfirmationModalVisible(false)}
+          onConfirm={() => history.goBack()}
+        />
+      )}
 
       <div className="container">
         <div

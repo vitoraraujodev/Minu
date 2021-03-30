@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Header from '~/components/NavTabs/Establishment';
+import ConfirmationModal from '~/components/ConfirmationModal';
 
 import { LinkOption, ClickOption } from './components/Options';
 import ShareModal from './components/ShareModal';
@@ -24,7 +25,10 @@ export default function Profile() {
   );
 
   const [windowWidth, setWindowWidth] = useState(768);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [shareModalVisible, setSharesModalVisible] = useState(false);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(
+    false
+  );
 
   function handleResize() {
     const profile = document.getElementById('profile');
@@ -51,10 +55,18 @@ export default function Profile() {
 
   return (
     <div id="profile">
-      {modalVisible && (
+      {shareModalVisible && (
         <ShareModal
-          onClose={() => setModalVisible(false)}
+          onClose={() => setSharesModalVisible(false)}
           establishmentId={establishment.id}
+        />
+      )}
+
+      {confirmationModalVisible && (
+        <ConfirmationModal
+          title="Sair da sua conta?"
+          onClose={() => setConfirmationModalVisible(false)}
+          onConfirm={handleSignOut}
         />
       )}
 
@@ -105,11 +117,15 @@ export default function Profile() {
         <LinkOption route="/estabelecimento/endereco" text="Editar endereço" />
 
         <ClickOption
-          onClick={() => setModalVisible(true)}
+          onClick={() => setSharesModalVisible(true)}
           text="Compartilhar cardápio"
         />
 
-        <ClickOption onClick={handleSignOut} text="Sair" color="#FF3636" />
+        <ClickOption
+          onClick={() => setConfirmationModalVisible(true)}
+          text="Sair"
+          color="#FF3636"
+        />
       </div>
     </div>
   );

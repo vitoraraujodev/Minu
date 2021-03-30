@@ -1,6 +1,7 @@
 #actions-container {
   position: relative;
   display: none;
+  z-index: 100;
 }
 
 #actions-container .actions-button {

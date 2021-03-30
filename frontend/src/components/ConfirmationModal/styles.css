@@ -39,6 +39,7 @@
   color: #444;
   font-size: 21px;
   font-weight: 600;
+  margin-right: 16px;
 }
 
 #confirmation-modal .confirmation-description {
@@ -75,6 +76,9 @@
   background: #fe5f53;
   color: #fff;
 }
-@media screen and (max-width: 767px) {
 
+@media screen and (max-width: 767px) {
+  #confirmation-modal .confirmation-title{
+    font-size: 18px;
+  }
 }

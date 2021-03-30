@@ -3,8 +3,10 @@ import CurrencyInput from 'react-currency-input';
 
 import CategorySelector from '../CategorySelector';
 import AdditionalSelector from '../AdditionalSelector';
+
 import Header from '~/components/NavTabs/Establishment';
 import Actions from '~/components/Actions';
+import ConfirmationModal from '~/components/ConfirmationModal';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
@@ -23,6 +25,9 @@ export default function ItemForm({ item, onSubmit, loading }) {
   const [selectorVisible, setSelectorVisible] = useState(false);
   const [selectorType, setSelectorType] = useState(1); // 1 - category selector, 2 - additional selector
   const [filled, setFilled] = useState(false);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(
+    false
+  );
 
   const [photo, setPhoto] = useState(item.photo ? item.photo.url : '');
   const [file, setFile] = useState();
@@ -80,9 +85,7 @@ export default function ItemForm({ item, onSubmit, loading }) {
       category !== item.category ||
       JSON.stringify(additionalId) !== JSON.stringify(itemAdditionalsId)
     ) {
-      if (window.confirm('Deseja descartar as alterações?')) {
-        history.goBack();
-      }
+      setConfirmationModalVisible(true);
     } else {
       history.goBack();
     }
@@ -125,6 +128,15 @@ export default function ItemForm({ item, onSubmit, loading }) {
   return (
     <div id="item-page">
       {windowWidth >= 768 ? <Header /> : null}
+
+      {confirmationModalVisible && (
+        <ConfirmationModal
+          title="Deseja voltar?"
+          description="Sua alterações serão descartadas"
+          onClose={() => setConfirmationModalVisible(false)}
+          onConfirm={() => history.goBack()}
+        />
+      )}
 
       <div className="container">
         <div

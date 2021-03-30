@@ -95,7 +95,7 @@ export default function TableSessions() {
       {confirmationModalVisible && (
         <ConfirmationModal
           title="Finalizar sessão?"
-          description={`Libere a mesa ${selectedTable.TableNumber} para que um novo cliente possa sentar.`}
+          description={`Libere a mesa ${selectedTable.TableNumber} para que um novo cliente possa sentar`}
           onClose={() => setConfirmationModalVisible(false)}
           onConfirm={handleFinishTableSession}
         />

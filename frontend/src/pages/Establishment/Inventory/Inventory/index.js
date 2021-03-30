@@ -6,8 +6,9 @@ import CurrencyInput from 'react-currency-input';
 import Menu from './Menu';
 import Item from './Item';
 import Additional from './Additional';
-import Actions from '~/components/Actions';
 
+import Actions from '~/components/Actions';
+import ConfirmationModal from '~/components/ConfirmationModal';
 import Header from '~/components/NavTabs/Establishment';
 import PinModal from '~/components/PinModal';
 import Accordion from '~/components/Accordion';
@@ -39,6 +40,9 @@ export default function Inventory() {
   const [pinModalVisible, setPinModalVisible] = useState(false);
   const [additionalForm, setAdditionalForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(
+    false
+  );
 
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState(0.0);
@@ -123,7 +127,7 @@ export default function Inventory() {
     setPrice(newPrice);
   }, [maskedPrice]);
 
-  async function handleSubmit() {
+  async function handleSubmitAdditional() {
     const data = {
       title,
       price,
@@ -136,7 +140,13 @@ export default function Inventory() {
       setTitle('');
       setMaskedPrice('R$ 0,00');
     } catch (err) {
-      if (err.response) alert(err.response.data.error);
+      if (err.response && err.response.data) {
+        alert(err.response.data.error);
+      } else {
+        alert(
+          'Houve um erro ao criar esse adicional. Verifique sua conexão e tente novamente.'
+        );
+      }
     }
   }
 
@@ -151,6 +161,15 @@ export default function Inventory() {
             dispatch(inventoryAccess(true));
             setPinModalVisible(false);
           }}
+        />
+      )}
+
+      {confirmationModalVisible && (
+        <ConfirmationModal
+          title="Deseja deletar?"
+          description="Este item será deletado permanentemente"
+          onClose={() => setConfirmationModalVisible(false)}
+          onConfirm={() => {}}
         />
       )}
 
@@ -441,7 +460,7 @@ export default function Inventory() {
                     }}
                   />
                   {title ? (
-                    <div className="icon-area" onClick={handleSubmit}>
+                    <div className="icon-area" onClick={handleSubmitAdditional}>
                       <SaveIcon style={{ height: 20 }} />
                     </div>
                   ) : (
