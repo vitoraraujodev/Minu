@@ -38,9 +38,17 @@ export default function dashboard(state = INITIAL_STATE, action) {
         const { TableNumber, Timestamp } = action.payload;
         if (!draft.dashboard[TableNumber]) {
           draft.dashboard[TableNumber] = {};
-        }
 
-        draft.dashboard[TableNumber][Timestamp] = action.payload;
+          draft.dashboard[TableNumber][Timestamp] = action.payload;
+        } else {
+          const notificationTypes = Object.values(
+            draft.dashboard[TableNumber]
+          ).map((orders) => orders.NotificationType);
+
+          if (!notificationTypes.includes(action.payload.NotificationType)) {
+            draft.dashboard[TableNumber][Timestamp] = action.payload;
+          }
+        }
         break;
       }
       case '@dashboard/ARCHIVE_ORDER_REQUEST': {
