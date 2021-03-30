@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { FiPlus } from 'react-icons/fi';
 
 import ConfirmationModal from '~/components/ConfirmationModal';
 
 import TableSession from './components/TableSession';
 import TableSessionModal from './components/TableSessionModal';
+import AddTableModal from './components/AddTableModal';
 
 import {
   addTableSessions,
@@ -21,7 +23,8 @@ export default function TableSessions() {
   const tableSession = useSelector((state) => state.tableSession.tableSession);
 
   const [loading, setLoading] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [tableModalVisible, setTableModalVisible] = useState(false);
+  const [addModalVisible, setAddModalVisible] = useState(false);
   const [confirmationModalVisible, setConfirmationModalVisible] = useState(
     false
   );
@@ -67,12 +70,12 @@ export default function TableSessions() {
   }, [tableSession]);
 
   function openModal(table) {
-    setModalVisible(true);
+    setTableModalVisible(true);
     setSelectedTable(table);
   }
 
   async function handleFinishTableSession() {
-    setModalVisible(false);
+    setTableModalVisible(false);
     setConfirmationModalVisible(false);
 
     dispatch(removeTableSessionRequest(selectedTable));
@@ -80,11 +83,11 @@ export default function TableSessions() {
 
   return (
     <div className="tables">
-      {modalVisible && (
+      {tableModalVisible && (
         <TableSessionModal
           table={selectedTable}
           loading={loading}
-          onClose={() => setModalVisible(false)}
+          onClose={() => setTableModalVisible(false)}
           onFinishTableSession={() => setConfirmationModalVisible(true)}
         />
       )}
@@ -96,6 +99,10 @@ export default function TableSessions() {
           onClose={() => setConfirmationModalVisible(false)}
           onConfirm={handleFinishTableSession}
         />
+      )}
+
+      {addModalVisible && (
+        <AddTableModal onClose={() => setAddModalVisible(false)} />
       )}
 
       {loading && (
@@ -115,6 +122,16 @@ export default function TableSessions() {
       {!loading && Object.keys(sortedTables).length === 0 && (
         <p className="hint">Não há nenhuma mesa ativa por enquanto...</p>
       )}
+
+      <div className="add-button-container">
+        <button
+          type="button"
+          className="add-table-button"
+          onClick={() => setAddModalVisible(true)}
+        >
+          <FiPlus size={32} color="#535bfe" />
+        </button>
+      </div>
     </div>
   );
 }

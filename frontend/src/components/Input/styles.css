@@ -6,10 +6,10 @@
 #input-component .input-component {
   width: 100%;
   padding: 0 16px;
-  height: 32px;
+  height: 40px;
   border-radius: 5px;
   border: 1px solid #9C9C9C;
-  font-size: 15px;
+  font-size: 17px;
   color: #444444;
 };
 
@@ -22,11 +22,6 @@
 
 #input-component .suffix {
   padding-right: 24px;
-}
-
-#input-component .input-component::placeholder {
-  color: #9C9C9C;
-  font-size: 14px;
 }
 
 #input-component .prefix-container,
@@ -50,3 +45,11 @@
   right: 12px;
   top: 1px;
 }
+
+@media screen and (max-width: 767px) {
+  #input-component .input-component {
+    height: 32px;
+    font-size: 15px;
+  }
+}
+

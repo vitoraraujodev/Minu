@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import axios from 'axios';
 
 const openPostEndpoint = 'https://sessions.seuminu.com/sessionOpen';
@@ -26,10 +27,26 @@ class TableSessionsController {
   }
 
   async store(req, res) {
+    const schema = Yup.object().shape({
+      tableNumber: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
+    }
+
     const payload = { ...req.body, establishmentId: req.establishmentId };
+
     try {
-      await axios.post(openPostEndpoint, JSON.stringify(payload), { headers });
-      return res.status(200).json({ okay: true });
+      const response = await axios.post(
+        openPostEndpoint,
+        JSON.stringify(payload),
+        { headers }
+      );
+
+      return res.status(200).json(response.data);
     } catch (err) {
       return res.status(400).json({
         error:
@@ -39,6 +56,16 @@ class TableSessionsController {
   }
 
   async delete(req, res) {
+    const schema = Yup.object().shape({
+      tableNumber: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({
+        error: 'Dados inválidos. Por favor, verifique e tente novamente.',
+      });
+    }
+
     const payload = { ...req.body, establishmentId: req.establishmentId };
     try {
       await axios.post(closePostEndpoint, JSON.stringify(payload), { headers });

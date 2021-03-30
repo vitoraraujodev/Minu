@@ -1,0 +1,41 @@
+#dashboard-add-modal .modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+#dashboard-add-modal .modal-title {
+  color: #606060;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+#dashboard-add-modal .close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  right: 24px;
+  top: 24px;
+  border: 0;
+}
+
+#dashboard-add-modal .modal-add-button {
+  padding: 8px 16px;
+  width: 100%;
+  margin-top: 24px;
+  margin-right: 8px;
+  border: 1.5px solid #535BFE;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #535BFE;
+}
+
+#dashboard-add-modal .modal-add-button:active {
+  background: #535BFE;
+  color: #fff;
+}
