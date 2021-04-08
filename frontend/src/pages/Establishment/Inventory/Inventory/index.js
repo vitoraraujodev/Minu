@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import CurrencyInput from 'react-currency-input';
 
 import Menu from './Menu';
-import Item from './Item';
 import Additional from './Additional';
 
+import Product from '~/components/Product';
 import Actions from '~/components/Actions';
 import ConfirmationModal from '~/components/ConfirmationModal';
 import Header from '~/components/NavTabs/Establishment';
@@ -238,7 +238,7 @@ export default function Inventory() {
                         state: { item },
                       }}
                     >
-                      <Item item={item} />
+                      <Product product={item} />
                     </Link>
 
                     <div className="icon-area">
@@ -279,7 +279,7 @@ export default function Inventory() {
                         state: { item },
                       }}
                     >
-                      <Item item={item} />
+                      <Product product={item} />
                     </Link>
 
                     <div className="icon-area">
@@ -318,7 +318,7 @@ export default function Inventory() {
                         state: { item },
                       }}
                     >
-                      <Item item={item} />
+                      <Product product={item} />
                     </Link>
 
                     <div className="icon-area">
@@ -359,7 +359,7 @@ export default function Inventory() {
                         state: { item },
                       }}
                     >
-                      <Item item={item} />
+                      <Product product={item} />
                     </Link>
 
                     <div className="icon-area">
@@ -400,7 +400,7 @@ export default function Inventory() {
                         state: { item },
                       }}
                     >
-                      <Item item={item} />
+                      <Product product={item} />
                     </Link>
 
                     <div className="icon-area">

@@ -57,6 +57,7 @@
   font-weight: 600;
   color: #6e6e6e;
 }
+
 #inventory .item-container + .category-text{
   margin-top: 4px;
 }

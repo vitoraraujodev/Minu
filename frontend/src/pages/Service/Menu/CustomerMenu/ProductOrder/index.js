@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaCheck } from 'react-icons/fa';
+import { FiCheck } from 'react-icons/fa';
 
 import OrderModal from './OrderModal';
 
@@ -155,7 +155,7 @@ export default function ProductOrder({ location }) {
                 <div className="check-box">
                   {additionals.includes(additional) && (
                     <div className="check-box-selected">
-                      <FaCheck size={10} color="white" />
+                      <FiCheck size={10} color="white" />
                     </div>
                   )}
                 </div>

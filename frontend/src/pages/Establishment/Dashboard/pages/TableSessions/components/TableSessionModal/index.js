@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import ProductPicker from '../ProductPicker';
 
 import Modal from '~/components/Modal';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
+import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 
 import handleNumber from '~/util/handleNumber';
 import { formatPrice } from '~/util/formatPrice';
@@ -14,6 +17,8 @@ export default function TableSessionModal({
   onClose,
   onFinishTableSession,
 }) {
+  const [openList, setOpenList] = useState(false);
+
   return (
     <Modal onClose={onClose}>
       <div id="dashboard-table-modal">
@@ -25,23 +30,40 @@ export default function TableSessionModal({
           </button>
         </div>
 
-        <div className="modal-orders-list">
-          <p className="hint">Ainda não há pedidos nessa mesa...</p>
-        </div>
+        <div className="modal-content">
+          {openList && <ProductPicker onCancel={() => setOpenList(false)} />}
 
-        <div className="modal-total-block">
-          <p className="modal-total-price">
-            <b>Total: </b> {formatPrice(0)}
-          </p>
-        </div>
+          <div className="modal-orders-list">
+            <div
+              className="add-order-container"
+              onClick={() => setOpenList(true)}
+            >
+              <AddIcon
+                style={{ height: 16, marginRight: 8, minWidth: 16 }}
+                fill="#535BFE"
+              />
+              Anotar pedido
+            </div>
 
-        <button
-          type="button"
-          onClick={onFinishTableSession}
-          className="modal-finish-button"
-        >
-          Finalizar sessão
-        </button>
+            <div className="modal-hint-container">
+              <p className="modal-hint">Ainda não há pedidos nessa mesa...</p>
+            </div>
+          </div>
+
+          <div className="modal-total-block">
+            <p className="modal-total-price">
+              <b>Total: </b> {formatPrice(0)}
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={onFinishTableSession}
+            className="modal-finish-button"
+          >
+            Finalizar sessão
+          </button>
+        </div>
       </div>
     </Modal>
   );
