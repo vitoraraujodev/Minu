@@ -45,7 +45,12 @@ class TableSessionsController {
         JSON.stringify(payload),
         { headers }
       );
+      const data = response.data;
 
+      if(data.status !== "SUCCEEDED"){
+        throw {"error": data.error, "message": data.cause};
+      }
+      
       return res.status(200).json(response.data);
     } catch (err) {
       return res.status(400).json({
