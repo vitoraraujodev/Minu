@@ -1,12 +1,10 @@
 #loader-container {
-  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #loader-container .loader {
-  margin: 0 auto;
   border-radius: 50%;
   animation: spin 2s linear infinite;
 }
