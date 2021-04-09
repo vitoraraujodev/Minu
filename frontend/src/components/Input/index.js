@@ -4,6 +4,7 @@ import './styles.css';
 
 export default function Input({
   value = '',
+  variant = 'primary',
   maxLength = null,
   readOnly = false,
   disabled = false,
@@ -22,7 +23,12 @@ export default function Input({
     const prefixClass = prefix ? 'prefix' : '';
     const suffixClass = suffix ? 'suffix' : '';
 
-    return `input-component ${prefixClass} ${suffixClass} ${extraClass}`;
+    const styleVariant =
+      variant !== 'primary' && variant !== 'secondary' && variant !== 'tertiary'
+        ? 'primary'
+        : variant;
+
+    return `input-component ${styleVariant} ${prefixClass} ${suffixClass} ${extraClass}`;
   }
 
   return (

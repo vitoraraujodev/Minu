@@ -16,6 +16,19 @@
 #input-component .fodase {
 }
 
+#input-component .primary {
+  border: 1px solid #9C9C9C;
+}
+
+#input-component .secondary {
+  border: 1px solid #535bfe;
+}
+
+#input-component .tertiary {
+  border: 0;
+  box-shadow: 0px 0px 4px #00000029;
+}
+
 #input-component .prefix {
   text-indent: 32px;
 }
