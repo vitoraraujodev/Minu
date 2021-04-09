@@ -1,6 +1,7 @@
 #input-component {
   position: relative;
   width: 100%;
+  display: flex;
 }
 
 #input-component .input-component {

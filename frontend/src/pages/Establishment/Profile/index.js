@@ -8,10 +8,12 @@ import ConfirmationModal from '~/components/ConfirmationModal';
 import { LinkOption, ClickOption } from './components/Options';
 import ShareModal from './components/ShareModal';
 
-import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
+// import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
+
+import handleEstablishmentAddress from '~/util/handleEstablishmentAddress';
 
 import defaultPicture from '~/assets/images/default-picture.png';
 
@@ -100,12 +102,16 @@ export default function Profile() {
             <div className="title-area">
               <span className="title">{establishment.establishment_name}</span>
             </div>
-            <div className="rating-area">
-              <span className="rating-text">
+            <div className="address-area">
+              <span className="address-text">
+                {handleEstablishmentAddress(establishment)}
+              </span>
+
+              {/* <span className="rating-text">
                 {establishment.rating ? establishment.rating.toFixed(1) : '0.0'}
               </span>
               <RatingStar style={{ height: 15, margin: '0 4px' }} />
-              <span className="rating-text">({establishment.raters || 0})</span>
+              <span className="rating-text">({establishment.raters || 0})</span> */}
             </div>
           </div>
         </div>

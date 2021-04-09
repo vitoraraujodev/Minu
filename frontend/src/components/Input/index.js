@@ -17,6 +17,7 @@ export default function Input({
   extraClass = '',
   maxWidth = '100%',
   onKeyDown = () => {},
+  onBlur = () => {},
   onChange = () => {},
 }) {
   function handleClassName() {
@@ -45,6 +46,7 @@ export default function Input({
         className={handleClassName()}
         style={style}
         onKeyDown={onKeyDown}
+        onBlur={onBlur}
         onChange={onChange}
         placeholder={placeholder}
       />

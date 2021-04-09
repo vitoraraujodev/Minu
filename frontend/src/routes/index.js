@@ -3,7 +3,7 @@ import { Router, Switch, Redirect } from 'react-router-dom';
 import Route from './Route';
 
 import EstablishmentHome from '~/pages/Auth/Establishment/Home';
-import EstablishmentSignUp from '~/pages/Auth/Establishment/SignUp';
+import EstablishmentSignUp from '~/pages/Auth/Access/Establishment/pages/SignUp';
 import EstablishmentSignIn from '~/pages/Auth/Establishment/SignIn';
 
 // import CustomerHome from '~/pages/Auth/Customer/Home';

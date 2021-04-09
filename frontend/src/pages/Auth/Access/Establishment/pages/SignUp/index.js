@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 
-import './styles.css';
-
 import ProgressionBar from '~/components/ProgressionBar';
-import NameForm from './Forms/Name';
-import InformationForm from './Forms/Information';
-import AddressForm from './Forms/Address';
-import AdmPinForm from './Forms/AdmPin';
-import EndForm from './Forms/End';
+
+import NameForm from './components/Forms/Name';
+import InformationForm from './components/Forms/Information';
+import AddressForm from './components/Forms/Address';
+import AdmPinForm from './components/Forms/AdmPin';
+import EndForm from './components/Forms/End';
 
 import history from '~/services/history';
 import api from '~/services/api';
 
 import capitalize from '~/util/capitalize';
 
+import '../../../styles.css';
+
 export default function SignUp() {
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const [establishmentName, setEstablishmentName] = useState('');
   const [managerName, setManagerName] = useState('');
@@ -35,6 +37,10 @@ export default function SignUp() {
   const [adminPin, setAdminPin] = useState('');
 
   async function handleSubmit() {
+    if (loading) return;
+
+    setLoading(true);
+
     const data = {
       establishment_name: capitalize(establishmentName),
       manager_name: capitalize(managerName),
@@ -59,10 +65,11 @@ export default function SignUp() {
         alert(err.response.data.error);
       } else {
         alert(
-          'Houve um erro ao verificar seu email. Tente novamente mais tarde.'
+          'Houve um erro ao registrar seu restaurante. Tente novamente mais tarde.'
         );
       }
     }
+    setLoading(false);
   }
 
   function handleNext() {
@@ -84,8 +91,8 @@ export default function SignUp() {
   }
 
   return (
-    <div id="establishment-sign-up">
-      <div style={step === 5 ? { margin: 0 } : null} className="form">
+    <div id="access-page">
+      <div className="container">
         {step < 5 && <ProgressionBar step={step} maxSteps={4} />}
 
         {step === 1 && (
@@ -137,6 +144,7 @@ export default function SignUp() {
           <AdmPinForm
             adminPin={adminPin}
             onChangeAdminPin={(pass) => setAdminPin(pass)}
+            loading={loading}
             onNextPage={() => handleNext()}
             onBackPage={() => handleBack()}
           />

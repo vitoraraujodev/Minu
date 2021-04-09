@@ -100,6 +100,21 @@
   font-weight: 600;
 }
 
+#profile .address-area {
+  display: flex;
+  align-items: center;
+  max-width: 80%;
+}
+
+#profile .address-text {
+  color: #6F6F6F;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #profile .rating-area {
   display: flex;
   align-items: center;
@@ -109,6 +124,9 @@
   color: #6F6F6F;
   font-size: 15px;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 767px) {

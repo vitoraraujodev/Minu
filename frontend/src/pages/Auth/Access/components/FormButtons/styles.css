@@ -1,0 +1,38 @@
+#form-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 64px;
+}
+
+#form-buttons-container .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  border: 0;
+  font-size: 21px;
+  font-weight: 600;
+  background: none;
+}
+
+#form-buttons-container .next {
+  color: #535BFE;
+}
+
+#form-buttons-container .back {
+  color: #606060;
+}
+
+#form-buttons-container .button:disabled {
+  color: #acacac;
+  cursor: default;
+}
+
+
+@media screen and (max-width: 767px) {
+  #form-buttons-container .button {
+    font-size: 19px;
+  }
+}
