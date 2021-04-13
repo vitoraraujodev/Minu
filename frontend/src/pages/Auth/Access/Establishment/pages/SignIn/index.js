@@ -39,6 +39,8 @@ export default function SignUp() {
         <ProgressionBar step={1} maxSteps={3} />
 
         <div className="form-container">
+          <p className="auth-title">Acesse seu Minu!</p>
+
           <p className="label">Insira seu E-mail</p>
           <Input
             type="email"

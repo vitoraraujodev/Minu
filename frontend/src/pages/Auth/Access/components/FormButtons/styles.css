@@ -30,7 +30,6 @@
   cursor: default;
 }
 
-
 @media screen and (max-width: 767px) {
   #form-buttons-container .button {
     font-size: 19px;
