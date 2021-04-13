@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Router, Switch, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import Route from './Route';
 
 import EstablishmentHome from '~/pages/Auth/Establishment/Home';
@@ -38,9 +40,17 @@ import BasicProductOrder from '~/pages/Service/Menu/BasicMenu/ProductOrder';
 // import CustomerSession from '~/pages/Service/Session/CustomerSession';
 import BasicSession from '~/pages/Service/Session/BasicSession';
 
+import { refreshState } from '~/store/modules/global/action';
+
 import history from '~/services/history';
 
 export default function Routes() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshState());
+  });
+
   return (
     <Router history={history}>
       <Switch>

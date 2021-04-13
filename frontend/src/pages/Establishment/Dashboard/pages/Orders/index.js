@@ -9,7 +9,7 @@ import {
   archiveOrderRequest,
 } from '~/store/modules/dashboard/actions';
 
-import handleNumber from '~/util/handleNumber';
+import formatNumber from '~/util/formatNumber';
 
 import api from '~/services/api';
 
@@ -96,7 +96,7 @@ export default function Orders() {
 
       {Object.entries(sortedTables).map(([tableNumber, tableOrders]) => (
         <div key={tableNumber} className="table-container">
-          <p className="table-label">Mesa {handleNumber(tableNumber)}</p>
+          <p className="table-label">Mesa {formatNumber(tableNumber)}</p>
 
           {tableOrders &&
             tableOrders.map((order) => (

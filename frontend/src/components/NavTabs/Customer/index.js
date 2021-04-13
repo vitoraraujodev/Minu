@@ -10,7 +10,7 @@ import './styles.css';
 export default function CustomerTab() {
   const location = useLocation();
 
-  const session = useSelector((state) => state.session.signed);
+  const session = useSelector((state) => state.serviceSession.signed);
 
   const [active, setActive] = useState('customer');
 

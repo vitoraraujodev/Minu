@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from '~/components/Modal';
 
-import handleNumber from '~/util/handleNumber';
+import formatNumber from '~/util/formatNumber';
 
 import './styles.css';
 
@@ -27,19 +27,19 @@ export default function OrderModal({ order, loading, onClose, onArchive }) {
       case 'waiterCall':
         return (
           <>
-            A <b> mesa {handleNumber(tableNumber)}</b> chamou um garçom!
+            A <b> mesa {formatNumber(tableNumber)}</b> chamou um garçom!
           </>
         );
       case 'billCall':
         return (
           <>
-            A <b> mesa {handleNumber(tableNumber)}</b> deseja encerrar a conta!
+            A <b> mesa {formatNumber(tableNumber)}</b> deseja encerrar a conta!
           </>
         );
       default:
         return (
           <>
-            A <b> mesa {handleNumber(tableNumber)}</b> chamou um garçom!
+            A <b> mesa {formatNumber(tableNumber)}</b> chamou um garçom!
           </>
         );
     }

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   establishment: null,
 };
 
-export default function session(state = INITIAL_STATE, action) {
+export default function serviceSession(state = INITIAL_STATE, action) {
   return producer(state, (draft) => {
     switch (action.type) {
       case '@session/CHECK_SESSION': {

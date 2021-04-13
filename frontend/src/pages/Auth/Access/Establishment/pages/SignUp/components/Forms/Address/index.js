@@ -197,6 +197,7 @@ export default function Address({
           <Input
             variant="tertiary"
             inputMode="numeric"
+            type="number"
             value={addressNumber}
             className="form-input"
             onChange={(e) => onChangeAddressNumber(e.target.value)}

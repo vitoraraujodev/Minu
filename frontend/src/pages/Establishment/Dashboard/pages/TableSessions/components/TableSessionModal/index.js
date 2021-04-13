@@ -7,7 +7,7 @@ import Modal from '~/components/Modal';
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 
-import handleNumber from '~/util/handleNumber';
+import formatNumber from '~/util/formatNumber';
 import { formatPrice } from '~/util/formatPrice';
 
 import './styles.css';
@@ -23,7 +23,7 @@ export default function TableSessionModal({
     <Modal onClose={onClose}>
       <div id="dashboard-table-modal">
         <div className="modal-header">
-          <p className="modal-title">Mesa {handleNumber(table.TableNumber)}</p>
+          <p className="modal-title">Mesa {formatNumber(table.TableNumber)}</p>
 
           <button type="button" onClick={onClose} className="close-button">
             <Close size="24" />

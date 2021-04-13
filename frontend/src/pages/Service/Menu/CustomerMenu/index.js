@@ -16,7 +16,7 @@ import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { setSessionEstablishment } from '~/store/modules/session/actions';
+import { setSessionEstablishment } from '~/store/modules/serviceSession/actions';
 
 import './styles.css';
 
@@ -24,7 +24,7 @@ export default function CustomerMenu() {
   const dispatch = useDispatch();
 
   const stateEstablishment = useSelector(
-    (state) => state.session.establishment
+    (state) => state.serviceSession.establishment
   );
 
   const [loading, setLoading] = useState(false);

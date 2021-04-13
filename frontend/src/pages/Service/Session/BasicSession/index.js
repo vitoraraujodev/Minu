@@ -6,7 +6,7 @@ import leaflet from '~/assets/images/leaflet.jpg';
 
 import history from '~/services/history';
 
-import { removeSessionEstablishment } from '~/store/modules/session/actions';
+import { removeSessionEstablishment } from '~/store/modules/serviceSession/actions';
 
 import '../styles.css';
 
@@ -14,7 +14,7 @@ export default function Session() {
   const dispatch = useDispatch();
 
   const stateEstablishment = useSelector(
-    (state) => state.session.establishment
+    (state) => state.serviceSession.establishment
   );
 
   const [code, setCode] = useState('');

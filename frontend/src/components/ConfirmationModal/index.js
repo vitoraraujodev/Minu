@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from '~/components/Button';
+
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import './styles.css';
@@ -27,13 +29,9 @@ export default function ConfirmationModal({
           <p className="confirmation-description">{description}</p>
         )}
 
-        <button
-          type="button"
-          onClick={onConfirm}
-          className="modal-confirmation-button"
-        >
+        <Button variant="warning" onClick={onConfirm}>
           Confirmar
-        </button>
+        </Button>
       </div>
     </div>
   );

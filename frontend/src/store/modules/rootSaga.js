@@ -4,7 +4,7 @@ import auth from './auth/sagas';
 import establishment from './establishment/sagas';
 import customer from './customer/sagas';
 import dashboard from './dashboard/sagas';
-import session from './session/sagas';
+import serviceSession from './serviceSession/sagas';
 import cart from './cart/sagas';
 import tableSession from './tableSession/sagas';
 
@@ -14,7 +14,7 @@ export default function* rootSaga() {
     establishment,
     customer,
     dashboard,
-    session,
+    serviceSession,
     cart,
     tableSession,
   ]);

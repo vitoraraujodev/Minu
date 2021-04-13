@@ -60,7 +60,8 @@ export default function Information({
         onNextPage();
       } catch (err) {
         setInvalidEmail(true);
-        if (err.response.data.error) {
+        setLoading(false);
+        if (err.response && err.response.data.error) {
           alert(err.response.data.error);
         } else {
           alert(
@@ -68,7 +69,6 @@ export default function Information({
           );
         }
       }
-      setLoading(false);
     }
   }
 

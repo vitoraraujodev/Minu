@@ -30,6 +30,7 @@ export default function Name({
       <Input
         value={establishmentName}
         variant="tertiary"
+        style={{ textTransform: 'capitalize' }}
         onChange={(e) => onChangeEstablishmentName(e.target.value)}
         placeholder="Restaurante X"
       />

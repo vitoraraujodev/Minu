@@ -22,7 +22,7 @@ export default function EditMenu({ location }) {
       history.push('/inventario');
     } catch (err) {
       setLoading(false);
-      if (err.response.data.error) {
+      if (err.response && err.response.data.error) {
         alert(err.response.data.error);
       } else {
         alert(

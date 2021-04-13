@@ -61,24 +61,12 @@
   border: 0;
 }
 
-#confirmation-modal .modal-confirmation-button {
-  margin-top: 24px;
-  padding: 8px 16px;
-  width: 100%;
-  border: 1.5px solid #fe5f53;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fe5f53;
-}
-
-#confirmation-modal .modal-confirmation-button:active {
-  background: #fe5f53;
-  color: #fff;
+#confirmation-modal #button-component {
+  margin-top: 16px;
 }
 
 @media screen and (max-width: 767px) {
-  #confirmation-modal .confirmation-title{
+  #confirmation-modal .confirmation-title {
     font-size: 18px;
   }
 }

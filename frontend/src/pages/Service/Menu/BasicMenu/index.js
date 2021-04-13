@@ -25,7 +25,7 @@ import history from '~/services/history';
 import {
   setSessionEstablishment,
   removeSessionEstablishment,
-} from '~/store/modules/session/actions';
+} from '~/store/modules/serviceSession/actions';
 
 import './styles.css';
 
@@ -33,7 +33,7 @@ export default function BasicMenu() {
   const dispatch = useDispatch();
 
   const stateEstablishment = useSelector(
-    (state) => state.session.establishment
+    (state) => state.serviceSession.establishment
   );
 
   const [loading, setLoading] = useState(false);

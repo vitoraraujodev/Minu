@@ -1,6 +1,6 @@
 import React from 'react';
 
-import handleNumber from '~/util/handleNumber';
+import formatNumber from '~/util/formatNumber';
 
 import './styles.css';
 
@@ -17,7 +17,7 @@ export default function TableSession({ table, onClick }) {
 
   return (
     <button type="button" id="table-session-component" onClick={onClick}>
-      <span>Mesa {handleNumber(table.TableNumber)}</span>
+      <span>Mesa {formatNumber(table.TableNumber)}</span>
 
       <span>
         {table.loading ? (

@@ -6,7 +6,7 @@ import BillPending from './BillPending';
 
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 
-import { checkOutRequest } from '~/store/modules/session/actions';
+import { checkOutRequest } from '~/store/modules/serviceSession/actions';
 
 import history from '~/services/history';
 

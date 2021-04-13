@@ -6,14 +6,14 @@ import NavTab from '~/components/NavTabs/Customer';
 
 import leaflet from '~/assets/images/leaflet.jpg';
 
-import { checkInRequest } from '~/store/modules/session/actions';
+import { checkInRequest } from '~/store/modules/serviceSession/actions';
 
 import '../styles.css';
 
 export default function CustomerSession() {
   const dispatch = useDispatch();
 
-  const loading = useSelector((state) => state.session.loading);
+  const loading = useSelector((state) => state.serviceSession.loading);
 
   const [code, setCode] = useState('');
   const [inputs, setInputs] = useState([]);
