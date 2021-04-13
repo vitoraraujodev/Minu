@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import jwt from 'jsonwebtoken';
 import { Op } from 'sequelize';
 
 import Establishment from '../models/Establishment';
@@ -9,6 +10,8 @@ import Additional from '../models/Additional';
 import EstablishmentRating from '../models/EstablishmentRating';
 import ItemRating from '../models/ItemRating';
 import Customer from '../models/Customer';
+
+import authConfig from '../../config/auth';
 
 import { handleActiveMenus } from '../../utils';
 
@@ -226,9 +229,46 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
-    await Establishment.create(req.body);
+    const {
+      id,
+      cnpj,
+      establishment_name,
+      manager_name,
+      manager_lastname,
+      cep,
+      address_number,
+      street,
+      complement,
+      city,
+      state,
+      photo,
+    } = await Establishment.create(req.body);
 
-    return res.json({ okay: true });
+    const establishment = {
+      id,
+      cnpj,
+      establishment_name,
+      manager_name,
+      manager_lastname,
+      cep,
+      address_number,
+      street,
+      complement,
+      city,
+      state,
+      photo,
+    };
+
+    return res.json({
+      establishment,
+      token: jwt.sign(
+        { id: establishment.id, kind: 'establishment' },
+        authConfig.secret,
+        {
+          expiresIn: authConfig.expiresIn,
+        }
+      ),
+    });
   }
 
   async update(req, res) {

@@ -1,4 +1,3 @@
-import aws from 'aws-sdk';
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
@@ -7,11 +6,6 @@ import EstablishmentRating from '../models/EstablishmentRating';
 import File from '../models/File';
 
 import authConfig from '../../config/auth';
-
-const ENV = process.env.NODE_ENV;
-
-const bucketName =
-  ENV && ENV === 'production' ? 'minu-general' : 'minu-development';
 
 class EstablishmentSessionController {
   async store(req, res) {
