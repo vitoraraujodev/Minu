@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ProgressionBar from '~/components/ProgressionBar';
+import SuccessCover from '~/components/SuccessCover';
 
 import NameForm from './components/Forms/Name';
 import InformationForm from './components/Forms/Information';
 import AddressForm from './components/Forms/Address';
 import AdmPinForm from './components/Forms/AdmPin';
-import EndForm from './components/Forms/End';
+
+import { establishmentSignUpRequest } from '~/store/modules/auth/actions';
 
 import history from '~/services/history';
-import api from '~/services/api';
 
 import capitalize from '~/util/capitalize';
 
 import '../../../styles.css';
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+
+  const { loading, token } = useSelector((state) => state.auth);
+
   const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
 
   const [establishmentName, setEstablishmentName] = useState('');
   const [managerName, setManagerName] = useState('');
@@ -39,8 +44,6 @@ export default function SignUp() {
   async function handleSubmit() {
     if (loading) return;
 
-    setLoading(true);
-
     const data = {
       establishment_name: capitalize(establishmentName),
       manager_name: capitalize(managerName),
@@ -57,20 +60,12 @@ export default function SignUp() {
       admin_pin: adminPin,
     };
 
-    try {
-      await api.post('establishments', data);
-      setStep(step + 1);
-    } catch (err) {
-      if (err.response.data) {
-        alert(err.response.data.error);
-      } else {
-        alert(
-          'Houve um erro ao registrar seu restaurante. Tente novamente mais tarde.'
-        );
-      }
-    }
-    setLoading(false);
+    dispatch(establishmentSignUpRequest(data));
   }
+
+  useEffect(() => {
+    if (token) setStep(5);
+  }, [token]);
 
   function handleNext() {
     if (step < 5) {
@@ -92,6 +87,15 @@ export default function SignUp() {
 
   return (
     <div id="access-page">
+      {step === 5 && (
+        <SuccessCover
+          successText="Cadastro Concluído!"
+          successButtonText="Customizar cardápio"
+          onClick={() => history.push('/inventario')}
+          onClose={() => history.push('/estabelecimento')}
+        />
+      )}
+
       <div className="container">
         {step < 5 && <ProgressionBar step={step} maxSteps={4} />}
 
@@ -149,8 +153,6 @@ export default function SignUp() {
             onBackPage={() => handleBack()}
           />
         )}
-
-        {step === 5 ? <EndForm email={email} password={password} /> : null}
       </div>
     </div>
   );

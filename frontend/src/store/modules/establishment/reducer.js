@@ -12,14 +12,21 @@ export default function establishment(state = INITIAL_STATE, action) {
         draft.establishment = action.payload.establishment;
         break;
       }
+      case '@auth/ESTABLISHMENT_SIGN_UP_SUCCESS': {
+        draft.establishment = action.payload.establishment;
+        break;
+      }
+
       case '@establishment/UPDATE_ESTABLISHMENT_SUCCESS': {
         draft.establishment = action.payload.establishment;
         break;
       }
+
       case '@auth/SIGN_OUT': {
         draft.establishment = null;
         break;
       }
+
       case '@establishment/INVENTORY_ACCESS': {
         draft.inventoryAccessed = action.payload.access;
         break;

@@ -5,18 +5,19 @@ import api from '~/services/api';
 
 import {
   establishmentSignInSuccess,
+  establishmentSignUpSuccess,
   customerSignInSuccess,
   signFailure,
   signOutSuccess,
 } from './actions';
 
-import { checkOutSuccess } from '../session/actions';
+import { checkOutSuccess } from '../serviceSession/actions';
 import { inventoryAccess } from '../establishment/actions';
 
 export function* establishmentSignIn({ payload }) {
-  try {
-    const { email, password, route } = payload;
+  const { email, password } = payload;
 
+  try {
     const response = yield call(api.post, 'establishment-sessions', {
       email,
       password,
@@ -28,15 +29,41 @@ export function* establishmentSignIn({ payload }) {
 
     yield put(establishmentSignInSuccess(token, establishment));
 
-    history.push(route);
-
-    if (route === '/inventario') {
-      yield put(inventoryAccess(true));
-    }
+    history.push('/estabelecimento');
   } catch (err) {
     yield put(signFailure());
-    if (err.response.data) {
+    if (err.response && err.response.data) {
       alert(err.response.data.error);
+    } else {
+      alert(
+        'Houve um erro ao acessar seu estabelecimento. Verifique sua conexão e tente novamente.'
+      );
+    }
+  }
+}
+
+export function* establishmentSignUp({ payload }) {
+  console.log('redux');
+  const { data } = payload;
+
+  try {
+    const response = yield call(api.post, 'establishments', data);
+
+    const { token, establishment } = response.data;
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
+    yield put(establishmentSignUpSuccess(token, establishment));
+
+    yield put(inventoryAccess(true));
+  } catch (err) {
+    yield put(signFailure());
+    if (err.response && err.response.data.error) {
+      alert(err.response.data.error);
+    } else {
+      alert(
+        'Houve um erro ao criar seu estabelecimento. Verifique sua conexão e tente novamente.'
+      );
     }
   }
 }
@@ -93,6 +120,7 @@ export function* setToken({ payload }) {
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/ESTABLISHMENT_SIGN_IN_REQUEST', establishmentSignIn),
+  takeLatest('@auth/ESTABLISHMENT_SIGN_UP_REQUEST', establishmentSignUp),
   takeLatest('@auth/CUSTOMER_SIGN_IN_REQUEST', customerSignIn),
   takeLatest('@auth/SIGN_OUT_REQUEST', signOut),
 ]);
