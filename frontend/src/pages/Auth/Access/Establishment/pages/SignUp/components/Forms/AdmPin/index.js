@@ -47,7 +47,7 @@ export default function AdmPin({
         onNext={onNextPage}
         filled={filled}
         loading={loading}
-        finalStep
+        rightButtonText="Concluir"
       />
     </div>
   );

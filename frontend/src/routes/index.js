@@ -6,7 +6,7 @@ import Route from './Route';
 
 import EstablishmentHome from '~/pages/Auth/Establishment/Home';
 import EstablishmentSignUp from '~/pages/Auth/Access/Establishment/pages/SignUp';
-import EstablishmentSignIn from '~/pages/Auth/Establishment/SignIn';
+import EstablishmentSignIn from '~/pages/Auth/Access/Establishment/pages/SignIn';
 
 // import CustomerHome from '~/pages/Auth/Customer/Home';
 // import CustomerSignUp from '~/pages/Auth/Customer/SignUp';

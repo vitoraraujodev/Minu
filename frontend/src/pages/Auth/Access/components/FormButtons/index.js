@@ -10,13 +10,14 @@ export default function FormButtons({
   onNext = () => {},
   filled = false,
   loading = false,
-  finalStep = false,
+  leftButtonText = '',
+  rightButtonText = '',
 }) {
   return (
     <div id="form-buttons-container">
       <button type="button" className="button back " onClick={onBack}>
         <FaChevronLeft size={16} color="#606060" />
-        <span style={{ marginLeft: 4 }}>Voltar</span>
+        <span style={{ marginLeft: 4 }}>{leftButtonText || 'Voltar'}</span>
       </button>
 
       <button
@@ -33,7 +34,7 @@ export default function FormButtons({
         ) : (
           <>
             <span style={{ marginRight: 4 }}>
-              {finalStep ? 'Concluir' : 'Avançar'}
+              {rightButtonText || 'Avançar'}
             </span>
             <FaChevronRight color={filled ? '#535BFE' : '#acacac'} />
           </>
