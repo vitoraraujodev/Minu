@@ -19,8 +19,8 @@ function handleWaiterCall(notificationInfo) {
 
   notificationInfo.TableNumber = parseInt(notificationInfo.TableNumber, 10);
   if (notificationInfo.NotificationType === WAITER_CALL_ARCHIVE) {
-    notificationInfo.WaiterCallTimestamp = parseInt(
-      notificationInfo.WaiterCallTimestamp,
+    notificationInfo.ArchivingTimestamp = parseInt(
+      notificationInfo.ArchivingTimestamp,
       10
     );
   }
@@ -39,8 +39,8 @@ function handleBillCall(notificationInfo) {
 
   notificationInfo.TableNumber = parseInt(notificationInfo.TableNumber, 10);
   if (notificationInfo.NotificationType === BILL_CALL_ARCHIVE) {
-    notificationInfo.BillCallTimestamp = parseInt(
-      notificationInfo.BillCallTimestamp,
+    notificationInfo.ArchivingTimestamp = parseInt(
+      notificationInfo.ArchivingTimestamp,
       10
     );
   }

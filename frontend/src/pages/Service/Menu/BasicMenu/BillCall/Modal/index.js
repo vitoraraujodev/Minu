@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import api from '~/services/api';
 
-import billCallSchema from '~/json/bill_call_input.json';
+import billCallSchema from '~/json/waiter_call.json';
 
 import './styles.css';
 
@@ -26,6 +26,8 @@ export default function BillCallModal({
           value: {
             EstablishmentId: parseInt(establishmentId, 10),
             TableNumber: parseInt(tableNumber, 10),
+            NotificationType: "billCall",
+            ArchivingTimestamp: {"null": null}
           },
         },
       ],

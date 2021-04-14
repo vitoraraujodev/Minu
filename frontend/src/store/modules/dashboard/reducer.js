@@ -19,9 +19,9 @@ function parseOpenCall(openCall) {
   let Timestamp;
 
   if (NotificationType === 'waiterCall') {
-    Timestamp = openCall.WaiterCallTimestamp;
+    Timestamp = openCall.ArchivingTimestamp;
   } else if (NotificationType === 'billCall') {
-    Timestamp = openCall.BillCallTimestamp;
+    Timestamp = openCall.ArchivingTimestamp;
   }
 
   TableNumber = parseInt(TableNumber, 10);
@@ -82,24 +82,17 @@ export default function dashboard(state = INITIAL_STATE, action) {
         break;
       }
       case '@dashboard/RECEIVED_ORDER_ARCHIVE': {
-        const { TableNumber, NotificationType } = action.payload;
-
-        let CallTimestamp;
-
-        if (NotificationType === 'waiterCallArchive') {
-          CallTimestamp = action.payload.WaiterCallTimestamp;
-        } else if (NotificationType === 'billCallArchive') {
-          CallTimestamp = action.payload.BillCallTimestamp;
-        }
+        const { TableNumber } = action.payload;
+        let { ArchivingTimestamp } = action.payload;
 
         const tableNumber = TableNumber.toString();
-        CallTimestamp = CallTimestamp.toString();
+        ArchivingTimestamp = ArchivingTimestamp.toString();
         const stateClone = JSON.parse(JSON.stringify(state));
 
         try {
           stateClone.dashboard[tableNumber] = returnWithoutKey(
             stateClone.dashboard[tableNumber],
-            CallTimestamp
+            ArchivingTimestamp
           );
 
           if (Object.keys(stateClone.dashboard[tableNumber]).length === 0) {

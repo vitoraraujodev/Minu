@@ -9,8 +9,7 @@ const endPoint = 'http://peripherals.seuminu.com:9000/topics';
 
 class WaiterCallController {
   async store(req, res) {
-    const waiterCallInputEndpoint = `${endPoint}/WaiterCallNotificationInput`;
-
+    const waiterCallInputEndpoint = `${endPoint}/WaiterCall`;
     try {
       await axios.post(waiterCallInputEndpoint, JSON.stringify(req.body), {
         headers,
@@ -25,7 +24,7 @@ class WaiterCallController {
   }
 
   async delete(req, res) {
-    const waiterCallArchiveEndpoint = `${endPoint}/WaiterCallArchiveNotification`;
+    const waiterCallArchiveEndpoint = `${endPoint}/WaiterCall`;
 
     try {
       axios.post(waiterCallArchiveEndpoint, JSON.stringify(req.body), {

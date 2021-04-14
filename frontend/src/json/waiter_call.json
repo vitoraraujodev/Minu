@@ -1,0 +1,12 @@
+{
+    "type": "record",
+    "namespace": "WaiterCall.Input",
+    "name": "WaiterCallRaw",
+    "version": "1",
+    "fields": [
+        {"name": "EstablishmentId", "type": "long", "doc": ""},
+        {"name": "TableNumber", "type": "long", "doc": ""},
+        {"name": "NotificationType", "type": "string", "doc": ""},
+        {"name": "ArchivingTimestamp", "type": ["null", "long"], "doc": ""}
+    ]
+}
