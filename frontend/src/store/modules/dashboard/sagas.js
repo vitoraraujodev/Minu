@@ -2,8 +2,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import api from '~/services/api';
 
-import waiterCallArchiveSchema from '~/json/waiter_call_archive_schema.json';
-import billCallArchiveSchema from '~/json/bill_call_archive_schema.json';
+import waiterCallArchiveSchema from '~/json/waiter_call.json';
 
 import { archiveOrderSuccess, archiveOrderFailure } from './actions';
 
@@ -13,24 +12,22 @@ export function* archiveOrder({ payload }) {
   const value = {
     EstablishmentId: parseInt(order.EstablishmentId, 10),
     TableNumber: order.TableNumber,
+    ArchivingTimestamp: {"long": parseInt(order.Timestamp, 10)}
   };
 
-  let schema;
   let requestRoute;
-
+  
   if (order.NotificationType === 'waiterCall') {
-    schema = waiterCallArchiveSchema;
-    value.WaiterCallTimestamp = order.Timestamp.toString();
+    value.NotificationType = "waiterCallArchive";
     requestRoute = 'waiter-call';
   } else if (order.NotificationType === 'billCall') {
-    schema = billCallArchiveSchema;
-    value.BillCallTimestamp = order.Timestamp.toString();
+    value.NotificationType = "billCallArchive";
     requestRoute = 'bill-call';
   }
 
   const data = {
     data: {
-      value_schema: JSON.stringify(schema),
+      value_schema: JSON.stringify(waiterCallArchiveSchema),
       records: [
         {
           value,

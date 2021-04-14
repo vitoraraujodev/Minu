@@ -4,7 +4,7 @@ import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
 import api from '~/services/api';
 
-import waiterCallSchema from '~/json/waiter_call_input.json';
+import waiterCallSchema from '~/json/waiter_call.json';
 
 import './styles.css';
 
@@ -26,6 +26,8 @@ export default function WaiterCallModal({
           value: {
             EstablishmentId: parseInt(establishmentId, 10),
             TableNumber: parseInt(tableNumber, 10),
+            NotificationType: "waiterCall",
+            ArchivingTimestamp: {"null": null}
           },
         },
       ],
