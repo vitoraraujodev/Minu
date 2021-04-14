@@ -71,6 +71,16 @@ export default function tableSession(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@auth/SIGN_OUT': {
+        draft.tableSession = {};
+        break;
+      }
+
+      case '@global/REFRESH_STATE': {
+        draft.tableSession = false;
+        break;
+      }
+
       default:
     }
   });

@@ -140,6 +140,17 @@ export default function dashboard(state = INITIAL_STATE, action) {
         });
         break;
       }
+
+      case '@auth/SIGN_OUT': {
+        draft.dashboard = {};
+        break;
+      }
+
+      case '@global/REFRESH_STATE': {
+        draft.dashboard = {};
+        break;
+      }
+
       default:
     }
   });

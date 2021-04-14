@@ -15,6 +15,12 @@ export default function notification(state = INITIAL_STATE, action) {
         draft.eventSourceObject = null;
         break;
       }
+
+      case '@auth/SIGN_OUT': {
+        draft.eventSourceObject = null;
+        break;
+      }
+
       default:
     }
   });

@@ -27,7 +27,6 @@ export function customerSignInSuccess(token, customer) {
 }
 
 export function establishmentSignUpRequest(data) {
-  console.log(data);
   return {
     type: '@auth/ESTABLISHMENT_SIGN_UP_REQUEST',
     payload: { data },

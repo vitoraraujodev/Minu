@@ -43,7 +43,6 @@ export function* establishmentSignIn({ payload }) {
 }
 
 export function* establishmentSignUp({ payload }) {
-  console.log('redux');
   const { data } = payload;
 
   try {
