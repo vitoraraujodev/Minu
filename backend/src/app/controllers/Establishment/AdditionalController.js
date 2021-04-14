@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import Additional from '../models/Additional';
+import Additional from  '../../models/Establishment/Additional';
 
 class AdditionalController {
   async index(req, res) {

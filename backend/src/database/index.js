@@ -1,18 +1,20 @@
 import Sequelize from 'sequelize';
 
-import Establishment from '../app/models/Establishment';
-import File from '../app/models/File';
-import Menu from '../app/models/Menu';
-import Item from '../app/models/Item';
-import MenuItem from '../app/models/MenuItem';
-import Additional from '../app/models/Additional';
-import ItemAdditional from '../app/models/ItemAdditional';
-import EstablishmentRating from '../app/models/EstablishmentRating';
-import ItemRating from '../app/models/ItemRating';
-import Customer from '../app/models/Customer';
-import Avatar from '../app/models/Avatar';
-import ServiceSession from '../app/models/ServiceSession';
-import SessionEvent from '../app/models/SessionEvent';
+import Establishment from '../app/models/Establishment/Establishment';
+import File from '../app/models/Establishment/File';
+import Menu from '../app/models/Establishment/Menu';
+import Item from '../app/models/Establishment/Item';
+import MenuItem from '../app/models/Establishment/MenuItem';
+import Additional from '../app/models/Establishment/Additional';
+import ItemAdditional from '../app/models/Establishment/ItemAdditional';
+import EstablishmentRating from '../app/models/Establishment/EstablishmentRating';
+import ItemRating from '../app/models/Establishment/ItemRating';
+
+import Customer from '../app/models/Customer/Customer';
+import Avatar from '../app/models/Customer/Avatar';
+
+import ServiceSession from '../app/models/ServiceSession/ServiceSession';
+import SessionEvent from '../app/models/ServiceSession/SessionEvent';
 
 import prodDatabaseConfig from '../config/prodDatabase';
 import databaseConfig from '../config/database';

@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
-import Customer from '../models/Customer';
-import Avatar from '../models/Avatar';
+import Customer from '../../models/Customer/Customer';
+import Avatar from '../../models/Customer/Avatar';
 
-import authConfig from '../../config/auth';
+import authConfig from '../../../config/auth';
 
 class CustomerSessionController {
   async store(req, res) {

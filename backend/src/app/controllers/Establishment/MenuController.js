@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
-import Menu from '../models/Menu';
-import MenuItem from '../models/MenuItem';
-import Item from '../models/Item';
-import File from '../models/File';
+import Menu from '../../models/Establishment/Menu';
+import MenuItem from '../../models/Establishment/MenuItem';
+import Item from '../../models/Establishment/Item';
+import File from '../../models/Establishment/File';
 
 class MenuController {
   async index(req, res) {

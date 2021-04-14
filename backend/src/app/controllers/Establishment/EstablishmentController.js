@@ -2,18 +2,18 @@ import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 import { Op } from 'sequelize';
 
-import Establishment from '../models/Establishment';
-import File from '../models/File';
-import Menu from '../models/Menu';
-import Item from '../models/Item';
-import Additional from '../models/Additional';
-import EstablishmentRating from '../models/EstablishmentRating';
-import ItemRating from '../models/ItemRating';
-import Customer from '../models/Customer';
+import Establishment from '../../models/Establishment/Establishment';
+import File from '../../models/Establishment/File';
+import Menu from '../../models/Establishment/Menu';
+import Item from '../../models/Establishment/Item';
+import Additional from  '../../models/Establishment/Additional';
+import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
+import ItemRating from '../../models/Establishment/ItemRating';
+import Customer from '../../models/Customer/Customer';
 
-import authConfig from '../../config/auth';
+import authConfig from '../../../config/auth';
 
-import { handleActiveMenus } from '../../utils';
+import { handleActiveMenus } from '../../../utils';
 
 class EstablishmentController {
   async index(req, res) {

@@ -5,27 +5,27 @@ import MulterConfig from './config/multer';
 import establishmentAuthMiddleware from './app/middlewares/establishmentAuth';
 import customerAuthMiddleware from './app/middlewares/customerAuth';
 
-import EstablishmentSessionController from './app/controllers/EstablishmentSessionController';
-import PinController from './app/controllers/PinController';
-import EstablishmentsController from './app/controllers/EstablishmentController';
-import FileController from './app/controllers/FileController';
-import MenuController from './app/controllers/MenuController';
-import ItemController from './app/controllers/ItemController';
-import AdditionalController from './app/controllers/AdditionalController';
-import EstablishmentRatingController from './app/controllers/EstablishmentRatingController';
-import ItemRatingController from './app/controllers/ItemRatingController';
-import EmailCheckController from './app/controllers/EmailCheckController';
+import EstablishmentSessionController from './app/controllers/Establishment/EstablishmentSessionController';
+import PinController from './app/controllers/Establishment/PinController';
+import EstablishmentsController from './app/controllers/Establishment/EstablishmentController';
+import FileController from './app/controllers/Establishment/FileController';
+import MenuController from './app/controllers/Establishment/MenuController';
+import ItemController from './app/controllers/Establishment/ItemController';
+import AdditionalController from './app/controllers/Establishment/AdditionalController';
+import EstablishmentRatingController from './app/controllers/Establishment/EstablishmentRatingController';
+import ItemRatingController from './app/controllers/Establishment/ItemRatingController';
+import EmailCheckController from './app/controllers/Establishment/EmailCheckController';
 
-import CustomerController from './app/controllers/CustomerController';
-import CustomerSessionController from './app/controllers/CustomerSessionController';
-import AvatarController from './app/controllers/AvatarController';
-import ServiceSessionController from './app/controllers/ServiceSessionController';
-import ServiceMenuController from './app/controllers/ServiceMenuController';
+import CustomerController from './app/controllers/Customer/CustomerController';
+import CustomerSessionController from './app/controllers/Customer/CustomerSessionController';
+import AvatarController from './app/controllers/Customer/AvatarController';
 
-import WaiterCallController from './app/controllers/WaiterCallController';
-import BillCallController from './app/controllers/BillCallController';
-import OpenCallsController from './app/controllers/OpenCallsController';
-import TableSessionsController from './app/controllers/TableSessionsController';
+import ServiceSessionController from './app/controllers/ServiceSession/ServiceSessionController';
+import ServiceMenuController from './app/controllers/ServiceSession/ServiceMenuController';
+import WaiterCallController from './app/controllers/ServiceSession/WaiterCallController';
+import BillCallController from './app/controllers/ServiceSession/BillCallController';
+import OpenCallsController from './app/controllers/ServiceSession/OpenCallsController';
+import TableSessionsController from './app/controllers/ServiceSession/TableSessionsController';
 
 const routes = new Router();
 

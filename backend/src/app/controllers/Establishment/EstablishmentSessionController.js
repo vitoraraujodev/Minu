@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 
-import Establishment from '../models/Establishment';
-import EstablishmentRating from '../models/EstablishmentRating';
-import File from '../models/File';
+import Establishment from '../../models/Establishment/Establishment';
+import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
+import File from '../../models/Establishment/File';
 
-import authConfig from '../../config/auth';
+import authConfig from '../../../config/auth';
 
 class EstablishmentSessionController {
   async store(req, res) {

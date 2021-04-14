@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
-import Customer from '../models/Customer';
-import Avatar from '../models/Avatar';
-import Establishment from '../models/Establishment';
+import Customer from '../../models/Customer/Customer';
+import Avatar from '../../models/Customer/Avatar';
+import Establishment from '../../models/Establishment/Establishment';
 
 class CustomerController {
   async store(req, res) {

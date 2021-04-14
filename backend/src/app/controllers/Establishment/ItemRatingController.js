@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
-import Item from '../models/Item';
-import ItemRating from '../models/ItemRating';
+import Item from '../../models/Establishment/Item';
+import ItemRating from '../../models/Establishment/ItemRating';
 
 class ItemRatingController {
   async index(req, res) {

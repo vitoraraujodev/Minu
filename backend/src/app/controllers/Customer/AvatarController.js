@@ -1,4 +1,4 @@
-import Avatar from '../models/Avatar';
+import Avatar from '../../models/Customer/Avatar';
 
 class AvatarController {
   async store(req, res) {

@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 
-import ServiceSession from '../models/ServiceSession';
-import SessionEvent from '../models/SessionEvent';
-import Establishment from '../models/Establishment';
+import ServiceSession from '../../models/ServiceSession/ServiceSession';
+import SessionEvent from '../../models/ServiceSession/SessionEvent';
+import Establishment from '../../models/Establishment/Establishment';
 
 class ServiceSessionController {
   async index(req, res) {

@@ -1,15 +1,15 @@
 import { Op } from 'sequelize';
 import { getHours, getDay } from 'date-fns';
 
-import Establishment from '../models/Establishment';
-import File from '../models/File';
-import Menu from '../models/Menu';
-import Item from '../models/Item';
-import Additional from '../models/Additional';
-import EstablishmentRating from '../models/EstablishmentRating';
-import ItemRating from '../models/ItemRating';
-import ServiceSession from '../models/ServiceSession';
-import SessionEvent from '../models/SessionEvent';
+import Establishment from '../../models/Establishment/Establishment';
+import File from '../../models/Establishment/File';
+import Menu from '../../models/Establishment/Menu';
+import Item from '../../models/Establishment/Item';
+import Additional from  '../../models/Establishment/Additional';
+import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
+import ItemRating from '../../models/Establishment/ItemRating';
+import ServiceSession from '../../models/ServiceSession/ServiceSession';
+import SessionEvent from '../../models/ServiceSession/SessionEvent';
 
 class ServiceMenuController {
   async index(req, res) {

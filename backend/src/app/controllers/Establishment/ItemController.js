@@ -1,10 +1,10 @@
 import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
-import Item from '../models/Item';
-import File from '../models/File';
-import Additional from '../models/Additional';
-import ItemAdditional from '../models/ItemAdditional';
+import Item from '../../models/Establishment/Item';
+import File from '../../models/Establishment/File';
+import Additional from  '../../models/Establishment/Additional';
+import ItemAdditional from '../../models/Establishment/ItemAdditional';
 
 class ItemController {
   async index(req, res) {

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import Establishment from '../models/Establishment';
+import Establishment from '../../models/Establishment/Establishment';
 
 class PinController {
   async store(req, res) {

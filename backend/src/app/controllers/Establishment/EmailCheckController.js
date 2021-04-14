@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
-import Establishment from '../models/Establishment';
-import Customer from '../models/Customer';
+import Establishment from '../../models/Establishment/Establishment';
+import Customer from '../../models/Customer/Customer';
 
 class EmailCheckController {
   async index(req, res) {
