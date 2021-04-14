@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import Establishment from '../../models/Establishment/Establishment';
 import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
 import File from '../../models/Establishment/File';
+import Address from '../../models/Establishment/Address';
 
 import authConfig from '../../../config/auth';
 
@@ -37,6 +38,21 @@ class EstablishmentSessionController {
           required: false,
           attributes: ['id', 'path', 'url'],
         },
+        {
+          model: Address,
+          as: 'address',
+          required: false,
+          attributes: [
+            'id',
+            'zip',
+            'number',
+            'street',
+            'complement',
+            'city',
+            'state',
+            'country',
+          ],
+        },
       ],
     });
 
@@ -67,12 +83,7 @@ class EstablishmentSessionController {
       establishment_name,
       manager_name,
       manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
+      address,
       photo,
       plan,
     } = establishment;
@@ -85,12 +96,7 @@ class EstablishmentSessionController {
         establishment_name,
         manager_name,
         manager_lastname,
-        cep,
-        address_number,
-        street,
-        complement,
-        city,
-        state,
+        address,
         photo,
         ratings,
         rating,

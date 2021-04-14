@@ -2,11 +2,14 @@ import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 import { Op } from 'sequelize';
 
+import Database from '../../../database';
+
 import Establishment from '../../models/Establishment/Establishment';
 import File from '../../models/Establishment/File';
+import Address from '../../models/Establishment/Address';
 import Menu from '../../models/Establishment/Menu';
 import Item from '../../models/Establishment/Item';
-import Additional from  '../../models/Establishment/Additional';
+import Additional from '../../models/Establishment/Additional';
 import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
 import ItemRating from '../../models/Establishment/ItemRating';
 import Customer from '../../models/Customer/Customer';
@@ -20,15 +23,7 @@ class EstablishmentController {
     const date = new Date();
 
     await Establishment.findByPk(req.params.id, {
-      attributes: [
-        'id',
-        'establishment_name',
-        'cep',
-        'address_number',
-        'street',
-        'complement',
-        'plan',
-      ],
+      attributes: ['id', 'establishment_name', 'plan'],
       include: [
         {
           model: EstablishmentRating,
@@ -41,6 +36,21 @@ class EstablishmentController {
           as: 'photo',
           required: false,
           attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: Address,
+          as: 'address',
+          required: false,
+          attributes: [
+            'id',
+            'zip',
+            'number',
+            'street',
+            'complement',
+            'city',
+            'state',
+            'country',
+          ],
         },
       ],
     })
@@ -55,10 +65,7 @@ class EstablishmentController {
         const {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           photo,
           ratings,
           plan,
@@ -76,10 +83,7 @@ class EstablishmentController {
         return {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           ratings,
           rating,
           raters,
@@ -101,10 +105,7 @@ class EstablishmentController {
           const {
             id,
             establishment_name,
-            cep,
-            address_number,
-            street,
-            complement,
+            address,
             ratings,
             rating,
             raters,
@@ -115,10 +116,7 @@ class EstablishmentController {
           return {
             id,
             establishment_name,
-            cep,
-            address_number,
-            street,
-            complement,
+            address,
             ratings,
             raters,
             rating,
@@ -202,18 +200,21 @@ class EstablishmentController {
       establishment_name: Yup.string().required(),
       manager_name: Yup.string().required(),
       manager_lastname: Yup.string().required(),
-      cep: Yup.string().required(),
-      address_number: Yup.number().required(),
-      street: Yup.string().required(),
-      complement: Yup.string(),
-      city: Yup.string().required(),
-      state: Yup.string().required(),
       admin_pin: Yup.string().length(4).required(),
       password: Yup.string().min(6).required(),
       confirm_password: Yup.string().oneOf(
         [Yup.ref('password'), null],
         'Confirmação de senha incorreta.'
       ),
+      address: Yup.object().shape({
+        zip: Yup.string().required(),
+        number: Yup.number().required(),
+        street: Yup.string().required(),
+        complement: Yup.string(),
+        city: Yup.string().required(),
+        state: Yup.string().required(),
+        country: Yup.string(),
+      }),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -234,48 +235,49 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
-    const {
-      id,
-      cnpj,
-      establishment_name,
-      manager_name,
-      manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
-      photo,
-      plan,
-    } = await Establishment.create(req.body);
+    const transaction = await Database.connection.transaction();
 
-    const establishment = {
-      id,
-      cnpj,
-      establishment_name,
-      manager_name,
-      manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
-      photo,
-      plan,
-    };
+    try {
+      const {
+        id,
+        cnpj,
+        establishment_name,
+        manager_name,
+        manager_lastname,
+        photo,
+        plan,
+      } = await Establishment.create(req.body);
 
-    return res.json({
-      establishment,
-      token: jwt.sign(
-        { id: establishment.id, kind: 'establishment' },
-        authConfig.secret,
-        {
-          expiresIn: authConfig.expiresIn,
-        }
-      ),
-    });
+      const address = await Address.create({
+        ...req.body.address,
+        establishment_id: id,
+      });
+
+      const establishment = {
+        id,
+        cnpj,
+        establishment_name,
+        manager_name,
+        manager_lastname,
+        photo,
+        plan,
+        address,
+      };
+
+      return res.json({
+        establishment,
+        token: jwt.sign(
+          { id: establishment.id, kind: 'establishment' },
+          authConfig.secret,
+          {
+            expiresIn: authConfig.expiresIn,
+          }
+        ),
+      });
+    } catch (err) {
+      await transaction.rollback();
+      console.log('Establishment creation error: ', err);
+    }
   }
 
   async update(req, res) {
@@ -285,12 +287,6 @@ class EstablishmentController {
       establishment_name: Yup.string(),
       manager_name: Yup.string(),
       manager_lastname: Yup.string(),
-      cep: Yup.string(),
-      address_number: Yup.number(),
-      street: Yup.string(),
-      complement: Yup.string(),
-      city: Yup.string(),
-      state: Yup.string(),
       admin_pin: Yup.string().length(4),
       old_password: Yup.string().min(6),
       password: Yup.string()
@@ -378,12 +374,6 @@ class EstablishmentController {
       establishment_name,
       manager_name,
       manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
       photo,
       ratings,
       plan,
@@ -400,6 +390,21 @@ class EstablishmentController {
           as: 'ratings',
           required: false,
           attributes: ['id', 'description', 'rating', 'client_name'],
+        },
+        {
+          model: Address,
+          as: 'address',
+          required: false,
+          attributes: [
+            'id',
+            'zip',
+            'number',
+            'street',
+            'complement',
+            'city',
+            'state',
+            'country',
+          ],
         },
       ],
     });
@@ -420,12 +425,6 @@ class EstablishmentController {
       establishment_name,
       manager_name,
       manager_lastname,
-      cep,
-      address_number,
-      street,
-      complement,
-      city,
-      state,
       photo,
       ratings,
       rating,

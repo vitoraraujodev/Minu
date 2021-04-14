@@ -11,12 +11,6 @@ class Establishment extends Model {
         establishment_name: Sequelize.STRING,
         manager_name: Sequelize.STRING,
         manager_lastname: Sequelize.STRING,
-        cep: Sequelize.STRING,
-        address_number: Sequelize.INTEGER,
-        street: Sequelize.STRING,
-        complement: Sequelize.STRING,
-        city: Sequelize.STRING,
-        state: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
         admin_pin: Sequelize.VIRTUAL,
@@ -48,6 +42,12 @@ class Establishment extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
+
+    this.hasOne(models.Address, {
+      foreignKey: 'establishment_id',
+      as: 'address',
+    });
+
     this.hasMany(models.Menu, { foreignKey: 'establishment_id', as: 'menus' });
     this.hasMany(models.Item, { foreignKey: 'establishment_id', as: 'items' });
     this.hasMany(models.Additional, {

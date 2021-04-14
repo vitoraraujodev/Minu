@@ -2,6 +2,7 @@ import Sequelize from 'sequelize';
 
 import Establishment from '../app/models/Establishment/Establishment';
 import File from '../app/models/Establishment/File';
+import Address from '../app/models/Establishment/Address';
 import Menu from '../app/models/Establishment/Menu';
 import Item from '../app/models/Establishment/Item';
 import MenuItem from '../app/models/Establishment/MenuItem';
@@ -22,6 +23,7 @@ import databaseConfig from '../config/database';
 const models = [
   Establishment,
   File,
+  Address,
   Avatar,
   Menu,
   Item,

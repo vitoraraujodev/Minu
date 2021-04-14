@@ -7,7 +7,8 @@ import customerAuthMiddleware from './app/middlewares/customerAuth';
 
 import EstablishmentSessionController from './app/controllers/Establishment/EstablishmentSessionController';
 import PinController from './app/controllers/Establishment/PinController';
-import EstablishmentsController from './app/controllers/Establishment/EstablishmentController';
+import EstablishmentController from './app/controllers/Establishment/EstablishmentController';
+import AddressController from './app/controllers/Establishment/AddressController';
 import FileController from './app/controllers/Establishment/FileController';
 import MenuController from './app/controllers/Establishment/MenuController';
 import ItemController from './app/controllers/Establishment/ItemController';
@@ -61,13 +62,15 @@ routes.get(
   ServiceMenuController.index
 );
 
-routes.get('/establishments/:id', EstablishmentsController.index);
-routes.post('/establishments', EstablishmentsController.store);
+routes.get('/establishments/:id', EstablishmentController.index);
+routes.post('/establishments', EstablishmentController.store);
 routes.put(
   '/establishments',
   establishmentAuthMiddleware,
-  EstablishmentsController.update
+  EstablishmentController.update
 );
+
+routes.put('/addresses', establishmentAuthMiddleware, AddressController.update);
 
 routes.get('/menus', establishmentAuthMiddleware, MenuController.index);
 routes.post('/menus', establishmentAuthMiddleware, MenuController.store);

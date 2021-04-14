@@ -4,8 +4,9 @@ import { getHours, getDay } from 'date-fns';
 import Establishment from '../../models/Establishment/Establishment';
 import File from '../../models/Establishment/File';
 import Menu from '../../models/Establishment/Menu';
+import Address from '../../models/Establishment/Address';
 import Item from '../../models/Establishment/Item';
-import Additional from  '../../models/Establishment/Additional';
+import Additional from '../../models/Establishment/Additional';
 import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
 import ItemRating from '../../models/Establishment/ItemRating';
 import ServiceSession from '../../models/ServiceSession/ServiceSession';
@@ -39,15 +40,7 @@ class ServiceMenuController {
     const weekDay = getDay(date);
 
     await Establishment.findByPk(session.establishment_id, {
-      attributes: [
-        'id',
-        'establishment_name',
-        'cep',
-        'address_number',
-        'street',
-        'complement',
-        'plan',
-      ],
+      attributes: ['id', 'establishment_name', 'plan'],
       include: [
         {
           model: EstablishmentRating,
@@ -61,16 +54,28 @@ class ServiceMenuController {
           required: false,
           attributes: ['id', 'path', 'url'],
         },
+        {
+          model: Address,
+          as: 'address',
+          required: false,
+          attributes: [
+            'id',
+            'zip',
+            'number',
+            'street',
+            'complement',
+            'city',
+            'state',
+            'country',
+          ],
+        },
       ],
     })
       .then(async (establishment) => {
         const {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           photo,
           ratings,
           plan,
@@ -88,10 +93,7 @@ class ServiceMenuController {
         return {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           ratings,
           rating,
           raters,
@@ -114,10 +116,7 @@ class ServiceMenuController {
         const {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           ratings,
           rating,
           raters,
@@ -128,10 +127,7 @@ class ServiceMenuController {
         return {
           id,
           establishment_name,
-          cep,
-          address_number,
-          street,
-          complement,
+          address,
           ratings,
           raters,
           rating,
