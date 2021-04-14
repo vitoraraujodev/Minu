@@ -1,9 +1,7 @@
-// Rua São Clemente, 114
+// Rua São Clemente, 114 702 bloco 1
 
-export default function handleEstablishmentAddress(establishment) {
-  const complementText = establishment.complement
-    ? `, ${establishment.complement}`
-    : '';
+export default function handleEstablishmentAddress(address = {}) {
+  const complementText = address.complement ? `, ${address.complement}` : '';
 
-  return `${establishment.street}, ${establishment.address_number}${complementText}`;
+  return `${address.street}, ${address.number}${complementText}`;
 }

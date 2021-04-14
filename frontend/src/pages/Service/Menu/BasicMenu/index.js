@@ -27,6 +27,8 @@ import {
   removeSessionEstablishment,
 } from '~/store/modules/serviceSession/actions';
 
+import handleEstablishmentAddress from '~/util/handleEstablishmentAddress';
+
 import './styles.css';
 
 export default function BasicMenu() {
@@ -297,9 +299,7 @@ export default function BasicMenu() {
                     </div>
                   ) : (
                     <span className="establishment-address">
-                      {establishment.street},{'  '}
-                      {establishment.address_number &&
-                        `n. ${establishment.address_number}`}
+                      {handleEstablishmentAddress(establishment.address)}
                     </span>
                   )}
                 </div>

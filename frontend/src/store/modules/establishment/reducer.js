@@ -3,6 +3,7 @@ import producer from 'immer';
 const INITIAL_STATE = {
   establishment: null,
   inventoryAccessed: false,
+  loading: false,
 };
 
 export default function establishment(state = INITIAL_STATE, action) {
@@ -17,8 +18,27 @@ export default function establishment(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@establishment/UPDATE_ESTABLISHMENT_REQUEST': {
+        draft.loading = true;
+        break;
+      }
       case '@establishment/UPDATE_ESTABLISHMENT_SUCCESS': {
         draft.establishment = action.payload.establishment;
+        draft.loading = false;
+        break;
+      }
+
+      case '@establishment/UPDATE_ADDRESS_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@establishment/UPDATE_ADDRESS_SUCCESS': {
+        draft.establishment.address = action.payload.address;
+        break;
+      }
+
+      case '@establishment/UPDATE_FAILURE': {
+        draft.loading = false;
         break;
       }
 
@@ -31,6 +51,12 @@ export default function establishment(state = INITIAL_STATE, action) {
         draft.inventoryAccessed = action.payload.access;
         break;
       }
+
+      case '@global/REFRESH_STATE': {
+        draft.loading = false;
+        break;
+      }
+
       default:
     }
   });

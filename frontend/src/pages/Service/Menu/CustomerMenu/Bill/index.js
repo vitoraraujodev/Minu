@@ -12,6 +12,8 @@ import history from '~/services/history';
 
 import { formatPrice } from '~/util/formatPrice';
 
+import handleEstablishmentAddress from '~/util/handleEstablishmentAddress';
+
 import './styles.css';
 
 export default function Bill({ location }) {
@@ -98,9 +100,7 @@ export default function Bill({ location }) {
                 {establishment.establishment_name}
               </p>
               <span className="establishment-address">
-                {establishment.street},{'  '}
-                {establishment.address_number &&
-                  `n. ${establishment.address_number}`}
+                {handleEstablishmentAddress(establishment.address)}
               </span>
             </div>
 

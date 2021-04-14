@@ -12,9 +12,23 @@ export function updateEstablishmentSuccess(establishment) {
   };
 }
 
-export function updateEstablishmentFailure() {
+export function updateAddressRequest(address) {
   return {
-    type: '@establishment/UPDATE_ESTABLISHMENT_FAILURE',
+    type: '@establishment/UPDATE_ADDRESS_REQUEST',
+    payload: { address },
+  };
+}
+
+export function updateAddressSuccess(address) {
+  return {
+    type: '@establishment/UPDATE_ADDRESS_SUCCESS',
+    payload: { address },
+  };
+}
+
+export function updateFailure() {
+  return {
+    type: '@establishment/UPDATE_FAILURE',
   };
 }
 

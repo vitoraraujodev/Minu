@@ -28,8 +28,8 @@ export default function SignUp() {
   const [managerName, setManagerName] = useState('');
   const [managerLastName, setManagerLastName] = useState('');
 
-  const [cep, setCep] = useState('');
-  const [addressNumber, setAddressNumber] = useState('');
+  const [zip, setZip] = useState('');
+  const [number, setNumber] = useState('');
   const [complement, setComplement] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -48,16 +48,18 @@ export default function SignUp() {
       establishment_name: capitalize(establishmentName),
       manager_name: capitalize(managerName),
       manager_lastname: capitalize(managerLastName),
-      cep,
-      address_number: addressNumber,
-      complement,
-      street: capitalize(street),
-      city: capitalize(city),
-      state: capitalize(state),
       email,
       password,
       confirm_password: confirmPassword,
       admin_pin: adminPin,
+      address: {
+        zip,
+        number,
+        complement,
+        street: capitalize(street),
+        city: capitalize(city),
+        state: capitalize(state),
+      },
     };
 
     dispatch(establishmentSignUpRequest(data));
@@ -127,10 +129,10 @@ export default function SignUp() {
 
         {step === 3 && (
           <AddressForm
-            cep={cep}
-            onChangeCep={(address) => setCep(address)}
-            addressNumber={addressNumber}
-            onChangeAddressNumber={(address) => setAddressNumber(address)}
+            zip={zip}
+            onChangeZip={(address) => setZip(address)}
+            number={number}
+            onChangeNumber={(address) => setNumber(address)}
             complement={complement}
             onChangeComplement={(address) => setComplement(address)}
             street={street}

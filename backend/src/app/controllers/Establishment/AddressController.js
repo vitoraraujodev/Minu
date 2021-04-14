@@ -25,15 +25,15 @@ class AddressController {
     });
 
     if (!addressExists) {
-      return res.status(400).json({
-        error:
-          'Houve um erro ao encontrar seus dados de endereço. Verifique seus dados ou contate o suporte.',
+      await Address.create({
+        ...req.body,
+        establishment_id: req.establishmentId,
       });
     }
 
-    const address = await Address.update(req.body);
+    const address = await addressExists.update(req.body);
 
-    return req.status(200).json(address);
+    return res.status(200).json(address);
   }
 }
 

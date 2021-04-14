@@ -9,10 +9,10 @@ import FormButtons from '~/pages/Auth/Access/components/FormButtons';
 import { estados } from '~/json/states-cities.json';
 
 export default function Address({
-  onChangeCep,
-  cep,
-  onChangeAddressNumber,
-  addressNumber,
+  onChangeZip,
+  zip,
+  onChangeNumber,
+  number,
   onChangeStreet,
   street,
   onChangeComplement,
@@ -25,7 +25,7 @@ export default function Address({
   onNextPage,
 }) {
   const [filled, setFilled] = useState(false);
-  const [validCep, setValidCep] = useState(true);
+  const [validZip, setValidZip] = useState(true);
 
   const citiesArray = [];
   const statesArray = [];
@@ -52,53 +52,53 @@ export default function Address({
     });
   }, [state]); //eslint-disable-line
 
-  function setAddress(addressCep) {
-    cepPromise(addressCep)
+  function setAddress(addressZip) {
+    cepPromise(addressZip)
       .then((address) => {
         onChangeStreet(address.street);
         onChangeCity(address.city);
         onChangeState(address.state);
-        setValidCep(true);
+        setValidZip(true);
       })
       .catch((name) => {
         if (name) {
-          setValidCep(false);
+          setValidZip(false);
         }
       });
   }
 
-  function handleCepValidation(string) {
+  function handleZipValidation(string) {
     const char = string.substr(string.length - 1);
 
-    if (string.length === 5 && cep.length === 6) {
-      onChangeCep(string.substring(0, string.length - 1));
+    if (string.length === 5 && zip.length === 6) {
+      onChangeZip(string.substring(0, string.length - 1));
       return;
     }
-    if (string.length === 6 && cep.length === 7) {
-      onChangeCep(string);
+    if (string.length === 6 && zip.length === 7) {
+      onChangeZip(string);
       return;
     }
 
     if (char >= '0' && char <= '9') {
       if (string.length === 5 && !string.includes('-')) {
-        onChangeCep(`${string}-`);
+        onChangeZip(`${string}-`);
       } else {
-        onChangeCep(string);
+        onChangeZip(string);
       }
     } else {
-      onChangeCep(string.substring(0, string.length - 1));
+      onChangeZip(string.substring(0, string.length - 1));
     }
 
     if (string.length === 8 && !string.includes('-')) {
-      onChangeCep(`${string.substr(0, 5)}-${string.substr(5)}`);
+      onChangeZip(`${string.substr(0, 5)}-${string.substr(5)}`);
     }
 
     if (string.length === 9) {
-      onChangeCep(string);
+      onChangeZip(string);
 
       setAddress(string.replace('-', ''));
     } else {
-      setValidCep(true);
+      setValidZip(true);
     }
   }
 
@@ -157,12 +157,12 @@ export default function Address({
   };
 
   useEffect(() => {
-    if (cep && addressNumber && street && city && state) {
+    if (zip && number && street && city && state) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [cep, addressNumber, street, city, state]);
+  }, [zip, number, street, city, state]);
 
   return (
     <div className="form-container">
@@ -172,22 +172,22 @@ export default function Address({
         <div style={{ flex: 3, marginRight: 8 }}>
           <p className="input-label">CEP</p>
           <Input
-            value={cep}
+            value={zip}
             variant="tertiary"
             inputMode="numeric"
             maxLength={9}
-            style={validCep ? null : { border: '2px solid #FF3636' }}
+            style={validZip ? null : { border: '2px solid #FF3636' }}
             onFocus={() => {
-              if (cep.length !== 9) {
-                setValidCep(true);
+              if (zip.length !== 9) {
+                setValidZip(true);
               }
             }}
             onBlur={() => {
-              if (cep.length < 9) {
-                setValidCep(false);
+              if (zip.length < 9) {
+                setValidZip(false);
               }
             }}
-            onChange={(e) => handleCepValidation(e.target.value)}
+            onChange={(e) => handleZipValidation(e.target.value)}
             placeholder="77777-777"
           />
         </div>
@@ -198,9 +198,9 @@ export default function Address({
             variant="tertiary"
             inputMode="numeric"
             type="number"
-            value={addressNumber}
+            value={number}
             className="form-input"
-            onChange={(e) => onChangeAddressNumber(e.target.value)}
+            onChange={(e) => onChangeNumber(e.target.value)}
             placeholder="22"
           />
         </div>

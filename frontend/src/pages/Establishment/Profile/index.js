@@ -104,7 +104,7 @@ export default function Profile() {
             </div>
             <div className="address-area">
               <span className="address-text">
-                {handleEstablishmentAddress(establishment)}
+                {handleEstablishmentAddress(establishment.address)}
               </span>
 
               {/* <span className="rating-text">

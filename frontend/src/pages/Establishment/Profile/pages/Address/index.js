@@ -9,7 +9,7 @@ import PinModal from '~/components/PinModal';
 import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as Lock } from '~/assets/icons/lock-icon.svg';
 
-import { updateEstablishmentRequest } from '~/store/modules/establishment/actions';
+import { updateAddressRequest } from '~/store/modules/establishment/actions';
 
 import history from '~/services/history';
 
@@ -20,9 +20,11 @@ import { estados } from '~/json/states-cities.json';
 import './styles.css';
 
 export default function Address() {
-  const establishment = useSelector(
-    (state) => state.establishment.establishment
+  const { establishment, loading } = useSelector(
+    (state) => state.establishment
   );
+  const address = establishment.address || {};
+
   const dispatch = useDispatch();
 
   const [windowWidth, setWindowWidth] = useState(768);
@@ -30,17 +32,15 @@ export default function Address() {
   const [pinModalVisible, setPinModalVisible] = useState(false);
   const [disabled, setDisabled] = useState(false); // Colocar como true
 
-  const [validCep, setValidCep] = useState(true);
+  const [validZip, setValidZip] = useState(true);
   const [filled, setFilled] = useState(true);
 
-  const [cep, setCep] = useState(establishment.cep);
-  const [addressNumber, setAddressNumber] = useState(
-    establishment.address_number
-  );
-  const [street, setStreet] = useState(establishment.street);
-  const [complement, setComplement] = useState(establishment.complement);
-  const [state, setState] = useState(establishment.state);
-  const [city, setCity] = useState(establishment.city);
+  const [zip, setZip] = useState(address.zip || '');
+  const [number, setNumber] = useState(address.number || '');
+  const [street, setStreet] = useState(address.street || '');
+  const [complement, setComplement] = useState(address.complement || '');
+  const [state, setState] = useState(address.state || '');
+  const [city, setCity] = useState(address.city || '');
 
   const citiesArray = [];
   const statesArray = [];
@@ -84,53 +84,53 @@ export default function Address() {
     });
   }, [state]); //eslint-disable-line
 
-  function setAddress(addressCep) {
-    cepPromise(addressCep)
-      .then((address) => {
-        setStreet(address.street);
-        setCity(address.city);
-        setState(address.state);
-        setValidCep(true);
+  function setAddress(addressZip) {
+    cepPromise(addressZip)
+      .then((result) => {
+        setStreet(result.street);
+        setCity(result.city);
+        setState(result.state);
+        setValidZip(true);
       })
       .catch((name) => {
         if (name) {
-          setValidCep(false);
+          setValidZip(false);
         }
       });
   }
 
-  function handleCepValidation(string) {
+  function handleZipValidation(string) {
     const char = string.substr(string.length - 1);
 
-    if (string.length === 5 && cep.length === 6) {
-      setCep(string.substring(0, string.length - 1));
+    if (string.length === 5 && zip.length === 6) {
+      setZip(string.substring(0, string.length - 1));
       return;
     }
-    if (string.length === 6 && cep.length === 7) {
-      setCep(string);
+    if (string.length === 6 && zip.length === 7) {
+      setZip(string);
       return;
     }
 
     if (char >= '0' && char <= '9') {
       if (string.length === 5 && !string.includes('-')) {
-        setCep(`${string}-`);
+        setZip(`${string}-`);
       } else {
-        setCep(string);
+        setZip(string);
       }
     } else {
-      setCep(string.substring(0, string.length - 1));
+      setZip(string.substring(0, string.length - 1));
     }
 
     if (string.length === 8 && !string.includes('-')) {
-      setCep(`${string.substr(0, 5)}-${string.substr(5)}`);
+      setZip(`${string.substr(0, 5)}-${string.substr(5)}`);
     }
 
     if (string.length === 9) {
-      setCep(string);
+      setZip(string);
 
       setAddress(string.replace('-', ''));
     } else {
-      setValidCep(true);
+      setValidZip(true);
     }
   }
 
@@ -189,24 +189,24 @@ export default function Address() {
   };
 
   useEffect(() => {
-    if (cep && addressNumber && street && complement && city && state) {
+    if (zip && number && street && complement && city && state) {
       setFilled(true);
     } else {
       setFilled(false);
     }
-  }, [cep, addressNumber, street, complement, city, state]);
+  }, [zip, number, street, complement, city, state]);
 
   function handleSubmit() {
     const data = {
-      cep,
-      address_number: addressNumber,
+      zip,
+      number,
       street: capitalize(street),
       complement,
       state: capitalize(state),
       city: capitalize(city),
     };
 
-    dispatch(updateEstablishmentRequest(data));
+    dispatch(updateAddressRequest(data));
   }
 
   return (
@@ -251,25 +251,24 @@ export default function Address() {
                 CEP
               </p>
               <input
-                name="cep"
-                value={cep}
+                value={zip}
                 inputMode="numeric"
                 autoFocus //eslint-disable-line
                 className={disabled ? 'input-disabled' : 'input'}
                 maxLength={9}
                 disabled={disabled}
-                style={validCep ? null : { border: '2px solid #FF3636' }}
+                style={validZip ? null : { border: '2px solid #FF3636' }}
                 onFocus={() => {
-                  if (cep.length !== 9) {
-                    setValidCep(true);
+                  if (zip.length !== 9) {
+                    setValidZip(true);
                   }
                 }}
                 onBlur={() => {
-                  if (cep.length < 9) {
-                    setValidCep(false);
+                  if (zip.length < 9) {
+                    setValidZip(false);
                   }
                 }}
-                onChange={(e) => handleCepValidation(e.target.value)}
+                onChange={(e) => handleZipValidation(e.target.value)}
                 placeholder="77777-777"
               />
             </div>
@@ -279,12 +278,11 @@ export default function Address() {
                 Número
               </p>
               <input
-                name="addressNumber"
                 type="number"
-                value={addressNumber}
+                value={number}
                 disabled={disabled}
                 className={disabled ? 'input-disabled' : 'input'}
-                onChange={(e) => setAddressNumber(e.target.value)}
+                onChange={(e) => setNumber(e.target.value)}
                 placeholder="22"
               />
             </div>
@@ -368,10 +366,10 @@ export default function Address() {
           className={
             filled ? 'submit-button-enabled' : 'submit-button-disabled'
           }
-          onClick={filled ? handleSubmit : null}
+          onClick={filled && !loading ? handleSubmit : null}
           type="button"
         >
-          Concluir
+          {loading ? 'Carregando...' : 'Concluir'}
         </button>
       ) : null}
     </div>

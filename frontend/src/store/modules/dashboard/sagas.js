@@ -12,16 +12,16 @@ export function* archiveOrder({ payload }) {
   const value = {
     EstablishmentId: parseInt(order.EstablishmentId, 10),
     TableNumber: order.TableNumber,
-    ArchivingTimestamp: {"long": parseInt(order.Timestamp, 10)}
+    ArchivingTimestamp: { long: parseInt(order.Timestamp, 10) },
   };
 
   let requestRoute;
-  
+
   if (order.NotificationType === 'waiterCall') {
-    value.NotificationType = "waiterCallArchive";
+    value.NotificationType = 'waiterCallArchive';
     requestRoute = 'waiter-call';
   } else if (order.NotificationType === 'billCall') {
-    value.NotificationType = "billCallArchive";
+    value.NotificationType = 'billCallArchive';
     requestRoute = 'bill-call';
   }
 
