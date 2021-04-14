@@ -74,6 +74,7 @@ class EstablishmentSessionController {
       city,
       state,
       photo,
+      plan,
     } = establishment;
 
     return res.json({
@@ -94,6 +95,7 @@ class EstablishmentSessionController {
         ratings,
         rating,
         raters,
+        plan,
       },
       token: jwt.sign({ id, kind: 'establishment' }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,

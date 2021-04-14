@@ -25,7 +25,9 @@ export default function AddTableModal({ onClose }) {
     setLoading(true);
 
     try {
-      const response = await api.post('open-table-session', { tableNumber });
+      const response = await api.post('open-table-session', {
+        tableNumber: parseInt(tableNumber, 10),
+      });
 
       dispatch(addTableSession(response.data));
 

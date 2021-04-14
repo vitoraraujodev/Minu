@@ -21,6 +21,7 @@ class Establishment extends Model {
         password_hash: Sequelize.STRING,
         admin_pin: Sequelize.VIRTUAL,
         admin_pin_hash: Sequelize.STRING,
+        plan: Sequelize.INTEGER,
       },
       {
         sequelize,

@@ -37,7 +37,8 @@ class TableSessionsController {
       });
     }
 
-    const payload = { ...req.body, establishmentId: req.establishmentId };
+    const tableNumber = parseInt(req.body.tableNumber, 10);
+    const payload = { tableNumber, establishmentId: req.establishmentId };
 
     try {
       const response = await axios.post(
@@ -45,13 +46,13 @@ class TableSessionsController {
         JSON.stringify(payload),
         { headers }
       );
-      const data = response.data;
+      const { data } = response;
 
-      if(data.status !== "SUCCEEDED"){
-        throw {"error": data.error, "message": data.cause};
+      if (data.status !== 'SUCCEEDED') {
+        return res.status(400).json({ error: data.error, message: data.cause });
       }
-      
-      return res.status(200).json(response.data);
+
+      return res.status(200).json(response.data.output);
     } catch (err) {
       return res.status(400).json({
         error:
@@ -72,6 +73,7 @@ class TableSessionsController {
     }
 
     const payload = { ...req.body, establishmentId: req.establishmentId };
+
     try {
       await axios.post(closePostEndpoint, JSON.stringify(payload), { headers });
       return res.status(200).json({ okay: true });

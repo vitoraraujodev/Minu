@@ -27,6 +27,7 @@ class EstablishmentController {
         'address_number',
         'street',
         'complement',
+        'plan',
       ],
       include: [
         {
@@ -60,6 +61,7 @@ class EstablishmentController {
           complement,
           photo,
           ratings,
+          plan,
         } = establishment;
 
         const raters = ratings.length;
@@ -82,6 +84,7 @@ class EstablishmentController {
           rating,
           raters,
           photo,
+          plan,
         };
       })
       .then(async (establishment) => {
@@ -106,6 +109,7 @@ class EstablishmentController {
             rating,
             raters,
             photo,
+            plan,
           } = establishment;
 
           return {
@@ -119,6 +123,7 @@ class EstablishmentController {
             raters,
             rating,
             photo,
+            plan,
             menus: handleActiveMenus(menus, date),
           };
         }
@@ -242,6 +247,7 @@ class EstablishmentController {
       city,
       state,
       photo,
+      plan,
     } = await Establishment.create(req.body);
 
     const establishment = {
@@ -257,6 +263,7 @@ class EstablishmentController {
       city,
       state,
       photo,
+      plan,
     };
 
     return res.json({
@@ -379,6 +386,7 @@ class EstablishmentController {
       state,
       photo,
       ratings,
+      plan,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
         {
@@ -422,6 +430,7 @@ class EstablishmentController {
       ratings,
       rating,
       raters,
+      plan,
     });
   }
 }

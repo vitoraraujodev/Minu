@@ -3,6 +3,7 @@ import producer from 'immer';
 const INITIAL_STATE = {
   signed: false,
   establishment: null,
+  loading: false,
 };
 
 export default function serviceSession(state = INITIAL_STATE, action) {
@@ -42,6 +43,11 @@ export default function serviceSession(state = INITIAL_STATE, action) {
       }
       case '@auth/SIGN_OUT': {
         draft.signed = false;
+        draft.loading = false;
+        draft.establishment = null;
+        break;
+      }
+      case '@global/REFRESH_STATE': {
         draft.loading = false;
         draft.establishment = null;
         break;

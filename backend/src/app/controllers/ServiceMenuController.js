@@ -46,6 +46,7 @@ class ServiceMenuController {
         'address_number',
         'street',
         'complement',
+        'plan',
       ],
       include: [
         {
@@ -72,6 +73,7 @@ class ServiceMenuController {
           complement,
           photo,
           ratings,
+          plan,
         } = establishment;
 
         const raters = ratings.length;
@@ -94,6 +96,7 @@ class ServiceMenuController {
           rating,
           raters,
           photo,
+          plan,
         };
       })
       .then(async (establishment) => {
@@ -119,6 +122,7 @@ class ServiceMenuController {
           rating,
           raters,
           photo,
+          plan,
         } = establishment;
 
         return {
@@ -132,6 +136,7 @@ class ServiceMenuController {
           raters,
           rating,
           photo,
+          plan,
           menus: menus.filter((menu) => menu.availability[weekDay] === '1'),
         };
       })
