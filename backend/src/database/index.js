@@ -10,6 +10,7 @@ import Additional from '../app/models/Establishment/Additional';
 import ItemAdditional from '../app/models/Establishment/ItemAdditional';
 import EstablishmentRating from '../app/models/Establishment/EstablishmentRating';
 import ItemRating from '../app/models/Establishment/ItemRating';
+import Plan from '../app/models/Establishment/Plan';
 
 import Customer from '../app/models/Customer/Customer';
 import Avatar from '../app/models/Customer/Avatar';
@@ -35,6 +36,7 @@ const models = [
   Customer,
   ServiceSession,
   SessionEvent,
+  Plan,
 ]; // Todos os models a serem carregados
 
 class Database {

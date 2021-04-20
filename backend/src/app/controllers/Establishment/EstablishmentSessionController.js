@@ -5,6 +5,7 @@ import Establishment from '../../models/Establishment/Establishment';
 import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
 import File from '../../models/Establishment/File';
 import Address from '../../models/Establishment/Address';
+import Plan from '../../models/Establishment/Plan';
 
 import authConfig from '../../../config/auth';
 
@@ -52,6 +53,12 @@ class EstablishmentSessionController {
             'state',
             'country',
           ],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          required: true,
+          attributes: ['id', 'title'],
         },
       ],
     });

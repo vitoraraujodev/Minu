@@ -15,7 +15,6 @@ class Establishment extends Model {
         password_hash: Sequelize.STRING,
         admin_pin: Sequelize.VIRTUAL,
         admin_pin_hash: Sequelize.STRING,
-        plan: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -42,6 +41,10 @@ class Establishment extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'photo_id', as: 'photo' });
+    this.belongsTo(models.Plan, {
+      foreignKey: 'plan_id',
+      as: 'plan',
+    });
 
     this.hasOne(models.Address, {
       foreignKey: 'establishment_id',

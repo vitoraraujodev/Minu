@@ -13,6 +13,7 @@ import Additional from '../../models/Establishment/Additional';
 import EstablishmentRating from '../../models/Establishment/EstablishmentRating';
 import ItemRating from '../../models/Establishment/ItemRating';
 import Customer from '../../models/Customer/Customer';
+import Plan from '../../models/Establishment/Plan';
 
 import authConfig from '../../../config/auth';
 
@@ -23,7 +24,7 @@ class EstablishmentController {
     const date = new Date();
 
     await Establishment.findByPk(req.params.id, {
-      attributes: ['id', 'establishment_name', 'plan'],
+      attributes: ['id', 'establishment_name'],
       include: [
         {
           model: EstablishmentRating,
@@ -51,6 +52,12 @@ class EstablishmentController {
             'state',
             'country',
           ],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          required: true,
+          attributes: ['id', 'title'],
         },
       ],
     })
@@ -206,6 +213,7 @@ class EstablishmentController {
         [Yup.ref('password'), null],
         'Confirmação de senha incorreta.'
       ),
+      plan_id: Yup.number(),
       address: Yup.object().shape({
         zip: Yup.string().required(),
         number: Yup.number().required(),
@@ -235,6 +243,20 @@ class EstablishmentController {
       return res.status(400).json({ error: 'Esse e-mail já está em uso.' });
     }
 
+    if (req.body.plan_id) {
+      const planExists = await Plan.findByPk(req.body.plan_id);
+
+      if (!planExists) {
+        return res.status(400).json({
+          error: 'Esse plano não existe. Verifique e tente novamente.',
+        });
+      }
+    } else {
+      const plan = await Plan.findOne({ where: { title: 'basic' } });
+
+      req.body.plan_id = plan.id;
+    }
+
     const transaction = await Database.connection.transaction();
 
     try {
@@ -245,12 +267,15 @@ class EstablishmentController {
         manager_name,
         manager_lastname,
         photo,
-        plan,
       } = await Establishment.create(req.body);
 
       const address = await Address.create({
         ...req.body.address,
         establishment_id: id,
+      });
+
+      const plan = await Plan.findByPk(req.body.plan_id, {
+        attributes: ['id', 'title'],
       });
 
       const establishment = {
@@ -260,8 +285,8 @@ class EstablishmentController {
         manager_name,
         manager_lastname,
         photo,
-        plan,
         address,
+        plan,
       };
 
       return res.json({
@@ -405,6 +430,12 @@ class EstablishmentController {
             'state',
             'country',
           ],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          required: true,
+          attributes: ['id', 'title'],
         },
       ],
     });

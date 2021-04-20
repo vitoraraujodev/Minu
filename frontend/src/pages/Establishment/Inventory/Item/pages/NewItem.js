@@ -20,6 +20,8 @@ export default function NewItem() {
   async function handleSubmit(data, file) {
     if (loading) return;
 
+    setLoading(true);
+
     const formData = new FormData();
 
     try {

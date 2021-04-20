@@ -13,6 +13,8 @@ export default function EditItem({ location }) {
   async function handleSubmit(data, file) {
     if (loading) return;
 
+    setLoading(true);
+
     const formData = new FormData();
 
     try {

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import Additional from  '../../models/Establishment/Additional';
+import Additional from '../../models/Establishment/Additional';
 
 class AdditionalController {
   async index(req, res) {
@@ -33,7 +33,7 @@ class AdditionalController {
     });
 
     if (additionalExists) {
-      return res.status(400).json({ error: 'Additional already created.' });
+      return res.status(400).json({ error: 'Esse adicional já foi criado.' });
     }
 
     const additional = await Additional.create({
@@ -67,7 +67,7 @@ class AdditionalController {
       });
 
       if (additionalExists) {
-        return res.status(400).json({ error: 'Additional already created.' });
+        return res.status(400).json({ error: 'Esse adicional já foi criado.' });
       }
     }
 

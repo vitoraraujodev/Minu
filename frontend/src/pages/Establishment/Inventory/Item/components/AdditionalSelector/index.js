@@ -21,6 +21,7 @@ export default function AdditionalSelector({
   selectedAdditionals,
   onChangeAdditionals,
 }) {
+  const [loading, setLoading] = useState(false);
   const [additionalForm, setAdditionalForm] = useState(false);
 
   const [additionals, setAdditionals] = useState([]);
@@ -73,10 +74,14 @@ export default function AdditionalSelector({
   }, [maskedPrice]);
 
   async function handleSubmit() {
+    if (loading) return;
+
     const data = {
       title,
       price,
     };
+
+    setLoading(true);
 
     try {
       const response = await api.post('additionals', data);
@@ -91,6 +96,7 @@ export default function AdditionalSelector({
     } catch (err) {
       if (err.response) alert(err.response.data.error);
     }
+    setLoading(false);
   }
 
   return (

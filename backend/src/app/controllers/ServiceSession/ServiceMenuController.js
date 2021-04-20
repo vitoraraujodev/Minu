@@ -11,6 +11,7 @@ import EstablishmentRating from '../../models/Establishment/EstablishmentRating'
 import ItemRating from '../../models/Establishment/ItemRating';
 import ServiceSession from '../../models/ServiceSession/ServiceSession';
 import SessionEvent from '../../models/ServiceSession/SessionEvent';
+import Plan from '../../models/Establishment/Plan';
 
 class ServiceMenuController {
   async index(req, res) {
@@ -40,7 +41,7 @@ class ServiceMenuController {
     const weekDay = getDay(date);
 
     await Establishment.findByPk(session.establishment_id, {
-      attributes: ['id', 'establishment_name', 'plan'],
+      attributes: ['id', 'establishment_name'],
       include: [
         {
           model: EstablishmentRating,
@@ -68,6 +69,12 @@ class ServiceMenuController {
             'state',
             'country',
           ],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          required: true,
+          attributes: ['id', 'title'],
         },
       ],
     })
