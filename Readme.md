@@ -102,6 +102,9 @@ yarn
 # Faça as migrações
 yarn sequelize --options-path ./.sequelize-dev db:migrate
 
+# Popule o banco
+yarn sequelize --options-path ./.sequelize-dev db:seed:all
+
 # Rode a API
 yarn dev 
 ```
