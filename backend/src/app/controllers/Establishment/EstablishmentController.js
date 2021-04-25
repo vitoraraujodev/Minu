@@ -401,6 +401,7 @@ class EstablishmentController {
       manager_lastname,
       photo,
       ratings,
+      address,
       plan,
     } = await Establishment.findByPk(req.establishmentId, {
       include: [
@@ -457,6 +458,7 @@ class EstablishmentController {
       manager_name,
       manager_lastname,
       photo,
+      address,
       ratings,
       rating,
       raters,
