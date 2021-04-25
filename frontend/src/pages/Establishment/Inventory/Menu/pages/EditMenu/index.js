@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import MenuForm from '../components/MenuForm';
+import MenuForm from '../../components/MenuForm';
 
 import history from '~/services/history';
 import api from '~/services/api';
