@@ -77,7 +77,7 @@ export default function tableSession(state = INITIAL_STATE, action) {
       }
 
       case '@global/REFRESH_STATE': {
-        draft.tableSession = false;
+        draft.tableSession = {};
         break;
       }
 
