@@ -15,6 +15,7 @@ class BillCallController {
       await axios.post(billCallInputEndpoint, JSON.stringify(req.body), {
         headers,
       });
+
       return res.status(200).json({ okay: true });
     } catch (err) {
       return res.status(400).json({

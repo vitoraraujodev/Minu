@@ -10,10 +10,12 @@ const endPoint = 'http://peripherals.seuminu.com:9000/topics';
 class WaiterCallController {
   async store(req, res) {
     const waiterCallInputEndpoint = `${endPoint}/WaiterCall`;
+
     try {
       await axios.post(waiterCallInputEndpoint, JSON.stringify(req.body), {
         headers,
       });
+
       return res.status(200).json({ okay: true });
     } catch (err) {
       return res.status(400).json({
