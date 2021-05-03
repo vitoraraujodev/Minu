@@ -5,6 +5,8 @@ import './styles.css';
 export default function Button({
   children,
   variant = 'primary',
+  color = '#535BFE',
+  fontSize = 18,
   disabled = false,
   onClick = () => {},
 }) {
@@ -21,6 +23,7 @@ export default function Button({
       type="button"
       id="button-component"
       className={styleVariant}
+      style={{ '--buttonColor': color, fontSize }}
       disabled={disabled}
       onClick={onClick}
     >

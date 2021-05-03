@@ -18,18 +18,18 @@
 }
 
 #button-component.primary {
-  background: #535BFE;
+  background: var(--buttonColor);
   color: #fff;
   border: 0;
 }
 
 #button-component.secondary {
-  border: 1.5px solid #535BFE;
-  color: #535BFE;
+  border: 1.5px solid var(--buttonColor);
+  color: var(--buttonColor);
 }
 
 #button-component.secondary:active {
-  background: #535BFE;
+  background: var(--buttonColor);
   color: #fff;
 }
 
@@ -39,25 +39,25 @@
 }
 
 #button-component.tertiary:active {
-  background: #535BFE;
+  background: var(--buttonColor);
   color: #fff;
 }
 
 #button-component.warning {
-  border: 1.5px solid #fe5f53;
-  color: #fe5f53;
+  border: 1.5px solid var(--warning);
+  color: var(--warning);
 }
 
 #button-component.warning:active {
-  background: #fe5f53;
+  background: var(--warning);
   color: #fff;
 }
+
 
 @media screen and (max-width: 767px) {
   #button-component {
     font-size: 18px;
     font-weight: 600;
-
   }
 }
 
