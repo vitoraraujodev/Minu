@@ -7,7 +7,7 @@
   position: fixed;
   display: flex;
   bottom: 88px;
-  right: calc(50% - 280px + 24px);
+  right: calc(50% - 280px + 32px);
   z-index: 5;
 }
 #dashboard-page .add-table-button {
@@ -29,10 +29,8 @@
   #dashboard-page .tables {
     padding-bottom: 96px;
   }
-}
 
-@media screen and (max-width: 560px) {
   #dashboard-page .add-button-container {
-    right: 24px;
+    right: 32px;
   }
 }
