@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Modal from '~/components/Modal';
+import { Button } from '~/components/Buttons';
 import Input from '~/components/Input';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
@@ -73,13 +74,15 @@ export default function AddTableModal({ onClose }) {
           }
         />
 
-        <button
-          type="button"
-          onClick={handleAddTable}
-          className="modal-add-button"
-        >
-          {loading ? 'Carregando...' : 'Iniciar sessão'}
-        </button>
+        <div style={{ marginTop: 24 }}>
+          <Button
+            variant="secondary"
+            onClick={handleAddTable}
+            disabled={!tableNumber}
+          >
+            {loading ? 'Carregando...' : 'Iniciar sessão'}
+          </Button>
+        </div>
       </div>
     </Modal>
   );

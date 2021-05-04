@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FiPlus } from 'react-icons/fi';
 
 import ConfirmationModal from '~/components/ConfirmationModal';
+import Loader from '~/components/Loader';
 
 import TableSession from './components/TableSession';
 import TableSessionModal from './components/TableSessionModal';
@@ -95,7 +96,9 @@ export default function TableSessions() {
       {confirmationModalVisible && (
         <ConfirmationModal
           title="Finalizar sessão?"
-          description={`Libere a mesa ${selectedTable.TableNumber} para que um novo cliente possa sentar`}
+          description={`Libere a mesa ${
+            selectedTable.TableNumber || ''
+          } para que um novo cliente possa sentar`}
           onClose={() => setConfirmationModalVisible(false)}
           onConfirm={handleFinishTableSession}
         />
@@ -107,7 +110,7 @@ export default function TableSessions() {
 
       {loading && (
         <div className="loader-container">
-          <div className="loader" />
+          <Loader size={48} />
         </div>
       )}
 

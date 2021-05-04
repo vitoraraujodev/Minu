@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Loader from '~/components/Loader';
+
 import Order from './components/Order';
 import OrderModal from './components/OrderModal';
 
@@ -90,7 +92,7 @@ export default function Orders() {
 
       {loading && (
         <div className="loader-container">
-          <div className="loader" />
+          <Loader size={48} />
         </div>
       )}
 

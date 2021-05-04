@@ -10,7 +10,7 @@
 }
 
 #dashboard-table-modal .modal-title {
-  color: #606060;
+  color: var(--lightestBlack);
   font-size: 21px;
   font-weight: 600;
 }
@@ -40,14 +40,6 @@
   height: 40vh;
 }
 
-#dashboard-table-modal .test-block {
-  height: 40px;
-  min-height: 40px;
-  width: 100%;
-  margin-top: 8px;
-  background: #ddd;
-}
-
 /* width */
 #dashboard-table-modal .modal-orders-list::-webkit-scrollbar {
   width: 8px;
@@ -55,19 +47,19 @@
 
 /* Track */
 #dashboard-table-modal .modal-orders-list::-webkit-scrollbar-track {
-  background: #e6e6e6;
+  background: var(--lightGrey);
   border-radius: 6px;
 }
 
 /* Handle */
 #dashboard-table-modal .modal-orders-list::-webkit-scrollbar-thumb {
-  background: #acacac;
+  background: var(--mediumGrey);
   border-radius: 6px;
 }
 
 /* Handle on hover */
 #dashboard-table-modal .modal-orders-list::-webkit-scrollbar-thumb:hover {
-  background: #9c9c9c;
+  background: var(--grey);
 }
 
 #dashboard-table-modal .add-order-container {
@@ -76,12 +68,23 @@
   padding: 16px 8px;
   width: 100%;
   font-size: 18px;
-  color: #535BFE;
+  color: var(--primary);
   cursor: pointer;
 }
 
 #dashboard-table-modal .add-order-container:hover {
-  background: #f2f2f2;
+  background: var(--lightestGrey);
+}
+
+#dashboard-table-modal .add-order-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  height: 16px;
+  min-width: 16px;
+  border-radius: 50%;
+  background: var(--primary);
 }
 
 #dashboard-table-modal .modal-hint-container {
@@ -96,7 +99,7 @@
   padding: 0 32px;
   font-size: 16px;
   font-weight: 600;
-  color: #9c9c9c;
+  color: var(--grey);
 }
 
 #dashboard-table-modal .modal-total-block {
@@ -105,34 +108,34 @@
   align-items: center;
   margin-top: 8px;
   padding-top: 16px;
-  border-top: 1.5px solid #acacac;
+  border-top: 1.5px solid var(--mediumGrey);
 }
 
 #dashboard-table-modal .modal-total-price {
   font-size: 21px;
-  color: #6F6F6F;
+  color: var(--lightestBlack);
 }
 
 #dashboard-table-modal .modal-finish-button {
   padding: 8px 16px;
   margin-top: 24px;
   width: 100%;
-  border: 1.5px solid #fe5f53;
+  border: 1.5px solid var(--warning);
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
-  color: #fe5f53;
+  color: var(--warning);
 }
 
 #dashboard-table-modal .modal-finish-button:active {
-  background: #fe5f53;
-  color: #fff;
+  background: var(--warning);
+  color: var(--white);
 }
 
 @media screen and (max-width: 767px) {
   #dashboard-table-modal .add-order-container {
     padding: 12px 8px;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   #dashboard-table-modal .modal-total-price {

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
 import ProductPicker from '../ProductPicker';
 
 import Modal from '~/components/Modal';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
-import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 
 import formatNumber from '~/util/formatNumber';
 import { formatPrice } from '~/util/formatPrice';
@@ -38,10 +38,9 @@ export default function TableSessionModal({
               className="add-order-container"
               onClick={() => setOpenList(true)}
             >
-              <AddIcon
-                style={{ height: 16, marginRight: 8, minWidth: 16 }}
-                fill="#535BFE"
-              />
+              <div className="add-order-circle">
+                <FaPlus color="#fff" size={10} />
+              </div>
               Anotar pedido
             </div>
 

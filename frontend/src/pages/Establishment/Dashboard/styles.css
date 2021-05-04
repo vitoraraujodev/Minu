@@ -12,7 +12,7 @@
   padding: 0 32px;
   font-size: 16px;
   font-weight: 600;
-  color: #9c9c9c;
+  color: var(--grey);
 }
 
 #dashboard-page .loader-container {
@@ -21,16 +21,6 @@
   align-items: center;
   width: 100%;
   margin: 40px 0;
-}
-
-#dashboard-page .loader {
-  margin: 0 auto;
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #535bfe;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  animation: spin 2s linear infinite;
 }
 
 @media screen and (max-width: 767px) {

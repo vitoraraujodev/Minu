@@ -3,7 +3,6 @@
   padding-bottom: 48px;
 }
 
-
 #dashboard-page .table-container + .table-container {
   margin-top: 24px;
 }
@@ -11,7 +10,7 @@
 #dashboard-page .table-label {
   font-size: 20px;
   font-weight: 600;
-  color: #9C9C9C;
+  color: var(--grey);
   margin-bottom: 8px;
 }
 

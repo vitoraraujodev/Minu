@@ -9,25 +9,25 @@
   padding: 0 16px;
   height: 40px;
   border-radius: 5px;
-  border: 1px solid #9C9C9C;
+  border: 1px solid;
   font-size: 17px;
-  color: #444444;
+  color: var(--lightBlack);
 };
 
 #input-component .dont-remove-this {
 }
 
 #input-component .primary {
-  border: 1px solid #9C9C9C;
+  border: 1px solid var(--grey);
 }
 
 #input-component .secondary {
-  border: 1px solid #535bfe;
+  border: 1px solid var(--primary);
 }
 
 #input-component .tertiary {
   border: 0;
-  box-shadow: 0px 0px 4px #00000029;
+  box-shadow: 0px 0px 4px var(--boxShadow);
 }
 
 #input-component .prefix {
@@ -47,7 +47,7 @@
   height: 100%;
   font-size: 15px;
   font-weight: 400;
-  color: #9c9c9c;
+  color: var(--grey);
 }
 
 #input-component .prefix-container {
