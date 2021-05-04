@@ -1,0 +1,25 @@
+#product-header-component {
+  width: 100%;
+  padding: 24px 0;
+  background: var(--white);
+}
+
+#product-header-component .back-button {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--lightestBlack);
+}
+
+@media screen and (max-width: 560px) {
+  #product-header-component {
+    padding: 16px;
+  }
+
+  #product-header-component .back-button {
+    font-size: 18px;
+  }
+}

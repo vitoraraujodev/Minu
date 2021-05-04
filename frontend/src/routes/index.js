@@ -29,8 +29,8 @@ import Dashboard from '~/pages/Establishment/Dashboard';
 // import CustomerProfile from '~/pages/Customer/Profile';
 // import CustomerAccount from '~/pages/Customer/Profile/Account';
 
-import BasicMenu from '~/pages/Service/Menu/BasicMenu';
-import BasicProductOrder from '~/pages/Service/Menu/BasicMenu/ProductOrder';
+import ServiceMenu from '~/pages/Service/Menu';
+import ServiceProduct from '~/pages/Service/Product';
 
 // import CustomerMenu from '~/pages/Service/Menu/CustomerMenu';
 // import CustomerProductOrder from '~/pages/Service/Menu/CustomerMenu/ProductOrder';
@@ -146,12 +146,12 @@ export default function Routes() {
         <Route path="/cardapio/carrinho" component={Cart} customers session /> */}
 
         <Route path="/" exact component={BasicSession} />
-        <Route path="/cardapio/:code" exact component={BasicMenu} />
         <Route
-          path="/cardapio/:code/produto"
-          component={BasicProductOrder}
+          path="/cardapio/produto"
+          component={ServiceProduct}
           stateRequired
         />
+        <Route path="/cardapio/:code" component={ServiceMenu} />
 
         <Redirect from="*" to="/" notPrivate />
       </Switch>

@@ -1,0 +1,41 @@
+#menu-buttons-component {
+  position: fixed;
+  right: calc(50% - 512px + 24px);
+  bottom: 72px;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+#menu-buttons-component .button {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary);
+  box-shadow: 0px 3px 6px var(--boxShadow);
+}
+
+#menu-buttons-component .button + .button {
+  margin-left: 8px;
+}
+
+#menu-buttons-component .waiter,
+#menu-buttons-component .cart {
+  background: var(--primary);
+}
+
+#menu-buttons-component .bill-call,
+#menu-buttons-component .bill {
+  background: var(--secondary);
+}
+
+@media screen and (max-width: 1024px) {
+  #menu-buttons-component {
+    right: 24px;
+  }
+}

@@ -9,6 +9,7 @@ import { store, persistor } from './store';
 import Routes from './routes';
 
 import './styles/global.css';
+import './styles/themes.css';
 
 export default function App() {
   return (

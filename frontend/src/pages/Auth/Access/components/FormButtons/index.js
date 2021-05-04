@@ -16,7 +16,7 @@ export default function FormButtons({
   return (
     <div id="form-buttons-container">
       <button type="button" className="button back " onClick={onBack}>
-        <FaChevronLeft size={16} color="#606060" />
+        <FaChevronLeft size={16} color="#6c6c6c" />
         <span style={{ marginLeft: 4 }}>{leftButtonText || 'Voltar'}</span>
       </button>
 

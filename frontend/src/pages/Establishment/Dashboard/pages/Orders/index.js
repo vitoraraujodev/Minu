@@ -110,7 +110,7 @@ export default function Orders() {
       ))}
 
       {!loading && Object.keys(sortedTables).length === 0 && (
-        <p className="hint">Não há nada aqui por enquanto...</p>
+        <p className="hint">Não há nenhuma notificação pendente...</p>
       )}
     </div>
   );

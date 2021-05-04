@@ -1,0 +1,53 @@
+#menu-waiter-modal .modal-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu-waiter-modal .modal-title {
+  color: var(--lightestBlack);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+#menu-waiter-modal .modal-close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: 0;
+}
+
+#menu-waiter-modal .modal-text {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  color: var(--lightestBlack);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+#menu-waiter-modal .confirm-button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 0;
+  border-radius: 5px;
+  background: var(--primary);
+  color: var(--white);
+}
+
+#menu-waiter-modal .confirm-button:active {
+  transform: scale(1.02);
+}
+
+#menu-waiter-modal .waiter {
+  background: var(--primary);
+}
+
+#menu-waiter-modal .bill {
+  background: var(--secondary);
+}

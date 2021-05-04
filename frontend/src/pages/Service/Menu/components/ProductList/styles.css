@@ -1,0 +1,38 @@
+#service-product-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 24px;
+  padding-bottom: 48px;
+}
+
+#service-product-list .products {
+  width: 100%;
+  max-width: 432px;
+  margin-bottom: 64px;
+}
+
+#service-product-list .category-label {
+  padding-top: 24px;
+  font-size: 21px;
+  color: #505050;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+#service-product-list .empty-text {
+  padding: 32px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #acacac;
+  text-align: center;
+}
+
+#service-product-list .loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+}

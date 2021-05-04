@@ -33,14 +33,14 @@ export function checkOutSuccess() {
   };
 }
 
-export function setSessionEstablishment(establishment) {
+export function setSession(establishment, tableNumber) {
   return {
-    type: '@session/SET_ESTABLISHMENT',
-    payload: establishment,
+    type: '@session/SET_SESSION',
+    payload: { establishment, tableNumber },
   };
 }
-export function removeSessionEstablishment() {
+export function removeSession() {
   return {
-    type: '@session/REMOVE_ESTABLISHMENT',
+    type: '@session/REMOVE_SESSION',
   };
 }

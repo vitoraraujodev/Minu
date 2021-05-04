@@ -23,11 +23,12 @@ html, body, #root {
   width: 100%;
   min-width: 320px;
   overflow-x: auto;
+  color: var(--black);
 }
 
 body {
   font: 400 23px Muli, sans-serif;
-  background: #fff;
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.01em;
 }
@@ -44,8 +45,9 @@ input, button, textarea {
   font: 400 18px Muli, sans-serif;
 }
 
-input::placeholder {
-  color: #9C9C9C;
+input::placeholder,
+textarea::placeholder {
+  color: var(--mediumGrey);
   font-size: 16px;
 }
 
@@ -75,12 +77,13 @@ input[type="file"] {
 }
 
 input[disabled] {
-  color:#acacac;
-  background:#f2f2f2;
+  color: var(--mediumGrey);;
+  background: var(--lightestGrey);
 }
 
 @media screen and (max-width: 767px) {
-  input::placeholder {
+  input::placeholder,
+  textarea::placeholder {
     font-size: 15px;
   }
 }

@@ -1,0 +1,17 @@
+#service-menu-page {
+  position: relative;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  max-width: 1024px;
+  margin: 0 auto;
+  height: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#service-menu-page::-webkit-scrollbar {
+  display: none;
+}
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiXCircle } from 'react-icons/fi';
 
-import Button from '~/components/Button';
+import { Button } from '~/components/Buttons';
 
 import { ReactComponent as Symbols } from '~/assets/icons/symbols.svg';
 

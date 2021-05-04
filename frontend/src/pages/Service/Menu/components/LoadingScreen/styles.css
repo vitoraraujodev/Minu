@@ -1,0 +1,15 @@
+#loading-screen-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+#loading-screen-component .loading-text {
+  font-size: 21px;
+  font-weight: 600;
+  margin-top: 16px;
+  color: var(--primary);
+}

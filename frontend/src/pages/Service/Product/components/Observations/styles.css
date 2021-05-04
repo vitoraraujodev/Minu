@@ -1,0 +1,25 @@
+#product-observation-component {
+  margin-top: 16px;
+  padding: 0 24px;
+}
+
+#product-observation-component .observation-label {
+  margin-top: 24px;
+  color: var(--lightestBlack);
+  font-size: 18px;
+}
+
+#product-observation-component .observation-input {
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1.5px solid var(--mediumGrey);
+  box-shadow: none;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  font-size: 16px;
+  color: var(--lightBlack);
+  resize: none;
+}
+
+

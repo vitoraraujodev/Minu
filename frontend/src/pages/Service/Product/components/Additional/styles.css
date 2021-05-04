@@ -1,0 +1,64 @@
+#product-additional-component {
+  padding: 0 24px;
+}
+
+#product-additional-component .additional-label {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: var(--lightestBlack);
+  font-size: 20px;
+}
+
+#product-additional-component .additional {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+#product-additional-component .additional + .additional {
+  margin-top: 8px;
+}
+
+#product-additional-component .check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  min-width: 20px;
+  width: 20px;
+  border-radius: 10px;
+  margin-right: 8px;
+  border: 1.5px solid var(--grey);
+}
+
+#product-additional-component .check-box-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  min-width: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: var(--primary);
+}
+
+#product-additional-component .additional-title {
+  color: var(--grey);
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+
+#product-additional-component .additional-title::after {
+  content: " ..............................................................................................................................";
+}
+
+#product-additional-component .additional-price {
+  color: var(--grey);
+  font-size: 18px;
+  white-space: nowrap;
+  margin-left: 8px;
+}

@@ -1,0 +1,44 @@
+#footer-button-component {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 24px;
+  overflow: hidden;
+}
+
+#footer-button-component .footer-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--white);
+  border: 0;
+  background: var(--buttonColor);
+}
+
+#footer-button-component .footer-button:hover {
+  transform: scale(1.05);
+}
+
+#footer-button-component .footer-button:active {
+  transform: none;
+}
+
+#footer-button-component .footer-button[disabled] {
+  background: var(--mediumGrey);
+}
+
+@media screen and (max-width: 767px) {
+  #footer-button-component {
+   position: fixed;
+  }
+
+  #footer-button-component .footer-button {
+    font-size: 21px;
+  }
+}
+

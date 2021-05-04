@@ -1,0 +1,19 @@
+:root {
+  --primary: #535BFE;
+  --softPrimary: #B4B7FF;
+  --secondary: #24D18A;
+  --white: #FFF;
+  --lightestGrey: #F2F2F2;
+  --lightGrey: #E6E6E6;
+  --mediumLightGrey: #DDD;
+  --mediumGrey: #BBB;
+  --grey: #9C9C9C;
+  --lightestBlack: #6C6C6C;
+  --lightBlack: #444;
+  --black: #252525;
+  --warning: #fe5f53;
+
+  --boxShadow: #00000029;
+
+  --modalBackground: rgba(0,0,0,0.4)
+}

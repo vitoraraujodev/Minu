@@ -6,7 +6,7 @@ import leaflet from '~/assets/images/leaflet.jpg';
 
 import history from '~/services/history';
 
-import { removeSessionEstablishment } from '~/store/modules/serviceSession/actions';
+import { removeSession } from '~/store/modules/serviceSession/actions';
 
 import '../styles.css';
 
@@ -37,7 +37,7 @@ export default function Session() {
   }, [inputs]);
 
   useEffect(() => {
-    if (stateEstablishment) dispatch(removeSessionEstablishment());
+    if (stateEstablishment) dispatch(removeSession());
   }, [stateEstablishment]); //eslint-disable-line
 
   return (
@@ -75,5 +75,3 @@ export default function Session() {
     </div>
   );
 }
-
-// <p className="qrcode-or">- Ou -</p>
