@@ -19,11 +19,10 @@ function parseOpenCall(openCall) {
   let Timestamp;
 
   if (NotificationType === 'waiterCall') {
-    Timestamp = openCall.ArchivingTimestamp;
+    Timestamp = openCall.WaiterCallTimestamp;
   } else if (NotificationType === 'billCall') {
-    Timestamp = openCall.ArchivingTimestamp;
+    Timestamp = openCall.BillCallTimestamp;
   }
-
   TableNumber = parseInt(TableNumber, 10);
   Timestamp = parseInt(Timestamp, 10);
   EstablishmentId = parseInt(EstablishmentId, 10);
