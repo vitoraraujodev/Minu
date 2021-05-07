@@ -3,7 +3,5 @@
 export default function handleEstablishmentAddress(address = {}) {
   if (!address) return 'Endereço indisponível';
 
-  const complementText = address.complement ? `, ${address.complement}` : '';
-
-  return `${address.street}, ${address.number}${complementText}`;
+  return `${address.street}, ${address.number}`;
 }

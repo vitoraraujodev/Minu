@@ -21,7 +21,7 @@
 }
 
 #footer-button-component .footer-button:not(:disabled):hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 #footer-button-component .footer-button:active {

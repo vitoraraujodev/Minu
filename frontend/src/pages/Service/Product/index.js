@@ -42,26 +42,30 @@ export default function Product({ location }) {
 
       <ProductInfo product={product} />
 
-      {product.additionals.length > 0 && (
-        <Additional
-          additionals={product.additionals}
-          selectedAdditionals={selectedAdditionals}
-          onSelect={setSelectedAdditionals}
-        />
-      )}
+      <div className="specifications">
+        {product.additionals.length > 0 && (
+          <Additional
+            additionals={product.additionals}
+            selectedAdditionals={selectedAdditionals}
+            onSelect={setSelectedAdditionals}
+          />
+        )}
 
-      {!tableNumber && plan === STANDARD_PLAN && (
-        <Observations
-          observation={observation}
-          onChangeObservation={setObservation}
-        />
-      )}
+        {!tableNumber && plan === STANDARD_PLAN && (
+          <Observations
+            observation={observation}
+            onChangeObservation={setObservation}
+          />
+        )}
 
-      {!tableNumber && plan === STANDARD_PLAN && (
-        <div className="amount-container">
-          <AmountInput amount={amount} onChangeAmount={setAmount} />
-        </div>
-      )}
+        {!tableNumber && plan === STANDARD_PLAN && (
+          <div className="amount-container">
+            <div className="amount">
+              <AmountInput amount={amount} onChangeAmount={setAmount} />
+            </div>
+          </div>
+        )}
+      </div>
 
       {!tableNumber && plan === STANDARD_PLAN && (
         <AddCartButton totalPrice={totalPrice} onAddToCart={handleAddToCart} />

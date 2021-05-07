@@ -6,7 +6,21 @@
   padding-bottom: 96px;
 }
 
-#service-product-page .amount-container {
-  margin-top: 24px;
+#service-product-page .specifications {
   padding: 0 24px;
+}
+
+#service-product-page .amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1.5px solid var(--lightGrey);
+}
+
+#service-product-page .amount {
+  width: 50%;
+  min-width: 176px;
 }

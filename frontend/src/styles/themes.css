@@ -11,9 +11,9 @@
   --lightestBlack: #6C6C6C;
   --lightBlack: #444;
   --black: #252525;
-  --warning: #fe5f53;
+  --warning: #FE5F53;
 
   --boxShadow: #00000029;
 
-  --modalBackground: rgba(0,0,0,0.4)
+  --modalBackground: rgba(0,0,0,0.4);
 }
