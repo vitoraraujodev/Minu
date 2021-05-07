@@ -1,6 +1,6 @@
 import React from 'react';
 
-import formatNumber from '~/util/formatNumber';
+import formatNumber from '~/utils/formatNumber';
 
 import './styles.css';
 

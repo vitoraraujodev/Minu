@@ -13,7 +13,7 @@ import { ReactComponent as Logo } from '~/assets/icons/simple-logo.svg';
 
 import { signOutRequest } from '~/store/modules/auth/actions';
 
-import handleEstablishmentAddress from '~/util/handleEstablishmentAddress';
+import handleEstablishmentAddress from '~/utils/handleEstablishmentAddress';
 
 import defaultPicture from '~/assets/images/default-picture.png';
 

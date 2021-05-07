@@ -1,0 +1,15 @@
+#add-cart-button-component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+  padding: 0 24px;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+#add-cart-button-component .price-text {
+  font-size: 18px;
+  font-weight: 600;
+}

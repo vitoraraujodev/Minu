@@ -13,7 +13,7 @@ import { establishmentSignUpRequest } from '~/store/modules/auth/actions';
 
 import history from '~/services/history';
 
-import capitalize from '~/util/capitalize';
+import capitalize from '~/utils/capitalize';
 
 import '../../../styles.css';
 

@@ -12,9 +12,9 @@ import { ReactComponent as Backward } from '~/assets/icons/backward-icon.svg';
 import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import handleHour from '~/util/handleHour';
-import { formatPrice } from '~/util/formatPrice';
-import capitalize from '~/util/capitalize';
+import handleHour from '~/utils/handleHour';
+import { formatPrice } from '~/utils/formatPrice';
+import capitalize from '~/utils/capitalize';
 
 import history from '~/services/history';
 

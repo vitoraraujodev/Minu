@@ -13,7 +13,7 @@ import { updateAddressRequest } from '~/store/modules/establishment/actions';
 
 import history from '~/services/history';
 
-import capitalize from '~/util/capitalize';
+import capitalize from '~/utils/capitalize';
 
 import { estados } from '~/json/states-cities.json';
 

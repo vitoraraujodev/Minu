@@ -11,7 +11,7 @@ import {
 
 import api from '~/services/api';
 
-import { formatPrice } from '~/util/formatPrice';
+import { formatPrice } from '~/utils/formatPrice';
 
 import './styles.css';
 

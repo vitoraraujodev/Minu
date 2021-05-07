@@ -13,8 +13,8 @@ import { ReactComponent as ExpandArrow } from '~/assets/icons/expand-arrow.svg';
 import { ReactComponent as AddIcon } from '~/assets/icons/add-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import { formatPrice } from '~/util/formatPrice';
-import capitalize from '~/util/capitalize';
+import { formatPrice } from '~/utils/formatPrice';
+import capitalize from '~/utils/capitalize';
 
 import history from '~/services/history';
 

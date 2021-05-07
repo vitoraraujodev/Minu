@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import AmountInput from '~/components/AmountInput';
-import { FooterButton } from '~/components/Buttons';
 
 import Header from './components/Header';
 import ProductInfo from './components/ProductInfo';
 import Additional from './components/Additional';
 import Observations from './components/Observations';
+import AddCartButton from './components/AddCartButton';
 
 import { STANDARD_PLAN } from '~/constants';
 
@@ -22,6 +22,19 @@ export default function Product({ location }) {
   const [selectedAdditionals, setSelectedAdditionals] = useState([]);
   const [observation, setObservation] = useState('');
   const [amount, setAmount] = useState(1);
+
+  const totalPrice = useMemo(() => {
+    const additionalsPrice =
+      selectedAdditionals.length > 0
+        ? selectedAdditionals
+            .map((additional) => additional.price)
+            .reduce((total = 0, price) => total + price)
+        : 0;
+
+    return (product.price + additionalsPrice) * amount;
+  }, [amount, selectedAdditionals]);
+
+  function handleAddToCart() {}
 
   return (
     <div id="service-product-page">
@@ -51,9 +64,7 @@ export default function Product({ location }) {
       )}
 
       {!tableNumber && plan === STANDARD_PLAN && (
-        <FooterButton theme="secondary" onClick={() => {}}>
-          Adicionar ao carrinho
-        </FooterButton>
+        <AddCartButton totalPrice={totalPrice} onAddToCart={handleAddToCart} />
       )}
     </div>
   );

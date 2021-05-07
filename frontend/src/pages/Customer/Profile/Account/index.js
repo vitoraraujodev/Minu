@@ -7,7 +7,7 @@ import { updateCustomerRequest } from '~/store/modules/customer/actions';
 
 import history from '~/services/history';
 
-import capitalize from '~/util/capitalize';
+import capitalize from '~/utils/capitalize';
 
 import './styles.css';
 

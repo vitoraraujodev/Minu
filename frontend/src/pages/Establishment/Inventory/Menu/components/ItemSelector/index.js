@@ -8,7 +8,7 @@ import defaultPicture from '~/assets/images/default-picture.png';
 
 import api from '~/services/api';
 
-import { formatPrice } from '~/util/formatPrice';
+import { formatPrice } from '~/utils/formatPrice';
 
 import './styles.css';
 

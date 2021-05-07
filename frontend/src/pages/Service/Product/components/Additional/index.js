@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FaCheck } from 'react-icons/fa';
 
-import { formatPrice } from '~/util/formatPrice';
+import { formatPrice } from '~/utils/formatPrice';
 
 import { STANDARD_PLAN } from '~/constants';
 

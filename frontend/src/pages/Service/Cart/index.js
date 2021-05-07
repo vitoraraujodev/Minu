@@ -10,7 +10,7 @@ import { removeFromCart, clearCart } from '~/store/modules/cart/actions';
 
 import { ReactComponent as Remove } from '~/assets/icons/close-icon.svg';
 
-import { formatPrice } from '~/util/formatPrice';
+import { formatPrice } from '~/utils/formatPrice';
 
 import './styles.css';
 

@@ -7,8 +7,8 @@ import Modal from '~/components/Modal';
 
 import { ReactComponent as Close } from '~/assets/icons/close-icon.svg';
 
-import formatNumber from '~/util/formatNumber';
-import { formatPrice } from '~/util/formatPrice';
+import formatNumber from '~/utils/formatNumber';
+import { formatPrice } from '~/utils/formatPrice';
 
 import './styles.css';
 

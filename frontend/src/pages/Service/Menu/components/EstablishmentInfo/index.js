@@ -13,7 +13,7 @@ import { removeSession } from '~/store/modules/serviceSession/actions';
 
 import history from '~/services/history';
 
-import handleEstablishmentAddress from '~/util/handleEstablishmentAddress';
+import handleEstablishmentAddress from '~/utils/handleEstablishmentAddress';
 
 import './styles.css';
 

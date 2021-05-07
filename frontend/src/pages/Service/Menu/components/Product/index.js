@@ -5,7 +5,7 @@ import { ReactComponent as RatingStar } from '~/assets/icons/rating-star.svg';
 import { ReactComponent as Clock } from '~/assets/icons/clock-icon.svg';
 import defaultPicture from '~/assets/images/default-picture.png';
 
-import { formatPrice } from '~/util/formatPrice';
+import { formatPrice } from '~/utils/formatPrice';
 
 import './styles.css';
 

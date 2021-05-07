@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from '~/components/Modal';
 
-import formatNumber from '~/util/formatNumber';
+import formatNumber from '~/utils/formatNumber';
 
 import './styles.css';
 

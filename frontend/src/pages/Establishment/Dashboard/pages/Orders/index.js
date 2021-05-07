@@ -11,7 +11,7 @@ import {
   archiveOrderRequest,
 } from '~/store/modules/dashboard/actions';
 
-import formatNumber from '~/util/formatNumber';
+import formatNumber from '~/utils/formatNumber';
 
 import api from '~/services/api';
 

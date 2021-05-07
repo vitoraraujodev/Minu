@@ -8,7 +8,9 @@ export default function Observations({
 }) {
   return (
     <div id="product-observation-component">
-      <p className="observation-label">Observações</p>
+      <p className="observation-label">
+        Observações <span className="hint">(opcional)</span>
+      </p>
 
       <textarea
         className="observation-input"

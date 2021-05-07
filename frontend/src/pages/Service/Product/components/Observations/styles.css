@@ -9,6 +9,11 @@
   font-size: 18px;
 }
 
+#product-observation-component .hint {
+  color: var(--grey);
+  font-size: 14px;
+}
+
 #product-observation-component .observation-input {
   margin-top: 8px;
   width: 100%;

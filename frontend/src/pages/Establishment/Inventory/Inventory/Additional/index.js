@@ -7,7 +7,7 @@ import { ReactComponent as SaveIcon } from '~/assets/icons/save-icon.svg';
 
 import api from '~/services/api';
 
-import capitalize from '~/util/capitalize';
+import capitalize from '~/utils/capitalize';
 
 import './styles.css';
 

@@ -11,7 +11,7 @@ import { updateEstablishmentRequest } from '~/store/modules/establishment/action
 
 import history from '~/services/history';
 
-import capitalize from '~/util/capitalize';
+import capitalize from '~/utils/capitalize';
 
 import './styles.css';
 
