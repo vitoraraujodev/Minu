@@ -11,13 +11,16 @@ export default function SuccessCover({
   successText = 'Sucesso!',
   successSubtext = '',
   successButtonText = '',
-  background = '#535bfe',
+  theme = 'primary',
   onClick = () => {},
   onClose = () => {},
 }) {
   return (
     <>
-      <div id="success-conver-background" style={{ background }} />
+      <div
+        id="success-conver-background"
+        style={{ '--backgroundColor': `var(--${theme})` }}
+      />
 
       <div id="success-cover">
         <div className="success-content">

@@ -5,6 +5,7 @@
   top: 0;
   right: 0;
   z-index: 10;
+  background: var(--backgroundColor);
 }
 
 #success-cover {
@@ -30,11 +31,11 @@
   align-items: center;
   border: 0;
   font-size: 22px;
-  color: #fff;
+  color: var(--white);
 }
 
 #success-cover .success-text {
-  color: #fff;
+  color: var(--white);
   text-align: center;
   font-size: 48px;
   font-weight: 700;
@@ -58,8 +59,8 @@
 }
 
 #success-cover .success-subtext {
-  border-bottom: 2px solid #fff;
-  color: #fff;
+  border-bottom: 2px solid var(--white);
+  color: var(--white);
   font-weight: 600;
   font-size: 21px;
   padding: 8px 0;

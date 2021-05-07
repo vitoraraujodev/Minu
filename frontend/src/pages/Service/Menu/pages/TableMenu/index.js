@@ -20,8 +20,8 @@ export default function TableMenu({ establishment, tableNumber, loading }) {
   }
 
   function handleSuccessColor() {
-    if (waiterCall === 'waiter') return '#535BFE';
-    if (waiterCall === 'bill') return '#24D18A';
+    if (waiterCall === 'waiter') return 'primary';
+    if (waiterCall === 'bill') return 'secondary';
   }
 
   return (
@@ -30,7 +30,7 @@ export default function TableMenu({ establishment, tableNumber, loading }) {
         <SuccessCover
           successText={handleSuccessText()}
           successSubtext="Aguarde, você já será atendido!"
-          background={handleSuccessColor()}
+          theme={handleSuccessColor()}
           onClose={() => {
             setSuccessScreen(false);
             setWaiterModal();
