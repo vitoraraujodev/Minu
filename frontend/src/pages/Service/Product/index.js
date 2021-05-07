@@ -51,7 +51,7 @@ export default function Product({ location }) {
       )}
 
       {!tableNumber && plan === STANDARD_PLAN && (
-        <FooterButton color="#24D18A" onClick={() => {}}>
+        <FooterButton theme="secondary" onClick={() => {}}>
           Adicionar ao carrinho
         </FooterButton>
       )}

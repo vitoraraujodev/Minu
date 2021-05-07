@@ -1,8 +1,8 @@
 #service-product-page {
   position: relative;
   max-width: 560px;
-  margin: 0 auto;
   min-height: 100vh;
+  margin: 0 auto;
   padding-bottom: 96px;
 }
 

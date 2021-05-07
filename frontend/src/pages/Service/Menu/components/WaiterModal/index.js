@@ -110,8 +110,8 @@ export default function WaiterModal({
   }
 
   function handleModalButtonColor() {
-    if (call === 'waiter') return '#535BFE';
-    if (call === 'bill') return '#24D18A';
+    if (call === 'waiter') return 'primary';
+    if (call === 'bill') return 'secondary';
   }
 
   return (
@@ -133,11 +133,12 @@ export default function WaiterModal({
 
         <Button
           variant="primary"
-          fontSize={20}
-          color={handleModalButtonColor()}
+          theme={handleModalButtonColor()}
           onClick={handleCall}
         >
-          {loading ? 'Carregando...' : handleModalButton()}
+          <span className="button-text">
+            {loading ? 'Carregando...' : handleModalButton()}
+          </span>
         </Button>
       </div>
     </Modal>

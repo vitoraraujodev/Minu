@@ -4,7 +4,7 @@ import './styles.css';
 
 export default function FooterButton({
   children,
-  color = '#535BFE',
+  theme = 'primary',
   disabled = false,
   onClick = () => {},
 }) {
@@ -13,7 +13,7 @@ export default function FooterButton({
       <button
         type="button"
         className="footer-button"
-        style={{ '--buttonColor': color }}
+        style={{ '--buttonColor': `var(--${theme})` }}
         disabled={disabled}
         onClick={onClick}
       >

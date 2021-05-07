@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import { store } from '~/store';
+
 import {
   CreateNotificationListeners,
   DeleteNotificationListeners,
@@ -14,17 +15,22 @@ export default function RouteWrapper({
   notPrivate = false,
   establishments = false,
   customers = false,
-  // session = false,
-  stateRequired,
+  service = false,
+  stateRequired = false,
   ...rest
 }) {
   const { token } = store.getState().auth;
-  // const { signed } = store.getState().session;
   const { eventSourceObject } = store.getState().notification;
+
+  const { establishment, plan } = store.getState().serviceSession;
 
   const decoded = token && decode(token);
 
   const { kind } = decoded || '';
+
+  if (service && (!establishment || !plan)) {
+    return <Redirect to="/" />;
+  }
 
   if (!notPrivate && !customers && !establishments) {
     return <Route {...rest} component={Component} />;
@@ -52,10 +58,6 @@ export default function RouteWrapper({
   }
 
   // if (kind === 'customer' && !customers) {
-  //   return <Redirect to="/cliente" />;
-  // }
-
-  // if (session && !signed) {
   //   return <Redirect to="/cliente" />;
   // }
 

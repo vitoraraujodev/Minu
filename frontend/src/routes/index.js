@@ -31,6 +31,7 @@ import Dashboard from '~/pages/Establishment/Dashboard';
 
 import ServiceMenu from '~/pages/Service/Menu';
 import ServiceProduct from '~/pages/Service/Product';
+import ServiceCart from '~/pages/Service/Cart';
 
 // import CustomerMenu from '~/pages/Service/Menu/CustomerMenu';
 // import CustomerProductOrder from '~/pages/Service/Menu/CustomerMenu/ProductOrder';
@@ -143,9 +144,17 @@ export default function Routes() {
           session
           stateRequired
         />
-        <Route path="/cardapio/carrinho" component={Cart} customers session /> */}
+
+         */}
 
         <Route path="/" exact component={BasicSession} />
+
+        <Route
+          path="/cardapio/carrinho"
+          exact
+          component={ServiceCart}
+          service
+        />
         <Route
           path="/cardapio/produto"
           component={ServiceProduct}

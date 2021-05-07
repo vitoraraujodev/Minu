@@ -5,9 +5,9 @@ import './styles.css';
 export default function Button({
   children,
   variant = 'primary',
-  color = '#535BFE',
-  fontSize = 18,
+  theme = 'primary',
   disabled = false,
+  size = 'big',
   onClick = () => {},
 }) {
   const styleVariant =
@@ -18,12 +18,14 @@ export default function Button({
       ? 'primary'
       : variant;
 
+  const styleSize = size !== 'small' && size !== 'big' ? 'big' : size;
+
   return (
     <button
       type="button"
       id="button-component"
-      className={styleVariant}
-      style={{ '--buttonColor': color, fontSize }}
+      className={`${styleVariant} ${styleSize}`}
+      style={{ '--buttonColor': `var(--${theme})` }}
       disabled={disabled}
       onClick={onClick}
     >

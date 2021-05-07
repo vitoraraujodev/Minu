@@ -20,7 +20,7 @@
   background: var(--buttonColor);
 }
 
-#footer-button-component .footer-button:hover {
+#footer-button-component .footer-button:not(:disabled):hover {
   transform: scale(1.05);
 }
 

@@ -28,20 +28,8 @@
   font-weight: 400;
 }
 
-#menu-waiter-modal .confirm-button {
-  width: 100%;
-  margin-top: 24px;
-  padding: 8px;
+#menu-waiter-modal .button-text {
   font-size: 20px;
-  font-weight: 600;
-  border: 0;
-  border-radius: 5px;
-  background: var(--primary);
-  color: var(--white);
-}
-
-#menu-waiter-modal .confirm-button:active {
-  transform: scale(1.02);
 }
 
 #menu-waiter-modal .waiter {

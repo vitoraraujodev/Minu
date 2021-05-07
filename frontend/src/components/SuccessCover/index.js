@@ -13,7 +13,7 @@ export default function SuccessCover({
   successButtonText = '',
   background = '#535bfe',
   onClick = () => {},
-  onClose,
+  onClose = () => {},
 }) {
   return (
     <>

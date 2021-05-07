@@ -11,6 +11,7 @@ export default function cart(state = INITIAL_STATE, action) {
         draft.cart.push(action.payload.productOrder);
         break;
       }
+
       case '@cart/REMOVE': {
         if (window.confirm('Deseja retirar esse produto do carrinho?')) {
           // Finds productOrder's index in cart
@@ -24,6 +25,7 @@ export default function cart(state = INITIAL_STATE, action) {
         }
         break;
       }
+
       case '@cart/UPDATE_AMOUNT': {
         // Finds productOrder's index in cart
         const productIndex = draft.cart.findIndex(
@@ -39,7 +41,12 @@ export default function cart(state = INITIAL_STATE, action) {
         draft.cart = [];
         break;
       }
+
       case '@session/CHECK_OUT': {
+        draft.cart = [];
+        break;
+      }
+      case '@session/REMOVE_SESSION': {
         draft.cart = [];
         break;
       }

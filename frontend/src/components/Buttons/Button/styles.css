@@ -2,9 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 8px 16px;
-  font-size: 18px;
   font-weight: 600;
   border-radius: 5px;
 }
@@ -19,6 +16,17 @@
 
 #button-component[disabled] {
   cursor: default;
+}
+
+#button-component.big {
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 18px;
+}
+
+#button-component.small {
+  padding: 4px 12px;
+  font-size: 16px;
 }
 
 #button-component.primary {
