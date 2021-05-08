@@ -30,8 +30,6 @@ export default function AddTableModal({ onClose }) {
         tableNumber: parseInt(tableNumber, 10),
       });
 
-      dispatch(addTableSession(response.data));
-
       onClose();
     } catch (err) {
       if (err.response && err.response.data) {
